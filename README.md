@@ -1,4 +1,0 @@
-anesthesiology
-==============
-
-Anesthesiology
