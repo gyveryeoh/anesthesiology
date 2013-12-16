@@ -301,14 +301,18 @@ function fetch_residents($limit, $start)
 //Patient Pagination
 function count_patient_information_by_resident($user_id)
 {
- $this->db->select('*')->from('patient_information')->where('user_id', $user_id); 
+ $this->db->select('*')->from('patient_form')->where('user_id', $user_id); 
 $q = $this->db->get(); 
 return $q->num_rows();
 }
 function fetch_patient_information_by_resident($limit,$start,$user_id)
 {
   $this->db->limit($start,$limit);
-  $this->db->select('*')->from('patient_information')->where('user_id', $user_id);
+  $this->db->select('*');
+  $this->db->from('patient_information');
+  //Patient Form
+  $this->db->join('patient_form', 'patient_information.id = patient_form.patient_information_id');
+  $this->db->where('user_id', $user_id);
   $query = $this->db->get();
   return $query->result();
 }

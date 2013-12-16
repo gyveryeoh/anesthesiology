@@ -23,7 +23,7 @@
             $diff = $date1->diff($date2);
             $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
             $patients_id =$patients_infos->id;
-            if($patients_infos->status == "INC") {$patients_infos->status = "INCOMPLETE";} else {$patients_infos->status = "COMPLETED";}
+            if($patients_infos->anesth_status_id == "1") {$patients_infos->anesth_status_id = "SUBMITTED";}
             ?>
           <tr>
             <td><?php echo $patients_infos->case_number; ?></td>
@@ -32,7 +32,7 @@
             <?php echo ucwords($patients_infos->middle_initials); ?>.</td>
             <td><?php echo $patients_infos->gender; ?></td>
             <td align="center"><?php echo $age; ?></td>
-            <td align="center"><?php echo $patients_infos->status; ?></td>
+            <td align="center"><b><?php echo $patients_infos->anesth_status_id; ?></b></td>
             <td align="center"><a href="<?php echo base_url(); ?>index.php/home/pdf_report/<?php echo $patients_id; ?>?resident_id=<?php echo $this->input->get('resident_id'); ?>">Export to PDF</a></td>
           </tr>
           <?php } ?>

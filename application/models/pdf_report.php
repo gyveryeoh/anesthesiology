@@ -13,11 +13,11 @@ Class Pdf_report extends CI_Model
                        anesth_needle_gauge_spinal.name as p1,
                        anesth_needle_gauge_epidural.name as p2,
                        anesth_peripheral_nerve_blocks_and_pain_techniques.name as apnbapt');
-     
      $this->db->from('patient_information');
-     $this->db->join('users', 'users.id = patient_information.user_id');
      //Patient Form
      $this->db->join('patient_form', 'patient_information.id = patient_form.patient_information_id');
+     //Resident Name
+     $this->db->join('users', 'users.id = patient_form.user_id');
      //Services
      $this->db->join('anesth_services', 'anesth_services.id = patient_form.service');
      //Techniques
@@ -30,7 +30,6 @@ Class Pdf_report extends CI_Model
      $this->db->join('anesth_needle_gauge as anesth_needle_gauge_epidural', 'anesth_needle_gauge_epidural.id = patient_form.epidural_needle_gauge', 'left');
      //Peripheral Nerve
      $this->db->join('anesth_peripheral_nerve_blocks_and_pain_techniques', 'anesth_peripheral_nerve_blocks_and_pain_techniques.id = patient_form.peripheral', 'inner');
-     
      $this->db->where('patient_information.id', $patients_id);
      $query = $this->db->get();
      if($query->num_rows() > 0)
