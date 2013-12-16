@@ -22,7 +22,7 @@
             $date2 = new DateTime(date('Y-m-d'));
             $diff = $date1->diff($date2);
             $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
-            $patients_id =$patients_infos->id;
+            $patients_id = $patients_infos->patient_information_id ;
             if($patients_infos->anesth_status_id == "1") {$patients_infos->anesth_status_id = "SUBMITTED";}
             ?>
           <tr>
