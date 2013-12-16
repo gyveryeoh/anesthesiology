@@ -4,7 +4,7 @@
           </tr>
 	  <tr><td class="border-less"></td></tr>
 	   <tr>
-                    <td colspan="2" class="border-less" align="center"><b>BACK TO THE <b style="color: RED;"><a href="<?php echo base_url();?>index.php/home">HOME PAGE</a></b></td>
+                    <td colspan="2" class="border-less" align="center"><b>BACK TO <b style="color: RED;"><a href="<?php echo base_url();?>index.php/search_controller/">HOME PAGE</a></b></td>
           </tr>
 	   <tr>
                     <td colspan="2" class="border-less" align="center"><b></b></td>

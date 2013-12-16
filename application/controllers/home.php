@@ -38,13 +38,36 @@ class Home extends CI_Controller {
   if ($data['case_number'] == true)
   {
        $datas['message'] = "CASE NUMBER IS ALREADY EXIST.";
+       if($this->session->userdata('logged_in'))
+       {
+        $session_data = $this->session->userdata('logged_in');
+        $data['username'] = $session_data['username'];
+        $data['lastname'] = $session_data['lastname'];
+        $data['firstname'] = $session_data['firstname'];
+        $data['middle_initials'] = $session_data['middle_initials'];
+        $data['role_id'] = $session_data['role_id'];
+        $data['id'] = $session_data['id'];
+        $this->load->view('header',$data);
+        $this->load->view('home_view',$datas);
+       }
+       else
+       {
+        redirect('login', 'refresh');
+       }
   }
   else
   {
+   if($this->session->userdata('logged_in'))
+       {
+        $session_data = $this->session->userdata('logged_in');
+        $data['username'] = $session_data['username'];
+        $data['lastname'] = $session_data['lastname'];
+        $data['firstname'] = $session_data['firstname'];
+        $data['middle_initials'] = $session_data['middle_initials'];
+        $data['role_id'] = $session_data['role_id'];
+        $data['id'] = $session_data['id'];
   $data = array
-  ('user_id'       => $this->input->post('user_id'),
-  'institution_id' => "1",
-  'case_number'    => $case_number,
+  ('case_number'    => $case_number,
   'lastname'       => $this->input->post('lastname'),
   'firstname'      => $this->input->post('firstname'),
   'middle_initials'=> $this->input->post('middle_initials'),
@@ -54,16 +77,12 @@ class Home extends CI_Controller {
   $this->user->add_patient($data);
   $patient_information_id = $this->db->insert_id();
   redirect('home/anesthesiology_form/'.$patient_information_id);
- }
-  $session_data = $this->session->userdata('logged_in');
-  $data['username'] = $session_data['username'];
-  $data['lastname'] = $session_data['lastname'];
-  $data['firstname'] = $session_data['firstname'];
-  $data['middle_initials'] = $session_data['middle_initials'];
-  $data['role_id'] = $session_data['role_id'];
-  $data['id'] = $session_data['id'];
- $this->load->view('header',$data);
- $this->load->view('home_view',$datas);
+  }
+  else
+  {
+   redirect('login', 'refresh');
+   }
+  }
  }
  function add_anesthesiology_information()
  {
@@ -98,9 +117,18 @@ class Home extends CI_Controller {
   if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
   if ($anesthetic_technique == "9") {$peripheral = $peripheral;} else {$peripheral = "NULL";}
   if ($anesthetic_technique == "3") {$critical_events ="YES";}
-  
+  if($this->session->userdata('logged_in'))
+       {
+        $session_data = $this->session->userdata('logged_in');
+        $data['username'] = $session_data['username'];
+        $data['lastname'] = $session_data['lastname'];
+        $data['firstname'] = $session_data['firstname'];
+        $data['middle_initials'] = $session_data['middle_initials'];
+        $data['role_id'] = $session_data['role_id'];
+        $data['id'] = $session_data['id'];
   $data = array(
    'patient_information_id' => $this->input->post('patient_information_id'),
+   'user_id' => $data['id'],
    'operation_date' =>$this->input->post('operation_date'),
    'level_of_involvement' =>$this->input->post('level_of_involvement'),
    'type_of_patient' => $this->input->post('type_of_patient'),
@@ -211,6 +239,11 @@ $this->user->add_anesthesiology_information_data($data);
    $this->user->add_monitors_used_data($patient_form_id,$monitors_used);
   }
   redirect('home/successful_data','refresh');
+ }
+ else
+ {
+  redirect('login', 'refresh');
+ }
  }
   function successful_data()
   {

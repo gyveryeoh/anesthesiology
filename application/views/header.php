@@ -47,11 +47,11 @@
           </tr>
           <tr>
                     <td class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 16px;font-weight:bold;" colspan=>&nbsp; You are logged in as : <?php echo ucwords($lastname).", ".ucwords($firstname)." ".ucwords($middle_initials)."."; ?></td>
-                    <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;"><a href="<?php echo base_url();?>index.php/search_controller/search_casenumber">Home</a> |
+                    <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;"><a href="<?php echo base_url();?>index.php/search_controller/">Home</a> |
                     <?php
                     if ($role_id == "2")
                     {
-                              echo '<a href="'.base_url().'index.php/search/search_caselog_controller/searchcaselog">Find Caselog</a> | <a href="'.base_url().'index.php/users/add_user">Add User</a> | <a href="'.base_url().'index.php/home/resident_lists">Submitted Form</a> |';
+                              echo '<a href="'.base_url().'index.php/search/search_controller/searchcaselog">Find Caselog</a> | <a href="'.base_url().'index.php/users/add_user">Add User</a> | <a href="'.base_url().'index.php/home/resident_lists">Submitted Form</a> |';
                     }
                     ?>
                     <a href="<?php echo base_url();?>index.php/home/logout">Logout</a> 
