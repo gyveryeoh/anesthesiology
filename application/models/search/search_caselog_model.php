@@ -20,5 +20,15 @@ Class Search_caselog_model extends CI_Model
   $query = $this->db->get();
   return $query->result();
   }
+ function fetch_search_caselog_details_1($limit,$start,$user_id,$institution_id)
+ {
+  $this->db->limit($start,$limit);
+  $this->db->select('user_id,anesth_status_id');
+  $this->db->from('patient_form');
+  $this->db->where('user_id', 0);
+  $this->db->where('anesth_status_id', 1);
+  $query = $this->db->get();
+  return $query->result();
+  }
 }
 ?>

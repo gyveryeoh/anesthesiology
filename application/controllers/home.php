@@ -35,7 +35,7 @@ class Home extends CI_Controller {
  {
   $case_number = $this->input->post('case_number');
   $data['case_number'] = $this->user->case_number_checking($case_number);
-  if ($data['case_number'] == false)
+  if ($data['case_number'] == true)
   {
        $datas['message'] = "CASE NUMBER IS ALREADY EXIST.";
   }

@@ -1,4 +1,4 @@
-<form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_caselog_controller/searchcaselog_details">
+<form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog_details">
  <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">CASELOG SEARCH</td>
