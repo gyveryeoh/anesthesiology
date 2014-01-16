@@ -34,7 +34,6 @@ Class User extends CI_Model
   return false;
   }
  }
-
  function user_checking($username)
  {
   $this->db->select('username');

@@ -6,6 +6,7 @@
           <th><b>FIRSTNAME</b></th>
           <th><b>MIDDLE INITIALS</b></th>
           <th><b>STATUS</b></th>
+          <th><b>LAST DATE OF ENCODING</b></th>
           <?php foreach($residents_information as $res_info)
           {
             $user_id = $res_info->id;

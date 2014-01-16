@@ -45,7 +45,6 @@ class Users extends CI_Controller {
 			$data['username'] = $this->user->user_checking($username);
 			if ($this->input->post('password') != $this->input->post('confirm_password'))
 			{
-			$data['user_message'] = "USERNAME ALREADY EXISTS.";
 			$data['message'] = "Password and Confirm Password do not Match.";
 			$data['user_role'] = $this->dropdown_select->roles();
 			$this->load->view('header', $data);
