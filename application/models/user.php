@@ -33,11 +33,26 @@ Class User extends CI_Model
   {
   return false;
   }
-  
+ }
+
+ function user_checking($username)
+ {
+  $this->db->select('username');
+  $this->db->from('users');
+  $this->db->where('username',$username);
+  $this->db->limit(1);
+  $result = $this->db->get();
+  if($result->num_rows() == 1)
+  {
+   return $result->result();
+  }
+  else
+  {
+  return false;
+  }
  }
  function add_patient($data)
  {
-  
   $this->db->insert('patient_information', $data);
   return $this->db->insert_id();
  }
@@ -316,5 +331,10 @@ function fetch_patient_information_by_resident($limit,$start,$user_id)
   $query = $this->db->get();
   return $query->result();
 }
+//SAVE USER
+function save_user($data)
+ {
+  $this->db->insert('users',$data);
+ }
 }
 ?>

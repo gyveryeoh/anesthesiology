@@ -183,5 +183,13 @@ Class Dropdown_select extends CI_Model
      $query = $this->db->get();
      return $query->result();
 }
+function roles()
+{
+     $this->db->select('*');
+     $this->db->from('users_roles');
+     $this->db->order_by("id", "asc");
+     $query = $this->db->get();
+     return $query->result();
+}
 }
 ?>
