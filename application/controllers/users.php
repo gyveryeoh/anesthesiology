@@ -41,24 +41,24 @@ class Users extends CI_Controller {
 			$data['role_id'] = $session_data['role_id'];
 			$data['id'] = $session_data['id'];
 			
+     $username = $this->input->post('username');
+     $data['username'] = $this->user->user_checking($username);
 			if ($this->input->post('password') != $this->input->post('confirm_password'))
 			{
 			$data['message'] = "Password and Confirm Password do not Match.";
 			$data['user_role'] = $this->dropdown_select->roles();
 			$this->load->view('header', $data);
-			$this->load->view('users/add_user');
-     }
-     $username = $this->input->post('username');
-     $data['username'] = $this->user->user_checking($username);
-     if ($data['username'] == true)
+     $this->load->view('users/add_user');
+			}
+			elseif ($data['username'] == true)
      {
      $data['user_message'] = "USERNAME ALREADY EXISTS.";
      $data['user_role'] = $this->dropdown_select->roles();
      $this->load->view('header', $data);
      $this->load->view('users/add_user');
      }
-	else
-	{
+     else
+     {
       $data = array
       ('institution_id'       	=> 1,
        'lastname'       	=> $this->input->post('lastname'),
