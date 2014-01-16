@@ -12,10 +12,10 @@
           <tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($user_message)){ echo $user_message; } ?></td></tr>
              <?PHP
 	     if($this->session->flashdata("success") !== FALSE)
-{
-    echo $this->session->flashdata("success");
-    }
-    ?>
+	     {
+	       echo "<tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan=2 class=border-less align=center>".$this->session->flashdata("success")."</td></tr>";
+	       }
+	  ?>
 	  <tr>
                     <td class="border-less" align="right" width="40%">Lastname :</td>
                     <td class="border-less"><input type="text" name="lastname" size="20" class="required" value="<?php echo $this->input->post('lastname'); ?>">

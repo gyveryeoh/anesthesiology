@@ -40,9 +40,7 @@ class Users extends CI_Controller {
 			$data['middle_initials'] = $session_data['middle_initials'];
 			$data['role_id'] = $session_data['role_id'];
 			$data['id'] = $session_data['id'];
-			$username = $this->input->post('username');
 			
-			$data['username'] = $this->user->user_checking($username);
 			if ($this->input->post('password') != $this->input->post('confirm_password'))
 			{
 			$data['message'] = "Password and Confirm Password do not Match.";
@@ -50,7 +48,9 @@ class Users extends CI_Controller {
 			$this->load->view('header', $data);
 			$this->load->view('users/add_user');
      }
-     elseif ($data['username'] == true)
+     $username = $this->input->post('username');
+     $data['username'] = $this->user->user_checking($username);
+     if ($data['username'] == true)
      {
      $data['user_message'] = "USERNAME ALREADY EXISTS.";
      $data['user_role'] = $this->dropdown_select->roles();
@@ -75,9 +75,7 @@ class Users extends CI_Controller {
       $data['middle_initials'] = $session_data['middle_initials'];
       $data['role_id'] = $session_data['role_id'];
       $data['id'] = $session_data['id'];
-      $this->session->set_flashdata("success",'<p style="background-color:#faadad; width:80%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;">
-									<img src="../assets/images/error.png" width="15" height="15" style="margin-top:2px;">
-									<font size="3" color="red"><span style="padding-top:10px;"><b>SUCCESSFULL CREATED RESIDENT INFO</b></span></font></p>');
+      $this->session->set_flashdata("success",'<b>SUCCESSFULL CREATED RESIDENT INFO</b>');
       redirect('users/add_user');
       }
 		}
