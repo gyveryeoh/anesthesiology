@@ -22,6 +22,6 @@
             <tr>
                 <td colspan="4"><?php echo $this->pagination->create_links(); ?></td>
           </tr>
-            <td colspan="4" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+            <td colspan="5" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
           </tr>
 </table>

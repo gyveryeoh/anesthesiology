@@ -3,12 +3,11 @@
                     <td class="border-less header" align="center" colspan="6">PATIENT LISTS</td>
           </tr>
           <tr>
-                    <td colspan="6" align="center"><?php
-   if($this->session->flashdata("success") !== FALSE)
-{
-    echo $this->session->flashdata("success");
-    }
-    ?></td>
+                    <td class="border-less">RESIDENT NAME : </td>
+                    <td></td>
+          </tr>
+          <tr>
+                    <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
           </tr>
           <th><b>CASE NUMBER</b></th>
           <th><b>PATIENT NAME</b></th>
@@ -22,7 +21,9 @@
             $date2 = new DateTime(date('Y-m-d'));
             $diff = $date1->diff($date2);
             $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
-            $patients_id = $patients_infos->patient_information_id ;
+            $patients_id = $patients_infos->patient_information_id;
+            $pf_id = $patients_infos->pf_id;
+            
             if($patients_infos->anesth_status_id == "1") {$patients_infos->anesth_status_id = "SUBMITTED";}
             ?>
           <tr>
@@ -33,7 +34,7 @@
             <td><?php echo $patients_infos->gender; ?></td>
             <td align="center"><?php echo $age; ?></td>
             <td align="center"><b><?php echo $patients_infos->anesth_status_id; ?></b></td>
-            <td align="center"><a href="<?php echo base_url(); ?>index.php/home/pdf_report/<?php echo $patients_id; ?>?resident_id=<?php echo $this->input->get('resident_id'); ?>">Export to PDF</a></td>
+            <td align="center"><a href="<?php echo base_url(); ?>index.php/home/pdf_report/<?php echo $patients_id; ?>/<?php echo $pf_id; ?>?resident_id=<?php echo $this->input->get('resident_id'); ?>">Export to PDF</a></td>
           </tr>
           <?php } ?>
            <tr>

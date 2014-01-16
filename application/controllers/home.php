@@ -326,7 +326,7 @@ $this->user->add_anesthesiology_information_data($data);
    session_destroy();
    redirect('home', 'refresh');
  }
-function pdf_report($patients_id='')
+function pdf_report($patients_id='', $pf_id='')
 	 {
           $r_id = $this->input->get('resident_id');
           if($this->session->userdata('logged_in'))
@@ -336,7 +336,7 @@ function pdf_report($patients_id='')
           $this->load->helper('dompdf');
           $this->load->helper('file');
           $this->load->model('pdf_report','',TRUE);
-          $data['patient_information'] = $this->pdf_report->select_patient_information($patients_id);
+          $data['patient_information'] = $this->pdf_report->select_patient_information($patients_id,$pf_id);
           if ($data['patient_information'] != false)
           {
           foreach ($data['patient_information'] as $delivery){}
@@ -424,7 +424,8 @@ function pdf_report($patients_id='')
            $data['id'] = $session_data['id'];
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
            $datas["patient_informationss"] = $this->user->fetch_patient_information_by_resident($page,$config["per_page"],$resident_id);
-            $this->load->view('header',$data);
+           $datas["residents_information"] = $this->user->fetch_residents($config["per_page"], $page);
+           $this->load->view('header',$data);
             $this->load->view('resident_encoded',$datas);
            }
           else

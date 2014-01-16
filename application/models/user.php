@@ -306,23 +306,29 @@ function count_residents()
 {
  return $this->db->count_all("users");
 }
+function select_resident()
+{
+ 
+}
 function fetch_residents($limit, $start)
 {
         $this->db->limit($limit, $start);
         $query = $this->db->get("users");
         return $query->result();
-   }
+}
 //Patient Pagination
 function count_patient_information_by_resident($user_id)
 {
- $this->db->select('*')->from('patient_form')->where('user_id', $user_id); 
-$q = $this->db->get(); 
-return $q->num_rows();
+ $this->db->select('*');
+ $this->db->from('patient_form');
+ $this->db->where('user_id', $user_id);
+ $q = $this->db->get();
+ return $q->num_rows();
 }
 function fetch_patient_information_by_resident($limit,$start,$user_id)
 {
   $this->db->limit($start,$limit);
-  $this->db->select('*');
+  $this->db->select('*,patient_form.id as pf_id');
   $this->db->from('patient_information');
   //Patient Form
   $this->db->join('patient_form', 'patient_information.id = patient_form.patient_information_id');

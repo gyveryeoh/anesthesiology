@@ -1,7 +1,7 @@
 <?php
 Class Pdf_report extends CI_Model
 {
- function select_patient_information($patients_id)
+ function select_patient_information($patients_id,$pf_id)
  {
      $this->db->select('*,patient_form.id as patient_form_id,
                        patient_information.lastname as patient_information_lastname,
@@ -31,6 +31,7 @@ Class Pdf_report extends CI_Model
      //Peripheral Nerve
      $this->db->join('anesth_peripheral_nerve_blocks_and_pain_techniques', 'anesth_peripheral_nerve_blocks_and_pain_techniques.id = patient_form.peripheral', 'inner');
      $this->db->where('patient_information.id', $patients_id);
+     $this->db->where('patient_form.id',$pf_id);
      $query = $this->db->get();
      if($query->num_rows() > 0)
             {

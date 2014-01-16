@@ -51,7 +51,7 @@
                     <?php
                     if ($role_id == "2")
                     {
-                              echo '<a href="'.base_url().'index.php/search/search_controller/searchcaselog">Find Caselog</a> | <a href="'.base_url().'index.php/users/add_user">Add User</a> | <a href="'.base_url().'index.php/home/resident_lists">Submitted Form</a> |';
+                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">Find Caselog</a> | <a href="'.base_url().'index.php/users/add_user">Add User</a> | <a href="'.base_url().'index.php/home/resident_lists">Submitted Form</a> |';
                     }
                     ?>
                     <a href="<?php echo base_url();?>index.php/home/logout">Logout</a> 
