@@ -105,5 +105,10 @@ function patient_form_apgar_details($patient_form_id)
   $query = $this->db->get();
    return $query->result();
 }
+function update_caselog_status($data,$patient_form_id)
+{
+ $this->db->where('id', $patient_form_id);
+ $this->db->update('patient_form', $data); 
+}
 }
 ?>

@@ -396,10 +396,11 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </script>
 <form method="post" id="caselog_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
 <table border="0" cellpadding="0" width="80%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
+   <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
     <tr>
         <td width="15%"><b>STATUS</b></td>
         <td>
-        <select name="outcome" class="index_input" style="width: 200px;">
+        <select name="anesth_status_id" class="index_input" style="width: 200px;">
         <?php foreach ($status_list as $status): ?>
         <?php if ($status->name == "For Revision") $status->name ="Revise"; ?>
 			<option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status->name; ?></option>

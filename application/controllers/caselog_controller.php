@@ -59,5 +59,16 @@ function index($patients_id='', $pf_id='')
            redirect('login', 'refresh');
           }
     }
+function update_caselog()
+{
+ $patient_form_id = $this->input->post('patient_form_id');
+ $data = array
+ ('anesth_status_id'  => $this->input->post('anesth_status_id'),
+  'notes'          => $this->input->post('notes'));
+ $this->caselog_model->update_caselog_status($data,$patient_form_id);
+ $this->load->view('header/header');
+ $data['status_list'] = $this->dropdown_select->anesth_status();
+ $this->load->view('caselog_view',$data);
+}
 }
 ?>

@@ -67,23 +67,23 @@
            $diff = $date1->diff($date2);
            $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
           ?>
-          <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>?resident_id=<?php echo $this->input->get('resident_id'); ?>"><?php echo $row->patient_info_case_number; ?></a></td>
+          <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>"><?php echo $row->patient_info_case_number; ?></a></td>
          <?php
           echo "<td>".$row->lastname.",".$row->firstname." ".$row->middle_initials."</td>
           <td>".$row->patient_info_lastname."-".$row->patient_info_firstname."-".$row->patient_info_middle_initials."</td>
           <td>".$row->patient_info_birthdate."</td>
           <td>".$age."</td>
-          <td>".$row->patient_info_weight."</td>
+          <td>".$row->patient_info_weight." KG</td>
           <td>".$row->gender."</td>
           <td>".$row->anesth_name."</td>
           </tr>";
           }
           ?>
            <tr>
-                <td colspan="7"><?php echo $this->pagination->create_links(); ?></td>
+                <td colspan="8"><?php echo $this->pagination->create_links(); ?></td>
           </tr>
            <tr>
-            <td colspan="6" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+            <td colspan="8" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
            </tr>
 </table>
 </form>
