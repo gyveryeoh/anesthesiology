@@ -18,6 +18,15 @@ Class User extends CI_Model
      return false;
    }
  }
+  function resident_information($resident_id)
+ {
+  $this->db->select('*');
+  $this->db->from('users');
+  $this->db->where('id',$resident_id);
+  $query = $this->db->get();
+  return $query->result();
+ }
+ 
  function case_number_checking($case_number)
  {
   $this->db->select('*');

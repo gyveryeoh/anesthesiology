@@ -19,7 +19,7 @@ class Reports extends CI_Controller {
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
      $data['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
-     $this->load->view('header',$data);
+     $this->load->view('header/header',$data);
      echo "<table>";
  $x=1;
      foreach($data['anesth_technique_data'] as $and)

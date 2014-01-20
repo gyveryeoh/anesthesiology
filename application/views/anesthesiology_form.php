@@ -803,7 +803,7 @@ foreach($multiIterator as $combinedArray)
           
           <tr>
                     <td class="border-less" align="right">&nbsp;</td>
-                    <td class="border-less"><input type="submit" name="login" value="SAVE">
+                    <td class="border-less"><input type="submit" name="login" value="SAVE"></td>
           </tr>  
           <tr>
             <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PGH - Philippine General Hospital </td>

@@ -3,8 +3,16 @@
                     <td class="border-less header" align="center" colspan="6">PATIENT LISTS</td>
           </tr>
           <tr>
-                    <td class="border-less">RESIDENT NAME : </td>
-                    <td></td>
+                    <?php foreach($resident_information as $data): ?>
+                    <td class="border-less" colspan="3">RESIDENT NAME : <b><?php echo $data->lastname; ?>, <?php echo $data->firstname; ?> <?php echo $data->middle_initials; ?>.</b></td>
+                    <?php endforeach; ?>
+          </tr>
+          <tr>
+                    <td>SUBMITTED</td>
+                    <td>FOR REVISION</td>
+                    <td>REVISED</td>
+                    <td>APPROVED</td>
+                    <td>REJECTED</td>
           </tr>
           <tr>
                     <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
@@ -27,7 +35,7 @@
             if($patients_infos->anesth_status_id == "1") {$patients_infos->anesth_status_id = "SUBMITTED";}
             ?>
           <tr>
-            <td><?php echo $patients_infos->case_number; ?></td>
+            <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $patients_id; ?>/<?php echo $pf_id; ?>?resident_id=<?php echo $this->input->get('resident_id'); ?>"><?php echo $patients_infos->case_number; ?></a></td>
             <td><?php echo ucwords($patients_infos->lastname); ?>,
             <?php echo ucwords($patients_infos->firstname); ?>
             <?php echo ucwords($patients_infos->middle_initials); ?>.</td>

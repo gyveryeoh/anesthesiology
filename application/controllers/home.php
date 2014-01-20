@@ -22,7 +22,7 @@ class Home extends CI_Controller {
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
 
-     $this->load->view('header', $data);
+     $this->load->view('header/header', $data);
      $this->load->view('home_view');
    }
    else
@@ -47,7 +47,7 @@ class Home extends CI_Controller {
         $data['middle_initials'] = $session_data['middle_initials'];
         $data['role_id'] = $session_data['role_id'];
         $data['id'] = $session_data['id'];
-        $this->load->view('header',$data);
+        $this->load->view('header/header',$data);
         $this->load->view('home_view',$datas);
        }
        else
@@ -255,7 +255,7 @@ $this->user->add_anesthesiology_information_data($data);
      $data['middle_initials'] = $session_data['middle_initials'];
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
-   $this->load->view('header',$data);
+   $this->load->view('header/header',$data);
    $this->load->view('success_view',$data);
   }
    else
@@ -275,7 +275,7 @@ $this->user->add_anesthesiology_information_data($data);
      $data['middle_initials'] = $session_data['middle_initials'];
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
-  $this->load->view('header',$data);
+  $this->load->view('header/header',$data);
   $this->load->view('home_view',$datas);
   }
   else
@@ -311,7 +311,7 @@ $this->user->add_anesthesiology_information_data($data);
      $datas['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
      $datas['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
 
-     $this->load->view('header',$data);
+     $this->load->view('header/header',$data);
      $this->load->view('anesthesiology_form',$datas);
    }
   else
@@ -393,7 +393,7 @@ function pdf_report($patients_id='', $pf_id='')
            $data['id'] = $session_data['id'];
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
            $datas["residents_information"] = $this->user->fetch_residents($config["per_page"], $page);
-           $this->load->view('header',$data);
+           $this->load->view('header/header',$data);
            $this->load->view('resident_lists',$datas);
            }
            else
@@ -424,8 +424,8 @@ function pdf_report($patients_id='', $pf_id='')
            $data['id'] = $session_data['id'];
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
            $datas["patient_informationss"] = $this->user->fetch_patient_information_by_resident($page,$config["per_page"],$resident_id);
-           $datas["residents_information"] = $this->user->fetch_residents($config["per_page"], $page);
-           $this->load->view('header',$data);
+           $datas['resident_information'] = $this->user->resident_information($resident_id);
+           $this->load->view('header/header',$data);
             $this->load->view('resident_encoded',$datas);
            }
           else
