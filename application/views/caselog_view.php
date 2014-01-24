@@ -411,7 +411,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         if ($data->anesth_id == "3"){$status_name[2] = "Approved";}
         if ($data->anesth_id == "4"){$status_name[3] = "Disapproved";}
         ?>
-        <option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[$x-1]; ?></option>
+        <option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[$x]; ?></option>
         <?php
         $x++;
         endforeach; ?>
