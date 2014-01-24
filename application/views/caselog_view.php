@@ -397,28 +397,49 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 <form method="post" id="caselog_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
 <table border="0" cellpadding="0" width="80%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
    <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
+   <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
+   <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id'); ?>">
+   <input type="hidden" name="institution_id" value="<?php echo $this->input->get('institution_id'); ?>">
     <tr>
         <td width="15%"><b>STATUS</b></td>
-        <td>
+         <td>
         <select name="anesth_status_id" class="index_input" style="width: 200px;">
-        <?php foreach ($status_list as $status): ?>
-        <?php if ($status->name == "For Revision") $status->name ="Revise"; ?>
-			<option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status->name; ?></option>
-        <?php endforeach; ?>
+        <?php
+        $x=0;
+        foreach ($status_list as $status):
+        $status_name[$x] = $status->name;
+        if ($data->anesth_id == "3"){$status_name[2] = "Approved";}
+        if ($data->anesth_id == "4"){$status_name[3] = "Disapproved";}
+        ?>
+        <option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[$x-1]; ?></option>
+        <?php
+        $x++;
+        endforeach; ?>
+        <?php if ($data->anesth_id == "5")
+        {
+        echo "<option value='5' selected=selected>For Revision</option>";
+        }
+        ?>
         </select>
+        
         </td>
     </tr>
     <tr>
-        <td><b>ADD NOTES</b></td>
-        <td><textarea name="notes" cols="50" class="required"></textarea></td>
+        <td><b>NOTES</b></td>
+        <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
-    <tr>
+    
+    <?php if ($data->anesth_id == "1" || $status_name == "Revised")
+    {
+    echo '<tr>
         <td class="border-less" align="right">&nbsp;</td>
         <td class="border-less"><input type="submit" name="update" value="UPDATE"></td>
-    </tr> 
+    </tr>';
+    } 
+    ?>
     <tr>
-<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
-</tr>
+        <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+    </tr>
 </table>
 </form>
 </div>

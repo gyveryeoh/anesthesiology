@@ -131,8 +131,12 @@ else
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
            $datas["caselog_information"] = $this->search_caselogs->fetch_search_caselog_details($page,$config["per_page"],$user_id,$institution_id,$status_id);
            $datas['institution_list'] = $this->dropdown_select->anesth_institutions();
-	   $datas['users_list'] = $this->dropdown_select->users_lists();
-	   $datas['status_list'] = $this->dropdown_select->anesth_status();
+	   $datas['users_list']       = $this->dropdown_select->users_lists();
+	   $datas['status_list']      = $this->dropdown_select->anesth_status();
+           $datas['user_id']          = $this->input->get('user_id');
+           $datas['institution_id']   = $this->input->get('institution_id');
+           $datas['status_id']        = $this->input->get('status_id');
+           $this->input->get('status');
            $this->load->view('header/header',$data);
            $this->load->view('search/search_caselog_details_view',$datas);
    }

@@ -38,10 +38,12 @@
                         <select name="status_id" class="required">
                               <option value="0">All</option>
                               <?php
-                              foreach($status_list as $list)
-                              {
-                               echo "<option value='".$list->id."'>".$list->name."</option>";
-                              }
+                              foreach($status_list as $list):
+                              if ($list->name =="Approve"){$list->name = "Approved";}
+                              if ($list->name =="Revise"){$list->name = "Revised";}
+                              if ($list->name =="Disapprove"){$list->name = "Disapproved";}
+                              echo "<option value='".$list->id."'>".$list->name."</option>";
+                              endforeach;
                               ?>
                     </select>
                     </td></tr>
@@ -61,13 +63,15 @@
            <th>GENDER</th>
            <th>STATUS</th>
           </tr>
-          <?php foreach($caselog_information as $row){
+          <?php foreach($caselog_information as $row):
            $date1 = new DateTime($row->patient_info_birthdate);
            $date2 = new DateTime(date('Y-m-d'));
            $diff = $date1->diff($date2);
            $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
+           if ($row->anesth_name == "Disapprove"){$row->anesth_name = "Disapproved";}
+           if ($row->anesth_name == "Approve"){$row->anesth_name = "Approved";}
           ?>
-          <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>"><?php echo $row->patient_info_case_number; ?></a></td>
+          <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>?&institution_id=<?php echo $institution_id; ?>&user_id=<?php echo $user_id; ?>&status_id=<?php echo $status_id; ?>&status=<?php echo $row->anesth_status_id; ?>"><?php echo $row->patient_info_case_number; ?></a></td>
          <?php
           echo "<td>".$row->lastname.",".$row->firstname." ".$row->middle_initials."</td>
           <td>".$row->patient_info_lastname."-".$row->patient_info_firstname."-".$row->patient_info_middle_initials."</td>
@@ -77,7 +81,7 @@
           <td>".$row->gender."</td>
           <td>".$row->anesth_name."</td>
           </tr>";
-          }
+          endforeach;
           ?>
            <tr>
                 <td colspan="8"><?php echo $this->pagination->create_links(); ?></td>

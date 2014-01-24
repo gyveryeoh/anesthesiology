@@ -39,11 +39,13 @@
                         <select name="status_id" class="required">
                               <option value="0">All</option>
                               <?php
-                              foreach($status_list as $list)
-                              {
+                              foreach($status_list as $list):
+                              if ($list->name =="Approve"){$list->name = "Approved";}
+                              if ($list->name =="Revise"){$list->name = "Revised";}
+                              if ($list->name =="Disapprove"){$list->name = "Disapproved";}
                                echo "<option value='".$list->id."'>".$list->name."</option>";
-                              }
-                              ?>
+                              endforeach;
+                              ?>s
                     </select>
                     </td></tr>
           <tr>

@@ -22,6 +22,7 @@ class Reports extends CI_Controller {
      $this->load->view('header/header',$data);
      echo "<table>";
  $x=1;
+ $total = 0;
      foreach($data['anesth_technique_data'] as $and)
      {
        $anest_id[$x] = $and->id;
@@ -34,11 +35,11 @@ class Reports extends CI_Controller {
         {
           $anesthetic_count = mysql_query("SELECT count(anesthetic_technique) from patient_form  where anesthetic_technique = '".$anest_id[$xi]."'");
           $counts = mysql_fetch_array($anesthetic_count);
-          
-        $total += $counts[0];
+          $thecount = $counts[0];
+    $total += $thecount;
         echo "<tr>";
         echo "<td>".$anesth_name[$xi]."</td>";
-        echo "<td>".$counts[0]."</td>";
+        echo "<td>".$thecount."</td>";
         echo "</tr>";
         $xi++;
         }

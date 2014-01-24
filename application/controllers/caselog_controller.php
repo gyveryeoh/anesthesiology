@@ -51,7 +51,7 @@ function index($patients_id='', $pf_id='')
            $this->session->set_flashdata("success",'<p style="background-color:#faadad; width:80%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;">
 									<img src="../assets/images/error.png" width="15" height="15" style="margin-top:2px;">
 									<font size="3" color="red"><span style="padding-top:10px;"><b>CASE LOG FORM OF SELECTED PATIENT ARE NOT YET COMPLETED!</b></span></font></p>');
-           redirect('home/resident_encoded?resident_id='.$r_id,'refresh');
+           redirect('search_controller/searchcaselog_details?institution_id=0&user_id=0&status_id=3');
           }
           }
           else
@@ -61,14 +61,29 @@ function index($patients_id='', $pf_id='')
     }
 function update_caselog()
 {
+ if($this->session->userdata('logged_in'))
+          {
+          $session_data = $this->session->userdata('logged_in');
+          $user_id = $data['id'] = $session_data['id'];
+           $data['username'] = $session_data['username'];
+           $data['lastname'] = $session_data['lastname'];
+           $data['firstname'] = $session_data['firstname'];
+           $data['middle_initials'] = $session_data['middle_initials'];
+           $data['role_id'] = $session_data['role_id'];
+
  $patient_form_id = $this->input->post('patient_form_id');
+ $anesth_status_id = $this->input->post('anesth_status_id');
+ if ($anesth_status_id == "2"){$anesth_status_id ="5";}
  $data = array
- ('anesth_status_id'  => $this->input->post('anesth_status_id'),
+ ('anesth_status_id'  => $anesth_status_id,
   'notes'          => $this->input->post('notes'));
  $this->caselog_model->update_caselog_status($data,$patient_form_id);
- $this->load->view('header/header');
- $data['status_list'] = $this->dropdown_select->anesth_status();
- $this->load->view('caselog_view',$data);
+ redirect('search_controller/searchcaselog_details?institution_id='.$this->input->post('institution_id').'&user_id='.$this->input->post('user_id').'&status_id='.$this->input->post('status_id').'');
+}
+else
+{
+ redirect('login', 'refresh');
+}
 }
 }
 ?>
