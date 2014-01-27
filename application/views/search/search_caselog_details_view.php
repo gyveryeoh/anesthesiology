@@ -5,21 +5,7 @@
           </tr>
           <tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
           <tr>
-                    <td class="border-less" align="right" width="40%">Institution :</td>
-                    <td class="border-less" colspan="2">
-                        <select name="institution_id">
-                              <option value="0">All</option>
-                              <?php
-                              foreach($institution_list as $list)
-                              {
-                               echo "<option value='".$list->id."'>".$list->name."</option>";
-                              }
-                              ?>
-                    </select>
-                    </td>
-         </tr>
-          <tr>
-                    <td class="border-less" align="right">Resident Name :</td>
+                    <td class="border-less" align="right" width="40%">Resident Name :</td>
                      <td class="border-less" colspan="2">
                         <select name="user_id">
                               <option value="0">All</option>
@@ -38,18 +24,27 @@
                         <select name="status_id" class="required">
                               <option value="0">All</option>
                               <?php
+                              $x=0;
                               foreach($status_list as $list):
-                              if ($list->name =="Approve"){$list->name = "Approved";}
-                              if ($list->name =="Revise"){$list->name = "Revised";}
-                              if ($list->name =="Disapprove"){$list->name = "Disapproved";}
-                              echo "<option value='".$list->id."'>".$list->name."</option>";
+                              $list_id[$x] = $list->id;
+                              $list_name[$x] = $list->name;
+                              $x++;
                               endforeach;
+                              echo "<option value='".$list_id[0]."'>".$list_name[0]."</option>
+                                   <option value='".$list_id[2]."'>".$list_name[2]."</option>
+                                   <option value='".$list_id[5]."'>".$list_name[5]."</option>
+                                   <option value='".$list_id[3]."'>".$list_name[3]."d</option>
+                                   <option value='".$list_id[4]."'>".$list_name[4]."d</option>"
+                              ;
                               ?>
                     </select>
                     </td></tr>
           <tr>
                     <td class="border-less" align="right">&nbsp;</td>
                     <td class="border-less"><input type="submit" name="Search" value="SEARCH"></td>
+          </tr>
+          <tr>
+                    <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
           </tr>
  </table>
   <table width="80%" cellpadding="1" cellspacing="0">

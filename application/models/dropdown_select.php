@@ -167,10 +167,11 @@ Class Dropdown_select extends CI_Model
      $query = $this->db->get();
      return $query->result();
 }
- function users_lists()
+ function users_lists($insti_id)
  {
      $this->db->select('*');
      $this->db->from('users');
+     $this->db->where('institution_id',$insti_id);
      $this->db->order_by("lastname", "asc");
      $query = $this->db->get();
      return $query->result();

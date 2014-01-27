@@ -311,19 +311,22 @@ function select_patient_information($patient_information_id)
      return false;
    }
 }
-function count_residents()
+function count_residents($insti_id)
 {
- return $this->db->count_all("users");
+ $this->db->select('*');
+ $this->db->from('users');
+ $this->db->where('institution_id',$insti_id);
+ $q = $this->db->get();
+ return $q->num_rows();
 }
-function select_resident()
-{
- 
-}
-function fetch_residents($limit, $start)
+function fetch_residents($limit, $start,$insti_id)
 {
         $this->db->limit($limit, $start);
-        $query = $this->db->get("users");
-        return $query->result();
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('institution_id',$insti_id);
+        $query = $this->db->get();	
+	return $query->result();
 }
 //Patient Pagination
 function count_patient_information_by_resident($user_id)

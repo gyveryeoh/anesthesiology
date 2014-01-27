@@ -2,40 +2,43 @@
 Class Search_caselog_model extends CI_Model
 {
  //MAHABANG APPROACH PARA GUMANA LAHAT YUNG CONDITION
- function count_search_caselog_details_1($user_id)
+ function count_search_caselog_details_1($user_id,$insti_id)
  {
  $this->db->select('*');
  $this->db->from('patient_form');
  $this->db->where('user_id',$user_id);
+ $this->db->where('institution_id',$insti_id);
  $q = $this->db->get();
  return $q->num_rows();
  }
- function count_search_caselog_details_2($status_id)
+ function count_search_caselog_details_2($status_id,$insti_id)
  {
  $this->db->select('*');
  $this->db->from('patient_form');
  $this->db->where('anesth_status_id',$status_id);
+ $this->db->where('institution_id',$insti_id);
  $q = $this->db->get();
  return $q->num_rows();
  }
- function count_search_caselog_details_3()
+ function count_search_caselog_details_3($insti_id)
  {
  $this->db->select('*');
  $this->db->from('patient_form');
+ $this->db->where('institution_id',$insti_id);
  $q = $this->db->get();
  return $q->num_rows();
  }
- function count_search_caselog_details_4($user_id,$status_id)
+ function count_search_caselog_details_4($user_id,$insti_id)
  {
  $this->db->select('*');
  $this->db->from('patient_form');
   $this->db->where('user_id',$user_id);
- $this->db->where('anesth_status_id',$status_id);
+ $this->db->where('institution_id',$insti_id);
  $q = $this->db->get();
  return $q->num_rows();
  }
 //END NUNG CONDITION NG FILTER SEARCH
-  function fetch_search_caselog_details($limit,$start,$user_id,$institution_id,$status_id)
+  function fetch_search_caselog_details($limit,$start,$user_id,$institution_id,$status_id,$insti_id)
   {
         $this->db->limit($start,$limit);
 	$this->db->select('*,
@@ -66,6 +69,7 @@ Class Search_caselog_model extends CI_Model
 	{
 	$this->db->where('patient_form.anesth_status_id', $status_id);
 	}
+        $this->db->where('patient_form.institution_id', $insti_id);
         $this->db->order_by("users.lastname", "asc");
 	$query = $this->db->get();	
 	return $query->result();

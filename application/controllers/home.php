@@ -375,13 +375,6 @@ function pdf_report($patients_id='', $pf_id='')
     }
     function resident_lists()
 	 {
-          $this->load->library('pagination');
-          $config = array();
-          $config["base_url"] = base_url()."index.php/home/resident_lists";
-          $config["total_rows"] = $this->user->count_residents();
-          $config["per_page"] = 10;
-          $config["uri_segment"] = 3;
-          $this->pagination->initialize($config);
           if($this->session->userdata('logged_in'))
           {
            $session_data = $this->session->userdata('logged_in');
@@ -391,8 +384,18 @@ function pdf_report($patients_id='', $pf_id='')
            $data['middle_initials'] = $session_data['middle_initials'];
            $data['role_id'] = $session_data['role_id'];
            $data['id'] = $session_data['id'];
+           $insti_id = $session_data['institution_id'];
+           
+          $this->load->library('pagination');
+          $config = array();
+          $config["base_url"] = base_url()."index.php/home/resident_lists";
+          $config["total_rows"] = $this->user->count_residents($insti_id);
+          $config["per_page"] = 10;
+          $config["uri_segment"] = 3;
+          $this->pagination->initialize($config);
+          
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-           $datas["residents_information"] = $this->user->fetch_residents($config["per_page"], $page);
+           $datas["residents_information"] = $this->user->fetch_residents($config["per_page"], $page,$insti_id);
            $this->load->view('header/header',$data);
            $this->load->view('resident_lists',$datas);
            }

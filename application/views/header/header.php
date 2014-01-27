@@ -10,7 +10,6 @@
           <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datepicker/default.css">
           <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datepicker/style_date.css">
           <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datepicker/shCoreDefault.css">
-          
           <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/XRegExp.js"></script>
           <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/shCore.js"></script>
           <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/shLegacy.js"></script>
@@ -42,19 +41,21 @@
 </head>
 <table border="1" width=80%" cellpadding="0" cellspacing="0" class="table">
           <tr align="center">
-                    <td class="header td_left" width="60%">ANESTHESIOLOGY INFORMATION SYSTEM</td>
-                    <td class="td_right"><img src="<?php echo base_url();?>assets/images/pgh_logo.jpg" width="50%" height="10%"></td>
+                    <td class="header td_left" width="55%">ANESTHESIOLOGY INFORMATION SYSTEM</td>
+                    <td class="td_right"><img src="<?php echo base_url();?>assets/images/pgh_logo.jpg" width="30%" height="10%"></td>
           </tr>
           <tr>
                     <td class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 16px;font-weight:bold;" colspan=>&nbsp; You are logged in as : <?php echo ucwords($lastname).", ".ucwords($firstname)." ".ucwords($middle_initials)."."; ?></td>
-                    <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;"><a href="<?php echo base_url();?>index.php/search_controller/">Home</a> |
+                    <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;">
+                              <a href="<?php echo base_url();?>index.php/search_controller/">HOME</a> |
+                              <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">REPORTS</a> |
                     <?php
                     if ($role_id == "2")
                     {
-                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">Find Caselog</a> | <a href="'.base_url().'index.php/users/add_user">USERS</a> | <a href="'.base_url().'index.php/home/resident_lists">Submitted Form</a> |';
+                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">FIND CASELOG</a> | <a href="'.base_url().'index.php/users_controller/add_user">USERS</a> | <a href="'.base_url().'index.php/home/resident_lists">SUBMITTED FORM</a> |';
                     }
                     ?>
-                    <a href="<?php echo base_url();?>index.php/home/logout">Logout</a> 
+                    <a href="<?php echo base_url();?>index.php/home/logout">LOGOUT</a> 
                     </td>
           </tr>
 </table>

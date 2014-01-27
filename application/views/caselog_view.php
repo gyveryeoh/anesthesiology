@@ -408,20 +408,30 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         $x=0;
         foreach ($status_list as $status):
         $status_name[$x] = $status->name;
-        if ($data->anesth_id == "3"){$status_name[2] = "Approved";}
-        if ($data->anesth_id == "4"){$status_name[3] = "Disapproved";}
-        ?>
-        <option value="<?php echo $status->id; ?>" <?php if ($status->id == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[$x]; ?></option>
-        <?php
+        $status_id[$x] = $status->id;
         $x++;
-        endforeach; ?>
-        <?php if ($data->anesth_id == "5")
-        {
-        echo "<option value='5' selected=selected>For Revision</option>";
-        }
+        endforeach;
+        if ($data->anesth_id == "5")
+        {$status_name[4] = "Disapproved";}
+        elseif ($data->anesth_id == "4")
+        {$status_name[3] = "Approved";}
         ?>
+         <option value="<?php echo $status_id[0]; ?>" <?php if ($status_id[0] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[0]; ?></option>
+         <option value="<?php echo $status_id[1]; ?>" <?php if ($status_id[1] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[1]; ?></option>
+         <?php if ($data->anesth_id == "7")
+         {
+           echo '<option selected=selected>Revised</option>';
+         }
+         ?>
+         <?php if ($data->anesth_id == "3")
+         {
+           echo '<option selected=selected>For Revision</option>';
+         }
+         ?>
+         <option value="<?php echo $status_id[3]; ?>" <?php if ($status_id[3] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[3]; ?></option>
+         
+         <option value="<?php echo $status_id[4]; ?>" <?php if ($status_id[4] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[4]; ?></option>        
         </select>
-        
         </td>
     </tr>
     <tr>
@@ -429,7 +439,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
     
-    <?php if ($data->anesth_id == "1" || $status_name == "Revised")
+    <?php if ($data->anesth_id == "1" || $data->anesth_id == "7")
     {
     echo '<tr>
         <td class="border-less" align="right">&nbsp;</td>
