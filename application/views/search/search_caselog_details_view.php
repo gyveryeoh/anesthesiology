@@ -68,7 +68,7 @@
           ?>
           <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>?&institution_id=<?php echo $institution_id; ?>&user_id=<?php echo $user_id; ?>&status_id=<?php echo $status_id; ?>&status=<?php echo $row->anesth_status_id; ?>"><?php echo $row->patient_info_case_number; ?></a></td>
          <?php
-          echo "<td>".$row->lastname.",".$row->firstname." ".$row->middle_initials."</td>
+          echo "<td>".$row->lastname.", ".$row->firstname." ".$row->middle_initials.".</td>
           <td>".$row->patient_info_lastname."-".$row->patient_info_firstname."-".$row->patient_info_middle_initials."</td>
           <td>".$row->patient_info_birthdate."</td>
           <td>".$age."</td>

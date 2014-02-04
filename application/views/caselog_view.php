@@ -54,6 +54,21 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td>: <?php echo $data->asa; ?></td>
         <td><?php echo $data->for_emergency; ?></td>
     </tr>
+    <?php
+      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 10px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/index/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id?>">Update</a>
+	</td>
+	</tr>
+	<?php
+	}
+      }
+	?>
 </table>
 </div>
 <div align="center">
@@ -438,13 +453,16 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td><b>NOTES</b></td>
         <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
-    
-    <?php if ($data->anesth_id == "1" || $data->anesth_id == "7")
+    <?php
+    if ($role_id == "2")
     {
-    echo '<tr>
-        <td class="border-less" align="right">&nbsp;</td>
-        <td class="border-less"><input type="submit" name="update" value="UPDATE"></td>
-    </tr>';
+    if ($data->anesth_id == "1" || $data->anesth_id == "7")
+    {
+    echo "<tr>
+        <td class='border-less' align='right'>&nbsp;</td>
+        <td class='border-less'><input type='submit' name='update' value='UPDATE'></td>
+    </tr>";
+    }
     } 
     ?>
     <tr>

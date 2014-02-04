@@ -353,5 +353,28 @@ function save_user($data)
  {
   $this->db->insert('users',$data);
  }
+//CHANGE PASSWORD
+function password_checking($username,$old_password)
+{
+   $this -> db -> select('*');
+   $this -> db -> from('users');
+   $this -> db -> where('username', $username);
+   $this -> db -> where('password', md5($old_password));
+   $this -> db -> limit(1);
+   $query = $this -> db -> get();
+   if($query -> num_rows() == 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+}
+function change_password($datas,$username)
+{
+ $this->db->where('username',$username);
+ $this->db->update('users',$datas); 
+}
 }
 ?>

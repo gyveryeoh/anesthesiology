@@ -5,6 +5,7 @@ Class Dropdown_select extends CI_Model
  {
      $this->db->select('*');
      $this->db->from('anesth_services');
+     $this->db->order_by("name", "asc");
      $query = $this->db->get();
      return $query->result();
 }
@@ -12,6 +13,16 @@ Class Dropdown_select extends CI_Model
  {
      $this->db->select('*');
      $this->db->from('anesth_technique');
+     $this->db->where('id !=',8);
+     $this->db->order_by("name", "asc");
+     $query = $this->db->get();
+     return $query->result();
+}
+function anesth_techniques_reports()
+ {
+     $this->db->select('*');
+     $this->db->from('anesth_technique');
+     $this->db->order_by("name", "asc");
      $query = $this->db->get();
      return $query->result();
 }

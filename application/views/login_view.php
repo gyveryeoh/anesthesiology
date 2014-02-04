@@ -6,10 +6,10 @@
 </noscript>
           <link href="<?php echo base_url(); ?>assets/css/style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
-<table border="1" width="60%" cellpadding="10" cellspacing="0" class="table">
+<table border="1" width="80%" cellpadding="10" cellspacing="0" class="table">
           <tr align="center">
-                    <td class="header td_left" width="80%">ANESTHESIOLOGY INFORMATION SYSTEM</td>
-                    <td class="td_right"><img src="<?php echo base_url();?>assets/images/pgh_logo.jpg" width="100%" height="20%"></td>
+                    
+                    <td class="header td_left" colspan="2"><img src="<?php echo base_url();?>assets/images/aendicus.jpg" width="100%" height="100%"></td>
           </tr>
           <tr>
                     <td colspan="2" class="td_top" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 12px;font-weight:bold;">&nbsp;</td>

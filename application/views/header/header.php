@@ -41,18 +41,18 @@
 </head>
 <table border="1" width=80%" cellpadding="0" cellspacing="0" class="table">
           <tr align="center">
-                    <td class="header td_left" width="55%">ANESTHESIOLOGY INFORMATION SYSTEM</td>
-                    <td class="td_right"><img src="<?php echo base_url();?>assets/images/pgh_logo.jpg" width="30%" height="10%"></td>
-          </tr>
+                    <td class="header td_left" colspan="2"><img src="<?php echo base_url();?>assets/images/aendicus.jpg" width="100%" height="100%"></td>
+</tr>
           <tr>
                     <td class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 16px;font-weight:bold;" colspan=>&nbsp; You are logged in as : <?php echo ucwords($lastname).", ".ucwords($firstname)." ".ucwords($middle_initials)."."; ?></td>
                     <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;">
                               <a href="<?php echo base_url();?>index.php/search_controller/">HOME</a> |
                               <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">REPORTS</a> |
+                              <a href="<?php echo base_url(); ?>index.php/users_controller/change_password">USERS</a> |
                     <?php
                     if ($role_id == "2")
                     {
-                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">FIND CASELOG</a> | <a href="'.base_url().'index.php/users_controller/add_user">USERS</a> | <a href="'.base_url().'index.php/home/resident_lists">SUBMITTED FORM</a> |';
+                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">FIND CASELOG</a> | <a href="'.base_url().'index.php/home/resident_lists">SUBMITTED FORM</a> |';
                     }
                     ?>
                     <a href="<?php echo base_url();?>index.php/home/logout">LOGOUT</a> 
