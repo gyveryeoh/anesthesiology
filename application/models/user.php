@@ -329,22 +329,30 @@ function fetch_residents($limit, $start,$insti_id)
 	return $query->result();
 }
 //Patient Pagination
-function count_patient_information_by_resident($user_id)
-{
- $this->db->select('*');
- $this->db->from('patient_form');
- $this->db->where('user_id', $user_id);
- $q = $this->db->get();
- return $q->num_rows();
-}
-function fetch_patient_information_by_resident($limit,$start,$user_id)
+function count_patient_information_by_resident($resident_id,$status)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form');
+		$this->db->where('user_id',$resident_id);
+		if($status != 0)
+		{
+			$this->db->where('anesth_status_id',$status);
+		}
+		$q = $this->db->get();
+		return $q->num_rows();
+	}
+function fetch_patient_information_by_resident($limit,$start,$resident_id,$status)
 {
   $this->db->limit($start,$limit);
   $this->db->select('*,patient_form.id as pf_id');
   $this->db->from('patient_information');
   //Patient Form
   $this->db->join('patient_form', 'patient_information.id = patient_form.patient_information_id');
-  $this->db->where('user_id', $user_id);
+  $this->db->where('user_id', $resident_id);
+  if($status != 0)
+		{
+			$this->db->where('anesth_status_id',$status);
+		}
   $query = $this->db->get();
   return $query->result();
 }

@@ -7,13 +7,21 @@
                     <td class="border-less" colspan="3">RESIDENT NAME : <b><?php echo $data->lastname; ?>, <?php echo $data->firstname; ?> <?php echo $data->middle_initials; ?>.</b></td>
                     <?php endforeach; ?>
           </tr>
-          <tr>
-                    <td>SUBMITTED</td>
-                    <td>FOR REVISION</td>
-                    <td>REVISED</td>
-                    <td>APPROVED</td>
-                    <td>REJECTED</td>
-          </tr>
+          <?php
+  $x=0;
+  foreach($status_list as $list):
+  $list_id[$x] = $list->id;
+  $x++;
+  endforeach;
+  ?>
+  <tr>
+   <td align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;">
+    <?php echo '<a href="'.base_url().'index.php/home/resident_encoded?resident_id=4&status=0">ALL</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[0].'">Submitted</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[2].'">For Revision</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[5].'">Revised</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[3].'">Approved</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[4].'">Disapproved</a>'; ?>
+   </td>
+   </tr>
+  <tr>
+   <td  align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;"><?php echo "All : ".$count_all." | Submitted : ".$count_submitted." | For Revision : ".$count_forRevision." | Approved : ".$count_approved." | Disapproved : ".$count_disapproved." | Deleted : ".$count_deleted.""?></td>
+  </tr>
           <tr>
                     <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
           </tr>

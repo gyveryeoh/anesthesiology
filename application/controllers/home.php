@@ -4,6 +4,7 @@ class Home extends CI_Controller {
  function __construct()
  {
    parent::__construct();
+   $this->load->model('users_model/users_model','view_caselogs');
    $this->load->model('user','',TRUE);
    $this->load->model('dropdown_select','',TRUE);
    $this->load->library('session');
@@ -407,12 +408,13 @@ function pdf_report($patients_id='', $pf_id='')
            }
            function resident_encoded()
            {
+            $status = $this->input->get('status');
             $resident_id =$this->input->get('resident_id');
             $this->load->library('pagination');
             if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
             $config["base_url"] = base_url()."index.php/home/resident_encoded";
             $config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-            $config["total_rows"] = $this->user->count_patient_information_by_resident($resident_id);
+            $config["total_rows"] = $this->user->count_patient_information_by_resident($resident_id,$status);
             $config["per_page"] = 10;
             $config["uri_segment"] = 3;
             $this->pagination->initialize($config);
@@ -426,10 +428,18 @@ function pdf_report($patients_id='', $pf_id='')
            $data['role_id'] = $session_data['role_id'];
            $data['id'] = $session_data['id'];
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-           $datas["patient_informationss"] = $this->user->fetch_patient_information_by_resident($page,$config["per_page"],$resident_id);
+           $datas["patient_informationss"] = $this->user->fetch_patient_information_by_resident($page,$config["per_page"],$resident_id,$status);
            $datas['resident_information'] = $this->user->resident_information($resident_id);
+           $user_id = $resident_id;
+            $datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($user_id,0);
+            $datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,1);
+            $datas["count_forRevision"] = $this->view_caselogs->count_view_caselog_details_1($user_id,3);
+            $datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,4);
+            $datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,5);
+            $datas["count_deleted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,7);
+            $datas['status_list']      = $this->dropdown_select->anesth_status();
            $this->load->view('header/header',$data);
-            $this->load->view('resident_encoded',$datas);
+           $this->load->view('resident_encoded',$datas);
            }
           else
           {
