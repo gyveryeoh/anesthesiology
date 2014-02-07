@@ -1,3 +1,7 @@
+<?php
+foreach($institution_details as $name):
+endforeach;
+?>
 <script>
 $(document).ready(function(){
     var count1 = 1;
@@ -74,12 +78,6 @@ $date1 = new DateTime($row->birthdate);
 $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
  ?>
- <script type="text/javascript">
-      $(document).ready(function() {
-      $("#anesth_form").validate()({
-      });
-   });
-    </script>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_anesthesiology_information">
  <input type="hidden" name="patient_information_id" value="<?php echo $row->id; ?>">
  <table width="80%" cellpadding="1" cellspacing="0" border=1 style="border-top:hidden;">
@@ -92,7 +90,7 @@ $diff = $date1->diff($date2);
           </tr>
           <tr>
                     <td class="border-less" align="left"><b>Training Institution :</b></td>
-                    <td class="border-less" >UPCM-PGH Medical Center</td>
+                    <td class="border-less" ><?php echo $name->name; ?></td>
           </tr>
           <tr>
                     <td class="border-less" align="left"><b>Hospital Rotation :</b></td>
@@ -495,6 +493,7 @@ $diff = $date1->diff($date2);
           $apopmd_id[]=$apopmd->id;
           $apopmd_name[]=$apopmd->name;
           }
+          
           foreach($anesth_post_op_pain_management_data_1 as $apopmd1)
           {
           $apopmd_name1[]=$apopmd1->name;
@@ -507,15 +506,11 @@ $multiIterator = new MultipleIterator();
 $multiIterator->attachIterator($apopmd_1);
 $multiIterator->attachIterator($apopmd_2);
 $multiIterator->attachIterator($apopmd_2_2);
-
 foreach($multiIterator as $combinedArray)
 {
      echo "<tr><td></td>";
-          
           echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>(".$combinedArray[0].") ".$combinedArray[1]."</td>";
            echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management_1[]' class='required'>".$combinedArray[2]."</td>";
-          
-          
           echo "<tr>";
              }
            ?>

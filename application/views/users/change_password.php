@@ -1,9 +1,4 @@
- <script type="text/javascript">
-      $(document).ready(function() {
-      $("#patient_form").validate();
-      });
-    </script>
-<form method="post" id="patient_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/change_password">
+<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/change_password">
 <table width="80%" cellpadding="1" cellspacing="0">
 	<tr>
 		<td  class="border-less header" align="center" colspan="2">Change Password</td>

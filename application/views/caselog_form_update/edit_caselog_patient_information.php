@@ -3,12 +3,6 @@ foreach ($patient_information as $data){}
 $date1 = new DateTime($data->birthdate);
 ?>
 <div align="center">
- <script type="text/javascript">
-      $(document).ready(function() {
-      $("#anesth_form").validate()({
-      });
-   });
-    </script>
 <form method="post" id="anesth_form"  action="<?php echo base_url(); ?>index.php/edit_caselog_controller/edit_patient_information">
 <input type="hidden" name="patient_information_id" value="<?php echo $data->patient_information_id?>"/>
 <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>"/>
@@ -163,6 +157,9 @@ $date1 = new DateTime($data->birthdate);
 		<input type="submit" name="Save Information" value="Save Information">
 	</td>
 	</tr>
+	 <tr>
+<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+</tr>
 </table>
 </div>
 </form>

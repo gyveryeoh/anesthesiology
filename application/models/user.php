@@ -26,12 +26,20 @@ Class User extends CI_Model
   $query = $this->db->get();
   return $query->result();
  }
- 
- function case_number_checking($case_number)
+ function institution_info($institution_id)
+ {
+  $this->db->select('*');
+  $this->db->from('anesth_institution');
+  $this->db->where('id',$institution_id);
+  $query = $this->db->get();
+  return $query->result();
+ }
+ function case_number_checking($case_number,$institution_id)
  {
   $this->db->select('*');
   $this->db->from('patient_information');
   $this->db->where('case_number',$case_number);
+  $this->db->where('institution_id',$institution_id);
   $this->db->limit(1);
   $result = $this->db->get();
   if($result->num_rows() == 1)

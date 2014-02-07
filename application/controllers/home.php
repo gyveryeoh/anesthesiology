@@ -127,9 +127,11 @@ class Home extends CI_Controller {
         $data['middle_initials'] = $session_data['middle_initials'];
         $data['role_id'] = $session_data['role_id'];
         $data['id'] = $session_data['id'];
+        $data['institution_id'] = $session_data['institution_id'];
   $data = array(
    'patient_information_id' => $this->input->post('patient_information_id'),
    'user_id' => $data['id'],
+   'institution_id' => $data['institution_id'],
    'operation_date' =>$this->input->post('operation_date'),
    'level_of_involvement' =>$this->input->post('level_of_involvement'),
    'type_of_patient' => $this->input->post('type_of_patient'),
@@ -276,6 +278,7 @@ $this->user->add_anesthesiology_information_data($data);
      $data['middle_initials'] = $session_data['middle_initials'];
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
+     $data['institution_id'] = $session_data['institution_id'];
   $this->load->view('header/header',$data);
   $this->load->view('home_view',$datas);
   }
@@ -290,6 +293,7 @@ $this->user->add_anesthesiology_information_data($data);
      $data['middle_initials'] = $session_data['middle_initials'];
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
+     $data['institution_id'] = $session_data['institution_id'];
      $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
      $datas['anesth_services_data'] = $this->dropdown_select->anesth_services();
      $datas['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
@@ -311,7 +315,7 @@ $this->user->add_anesthesiology_information_data($data);
      $datas['critical_level_preop'] = $this->dropdown_select->critical_level_preop();
      $datas['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
      $datas['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
-
+     $datas['institution_details'] = $this->user->institution_info($data['institution_id']);
      $this->load->view('header/header',$data);
      $this->load->view('anesthesiology_form',$datas);
    }

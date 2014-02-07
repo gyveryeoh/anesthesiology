@@ -44,6 +44,7 @@ class Users_controller extends CI_Controller
    $data['middle_initials'] = $session_data['middle_initials'];
    $data['role_id'] = $session_data['role_id'];
    $data['id'] = $session_data['id'];
+   $data['institution_id'] = $session_data['institution_id'];
    $username = $this->input->post('username');
    $data['username'] = $this->user->user_checking($username);
    if ($this->input->post('password') != $this->input->post('confirm_password'))
@@ -63,7 +64,7 @@ class Users_controller extends CI_Controller
      else
      {
       $data = array
-      ('institution_id' => 1,
+      ('institution_id' => $data['institution_id'],
        'lastname'       => $this->input->post('lastname'),
        'firstname'      => $this->input->post('firstname'),
        'middle_initials'=> $this->input->post('middle_initials'),

@@ -38,6 +38,12 @@
         });
         </script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript">
+      $(document).ready(function() {
+      $("#anesth_form").validate()({
+      });
+   });
+    </script>
 </head>
 <table border="1" width=80%" cellpadding="0" cellspacing="0" class="table">
           <tr align="center">

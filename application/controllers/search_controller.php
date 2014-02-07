@@ -20,6 +20,7 @@ class Search_controller extends CI_Controller {
      $data['middle_initials'] = $session_data['middle_initials'];
      $data['role_id'] = $session_data['role_id'];
      $data['id'] = $session_data['id'];
+     $data['institution_id'] = $session_data['institution_id'];
      $this->load->view('header/header', $data);
      $this->load->view('search/search_index_view');
    }
@@ -32,8 +33,10 @@ function searched_index()
 {
  if($this->session->userdata('logged_in'))
  {
+  
   $case_number = $this->input->post('case_number');
-  $datas['case_number'] = $this->user->case_number_checking($case_number);
+  $institution_id = $this->input->post('institution_id');
+  $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
   if ($datas['case_number'] == true)
   {
    $session_data = $this->session->userdata('logged_in');
@@ -43,7 +46,8 @@ function searched_index()
    $data['middle_initials'] = $session_data['middle_initials'];
    $data['role_id'] = $session_data['role_id'];
    $data['id'] = $session_data['id'];
-   $datas['case_number'] = $this->user->case_number_checking($case_number);
+   $data['institution_id'] =  $session_data['institution_id'];
+   $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
    $this->load->view('header/header',$data);
    $this->load->view('search/searched_index_view',$datas);
   }
@@ -57,6 +61,7 @@ function searched_index()
    $data['middle_initials'] = $session_data['middle_initials'];
    $data['role_id'] = $session_data['role_id'];
    $data['id'] = $session_data['id'];
+   $data['institution_id'] = $session_data['institution_id'];
    $this->load->view('header/header',$data);
    $this->load->view('search/search_index_view',$error);
 }

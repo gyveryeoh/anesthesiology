@@ -21,6 +21,7 @@ function index($patients_id='', $pf_id='')
            $data['firstname'] = $session_data['firstname'];
            $data['middle_initials'] = $session_data['middle_initials'];
            $data['role_id'] = $session_data['role_id'];
+	   $data['institution_id'] = $session_data['institution_id'];
            $data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
           if ($data['patient_information'] != false)
           {
@@ -44,6 +45,7 @@ function index($patients_id='', $pf_id='')
           */
           $this->load->view('header/header', $data);
 	  $data['status_list'] = $this->dropdown_select->anesth_status();
+	  $data['institution_details'] = $this->dropdown_select->institution_info($data['institution_id']);
           $this->load->view('caselog_view',$data);
           }
           else

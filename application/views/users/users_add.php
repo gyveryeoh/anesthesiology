@@ -1,9 +1,5 @@
- <script type="text/javascript">
-      $(document).ready(function() {
-      $("#patient_form").validate();
-      });
-    </script>
-<form method="post" id="patient_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/save_user">
+<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/save_user">
+ 
  <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">ADD NEW USER</td>
@@ -39,10 +35,6 @@
           <tr>
                     <td class="border-less" align="right">Confirm Password :</td>
                     <td class="border-less"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $this->input->post('confirm_password'); ?>">
-          </tr>
-          <tr>
-                    <td class="border-less" align="right">Institution :</td>
-                    <td class="border-less">UP - PGH</td>
           </tr>
 	  <tr>
                     <td class="border-less" align="right">User Role :</td>

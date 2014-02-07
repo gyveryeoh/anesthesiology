@@ -18,6 +18,16 @@ Class Dropdown_select extends CI_Model
      $query = $this->db->get();
      return $query->result();
 }
+ function anesth_peripheral_nerve_blocks_and_pain_techniques()
+ {
+     $this->db->select('*');
+     $this->db->from('anesth_peripheral_nerve_blocks_and_pain_techniques');
+     $this->db->where('id !=',0);
+     $this->db->order_by("id", "asc");
+     $query = $this->db->get();
+     return $query->result();
+}
+
 function anesth_techniques_reports()
  {
      $this->db->select('*');
@@ -203,5 +213,13 @@ function roles()
      $query = $this->db->get();
      return $query->result();
 }
+ function institution_info($institution_id)
+ {
+  $this->db->select('*');
+  $this->db->from('anesth_institution');
+  $this->db->where('id',$institution_id);
+  $query = $this->db->get();
+  return $query->result();
+ }
 }
 ?>

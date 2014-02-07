@@ -1,9 +1,4 @@
- <script type="text/javascript">
-      $(document).ready(function() {
-      $("#patient_form").validate();
-      });
-    </script>
-<form method="post" id="patient_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_patient">
+<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_patient">
  <input type="hidden" name="user_id" value="<?php echo $id; ?>">
  <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
