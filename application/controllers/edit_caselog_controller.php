@@ -190,7 +190,6 @@ function edit_main_agents_information($patients_id='', $pf_id='')
 		 $patient_form_id = $this->input->post('patient_form_id');
 		 $others_m = $this->input->post('other_main_agent');
 		 $other_main_agent = $this->input->post('other_main_agent_data');
-		 
 		 if ($others_m=="other_main_agent_checkbox"){$others_m = $other_main_agent;} else {$others_m = "NULL"; }
 		  $datas2 = array(
 		 'other_main_agent' => $others_m,
@@ -200,6 +199,52 @@ function edit_main_agents_information($patients_id='', $pf_id='')
 		if (!empty($main_agent))
 		{
 		 $this->edit_caselog_model->edit_main_agent_data($patient_form_id,$main_agent);
+		}
+		else
+		{
+		 $this->edit_caselog_model->delete_main_agent_data($patient_form_id,$main_agent);
+		}
+		 $patient_id = $patient_information_id."/".$patient_form_id;
+		 redirect('caselog_controller/index/'.$patient_id);
+		}
+	}
+else
+{
+  redirect('login', 'refresh');
+}
+}
+function edit_supp_agents_information($patients_id='', $pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+ {
+  $session_data = $this->session->userdata('logged_in');
+  $user_id = $data['id'] = $session_data['id'];
+  $data['lastname'] = $session_data['lastname'];
+  $data['firstname'] = $session_data['firstname'];
+  $data['middle_initials'] = $session_data['middle_initials'];
+  $data['role_id'] = $session_data['role_id'];
+  $data['supp_agents_details'] = $this->edit_caselog_model->patient_form_supp_agent_details($pf_id);
+  $data['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
+  $data['patients_id'] = $patients_id;
+  $data['pf_id'] = $pf_id;
+  $data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+  $this->load->view('header/header',$data);
+  $this->load->view('caselog_form_update/edit_caselog_supplementary_agents_information',$data);
+  if ($this->input->post('submit'))
+  {
+   $patient_information_id = $this->input->post('patient_information_id');
+   $patient_form_id = $this->input->post('patient_form_id');
+   $other_supplementary_agent = $this->input->post('other_supplementary_agent');
+   $other_supp_agent = $this->input->post('other_supp_agent_data');
+   if ($other_supplementary_agent=="other_supp_agent_checkbox"){$other_supplementary_agent = $other_supp_agent;} else {$other_supplementary_agent = "NULL"; }
+   $datas2 = array(
+		 'other_supplementary_agent' => $other_supplementary_agent,
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $supplementary_agent = $this->input->post('supplementary_agent');
+		 if (!empty($supplementary_agent))
+		 {
+		 $this->edit_caselog_model->edit_supplementary_agent_data($patient_form_id,$supplementary_agent);
 		 }
 		 $patient_id = $patient_information_id."/".$patient_form_id;
 		 redirect('caselog_controller/index/'.$patient_id);
@@ -210,10 +255,87 @@ else
   redirect('login', 'refresh');
 }
 }
-
-
-
-
+function edit_post_op_agents_information($patients_id='',$pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_post_op_pain_agent_details'] = $this->edit_caselog_model->patient_form_post_op_pain_agent_details($pf_id);
+		$data['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
+		$data['patients_id'] = $patients_id;
+		$data['pf_id'] = $pf_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_post_op_pain_agents_information',$data);
+		if ($this->input->post('submit'))
+		{
+		 $patient_information_id = $this->input->post('patient_information_id');
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $other_post_op_agent = $this->input->post('other_post_op_pain_agent');
+		 $other_post_op_agent1 = $this->input->post('other_post_op_pain_agent_data');
+		 if ($other_post_op_agent=="other_post_op_agent_checkbox"){$other_post_op_agent = $other_post_op_agent1;} else {$other_post_op_agent = "NULL"; }
+		  $datas2 = array(
+		 'other_post_op_pain_agent' => $other_post_op_agent,
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $post_op_pain_agent = $this->input->post('post_op_pain_agent');
+		if (!empty($post_op_pain_agent))
+		{
+		 $this->edit_caselog_model->edit_post_op_agent_data($patient_form_id,$post_op_pain_agent);
+		 }
+		 $patient_id = $patients_id."/".$patient_form_id;
+		 redirect('caselog_controller/index/'.$patient_id);
+		}
+	}
+else
+{
+  redirect('login', 'refresh');
+}
+}
+function edit_post_op_pain_management_information($patients_id='',$pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
+		$data['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
+		$data['patient_form_post_op_pain_management_details'] = $this->edit_caselog_model->patient_form_post_op_pain_management_details($pf_id);
+		$data['patient_form_post_op_pain_management_details_1'] = $this->edit_caselog_model->patient_form_post_op_pain_management_details_1($pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_post_op_pain_management_information',$data);
+		
+		if ($this->input->post('submit'))
+		{
+		 $pf_id = $this->input->post('patient_form_id');
+		  //POST OF PAIN MANAGEMENT
+		  $post_op_pain_management = $this->input->post('post_op_pain_management');
+		  $this->edit_caselog_model->edit_post_op_pain_management_data($pf_id,$post_op_pain_management);
+		  //POST OF PAIN MANAGEMENT 1
+		  $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
+		  $this->edit_caselog_model->edit_post_op_pain_management_data_1($pf_id,$post_op_pain_management_1);
+		 
+		$patient_id = $this->input->post('patient_information_id')."/".$pf_id;
+		 redirect('caselog_controller/index/148/137');
+		}
+		
+}
+else
+{
+  redirect('login', 'refresh');
+}
+}
 
 
 
@@ -239,10 +361,6 @@ function index_form($patients_id='', $pf_id='')
 			
 			$data['patient_form_supplementary_agent_details'] = $this->edit_caselog_model->patient_form_supplementary_agent_details($pf_id);
 			$data['patient_form_post_op_pain_agent_details'] = $this->edit_caselog_model->patient_form_post_op_pain_agent_details($pf_id);
-			$data['anesth_post_op_pain_management_data'] = $this->edit_caselog_model->anesth_post_op_pain_management();
-			$data['anesth_post_op_pain_management_data_1'] = $this->edit_caselog_model->anesth_post_op_pain_management_1();
-			$data['patient_form_post_op_pain_management_details'] = $this->edit_caselog_model->patient_form_post_op_pain_management_details($pf_id);
-			$data['patient_form_post_op_pain_management_details_1'] = $this->edit_caselog_model->patient_form_post_op_pain_management_details_1($pf_id);
 			$data['anesth_monitor_data'] = $this->edit_caselog_model->anesth_monitors();
 			$data['patient_form_monitors_used_details'] = $this->edit_caselog_model->patient_form_monitors_used_details($pf_id);
 			$data['anesth_blood_loss'] = $this->edit_caselog_model->anesth_blood_loss();
@@ -384,13 +502,7 @@ $this->edit_caselog_model->edit_anesthesiology_information_data($data,$pf_id);
    $this->edit_caselog_model->edit_post_op_pain_agent_data($pf_id,$post_op_pain_agent);
   }
   
-  //POST OF PAIN MANAGEMENT
-  $post_op_pain_management = $this->input->post('post_op_pain_management');
-  $this->edit_caselog_model->edit_post_op_pain_management_data($pf_id,$post_op_pain_management);
  
-  //POST OF PAIN MANAGEMENT 1
-  $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
-  $this->edit_caselog_model->edit_post_op_pain_management_data_1($pf_id,$post_op_pain_management_1);
   
   //MONITORS USED
   if (!empty($monitors_used))

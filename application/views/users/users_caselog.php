@@ -10,11 +10,11 @@
   <tr>
    <td align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;">
     <a href="<?php echo base_url();?>index.php/users_controller/users_caselog?status=0">ALL</a> |
-    <?php echo '<a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[0].'">Submitted</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[2].'">For Revision</a> |  | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[5].'">Revised</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[3].'">Approved</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[4].'">Disapproved</a>'; ?>
+    <?php echo '<a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[0].'">Submitted</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[2].'">For Revision</a> |  <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[5].'">Revised</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[3].'">Approved</a> | <a href="'.base_url().'index.php/users_controller/users_caselog?status='.$list_id[4].'">Disapproved</a>'; ?>
    </td>
    </tr>
   <tr>
-   <td  align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;"><?php echo "All : ".$count_all." | Submitted : ".$count_submitted." | For Revision : ".$count_forRevision." | Approved : ".$count_approved." | Disapproved : ".$count_disapproved." | Deleted : ".$count_deleted.""?></td>
+   <td  align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;"><?php echo "ALL : ".$count_all." | SUBMITTED : ".$count_submitted." | FOR REVISION : ".$count_forRevision." | REVISED : ".$count_deleted." | APPROVED : ".$count_approved." | DISAPPROVED : ".$count_disapproved.""?></td>
   </tr>
  </table>
   <table width="80%" cellpadding="1" cellspacing="0">
@@ -33,6 +33,8 @@
            $date2 = new DateTime(date('Y-m-d'));
            $diff = $date1->diff($date2);
            $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
+	   if ($row->anesth_name == "Approve") {$row->anesth_name = "Approved";}
+	   if ($row->anesth_name == "Disapprove") {$row->anesth_name = "Disapproved";}
           ?>
           <td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>"><?php echo $row->patient_info_case_number; ?></a></td>
          <?php

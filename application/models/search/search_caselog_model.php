@@ -28,12 +28,12 @@ Class Search_caselog_model extends CI_Model
  $q = $this->db->get();
  return $q->num_rows();
  }
- function count_search_caselog_details_4($user_id,$insti_id)
+ function count_search_caselog_details_4($user_id,$status_id)
  {
  $this->db->select('*');
  $this->db->from('patient_form');
   $this->db->where('user_id',$user_id);
- $this->db->where('institution_id',$insti_id);
+ $this->db->where('anesth_status_id',$status_id);
  $q = $this->db->get();
  return $q->num_rows();
  }

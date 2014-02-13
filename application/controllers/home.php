@@ -34,30 +34,6 @@ class Home extends CI_Controller {
  }
  function add_patient()
  {
-  $case_number = $this->input->post('case_number');
-  $data['case_number'] = $this->user->case_number_checking($case_number);
-  if ($data['case_number'] == true)
-  {
-       $datas['message'] = "CASE NUMBER IS ALREADY EXIST.";
-       if($this->session->userdata('logged_in'))
-       {
-        $session_data = $this->session->userdata('logged_in');
-        $data['username'] = $session_data['username'];
-        $data['lastname'] = $session_data['lastname'];
-        $data['firstname'] = $session_data['firstname'];
-        $data['middle_initials'] = $session_data['middle_initials'];
-        $data['role_id'] = $session_data['role_id'];
-        $data['id'] = $session_data['id'];
-        $this->load->view('header/header',$data);
-        $this->load->view('home_view',$datas);
-       }
-       else
-       {
-        redirect('login', 'refresh');
-       }
-  }
-  else
-  {
    if($this->session->userdata('logged_in'))
        {
         $session_data = $this->session->userdata('logged_in');
@@ -67,14 +43,26 @@ class Home extends CI_Controller {
         $data['middle_initials'] = $session_data['middle_initials'];
         $data['role_id'] = $session_data['role_id'];
         $data['id'] = $session_data['id'];
+        $data['institution_id'] = $session_data['institution_id'];
+        $case_number = $this->input->post('case_number');
+        $data['case_number'] = $this->user->case_number_checking($case_number,$data['institution_id']);
+        if ($data['case_number'] == true)
+        {
+         $data['message'] = "CASE NUMBER IS ALREADY EXIST.";
+         $this->load->view('header/header',$data);
+         $this->load->view('home_view',$data);
+        }
+        elseif ($data['case_number'] == false)
+       {
   $data = array
   ('case_number'    => $case_number,
-  'lastname'       => $this->input->post('lastname'),
-  'firstname'      => $this->input->post('firstname'),
-  'middle_initials'=> $this->input->post('middle_initials'),
-  'gender'         => $this->input->post('gender'),
-  'birthdate'      => $this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day'),
-  'weight'         => $this->input->post('weight'));
+   'institution_id' => $data['institution_id'],
+  'lastname'        => $this->input->post('lastname'),
+  'firstname'       => $this->input->post('firstname'),
+  'middle_initials' => $this->input->post('middle_initials'),
+  'gender'          => $this->input->post('gender'),
+  'birthdate'       => $this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day'),
+  'weight'          => $this->input->post('weight'));
   $this->user->add_patient($data);
   $patient_information_id = $this->db->insert_id();
   redirect('home/anesthesiology_form/'.$patient_information_id);
@@ -83,7 +71,7 @@ class Home extends CI_Controller {
   {
    redirect('login', 'refresh');
    }
-  }
+ }
  }
  function add_anesthesiology_information()
  {

@@ -16,11 +16,11 @@
   ?>
   <tr>
    <td align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;">
-    <?php echo '<a href="'.base_url().'index.php/home/resident_encoded?resident_id=4&status=0">ALL</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[0].'">Submitted</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[2].'">For Revision</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[5].'">Revised</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[3].'">Approved</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[4].'">Disapproved</a>'; ?>
+    <?php echo '<a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status=0">ALL</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[0].'">Submitted</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[2].'">For Revision</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[5].'">Revised</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[3].'">Approved</a> | <a href="'.base_url().'index.php/home/resident_encoded?resident_id='.$this->input->get('resident_id').'&status='.$list_id[4].'">Disapproved</a>'; ?>
    </td>
    </tr>
   <tr>
-   <td  align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;"><?php echo "All : ".$count_all." | Submitted : ".$count_submitted." | For Revision : ".$count_forRevision." | Approved : ".$count_approved." | Disapproved : ".$count_disapproved." | Deleted : ".$count_deleted.""?></td>
+   <td  align="left" class="border-less" style="background-color:white; font-family: sans-serif;font-size: 10px;font-weight:bold;"><?php echo "All : ".$count_all." | Submitted : ".$count_submitted." | For Revision : ".$count_forRevision." | REVISED : ".$count_deleted." | Approved : ".$count_approved." | Disapproved : ".$count_disapproved.""?></td>
   </tr>
           <tr>
                     <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>

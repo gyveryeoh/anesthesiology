@@ -33,7 +33,6 @@ function searched_index()
 {
  if($this->session->userdata('logged_in'))
  {
-  
   $case_number = $this->input->post('case_number');
   $institution_id = $this->input->post('institution_id');
   $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
@@ -129,7 +128,7 @@ else
           }
           if ($status_id != 0 && $user_id != 0)
           {
-           $config["total_rows"] = $this->search_caselogs->count_search_caselog_details_4($user_id,$insti_id);
+           $config["total_rows"] = $this->search_caselogs->count_search_caselog_details_4($user_id,$status_id);
           }
           $config["per_page"] = 10;
           $config["uri_segment"] = 3;

@@ -163,22 +163,23 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
           foreach($main_agent as $m_agent):
             echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$m_agent->name."</td><td bgcolor=FAFAD2 class=border-less></td>";
          endforeach;
-           ?>
-    <?php if ($data->other_main_agent != "NULL")
-    {
-    echo "<tr>
-        <td class=border-less bgcolor=SkyBlue>OTHERS</td>
-        <td bgcolor=FAFAD2 class=border-less>".$data->other_main_agent."</td>
-    </tr>";
-    }
-    ?>
-     <?php if($role_id == 1) { ?>
+         if ($data->other_main_agent != "NULL")
+         {
+            echo "<tr>
+            <td class=border-less bgcolor=SkyBlue>OTHERS</td>
+            <td bgcolor=FAFAD2 class=border-less>".$data->other_main_agent."</td>
+            </tr>";
+            }
+             if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+            if($role_id == 1) { ?>
 	<tr>
 	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_main_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
 	</td>
 	</tr>
         <?php
+     }
      }
      ?>
 </table>
@@ -188,35 +189,57 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <?php
           foreach($supplementary_agent as $s_agent):
-          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$s_agent->name."</td><td bgcolor=FAFAD2 class=border-less width=20%></td></tr>";
+          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$s_agent->name."</td><td bgcolor=FAFAD2 class=border-less></td></tr>";
             endforeach;
            ?>
     <?php if ($data->other_supplementary_agent != "NULL")
     {
     echo "<tr>
-        <td width='20%' bgcolor=FAFAD2 class=border-less>OTHERS</td>
+        <td bgcolor=skyblue class=border-less>OTHERS</td>
         <td bgcolor=FAFAD2 class=border-less>".$data->other_supplementary_agent."</td>
         
     </tr>";
     }
+     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+    if($role_id == 1) { ?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_supp_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+        <?php
+     }
+      }
     ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
-        <td class=border-less bgcolor="SkyBlue" width=20%>POST OP PAIN AGENTS</td>
+        <td class=border-less bgcolor="SkyBlue" width=20% colspan="2">POST OP PAIN AGENTS</td>
     </tr>
     <?php
           foreach($post_op_pain_agent as $po_agent):
-          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$po_agent->name."</td></tr>";
+          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$po_agent->name."</td><td bgcolor=FAFAD2></td></tr>";
             endforeach;
            ?>
     <?php if ($data->other_post_op_pain_agent != "NULL")
     {
     echo "<tr>
-        <td>Others</td>
-        <td>: ".$data->other_post_op_pain_agent."</td>
+        <td bgcolor=skyblue class=border-less>OTHERS</td>
+        <td bgcolor=fafad2 class=border-less>".$data->other_post_op_pain_agent."</td>
     </tr>";
     }
+     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+    if($role_id == 1) { ?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_post_op_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+        <?php
+     }
+      }
     ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
@@ -236,8 +259,19 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
           for ($t=0;$t<count($apopmd_id+$apopmd_name1);$t++)
           {
             error_reporting(E_ALL ^ E_NOTICE);
-            echo "<tr><td width=20% class=border-less bgcolor=FAFAD2> ".$apopmd_name1[$t]."</td><td class=border-less  bgcolor=FAFAD2>(".$apopmd_id[$t].")".$apopmd_name[$t]."</td></tr>";
-          }          
+            echo "<tr><td width=20% class=border-less bgcolor=FAFAD2>(".$apopmd_id[$t].")".$apopmd_name[$t]."</td><td class=border-less  bgcolor=FAFAD2>".$apopmd_name1[$t]."</td></tr>";
+          }
+           if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+    if($role_id == 1) { ?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_post_op_pain_management_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+        <?php
+     }
+      }
 ?>
     <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     
