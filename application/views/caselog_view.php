@@ -280,17 +280,27 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <?php
           foreach($monitors_used as $m_used):
-          echo "<tr><td class=border-less  bgcolor=FAFAD2>".$m_used->name."</td></tr>";
+          echo "<tr><td class=border-less  bgcolor=FAFAD2 colspan=2>".$m_used->name."</td></tr>";
             endforeach;
            ?>
     <?php if ($data->other_monitors_used != "NULL")
     {
     echo "<tr>
-        <td>Others</td>
-        <td>: ".$data->other_monitors_used."</td>
+        <td bgcolor=FAFAD2 width=15%>OTHERS</td>
+        <td bgcolor=FAFAD2>".$data->other_monitors_used."</td>
     </tr>";
     }
-    ?>
+      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_monitors_used_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
      <tr>

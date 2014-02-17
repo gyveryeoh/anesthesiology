@@ -107,7 +107,6 @@ Class Edit_caselog_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
 	function  patient_form_post_op_pain_management_details_1($pf_id)
 	{
 		$this->db->select('*,anesth_post_op_pain_management_1.name as apopm1_name');
@@ -151,7 +150,33 @@ Class Edit_caselog_model extends CI_Model
 			$this->db->insert_batch('patient_form_post_op_pain_management_details_1', $data);
 		}
 	}
-	
+	//MONITORS USED
+	function patient_form_monitors_used_details($pf_id)
+	{
+		$this->db->select('*,anesth_monitors.name as monitor_name');
+		$this->db->from('patient_form_monitors_used_details');
+		$this->db->join('anesth_monitors', 'anesth_monitors.id = patient_form_monitors_used_details.monitors_used_id');
+		$this->db->where('patient_form_monitors_used_details.patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	function edit_monitors_used_data($patient_form_id,$monitors_used)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_monitors_used_details');
+		
+		for($i=0; $i<count($monitors_used);$i++)
+		{
+			$data[] = array(
+			'patient_form_id' => $patient_form_id,
+			'monitors_used_id' => $monitors_used[$i]
+			);
+		}
+		if (isset($monitors_used))
+		{
+			$this->db->insert_batch('patient_form_monitors_used_details', $data);
+		}
+	}
 	
 	
 	
@@ -202,33 +227,8 @@ Class Edit_caselog_model extends CI_Model
 		return $query->result();
 	}
 	
-	
 
-	function  anesth_monitors()
-	{
-		$this->db->select('*');
-		$this->db->from('anesth_monitors');
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	function  patient_form_monitors_used_details($pf_id)
-	{
-		$this->db->select('*,anesth_monitors.name as monitor_name');
-		$this->db->from('patient_form_monitors_used_details');
-		$this->db->join('anesth_monitors', 'anesth_monitors.id = patient_form_monitors_used_details.monitors_used_id');
-		$this->db->where('patient_form_monitors_used_details.patient_form_id',$pf_id);
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	function  anesth_blood_loss()
-	{
-		$this->db->select('*');
-		$this->db->from('anesth_blood_loss');
-		$query = $this->db->get();
-		return $query->result();
-	}
+
 
 	function  blood_loss($pf_id)	
 	{
@@ -273,22 +273,6 @@ Class Edit_caselog_model extends CI_Model
 	
 	
 	
-	function edit_monitors_used_data($pf_id,$monitors_used)
-	{
-		$this->db->where('patient_form_id',$pf_id);
-		$this->db->delete('patient_form_monitors_used_details');
-		
-		for($i=0; $i<count($monitors_used);$i++)
-		{
-			$data[] = array(
-			'patient_form_id' => $pf_id,
-			'monitors_used_id' => $monitors_used[$i]
-			);
-		}
-		if (isset($monitors_used))
-		{
-			$this->db->insert_batch('patient_form_monitors_used_details', $data);
-		}
-	}
+	
 	}
 ?>

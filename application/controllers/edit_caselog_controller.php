@@ -66,7 +66,6 @@ else
  redirect('login', 'refresh');
 }
 }
-
 function edit_diagnosis_information($patients_id='', $pf_id='')
 {
  if($this->session->userdata('logged_in'))
@@ -315,7 +314,6 @@ function edit_post_op_pain_management_information($patients_id='',$pf_id='')
 		$data['patient_form_post_op_pain_management_details_1'] = $this->edit_caselog_model->patient_form_post_op_pain_management_details_1($pf_id);
 		$this->load->view('header/header',$data);
 		$this->load->view('caselog_form_update/edit_caselog_post_op_pain_management_information',$data);
-		
 		if ($this->input->post('submit'))
 		{
 		 $pf_id = $this->input->post('patient_form_id');
@@ -325,16 +323,52 @@ function edit_post_op_pain_management_information($patients_id='',$pf_id='')
 		  //POST OF PAIN MANAGEMENT 1
 		  $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
 		  $this->edit_caselog_model->edit_post_op_pain_management_data_1($pf_id,$post_op_pain_management_1);
-		 
-		$patient_id = $this->input->post('patient_information_id')."/".$pf_id;
-		redirect('caselog_controller/index/'.$patient_id);
+		  $patient_id = $this->input->post('patient_information_id')."/".$pf_id;
+		  redirect('caselog_controller/index/'.$patient_id);
 		}
-		
-}
-else
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
+		 }
+function edit_monitors_used_information($patients_id='',$pf_id='')
 {
-  redirect('login', 'refresh');
-}
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$data['anesth_monitor_data'] = $this->dropdown_select->anesth_monitors();
+		$data['patient_form_monitors_used_details'] = $this->edit_caselog_model->patient_form_monitors_used_details($pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_monitors_used',$data);
+		if ($this->input->post('submit'))
+		{
+		  $patient_form_id = $this->input->post('patient_form_id');
+		  $monitors_used = $this->input->post('monitors_used');
+		  $other_monitors_used = $this->input->post('other_monitors_used');
+		  $other_monitors_used_data = $this->input->post('other_monitors_used_data');
+		  if ($other_monitors_used=="other_monitors_used_checkbox"){$other_monitors_used = $other_monitors_used_data;} else {$other_monitors_used = "NULL"; }
+   $datas2 = array(
+		 'other_monitors_used' => $other_monitors_used,
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		  $this->edit_caselog_model->edit_monitors_used_data($patient_form_id,$monitors_used);
+		  $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  redirect('caselog_controller/index/'.$patient_id);
+		}
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
 }
 
 
@@ -391,8 +425,7 @@ function index_form($patients_id='', $pf_id='')
 		  $other_post_op_pain_agent = $this->input->post('other_post_op_pain_agent_data');
 		  $colloids_used = $this->input->post('colloids_used');
 		  $other_colloids_used = $this->input->post('other_colloids_used');
-		  $other_monitors_used = $this->input->post('other_monitors_used');
-		  $other_monitors_used_data = $this->input->post('other_monitors_used_data');
+		  
 		  
 		  $critical_events = $this->input->post('critical_events');
 		  
@@ -402,7 +435,6 @@ function index_form($patients_id='', $pf_id='')
 		  
 		  if ($others_s=="other_supplementary_agent_checkbox"){$others_s = $other_supplementary_agent;} else {$others_s = "NULL"; } 
 		  if ($other_post=="other_post_op_pain_agent_checkbox"){$other_post = $other_post_op_pain_agent;} else {$other_post = "NULL"; } 
-		  if ($other_monitors_used=="other_monitors_used_checkbox"){$other_monitors_used = $other_monitors_used_data;} else {$other_monitors_used = "NULL"; } 
 		  if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
 		  if ($anesthetic_technique == "3") {$critical_events ="YES";}
 		  if($this->session->userdata('logged_in'))
@@ -484,31 +516,8 @@ $this->edit_caselog_model->edit_anesthesiology_information_data($data,$pf_id);
     // $preop = $this->input->post('critical_level_preop');
     // $this->user->add_critical_level_preop($patient_form_id,$preop);
   // }
-  
-  //MAIN AGENT DETAILS
-  
-  
-  //SUPPLEMENTARY AGENT DETAILS
-  $supplementary_agent   = $this->input->post('supplementary_agent');
- if (!empty($supplementary_agent))
-  {
-  $this->edit_caselog_model->edit_supplementary_agent_data($pf_id,$supplementary_agent);
-  }
-  
-  //POST OP PAIN AGENT
-  $post_op_pain_agent   = $this->input->post('post_op_pain_agent');
-  if (!empty($post_op_pain_agent))
-  {
-   $this->edit_caselog_model->edit_post_op_pain_agent_data($pf_id,$post_op_pain_agent);
-  }
-  
- 
-  
   //MONITORS USED
-  if (!empty($monitors_used))
-  {
-   $this->edit_caselog_model->edit_monitors_used_data($pf_id,$monitors_used);
-  }
+ 
   redirect('home/successful_data','refresh');
  }
 }
