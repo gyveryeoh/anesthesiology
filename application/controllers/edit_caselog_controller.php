@@ -327,7 +327,7 @@ function edit_post_op_pain_management_information($patients_id='',$pf_id='')
 		  $this->edit_caselog_model->edit_post_op_pain_management_data_1($pf_id,$post_op_pain_management_1);
 		 
 		$patient_id = $this->input->post('patient_information_id')."/".$pf_id;
-		 redirect('caselog_controller/index/148/137');
+		redirect('caselog_controller/index/'.$patient_id);
 		}
 		
 }
