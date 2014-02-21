@@ -422,7 +422,6 @@ function edit_replacement($patients_id='', $pf_id='')
 
 
 
-
 function index_form($patients_id='', $pf_id='')
 	{
 		if($this->session->userdata('logged_in'))
