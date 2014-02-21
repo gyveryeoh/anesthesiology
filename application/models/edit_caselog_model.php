@@ -177,7 +177,16 @@ Class Edit_caselog_model extends CI_Model
 			$this->db->insert_batch('patient_form_monitors_used_details', $data);
 		}
 	}
-	
+	//BLOOD LOSS
+	function blood_loss($pf_id)	
+	{
+		$this->db->select('*,anesth_blood_loss.name as bl_name');
+		$this->db->from('patient_form');
+		$this->db->join('anesth_blood_loss', 'anesth_blood_loss.id = patient_form.blood_loss');
+		$this->db->where('patient_form.id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
 	
 	
 	
@@ -226,27 +235,7 @@ Class Edit_caselog_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
 
-
-
-	function  blood_loss($pf_id)	
-	{
-		$this->db->select('*,anesth_blood_loss.name as bl_name');
-		$this->db->from('patient_form');
-		$this->db->join('anesth_blood_loss', 'anesth_blood_loss.id = patient_form.blood_loss');
-		$this->db->where('patient_form.id',$pf_id);
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	function anesth_colloids_used()
-	{
-		$this->db->select('*');
-		$this->db->from('anesth_colloids_used');
-		$query = $this->db->get();
-		return $query->result();
-	} 
 	
 	function edit_anesthesiology_information_data($data,$pf_id)
 	{
@@ -270,9 +259,5 @@ Class Edit_caselog_model extends CI_Model
 			$this->db->insert_batch('patient_form_post_op_pain_agent_details', $data);
 		}
 	}
-	
-	
-	
-	
 	}
 ?>

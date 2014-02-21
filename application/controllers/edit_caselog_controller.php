@@ -370,7 +370,54 @@ function edit_monitors_used_information($patients_id='',$pf_id='')
 		 redirect('login', 'refresh');
 		 }
 }
-
+function edit_replacement($patients_id='', $pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$data['anesth_blood_loss'] = $this->dropdown_select->anesth_blood_loss();
+		$data['anesth_colloids_used'] = $this->dropdown_select->anesth_colloids_used();
+		$data['blood_loss'] = $this->edit_caselog_model->blood_loss($pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_replacement',$data);
+		if ($this->input->post('submit'))
+		{
+		  $patient_form_id = $this->input->post('patient_form_id');
+		  $colloids_used = $this->input->post('colloids_used');
+		  $other_colloids_used = $this->input->post('other_colloids_used');
+		 if ($colloids_used =="Others") {$colloids_used = $other_colloids_used; } else { $colloids_used=$colloids_used; }
+		  
+		 $datas2 = array(
+		 'blood_loss' => $this->input->post('blood_loss'),
+		 'crystalloids' => $this->input->post('crystalloids'),
+		 'colloids' => $this->input->post('colloids'),
+		 'colloids_used' => $colloids_used,
+		 'blood_products_used' => $this->input->post('blood_products_used'),
+		 'fresh_whole_blood' => $this->input->post('fresh_whole_blood'),
+		 'cyroprecipitate' => $this->input->post('cyroprecipitate'),
+		 'platelets' => $this->input->post('platelets'),
+		 'fresh_frozen_plasma' => $this->input->post('fresh_frozen_plasma'),
+		 'packed_rbc' => $this->input->post('packed_rbc'),
+		 'others' => $this->input->post('others'),
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		  $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  redirect('caselog_controller/index/'.$patient_id);
+		}
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
+}
 
 
 
@@ -398,7 +445,6 @@ function index_form($patients_id='', $pf_id='')
 			$data['anesth_monitor_data'] = $this->edit_caselog_model->anesth_monitors();
 			$data['patient_form_monitors_used_details'] = $this->edit_caselog_model->patient_form_monitors_used_details($pf_id);
 			$data['anesth_blood_loss'] = $this->edit_caselog_model->anesth_blood_loss();
-			$data['blood_loss'] = $this->edit_caselog_model->blood_loss($pf_id);
 			$data['anesth_colloids_used'] = $this->edit_caselog_model->anesth_colloids_used();
 			$this->load->view('caselog_form_update/edit_caselog_form',$data);
 			//$this->load->view('home_view');
@@ -423,16 +469,14 @@ function index_form($patients_id='', $pf_id='')
 		  $other_supplementary_agent = $this->input->post('other_supplementary_agent_data');
 		  $other_post = $this->input->post('other_post_op_pain_agent');
 		  $other_post_op_pain_agent = $this->input->post('other_post_op_pain_agent_data');
-		  $colloids_used = $this->input->post('colloids_used');
-		  $other_colloids_used = $this->input->post('other_colloids_used');
+		  
 		  
 		  
 		  $critical_events = $this->input->post('critical_events');
 		  
 		  
 		  
-		 if ($colloids_used =="Others") {$colloids_used = $other_colloids_used; } else { $colloids_used=$colloids_used; }
-		  
+		 
 		  if ($others_s=="other_supplementary_agent_checkbox"){$others_s = $other_supplementary_agent;} else {$others_s = "NULL"; } 
 		  if ($other_post=="other_post_op_pain_agent_checkbox"){$other_post = $other_post_op_pain_agent;} else {$other_post = "NULL"; } 
 		  if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
