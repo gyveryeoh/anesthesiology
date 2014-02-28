@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
           <meta charset="UTF-8">
-          <title>ANESTHESIOLOGY</title>
+          <title>AENDICUS</title>
 <noscript>
           <meta http-equiv="refresh" content="0; url=http://oltrap.pchrd.dost.gov.ph/index.php/administrator/javascript/" />
 </noscript>
@@ -40,8 +40,9 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.validate.min.js"></script>
 <script type="text/javascript">
       $(document).ready(function() {
-      $("#anesth_form").validate()({
-      });
+      $('form').each(function(){
+          $(this).validate()
+   });
    });
     </script>
 </head>

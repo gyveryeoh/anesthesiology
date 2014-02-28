@@ -378,7 +378,6 @@ function pdf_report($patients_id='', $pf_id='')
            $data['role_id'] = $session_data['role_id'];
            $data['id'] = $session_data['id'];
            $insti_id = $session_data['institution_id'];
-           
           $this->load->library('pagination');
           $config = array();
           $config["base_url"] = base_url()."index.php/home/resident_lists";

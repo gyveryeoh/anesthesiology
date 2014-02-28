@@ -15,7 +15,13 @@ if ($data->type_of_patient == "C") { $data->type_of_patient = "Charity"; } else 
 if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->for_emergency = "Emergency"; }
 ?>
 <div align="center">
+    <style>
+        td{border: hidden;}
+    </style>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
+    <tr>
+                    <td colspan="9" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
+          </tr>
     <tr>
         <td width="15%" class="border-less" bgcolor="SkyBlue">RESIDENT NAME</td>
         <td width="20%" colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo ucwords(strtolower($data->lastname)).", ".ucwords($data->firstname)." ".ucwords($data->middle_initials)."."; ?></td>
@@ -113,6 +119,9 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
  <tr>
+    <td class="border-less header" align="center" colspan="4">NEEDLE</td>
+ </tr>   
+ <tr>
     <td rowspan="2" class="border-less" bgcolor="SkyBlue" width="20%">NEEDLE</td>
     <td class="border-less" bgcolor="SkyBlue" width="20%">SPINAL NEEDLE TYPE</td>
     <td bgcolor="FAFAD2" class="border-less"><?php echo $data->spinal_needle; ?></td>
@@ -130,8 +139,25 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <td class="border-less" bgcolor="SkyBlue">EPIDURAL NEEDLE GAUGE</td>
     <td bgcolor="FAFAD2" class="border-less"><?php echo $data->p2; ?></td>
   </tr>
+   <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_epidural/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
+</table>
+  <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
-        <td class="border-less" bgcolor="SkyBlue">ANESTHESIA START</td>
+    <td class="border-less header" align="center" colspan="2">ANESTHESIA</td>
+ </tr>   
+  <tr>
+        <td class="border-less" bgcolor="SkyBlue" width="20%">ANESTHESIA START</td>
         <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $data->anesthesia_start." ".$data->anesthesia_start_time; ?></td>
     </tr>
     <tr>
@@ -219,7 +245,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <?php
           foreach($post_op_pain_agent as $po_agent):
-          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$po_agent->name."</td><td bgcolor=FAFAD2></td></tr>";
+          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$po_agent->name."</td><td bgcolor=FAFAD2 class=border-less></td></tr>";
             endforeach;
            ?>
     <?php if ($data->other_post_op_pain_agent != "NULL")
@@ -286,8 +312,8 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php if ($data->other_monitors_used != "NULL")
     {
     echo "<tr>
-        <td bgcolor=SkyBlue width=15%>OTHERS</td>
-        <td bgcolor=FAFAD2>".$data->other_monitors_used."</td>
+        <td bgcolor=SkyBlue width=15% class=border-less>OTHERS</td>
+        <td bgcolor=FAFAD2 class=border-less>".$data->other_monitors_used."</td>
     </tr>";
     }
       if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
@@ -302,51 +328,80 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	</tr>
 	<?php }} ?>
 </table>
+    <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+ <tr>
+    <td class="border-less header" align="center" colspan="2">PROCEDURE</td>
+ </tr>   
+    <tr>
+        <td width="25%" bgcolor=SkyBlue class="border-less">PROCEDURE DONE</td>
+        <td bgcolor=FAFAD class="border-less"><?php echo $data->procedure_done; ?></td>
+    </tr>
+    <tr>
+        <td bgcolor=SkyBlue class="border-less">OTHER PROCEDURE</td>
+        <td bgcolor=FAFAD class="border-less"><?php echo $data->other_procedure; ?></td>
+    </tr>
+    <tr>
+        <td bgcolor=SkyBlue class="border-less">MUSCLE RELAXANT REVERSAL DONE</td>
+        <td bgcolor=FAFAD class="border-less"><?php echo $data->muscle_relaxant_reversal_done; ?></td>
+    </tr>
+     <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_procedure/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
+</table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
      <tr>
                     <td class="border-less header" align="center" colspan="5">REPLACEMENT</td>
           </tr>
     <tr>
-        <td width="20%" bgcolor="SkyBlue">BLOOD LOSS</td>
+        <td width="20%" bgcolor="SkyBlue"class=border-less>BLOOD LOSS</td>
         <td colspan="4" class=border-less  bgcolor=FAFAD><?php echo $data->blood_loss_name; ?></td>
     </tr>
     <tr>
-        <td bgcolor="SkyBlue">CRYSTALLOIDS</td>
+        <td bgcolor="SkyBlue"class=border-less>CRYSTALLOIDS</td>
         <td class=border-less bgcolor=FAFAD colspan="4"><?php echo $data->crystalloids; ?></td>
     </tr>
     <tr>
-        <td bgcolor="SkyBlue">COLLOIDS</td>
-        <td bgcolor=FAFAD colspan="4"><?php echo $data->colloids; ?></td>
+        <td bgcolor="SkyBlue" class=border-less>COLLOIDS</td>
+        <td bgcolor=FAFAD colspan="4" class=border-less><?php echo $data->colloids; ?></td>
     </tr>
     <?php
     if ($data->colloids == "YES")
     {
         echo "<tr>
-        <td bgcolor=SkyBlue>COLLOIDS USED</td>
-        <td bgcolor=FAFAD colspan=4>".$data->colloids_used."</td>";
+        <td bgcolor=SkyBlue class=border-less>COLLOIDS USED</td>
+        <td bgcolor=FAFAD colspan=4 class=border-less>".$data->colloids_used."</td>";
     }
     ?>
     <tr>
-        <td bgcolor=SkyBlue>BLOOD PRODUCT USED</td>
-        <td bgcolor=FAFAD colspan="4"><?php echo $data->blood_products_used; ?></td>
+        <td bgcolor=SkyBlue class=border-less>BLOOD PRODUCT USED</td>
+        <td bgcolor=FAFAD colspan="4" class=border-less><?php echo $data->blood_products_used; ?></td>
     </tr>
     <tr>
-        <td bgcolor=SkyBlue>FRESH WHOLE BLOOD</td>
-        <td bgcolor=FAFAD><?php echo $data->fresh_whole_blood; ?></td>
-        <td bgcolor=SkyBlue width=20%>FRESH FROZEN PLASMA</td>
-        <td bgcolor=FAFAD><?php echo $data->fresh_frozen_plasma; ?></td>
+        <td bgcolor=SkyBlue class=border-less>FRESH WHOLE BLOOD</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->fresh_whole_blood; ?></td>
+        <td bgcolor=SkyBlue width=20% class=border-less>FRESH FROZEN PLASMA</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->fresh_frozen_plasma; ?></td>
     </tr>
     <tr>
-        <td bgcolor=SkyBlue>CYROPRECIPITATE</td>
-        <td bgcolor=FAFAD><?php echo $data->cyroprecipitate; ?></td>
-        <td bgcolor=SkyBlue>PACKED RBC</td>
-        <td bgcolor=FAFAD><?php echo $data->packed_rbc; ?></td>
+        <td bgcolor=SkyBlue class=border-less>CYROPRECIPITATE</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->cyroprecipitate; ?></td>
+        <td bgcolor=SkyBlue class=border-less>PACKED RBC</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->packed_rbc; ?></td>
     </tr>
     <tr>
-        <td bgcolor=SkyBlue>PLATELETS</td>
-        <td bgcolor=FAFAD><?php echo $data->platelets; ?></td>
-        <td bgcolor=SkyBlue>OTHERS</td>
-        <td bgcolor=FAFAD><?php echo $data->others; ?></td>
+        <td bgcolor=SkyBlue class=border-less>PLATELETS</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->platelets; ?></td>
+        <td bgcolor=SkyBlue class=border-less>OTHERS</td>
+        <td bgcolor=FAFAD class=border-less><?php echo $data->others; ?></td>
     </tr>
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
@@ -360,24 +415,6 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	</td>
 	</tr>
 	<?php }} ?>
-</table>
-
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
- <tr>
-    <td class="border-less header" align="center" colspan="2">PROCEDURE</td>
- </tr>   
-    <tr>
-        <td width="25%" bgcolor=SkyBlue>PROCEDURE DONE</td>
-        <td bgcolor=FAFAD><?php echo $data->procedure_done; ?></td>
-    </tr>
-    <tr>
-        <td bgcolor=SkyBlue>OTHER PROCEDURE</td>
-        <td bgcolor=FAFAD><?php echo $data->other_procedure; ?></td>
-    </tr>
-    <tr>
-        <td bgcolor=SkyBlue>MUSCLE RELAXANT REVERSAL DONE</td>
-        <td bgcolor=FAFAD><?php echo $data->muscle_relaxant_reversal_done; ?></td>
-    </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
@@ -404,16 +441,28 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <tr><td bgcolor=FAFAD colspan=2><br></td></tr>";
     endforeach;
     }
-    ?>        
-    <tr>
-        <td valign="top" bgcolor=SkyBlue>POST-OPERATIVE DIAGNOSIS</td>
-        <td bgcolor=FAFAD><?php echo $data->post_operative_diagnosis; ?></td>
-    </tr>
+    ?>     
+     <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_delivery/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
     <td class="border-less header" align="center" colspan="2">OTHER INFORMATION</td>
- </tr>   
+ </tr>
+    <tr>
+        <td valign="top" bgcolor=SkyBlue>POST-OPERATIVE DIAGNOSIS</td>
+        <td bgcolor=FAFAD><?php echo $data->post_operative_diagnosis; ?></td>
+    </tr>
     <tr>
         <td valign="top" bgcolor=SkyBlue width="20%">DISCHARGE NOTES</td>
         <td bgcolor=FAFAD><?php echo $data->discharge_notes; ?></td>
@@ -422,6 +471,18 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td valign="top" bgcolor=SkyBlue>OTHER NOTES</td>
         <td bgcolor=FAFAD><?php echo $data->other_notes; ?></td>
     </tr>
+    <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      {
+        if($role_id == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_other_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>

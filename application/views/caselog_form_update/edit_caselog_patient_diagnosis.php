@@ -136,7 +136,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_airway[]' class="critical_level_airway_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_airway as $cla)
           {
             echo "<tr id='critical_level_airway_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_airway[]' value='".$cla->id."'>&nbsp;&nbsp;&nbsp;".$cla->code."&nbsp;&nbsp;&nbsp;".$cla->name."</td></tr>";
@@ -150,7 +150,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_cardiovascular[]' class="cardiovascular_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_cardiovascular as $clc)
           {
             echo "<tr id='cardiovascular_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_cardiovascular[]' value='".$clc->id."'>&nbsp;&nbsp;&nbsp;".$clc->code."&nbsp;&nbsp;&nbsp;".$clc->name."</td></tr>";
@@ -164,7 +164,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_discharge_planning[]' class="discharge_planning_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_discharge_planning as $cldp)
           {
             echo "<tr id='discharge_planning_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_discharge_planning[]' value='".$cldp->id."'>&nbsp;&nbsp;&nbsp;".$cldp->code."&nbsp;&nbsp;&nbsp;".$cldp->name."</td></tr>";
@@ -178,8 +178,8 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_miscellaneous[]' class="miscellaneous_valid"></td>
           </tr>
           <?php
-          $cm=1;
-          $x=1;
+          $cm=0;
+          $x=0;
           foreach($critical_level_miscellaneous as $clm)
           {
             if ($cm=="9")
@@ -198,7 +198,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_neurological[]' class="neurological_valid"></td>
           </tr>
           <?php
-          $n=1;
+          $n=0;
           foreach($critical_level_neurogical as $cln)
           {
             echo "<tr id='neurological_data$n' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_neurological[]' value='".$cln->id."'>&nbsp;&nbsp;&nbsp;".$cln->code."&nbsp;&nbsp;&nbsp;".$cln->name."</td></tr>";
@@ -212,7 +212,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_respiratory[]' class="respiratory_valid"></td>
           </tr>
           <?php
-          $res=1;
+          $res=0;
           foreach($critical_level_respiratory as $clr)
           {
             echo "<tr id='respiratory_data$res' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_respiratory[]' value='".$clr->id."'>&nbsp;&nbsp;&nbsp;".$clr->code."&nbsp;&nbsp;&nbsp;".$clr->name."</td></tr>";
@@ -226,7 +226,7 @@ else
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_regional_anesthesia[]' class="regional_anesthesia_valid"></td>
           </tr>
           <?php
-          $r=1;
+          $r=0;
           foreach($critical_level_regional_anesthesia as $clra)
           {
             echo "<tr id='regional_anesthesia_data$r' style='display: none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_regional_anesthesia[]' value='".$clra->id."'>&nbsp;&nbsp;&nbsp;".$clra->code."&nbsp;&nbsp;&nbsp;".$clra->name."</td></tr>";
@@ -237,7 +237,7 @@ else
             <td class="border-less"><b>PREOP :</b></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_preop as $clp)
           {
             echo "<tr id='preop_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_preop[]' value='".$clp->id."' class='preop_valid'>&nbsp;&nbsp;&nbsp;".$clp->code."&nbsp;&nbsp;&nbsp;".$clp->name."</td></tr>";
@@ -264,7 +264,7 @@ else
       $('.critical_event_required').attr('class','critical_event_valid');
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').show();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for($c = 1;$c<9;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').show();
       <?php } ?>
       $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
@@ -321,7 +321,7 @@ else
       $('.critical_event_valid').attr('class','critical_event_required');
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for($c = 1;$c<=9;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').hide();
       <?php } ?>
       $('.critical_level_airway_required').attr('class','critical_level_airway_valid');

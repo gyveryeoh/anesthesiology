@@ -6,7 +6,6 @@ Class Edit_caselog_model extends CI_Model
 		$this->db->where('id',$patient_information_id);
 		$this->db->update('patient_information',$datas); 
 	}
-	
 	function edit_patient_form($patient_form_id,$datas2)
 	{
 		$this->db->where('id',$patient_form_id);
@@ -187,54 +186,63 @@ Class Edit_caselog_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	function  patient_form_supplementary_agent_details($pf_id)
+	//AGPAR DETAILS
+	function apgar_details($pf_id)
 	{
-		$this->db->select('*,anesth_agent.name as aa_name');
-		$this->db->from('patient_form_supplementary_agent_details');
-		$this->db->join('anesth_agent','anesth_agent.id = patient_form_supplementary_agent_details.anesth_agent_id');
-		$this->db->where('patient_form_supplementary_agent_details.patient_form_id',$pf_id);
+		$this->db->select('*');
+		$this->db->from('patient_form_apgar_details');
+		$this->db->where('patient_form_id',$pf_id);
 		$query = $this->db->get();
 		return $query->result();
 	}
+	//UPDATE APGAR SCORE
+	function edit_apgar_score($patient_form_apgar_details_id,$data)
+	{
+		$this->db->where('id',$patient_form_apgar_details_id);
+		$this->db->update('patient_form_apgar_details',$data); 
+	}
+	//ADD APGAR SCORE
+	function add_apgar_score($patient_form_id,$data_agpar)
+	{
+		$this->db->insert('patient_form_apgar_details',$data_agpar);
+	}
+	//DELETE APGAR SCORE
+	function delete_apgar_score($patient_form_id)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_apgar_details');
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	function edit_anesthesiology_information_data($data,$pf_id)

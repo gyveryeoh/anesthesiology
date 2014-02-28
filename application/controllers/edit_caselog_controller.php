@@ -59,6 +59,7 @@ function edit_patient_information()
 		 'anesth_status_id' => '7');
 	$this->edit_caselog_model->edit_patient_info($patient_information_id,$datas);	
 	$this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+	$this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PATIENT INFORMATION</b></span></font></p>');
 	redirect('caselog_controller/index/'.$patient_id);
 }
 else
@@ -114,6 +115,7 @@ function edit_diagnosis_information($patients_id='', $pf_id='')
     'peripheral' => $peripheral,
     'anesth_status_id' => '7');
    $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+   $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PATIENT DIAGNOSIS</b></span></font></p>');
    redirect('caselog_controller/index/'.$patient_id);
   }
 }
@@ -122,7 +124,7 @@ else
  redirect('login', 'refresh');
 }
 }
-function edit_anesthesia_information($patients_id='', $pf_id='')
+function edit_epidural($patients_id='', $pf_id='')
 {
 	if($this->session->userdata('logged_in'))
 	{
@@ -138,7 +140,7 @@ function edit_anesthesia_information($patients_id='', $pf_id='')
 		$data['anesth_needle_type'] = $this->dropdown_select->anesth_needle();
 		$data['anesth_needle_gauge'] = $this->dropdown_select->anesth_needle_gauge();
 		$this->load->view('header/header', $data);
-		$this->load->view('caselog_form_update/edit_caselog_patient_anesthesia',$data);
+		$this->load->view('caselog_form_update/edit_caselog_patient_epidural',$data);
 		if ($this->input->post('submit'))
 		{
 		 $patient_information_id = $this->input->post('patient_information_id');
@@ -155,12 +157,47 @@ function edit_anesthesia_information($patients_id='', $pf_id='')
 		 'epidural_needle' => $epidural_needle,
 		 'spinal_needle_gauge' => $this->input->post('spinal_needle_gauge'),
 		 'epidural_needle_gauge' => $this->input->post('epidural_needle_gauge'),
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PATIENT EPIDURAL</b></span></font></p>');
+		 redirect('caselog_controller/index/'.$patient_id);
+		}
+}
+}
+function edit_anesthesia_information($patients_id='', $pf_id='')
+{
+	if($this->session->userdata('logged_in'))
+	{
+		$session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['username'] = $session_data['username'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$this->load->view('header/header', $data);
+		$this->load->view('caselog_form_update/edit_caselog_patient_anesthesia',$data);
+		if ($this->input->post('submit'))
+		{
+		 $patient_information_id = $this->input->post('patient_information_id');
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $patient_id = $patient_information_id."/".$patient_form_id;
+		 $spinal_needle = $this->input->post('spinal_needle');
+		 $other_spinal_needle = $this->input->post('other_spinal_needle');
+		 $epidural_needle = $this->input->post('epidural_needle');
+		 $other_epidural_needle = $this->input->post('other_epidural_needle');
+		 if ($spinal_needle == "Others (pls specify):"){ $spinal_needle = $other_spinal_needle; } else { $spinal_needle = $spinal_needle; }
+		 if ($epidural_needle == "Others (pls specify):"){ $epidural_needle = $other_epidural_needle; } else { $epidural_needle = $epidural_needle; }
+  $datas2 = array(
 		 'anesthesia_start' => $this->input->post('anesthesia_start'),
 		 'anesthesia_start_time' => $this->input->post('anesthesia_start_hour').":".$this->input->post('anesthesia_start_min')." ".$this->input->post('anesthesia_start_time'),
 		 'anesthesia_end' => $this->input->post('anesthesia_end'),
 		 'anesthesia_end_time' => $this->input->post('anesthesia_end_hour').":".$this->input->post('anesthesia_end_min')." ".$this->input->post('anesthesia_end_time'),
 		 'anesth_status_id' => '7');
 		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PATIENT ANESTHESIA INFORMATION</b></span></font></p>');
 		 redirect('caselog_controller/index/'.$patient_id);
 		}
 }
@@ -204,6 +241,7 @@ function edit_main_agents_information($patients_id='', $pf_id='')
 		 $this->edit_caselog_model->delete_main_agent_data($patient_form_id,$main_agent);
 		}
 		 $patient_id = $patient_information_id."/".$patient_form_id;
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED MAIN AGENTS</b></span></font></p>');
 		 redirect('caselog_controller/index/'.$patient_id);
 		}
 	}
@@ -246,6 +284,7 @@ function edit_supp_agents_information($patients_id='', $pf_id='')
 		 $this->edit_caselog_model->edit_supplementary_agent_data($patient_form_id,$supplementary_agent);
 		 }
 		 $patient_id = $patient_information_id."/".$patient_form_id;
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED SUPPLEMENTARY AGENTS</b></span></font></p>');
 		 redirect('caselog_controller/index/'.$patient_id);
 		}
 	}
@@ -287,7 +326,8 @@ function edit_post_op_agents_information($patients_id='',$pf_id='')
 		{
 		 $this->edit_caselog_model->edit_post_op_agent_data($patient_form_id,$post_op_pain_agent);
 		 }
-		 $patient_id = $patients_id."/".$patient_form_id;
+		 $patient_id = $patient_information_id."/".$patient_form_id;
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED POST OP PAIN AGENTS</b></span></font></p>');
 		 redirect('caselog_controller/index/'.$patient_id);
 		}
 	}
@@ -324,6 +364,7 @@ function edit_post_op_pain_management_information($patients_id='',$pf_id='')
 		  $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
 		  $this->edit_caselog_model->edit_post_op_pain_management_data_1($pf_id,$post_op_pain_management_1);
 		  $patient_id = $this->input->post('patient_information_id')."/".$pf_id;
+		  $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED POST OP PAIN MANAGEMENT</b></span></font></p>');
 		  redirect('caselog_controller/index/'.$patient_id);
 		}
 		}
@@ -362,6 +403,7 @@ function edit_monitors_used_information($patients_id='',$pf_id='')
 		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
 		  $this->edit_caselog_model->edit_monitors_used_data($patient_form_id,$monitors_used);
 		  $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED MONITORS USED</b></span></font></p>');
 		  redirect('caselog_controller/index/'.$patient_id);
 		}
 		}
@@ -410,6 +452,7 @@ function edit_replacement($patients_id='', $pf_id='')
 		 'anesth_status_id' => '7');
 		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
 		  $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED REPLACEMENT</b></span></font></p>');
 		  redirect('caselog_controller/index/'.$patient_id);
 		}
 		}
@@ -418,6 +461,142 @@ function edit_replacement($patients_id='', $pf_id='')
 		 redirect('login', 'refresh');
 		 }
 }
+function edit_procedure($patients_id='', $pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_patient_procedure',$data);
+		if ($this->input->post('submit'))
+		{
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $datas2 = array(
+		 'procedure_done' => $this->input->post('procedure_done'),
+		 'other_procedure' => $this->input->post('other_procedure'),
+		 'muscle_relaxant_reversal_done' => $this->input->post('muscle_relaxant_reversal_done'),
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PROCEDURE</b></span></font></p>');
+		 redirect('caselog_controller/index/'.$patient_id,'refresh');
+		}
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
+}
+function edit_delivery($patients_id='', $pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$data['apgar_information'] = $this->edit_caselog_model->apgar_details($pf_id);
+		$data['anesth_agpar_score_data'] = $this->dropdown_select->anesth_agpar_score();
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_patient_delivery',$data);
+		if ($this->input->post('submit'))
+		{
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $datas2 = array(
+		 'if_delivery' => $this->input->post('if_delivery'),
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		  $data_agpar = array(
+		 'patient_form_id' =>$patient_form_id,
+		 'apgar_score_1m' => $this->input->post('agpar_score_1m'),
+		 'apgar_score_5m' => $this->input->post('agpar_score_5m'),
+		 'apgar_score_10m' => $this->input->post('agpar_score_10m'));
+		 $this->edit_caselog_model->add_apgar_score($patient_form_id,$data_agpar);
+		 if ($this->input->post('if_delivery') == "NO")
+		 {
+		  $this->edit_caselog_model->delete_apgar_score($patient_form_id);
+		 }
+		 $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED DELIVERY</b></span></font></p>');
+		 redirect('caselog_controller/index/'.$patient_id,'refresh');
+		}
+		if ($this->input->post('update_apgar'))
+		{
+		 $patient_form_apgar_details_id = $this->input->post('patient_form_apgar_details_id');
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $data = array(
+		 'apgar_score_1m' => $this->input->post('apgar_score_1m'),
+		 'apgar_score_5m' => $this->input->post('apgar_score_5m'),
+		 'apgar_score_10m' => $this->input->post('apgar_score_10m'));
+		 $this->edit_caselog_model->edit_apgar_score($patient_form_apgar_details_id,$data);
+		 $datas2 = array('anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		 $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  redirect('edit_caselog_controller/edit_delivery/'.$patient_id,'refresh');
+		}
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
+}
+function edit_other_information($patients_id='', $pf_id='')
+{
+ if($this->session->userdata('logged_in'))
+	{
+	 $session_data = $this->session->userdata('logged_in');
+		$user_id = $data['id'] = $session_data['id'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['patient_form_id'] = $pf_id;
+		$data['patient_information_id'] = $patients_id;
+		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+		$this->load->view('header/header',$data);
+		$this->load->view('caselog_form_update/edit_caselog_other_information',$data);
+		if ($this->input->post('submit'))
+		{
+		 $patient_form_id = $this->input->post('patient_form_id');
+		 $datas2 = array(
+		 'post_operative_diagnosis' => $this->input->post('post_operative_diagnosis'),
+		 'discharge_notes' => $this->input->post('discharge_notes'),
+		 'other_notes' => $this->input->post('other_notes'),
+		 'anesth_status_id' => '7');
+		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
+		  $patient_id = $this->input->post('patient_information_id')."/".$patient_form_id;
+		  $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED OTHER INFORMATION</b></span></font></p>');
+		  redirect('caselog_controller/index/'.$patient_id,'refresh');
+		}
+		}
+		else
+		{
+		 redirect('login', 'refresh');
+		 }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

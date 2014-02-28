@@ -687,7 +687,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_airway[]' class="critical_level_airway_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_airway as $cla)
           {
             echo "<tr id='critical_level_airway_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_airway[]' value='".$cla->id."'>&nbsp;&nbsp;&nbsp;".$cla->code."&nbsp;&nbsp;&nbsp;".$cla->name."</td></tr>";
@@ -701,7 +701,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_cardiovascular[]' class="cardiovascular_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_cardiovascular as $clc)
           {
             echo "<tr id='cardiovascular_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_cardiovascular[]' value='".$clc->id."'>&nbsp;&nbsp;&nbsp;".$clc->code."&nbsp;&nbsp;&nbsp;".$clc->name."</td></tr>";
@@ -715,7 +715,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_discharge_planning[]' class="discharge_planning_valid"></td>
           </tr>
           <?php
-          $x=1;
+          $x=0;
           foreach($critical_level_discharge_planning as $cldp)
           {
             echo "<tr id='discharge_planning_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_discharge_planning[]' value='".$cldp->id."'>&nbsp;&nbsp;&nbsp;".$cldp->code."&nbsp;&nbsp;&nbsp;".$cldp->name."</td></tr>";
@@ -749,7 +749,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_neurological[]' class="neurological_valid"></td>
           </tr>
           <?php
-          $n=1;
+          $n=0;
           foreach($critical_level_neurogical as $cln)
           {
             echo "<tr id='neurological_data$n' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_neurological[]' value='".$cln->id."'>&nbsp;&nbsp;&nbsp;".$cln->code."&nbsp;&nbsp;&nbsp;".$cln->name."</td></tr>";
@@ -777,7 +777,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_regional_anesthesia[]' class="regional_anesthesia_valid"></td>
           </tr>
           <?php
-          $r=1;
+          $r=0;
           foreach($critical_level_regional_anesthesia as $clra)
           {
             echo "<tr id='regional_anesthesia_data$r' style='display: none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_regional_anesthesia[]' value='".$clra->id."'>&nbsp;&nbsp;&nbsp;".$clra->code."&nbsp;&nbsp;&nbsp;".$clra->name."</td></tr>";
