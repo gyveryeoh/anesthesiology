@@ -3,7 +3,7 @@
         <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;">
         <a href="<?php echo base_url();?>index.php/users_controller/change_password">UPDATE PASSWORD</a> 
         <?php
-        if ($role_id == "2")
+        if ($user_information['role_id'] == "2")
         {
              echo ' - <a href="'.base_url().'index.php/users_controller/add_user">ADD USERS</a>';
         }

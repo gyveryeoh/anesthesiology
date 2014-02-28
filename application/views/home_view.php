@@ -1,6 +1,5 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_patient">
- <input type="hidden" name="user_id" value="<?php echo $id; ?>">
- <table width="80%" cellpadding="1" cellspacing="0">
+<table width="80%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">PATIENTS REGISTRATION</td>
           </tr>

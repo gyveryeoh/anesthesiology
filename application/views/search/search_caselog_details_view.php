@@ -30,7 +30,7 @@
                               $list_name[$x] = $list->name;
                               $x++;
                               endforeach;
-                              echo "<option value='".$list_id[0]."'>".$list_name[0]."</option>
+                              echo"<option value='".$list_id[0]."'>".$list_name[0]."</option>
                                    <option value='".$list_id[2]."'>".$list_name[2]."</option>
                                    <option value='".$list_id[5]."'>".$list_name[5]."</option>
                                    <option value='".$list_id[3]."'>".$list_name[3]."d</option>

@@ -1,5 +1,5 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searched_index">
- <input type="hidden" value="<?php echo $institution_id; ?>" name="institution_id">
+ <input type="hidden" value="<?php echo $user_information['institution_id']; ?>" name="institution_id">
  <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">SEARCH</td>

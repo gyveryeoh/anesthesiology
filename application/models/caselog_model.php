@@ -94,8 +94,8 @@ function patient_form_monitors_used_details($patient_form_id)
  $this->db->from('patient_form_monitors_used_details');
  $this->db->join('anesth_monitors', 'anesth_monitors.id = patient_form_monitors_used_details.monitors_used_id');        
  $this->db->where('patient_form_id',$patient_form_id);
-  $query = $this->db->get();
-   return $query->result();
+ $query = $this->db->get();
+ return $query->result();
 }
 function patient_form_apgar_details($patient_form_id)
 {
@@ -105,6 +105,80 @@ function patient_form_apgar_details($patient_form_id)
   $query = $this->db->get();
    return $query->result();
 }
+function patient_form_critical_level_airway_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_airway_details');
+ $this->db->join('critical_level_airway', 'critical_level_airway.id = patient_form_critical_level_airway_details.critical_level_airway_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_cardiovascular_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_cardiovascular_details');
+ $this->db->join('critical_level_cardiovascular', 'critical_level_cardiovascular.id = patient_form_critical_level_cardiovascular_details.critical_level_cardiovascular_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_discharge_planning_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_discharge_planning_details');
+ $this->db->join('critical_level_discharge_planning', 'critical_level_discharge_planning.id = patient_form_critical_level_discharge_planning_details.critical_level_discharge_planning_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_miscellaneous_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_miscellaneous_details');
+ $this->db->join('critical_level_miscellaneous', 'critical_level_miscellaneous.id = patient_form_critical_level_miscellaneous_details.critical_level_miscellaneous_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_neurological_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_neurological_details');
+ $this->db->join('critical_level_neurogical', 'critical_level_neurogical.id = patient_form_critical_level_neurological_details.critical_level_neurological_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_respiratory_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_respiratory_details');
+ $this->db->join('critical_level_respiratory', 'critical_level_respiratory.id = patient_form_critical_level_respiratory_details.critical_level_respiratory_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_regional_anesthesia_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_regional_anesthesia_details');
+ $this->db->join('critical_level_regional_anesthesia', 'critical_level_regional_anesthesia.id = patient_form_critical_level_regional_anesthesia_details.critical_level_regional_anesthesia_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+function patient_form_critical_level_preop_details($patient_form_id)
+{
+ $this->db->select('*');
+ $this->db->from('patient_form_critical_level_preop_details');
+ $this->db->join('critical_level_preop', 'critical_level_preop.id = patient_form_critical_level_preop_details.critical_level_preop_id');        
+ $this->db->where('patient_form_id',$patient_form_id);
+ $query = $this->db->get();
+ return $query->result();
+}
+
+
 function update_caselog_status($data,$patient_form_id)
 {
  $this->db->where('id', $patient_form_id);

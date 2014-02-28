@@ -15,13 +15,7 @@ class Users_controller extends CI_Controller
    if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
-     $data['institution_id'] = $session_data['institution_id'];
+     $data["user_information"] = $session_data;
      $data['user_role'] = $this->dropdown_select->roles();
      $this->load->view('header/header', $data);
      $this->load->view('header/users_header');
@@ -38,13 +32,7 @@ class Users_controller extends CI_Controller
   if($this->session->userdata('logged_in'))
   {
    $session_data = $this->session->userdata('logged_in');
-   $data['username'] = $session_data['username'];
-   $data['lastname'] = $session_data['lastname'];
-   $data['firstname'] = $session_data['firstname'];
-   $data['middle_initials'] = $session_data['middle_initials'];
-   $data['role_id'] = $session_data['role_id'];
-   $data['id'] = $session_data['id'];
-   $data['institution_id'] = $session_data['institution_id'];
+   $data["user_information"] = $session_data;
    $username = $this->input->post('username');
    $data['username'] = $this->user->user_checking($username);
    if ($this->input->post('password') != $this->input->post('confirm_password'))
@@ -64,7 +52,7 @@ class Users_controller extends CI_Controller
      else
      {
       $data = array
-      ('institution_id' => $data['institution_id'],
+      ('institution_id' => $session_data['institution_id'],
        'lastname'       => $this->input->post('lastname'),
        'firstname'      => $this->input->post('firstname'),
        'middle_initials'=> $this->input->post('middle_initials'),
@@ -73,12 +61,7 @@ class Users_controller extends CI_Controller
        'role_id'	=> $this->input->post('role_id'));
        $this->user->save_user($data);
        $data['user_role'] = $this->dropdown_select->roles();
-       $data['username'] = $session_data['username'];
-       $data['lastname'] = $session_data['lastname'];
-       $data['firstname'] = $session_data['firstname'];
-       $data['middle_initials'] = $session_data['middle_initials'];
-       $data['role_id'] = $session_data['role_id'];
-       $data['id'] = $session_data['id'];
+       $data["user_information"] = $session_data;
        $this->session->set_flashdata("success",'<b>SUCCESSFULLY CREATED RESIDENT INFO</b>');
        redirect('users_controller/add_user');
        }
@@ -95,13 +78,8 @@ function users_caselog()
  {
   $status = $this->input->get('status');
   $session_data = $this->session->userdata('logged_in');
-  $data['username'] = $session_data['username'];
-  $data['lastname'] = $session_data['lastname'];
-  $data['firstname'] = $session_data['firstname'];
-  $data['middle_initials'] = $session_data['middle_initials'];
-  $data['role_id'] = $session_data['role_id'];
-  $data['id'] = $session_data['id'];
-  $user_id = $data['id'];
+  $data["user_information"] = $session_data;
+  $user_id = $session_data['id'];
   $this->load->library('pagination');
   if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
   $config["base_url"] = base_url()."index.php/users_controller/users_caselog";
@@ -137,12 +115,7 @@ function change_password()
   $data["error_3"] = 0;
   $data["success"] = 0;
   $session_data = $this->session->userdata('logged_in');
-  $data['username'] = $session_data['username'];
-  $data['lastname'] = $session_data['lastname'];
-  $data['firstname'] = $session_data['firstname'];
-  $data['middle_initials'] = $session_data['middle_initials'];
-  $data['role_id'] = $session_data['role_id'];
-  $data['id'] = $session_data['id'];
+   $data["user_information"] = $session_data;
   $this->load->view('header/header', $data);
   $this->load->view('header/users_header', $data);
   if($this->input->post('old_password') != NULL and $this->input->post('new_password') != NULL and $this->input->post('confirm_password') != NULL)

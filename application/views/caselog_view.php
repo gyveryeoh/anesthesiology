@@ -65,7 +65,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
      <?php
       if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -107,7 +107,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -142,7 +142,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
    <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -171,7 +171,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -198,7 +198,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
             }
              if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-            if($role_id == 1) { ?>
+            if($user_information['role_id'] == 1) { ?>
 	<tr>
 	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_main_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
@@ -228,7 +228,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     }
      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-    if($role_id == 1) { ?>
+    if($user_information['role_id'] == 1) { ?>
 	<tr>
 	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_supp_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
@@ -257,7 +257,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     }
      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-    if($role_id == 1) { ?>
+    if($user_information['role_id'] == 1) { ?>
 	<tr>
 	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_post_op_agents_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
@@ -289,7 +289,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
           }
            if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-    if($role_id == 1) { ?>
+    if($user_information['role_id'] == 1) { ?>
 	<tr>
 	<td bgcolor="FAFAD2" colspan="2" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_post_op_pain_management_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
@@ -318,7 +318,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     }
       if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -347,7 +347,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
      <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -406,7 +406,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -445,7 +445,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
      <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -474,7 +474,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {
-        if($role_id == 1)
+        if($user_information['role_id'] == 1)
 	{
 	?>
 	<tr>
@@ -495,39 +495,49 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php
         if ($data->critical_events=="YES")
         {
-            foreach ($critical_events_information as $critical_events_data){}
-        echo "<tr><td valign='top'>Anesthetic Complications (Intra-OP)</td>
-        <td>: ".$critical_events_data->anesthetic_complications_intra_op."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Place of Occurence (Intra-Op)</td>
-        <td>: ".$critical_events_data->place_of_occurence_intra_op."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Anesthetic Complications (Post-Op)</td>
-        <td>: ".$critical_events_data->anesthetic_complications_post_op."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Place of Occurence (Post-Op)</td>
-        <td>: ".$critical_events_data->place_of_occurence_post_op."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Describe the Incident</td>
-        <td>: ".$critical_events_data->describe_the_incident."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Describe the management of the situation (optional)</td>
-        <td>: ".$critical_events_data->describe_the_management_of_the_situation."</td>
-    </tr>
-    <tr>
-        <td valign='top'>Did the event change your clinical practice for future events like this? (optional)</td>
-        <td>: ".$critical_events_data->did_the_event_change_your_clinical_practice_for_future_events."</td>
-    </tr>
-    <tr>
-        <td valign='top'>What led to the detection of the incident?</td>
-        <td>: ".$critical_events_data->what."</td>
-    </tr>";
-    }
+            echo "<tr><td bgcolor=skyblue colspan=2>AIRWAY</td></tr>";
+            foreach ($patient_form_critical_level_airway_details as $airway_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$airway_data->code.' '.$airway_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>CARDIOVASCULAR</td></tr>";
+            foreach ($patient_form_critical_level_cardiovascular_details as $cardiovascular_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$cardiovascular_data->code.' '.$cardiovascular_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>DISCHARGE PLANNING</td></tr>";
+            foreach ($patient_form_critical_level_discharge_planning_details as $discharge_planning_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$discharge_planning_data->code.' '.$discharge_planning_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>MISCELLANEOUS</td></tr>";
+            foreach ($patient_form_critical_level_miscellaneous_details as $miscellaneous_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$miscellaneous_data->code.' '.$miscellaneous_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>NEUROLOGICAL</td></tr>";
+            foreach ($patient_form_critical_level_neurological_details as $neurological_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$neurological_data->code.' '.$neurological_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>RESPIRATORY</td></tr>";
+            foreach ($patient_form_critical_level_respiratory_details as $respiratory_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$respiratory_data->code.' '.$respiratory_data->name."</td>
+            </tr>";
+            endforeach;
+            echo "<tr><td bgcolor=skyblue colspan=2>REGIONAL ANESTHESIA</td></tr>";
+            foreach ($patient_form_critical_level_regional_anesthesia_details as $regional_anesthesia_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$regional_anesthesia_data->code.' '.$regional_anesthesia_data->name."</td>
+            </tr>";
+            endforeach;
+             
+            echo "<tr><td bgcolor=skyblue colspan=2>PREOP</td></tr>";
+            foreach ($patient_form_critical_level_preop_details as $preop_data):
+            echo "<tr><td bgcolor=fafad2 colspan=2>".$preop_data->code.' '.$preop_data->name."</td>
+            </tr>";
+            endforeach;
+             
+            }
     ?>
 </table>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
@@ -575,7 +585,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
     <?php
-    if ($role_id == "2")
+    if ($user_information['role_id'] == "2")
     {
      if ($data->anesth_id == "1" || $data->anesth_id == "7")
     {

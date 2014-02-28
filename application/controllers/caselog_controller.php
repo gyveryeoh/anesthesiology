@@ -15,14 +15,9 @@ function index($patients_id='', $pf_id='')
           if($this->session->userdata('logged_in'))
           {
           $session_data = $this->session->userdata('logged_in');
-          $user_id = $data['id'] = $session_data['id'];
-           $data['username'] = $session_data['username'];
-           $data['lastname'] = $session_data['lastname'];
-           $data['firstname'] = $session_data['firstname'];
-           $data['middle_initials'] = $session_data['middle_initials'];
-           $data['role_id'] = $session_data['role_id'];
-	   $data['institution_id'] = $session_data['institution_id'];
-           $data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+          $data["user_information"] = $session_data;
+          $user_id = $session_data['id'];
+          $data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
           if ($data['patient_information'] != false)
           {
           foreach ($data['patient_information'] as $delivery){}
@@ -37,15 +32,21 @@ function index($patients_id='', $pf_id='')
           {
            $data['apgar_information'] = $this->caselog_model->patient_form_apgar_details($patient_form_id);
           }
-          /*
-          if($delivery->critical_events == "YES")
+          if ($delivery->critical_events == "YES")
           {
-          $data['critical_events_information'] = $this->caselog_model->patient_form_critical_events_details($patient_form_id);
-          }
-          */
+          $data['patient_form_critical_level_airway_details'] = $this->caselog_model->patient_form_critical_level_airway_details($patient_form_id);
+          $data['patient_form_critical_level_cardiovascular_details'] = $this->caselog_model->patient_form_critical_level_cardiovascular_details($patient_form_id);
+          $data['patient_form_critical_level_discharge_planning_details'] = $this->caselog_model->patient_form_critical_level_discharge_planning_details($patient_form_id);
+          $data['patient_form_critical_level_miscellaneous_details'] = $this->caselog_model->patient_form_critical_level_miscellaneous_details($patient_form_id);
+          $data['patient_form_critical_level_neurological_details'] = $this->caselog_model->patient_form_critical_level_neurological_details($patient_form_id);
+          $data['patient_form_critical_level_respiratory_details'] = $this->caselog_model->patient_form_critical_level_respiratory_details($patient_form_id);
+          $data['patient_form_critical_level_regional_anesthesia_details'] = $this->caselog_model->patient_form_critical_level_regional_anesthesia_details($patient_form_id);
+          $data['patient_form_critical_level_preop_details'] = $this->caselog_model->patient_form_critical_level_preop_details($patient_form_id);
+          
+	  }
           $this->load->view('header/header', $data);
 	  $data['status_list'] = $this->dropdown_select->anesth_status();
-	  $data['institution_details'] = $this->dropdown_select->institution_info($data['institution_id']);
+	  $data['institution_details'] = $this->dropdown_select->institution_info($session_data['institution_id']);
           $this->load->view('caselog_view',$data);
           }
           else
@@ -66,12 +67,8 @@ function update_caselog()
  if($this->session->userdata('logged_in'))
           {
           $session_data = $this->session->userdata('logged_in');
-          $user_id = $data['id'] = $session_data['id'];
-           $data['username'] = $session_data['username'];
-           $data['lastname'] = $session_data['lastname'];
-           $data['firstname'] = $session_data['firstname'];
-           $data['middle_initials'] = $session_data['middle_initials'];
-           $data['role_id'] = $session_data['role_id'];
+	  $data["user_information"] = $session_data;
+          $user_id = $session_data['id'];
 
  $patient_form_id = $this->input->post('patient_form_id');
  $anesth_status_id = $this->input->post('anesth_status_id');
@@ -83,7 +80,6 @@ function update_caselog()
   $this->session->set_flashdata("success",'<p style="background-color:#faadad; width:80%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;">
 									<img src="../assets/images/error.png" width="15" height="15" style="margin-top:2px;">
 									<font size="3" color="red"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED DATA.</b></span></font></p>');
-           
  redirect('search_controller/searchcaselog_details?institution_id='.$this->input->post('institution_id').'&user_id='.$this->input->post('user_id').'&status_id='.$this->input->post('status_id').'');
 }
 else

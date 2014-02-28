@@ -113,7 +113,7 @@ else
  </tr>
 <?php if ($not_in_database == "Others (pls specify):")
 {
- $airway_display = 'display:block;';
+ $airway_display = 'display:table-row;';
 }
 else
 {
@@ -121,7 +121,7 @@ else
 }
 ?>
 <tr style="<?php echo $airway_display; ?>" id="other_airway">
- <td class="border-less" bgcolor="SKYBLUE">OTHER AIRWAY</td>
+ <td class="border-less" bgcolor="SKYBLUE" width=25%>OTHER AIRWAY</td>
  <td class="border-less" bgcolor="FAFAD2"><input type="text" size="20" name="other_airway" class="airway_valid" value="<?php if($not_in_database == true)echo $data->airway; ?>"></td>
 </tr>
 <tr>

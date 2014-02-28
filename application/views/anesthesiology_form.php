@@ -70,7 +70,7 @@ $('.rem_sub').click(function(e){
 });
 </script>
  <?php
- foreach ($patient_information_data as $row){}
+ foreach ($patient_information_data as $row): endforeach;
 //Male or Female
 if ($row->gender == "M"){ $row->gender = "Male"; } else { $row->gender = "Female"; }
 //Age Calculation 
@@ -86,7 +86,7 @@ $diff = $date1->diff($date2);
           </tr>
           <tr>
                     <td class="border-less"><b>Resident Name :</b></td>
-                    <td class="border-less" align="left"><?php echo ucwords($lastname).", ".ucwords($firstname)." ".ucwords($middle_initials)."."; ?></td>
+                    <td class="border-less" align="left"><?php echo ucwords($user_information['lastname']).", ".ucwords($user_information['firstname'])." ".ucwords($user_information['middle_initials'])."."; ?></td>
           </tr>
           <tr>
                     <td class="border-less" align="left"><b>Training Institution :</b></td>

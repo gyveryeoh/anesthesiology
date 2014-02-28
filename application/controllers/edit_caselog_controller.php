@@ -14,12 +14,7 @@ function index($patients_id='', $pf_id='')
 	if($this->session->userdata('logged_in'))
 	{
 		$session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['username'] = $session_data['username'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
 		$this->load->view('header/header', $data);
 		$this->load->view('caselog_form_update/edit_caselog_patient_information',$data);
@@ -72,12 +67,7 @@ function edit_diagnosis_information($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
  {
   $session_data = $this->session->userdata('logged_in');
-  $user_id = $data['id'] = $session_data['id'];
-  $data['username'] = $session_data['username'];
-  $data['lastname'] = $session_data['lastname'];
-  $data['firstname'] = $session_data['firstname'];
-  $data['middle_initials'] = $session_data['middle_initials'];
-  $data['role_id'] = $session_data['role_id'];
+  $data['user_information'] = $session_data; 
   $data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
   $data['anesth_services_data'] = $this->dropdown_select->anesth_services();
   $data['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
@@ -129,13 +119,7 @@ function edit_epidural($patients_id='', $pf_id='')
 	if($this->session->userdata('logged_in'))
 	{
 		$session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['username'] = $session_data['username'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
-		
+		$data['user_information'] = $session_data; 
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
 		$data['anesth_needle_type'] = $this->dropdown_select->anesth_needle();
 		$data['anesth_needle_gauge'] = $this->dropdown_select->anesth_needle_gauge();
@@ -169,13 +153,7 @@ function edit_anesthesia_information($patients_id='', $pf_id='')
 	if($this->session->userdata('logged_in'))
 	{
 		$session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['username'] = $session_data['username'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
-		
+		$data['user_information'] = $session_data; 
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
 		$this->load->view('header/header', $data);
 		$this->load->view('caselog_form_update/edit_caselog_patient_anesthesia',$data);
@@ -208,11 +186,7 @@ function edit_main_agents_information($patients_id='', $pf_id='')
 	{
 	 
 		$session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['main_agents_details'] = $this->edit_caselog_model->patient_form_main_agent_details($pf_id);
 		$data['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
 		$data['patients_id'] = $patients_id;
@@ -255,11 +229,7 @@ function edit_supp_agents_information($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
  {
   $session_data = $this->session->userdata('logged_in');
-  $user_id = $data['id'] = $session_data['id'];
-  $data['lastname'] = $session_data['lastname'];
-  $data['firstname'] = $session_data['firstname'];
-  $data['middle_initials'] = $session_data['middle_initials'];
-  $data['role_id'] = $session_data['role_id'];
+  $data['user_information'] = $session_data; 
   $data['supp_agents_details'] = $this->edit_caselog_model->patient_form_supp_agent_details($pf_id);
   $data['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
   $data['patients_id'] = $patients_id;
@@ -298,11 +268,7 @@ function edit_post_op_agents_information($patients_id='',$pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+	        $data['user_information'] = $session_data; 
 		$data['patient_form_post_op_pain_agent_details'] = $this->edit_caselog_model->patient_form_post_op_pain_agent_details($pf_id);
 		$data['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
 		$data['patients_id'] = $patients_id;
@@ -341,11 +307,7 @@ function edit_post_op_pain_management_information($patients_id='',$pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+	        $data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
@@ -378,11 +340,7 @@ function edit_monitors_used_information($patients_id='',$pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
@@ -417,11 +375,7 @@ function edit_replacement($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
@@ -466,11 +420,7 @@ function edit_procedure($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
@@ -500,11 +450,7 @@ function edit_delivery($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
@@ -558,11 +504,7 @@ function edit_other_information($patients_id='', $pf_id='')
  if($this->session->userdata('logged_in'))
 	{
 	 $session_data = $this->session->userdata('logged_in');
-		$user_id = $data['id'] = $session_data['id'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
+		$data['user_information'] = $session_data; 
 		$data['patient_form_id'] = $pf_id;
 		$data['patient_information_id'] = $patients_id;
 		$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);

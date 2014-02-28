@@ -14,13 +14,7 @@ class Search_controller extends CI_Controller {
  if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
-     $data['institution_id'] = $session_data['institution_id'];
+     $data["user_information"] = $session_data;
      $this->load->view('header/header', $data);
      $this->load->view('search/search_index_view');
    }
@@ -33,19 +27,13 @@ function searched_index()
 {
  if($this->session->userdata('logged_in'))
  {
-  $case_number = $this->input->post('case_number');
-  $institution_id = $this->input->post('institution_id');
-  $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
+   $session_data = $this->session->userdata('logged_in');
+   $data["user_information"] = $session_data;
+   $case_number = $this->input->post('case_number');
+   $institution_id = $this->input->post('institution_id');
+   $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
   if ($datas['case_number'] == true)
   {
-   $session_data = $this->session->userdata('logged_in');
-   $data['username'] = $session_data['username'];
-   $data['lastname'] = $session_data['lastname'];
-   $data['firstname'] = $session_data['firstname'];
-   $data['middle_initials'] = $session_data['middle_initials'];
-   $data['role_id'] = $session_data['role_id'];
-   $data['id'] = $session_data['id'];
-   $data['institution_id'] =  $session_data['institution_id'];
    $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
    $this->load->view('header/header',$data);
    $this->load->view('search/searched_index_view',$datas);
@@ -54,13 +42,7 @@ function searched_index()
   {
    $error['message'] = "CASE NUMBER NOT EXIST.";
    $session_data = $this->session->userdata('logged_in');
-   $data['username'] = $session_data['username'];
-   $data['lastname'] = $session_data['lastname'];
-   $data['firstname'] = $session_data['firstname'];
-   $data['middle_initials'] = $session_data['middle_initials'];
-   $data['role_id'] = $session_data['role_id'];
-   $data['id'] = $session_data['id'];
-   $data['institution_id'] = $session_data['institution_id'];
+   $data["user_information"] = $session_data;
    $this->load->view('header/header',$data);
    $this->load->view('search/search_index_view',$error);
 }
@@ -75,12 +57,7 @@ else
    if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
+     $data["user_information"] = $session_data;
      $insti_id = $session_data['institution_id'];
      $this->load->view('header/header', $data);
      $datas['institution_list'] = $this->dropdown_select->anesth_institutions();
@@ -98,12 +75,7 @@ else
    if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
+     $data["user_information"] = $session_data;
      $insti_id = $session_data['institution_id'];
      
           $user_id        = $this->input->get('user_id');

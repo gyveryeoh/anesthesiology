@@ -16,13 +16,7 @@ class Home extends CI_Controller {
    if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
-
+     $data["user_information"] = $session_data;
      $this->load->view('header/header', $data);
      $this->load->view('home_view');
    }
@@ -37,15 +31,9 @@ class Home extends CI_Controller {
    if($this->session->userdata('logged_in'))
        {
         $session_data = $this->session->userdata('logged_in');
-        $data['username'] = $session_data['username'];
-        $data['lastname'] = $session_data['lastname'];
-        $data['firstname'] = $session_data['firstname'];
-        $data['middle_initials'] = $session_data['middle_initials'];
-        $data['role_id'] = $session_data['role_id'];
-        $data['id'] = $session_data['id'];
-        $data['institution_id'] = $session_data['institution_id'];
+        $data["user_information"] = $session_data;
         $case_number = $this->input->post('case_number');
-        $data['case_number'] = $this->user->case_number_checking($case_number,$data['institution_id']);
+        $data['case_number'] = $this->user->case_number_checking($case_number,$session_data['institution_id']);
         if ($data['case_number'] == true)
         {
          $data['message'] = "CASE NUMBER IS ALREADY EXIST.";
@@ -56,15 +44,15 @@ class Home extends CI_Controller {
        {
   $data = array
   ('case_number'    => $case_number,
-   'institution_id' => $data['institution_id'],
-  'lastname'        => $this->input->post('lastname'),
-  'firstname'       => $this->input->post('firstname'),
-  'middle_initials' => $this->input->post('middle_initials'),
-  'gender'          => $this->input->post('gender'),
-  'birthdate'       => $this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day'),
-  'weight'          => $this->input->post('weight'));
-  $this->user->add_patient($data);
-  $patient_information_id = $this->db->insert_id();
+   'institution_id' => $session_data['institution_id'],
+   'lastname'        => $this->input->post('lastname'),
+   'firstname'       => $this->input->post('firstname'),
+   'middle_initials' => $this->input->post('middle_initials'),
+   'gender'          => $this->input->post('gender'),
+   'birthdate'       => $this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day'),
+   'weight'          => $this->input->post('weight'));
+    $this->user->add_patient($data);
+    $patient_information_id = $this->db->insert_id();
   redirect('home/anesthesiology_form/'.$patient_information_id);
   }
   else
@@ -109,17 +97,11 @@ class Home extends CI_Controller {
   if($this->session->userdata('logged_in'))
        {
         $session_data = $this->session->userdata('logged_in');
-        $data['username'] = $session_data['username'];
-        $data['lastname'] = $session_data['lastname'];
-        $data['firstname'] = $session_data['firstname'];
-        $data['middle_initials'] = $session_data['middle_initials'];
-        $data['role_id'] = $session_data['role_id'];
-        $data['id'] = $session_data['id'];
-        $data['institution_id'] = $session_data['institution_id'];
-  $data = array(
+   $data["user_information"] = $session_data;
+    $data = array(
    'patient_information_id' => $this->input->post('patient_information_id'),
-   'user_id' => $data['id'],
-   'institution_id' => $data['institution_id'],
+   'user_id' => $session_data['id'],
+   'institution_id' => $session_data['institution_id'],
    'operation_date' =>$this->input->post('operation_date'),
    'level_of_involvement' =>$this->input->post('level_of_involvement'),
    'type_of_patient' => $this->input->post('type_of_patient'),
@@ -241,11 +223,7 @@ $this->user->add_anesthesiology_information_data($data);
    if($this->session->userdata('logged_in'))
    {
   $session_data = $this->session->userdata('logged_in');
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
+   $data["user_information"] = $session_data;
    $this->load->view('header/header',$data);
    $this->load->view('success_view',$data);
   }
@@ -260,13 +238,8 @@ $this->user->add_anesthesiology_information_data($data);
   if ($datas['patient_information_data'] == false)
   {
    $datas['message'] = "NO INFORMATION FOUND.";
-   $session_data = $this->session->userdata('logged_in');
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
-     $data['institution_id'] = $session_data['institution_id'];
+  $session_data = $this->session->userdata('logged_in');
+  $data["user_information"] = $session_data;
   $this->load->view('header/header',$data);
   $this->load->view('home_view',$datas);
   }
@@ -275,13 +248,7 @@ $this->user->add_anesthesiology_information_data($data);
    if($this->session->userdata('logged_in'))
    {
   $session_data = $this->session->userdata('logged_in');
-  $data['username'] = $session_data['username'];
-     $data['lastname'] = $session_data['lastname'];
-     $data['firstname'] = $session_data['firstname'];
-     $data['middle_initials'] = $session_data['middle_initials'];
-     $data['role_id'] = $session_data['role_id'];
-     $data['id'] = $session_data['id'];
-     $data['institution_id'] = $session_data['institution_id'];
+     $data["user_information"] = $session_data;
      $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
      $datas['anesth_services_data'] = $this->dropdown_select->anesth_services();
      $datas['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
@@ -303,7 +270,7 @@ $this->user->add_anesthesiology_information_data($data);
      $datas['critical_level_preop'] = $this->dropdown_select->critical_level_preop();
      $datas['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
      $datas['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
-     $datas['institution_details'] = $this->user->institution_info($data['institution_id']);
+     $datas['institution_details'] = $this->user->institution_info($session_data['institution_id']);
      $this->load->view('header/header',$data);
      $this->load->view('anesthesiology_form',$datas);
    }
@@ -371,12 +338,7 @@ function pdf_report($patients_id='', $pf_id='')
           if($this->session->userdata('logged_in'))
           {
            $session_data = $this->session->userdata('logged_in');
-           $data['username'] = $session_data['username'];
-           $data['lastname'] = $session_data['lastname'];
-           $data['firstname'] = $session_data['firstname'];
-           $data['middle_initials'] = $session_data['middle_initials'];
-           $data['role_id'] = $session_data['role_id'];
-           $data['id'] = $session_data['id'];
+           $data["user_information"] = $session_data;
            $insti_id = $session_data['institution_id'];
           $this->load->library('pagination');
           $config = array();
@@ -412,12 +374,7 @@ function pdf_report($patients_id='', $pf_id='')
             if($this->session->userdata('logged_in'))
           {
            $session_data = $this->session->userdata('logged_in');
-           $data['username'] = $session_data['username'];
-           $data['lastname'] = $session_data['lastname'];
-           $data['firstname'] = $session_data['firstname'];
-           $data['middle_initials'] = $session_data['middle_initials'];
-           $data['role_id'] = $session_data['role_id'];
-           $data['id'] = $session_data['id'];
+           $data["user_information"] = $session_data;
            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
            $datas["patient_informationss"] = $this->user->fetch_patient_information_by_resident($page,$config["per_page"],$resident_id,$status);
            $datas['resident_information'] = $this->user->resident_information($resident_id);
