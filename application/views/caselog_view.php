@@ -251,7 +251,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <?php if ($data->other_post_op_pain_agent != "NULL")
     {
     echo "<tr>
-        <td bgcolor=skyblue class=border-less>OTHERS</td>
+        <td bgcolor=skyblue class=border-less width=20%>OTHERS</td>
         <td bgcolor=fafad2 class=border-less>".$data->other_post_op_pain_agent."</td>
     </tr>";
     }
