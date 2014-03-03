@@ -18,8 +18,12 @@ Class User extends CI_Model
      return false;
    }
  }
-  function resident_information($resident_id)
+ function add_login_data($data)
  {
+  $this->db->insert('user_login_summary', $data);
+ }
+  function resident_information($resident_id)
+{
   $this->db->select('*');
   $this->db->from('users');
   $this->db->where('id',$resident_id);

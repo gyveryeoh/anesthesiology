@@ -42,25 +42,16 @@
 </td>
 </tr>
           <tr>
-                    <td class="border-less"><b>USER UPDATE as of</b> <b style="color: #069;"><?php echo date('m-d-Y'); ?></b></td>
+                    <td class="border-less"><b>UPCOMING UPDATE FOR AENDICUS II</b></td>
           </tr>
           <tr>
-                    <td class="border-less">OTHER INFORMATION</td>
+                    <td class="border-less">LOGIN SUMMARY OF USER</td>
           </tr>
           <tr>
-                    <td class="border-less">FOR DELIVERY</td>
+                    <td class="border-less">PROFILE UPDATE</td>
           </tr>
           <tr>
-                    <td class="border-less">PROCEDURE</td>
-          </tr>
-          <tr>
-                    <td class="border-less">SEPARATED NEEDLE GUAGE AND ANESTHESIA</td>
-          </tr>
-          <tr>
-                    <td class="border-less">VALIDATION POP UP OF EVERY UPDATE</td>
-          </tr>
-          <tr>
-                    <td class="border-less">ADDED "NONE" CHECKBOX OF CRITICAL EVENTS</td>
+                    <td class="border-less">DATE OF ENCODING</td>
           </tr>
 <tr>
 <td colspan="2" align="center" style="border-top:hidden;" class="border-less"><br><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
