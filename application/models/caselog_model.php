@@ -4,6 +4,7 @@ Class Caselog_model extends CI_Model
  function select_patient_information($patients_id,$pf_id)
  {
      $this->db->select('*,patient_form.id as patient_form_id,
+                       patient_form.date_created as pf_date_created,
                        patient_information.lastname as patient_information_lastname,
                        patient_information.firstname as patient_information_firstname,
                        patient_information.middle_initials as patient_information_middle_initials,

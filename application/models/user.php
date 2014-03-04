@@ -328,6 +328,7 @@ function count_residents($insti_id)
  $this->db->select('*');
  $this->db->from('users');
  $this->db->where('institution_id',$insti_id);
+ $this->db->where('role_id',1);
  $q = $this->db->get();
  return $q->num_rows();
 }
@@ -337,6 +338,7 @@ function fetch_residents($limit, $start,$insti_id)
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('institution_id',$insti_id);
+        $this->db->where('role_id',1);
         $query = $this->db->get();	
 	return $query->result();
 }
@@ -396,5 +398,11 @@ function change_password($datas,$username)
  $this->db->where('username',$username);
  $this->db->update('users',$datas); 
 }
+function date_encode()
+{
+ $this->db->where('id',$username);
+ $this->db->update('users',$datas); 
+}
+
 }
 ?>

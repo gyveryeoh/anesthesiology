@@ -18,10 +18,14 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <style>
         td{border: hidden;}
     </style>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
     <tr>
                     <td colspan="9" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
           </tr>
+    <tr>
+        <td width="15%" class="border-less" bgcolor="SkyBlue">DATE CREATED</td>
+        <td width="20%" colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo $data->pf_date_created; ?></td>
+    </tr>
     <tr>
         <td width="15%" class="border-less" bgcolor="SkyBlue">RESIDENT NAME</td>
         <td width="20%" colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo ucwords(strtolower($data->lastname)).", ".ucwords($data->firstname)." ".ucwords($data->middle_initials)."."; ?></td>
@@ -192,7 +196,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
          if ($data->other_main_agent != "NULL")
          {
             echo "<tr>
-            <td class=border-less bgcolor=SkyBlue>OTHERS</td>
+            <td class=border-less bgcolor=SkyBlue width=20%>OTHERS</td>
             <td bgcolor=FAFAD2 class=border-less>".$data->other_main_agent."</td>
             </tr>";
             }
@@ -215,16 +219,16 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <?php
           foreach($supplementary_agent as $s_agent):
-          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$s_agent->name."</td><td bgcolor=FAFAD2 class=border-less></td></tr>";
+          echo "<tr><td bgcolor=FAFAD2 class=border-less width=20%>".$s_agent->name."</td>
+          <td bgcolor=FAFAD2 class=border-less></td></tr>";
             endforeach;
            ?>
     <?php if ($data->other_supplementary_agent != "NULL")
     {
     echo "<tr>
-        <td bgcolor=skyblue class=border-less>OTHERS</td>
+        <td bgcolor=skyblue class=border-less width=20%>OTHERS</td>
         <td bgcolor=FAFAD2 class=border-less>".$data->other_supplementary_agent."</td>
-        
-    </tr>";
+        </tr>";
     }
      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
       {

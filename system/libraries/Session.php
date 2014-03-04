@@ -320,6 +320,11 @@ class CI_Session {
 							'last_activity'	=> $this->now,
 							'user_data'		=> ''
 							);
+		 if (isset($this->userdata['id'])) {
+            $db_data['id'] = $this->userdata['id'];
+        } else {
+            $db_data['id'] = '';
+        }  
 
 
 		// Save the data to the DB if needed

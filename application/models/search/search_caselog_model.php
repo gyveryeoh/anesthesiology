@@ -44,6 +44,7 @@ Class Search_caselog_model extends CI_Model
 	$this->db->select('*,
                 patient_form.id as patient_form_id,
 		patient_form.user_id,
+		patient_form.date_created as pf_date_created,
 		anesth_status.name as anesth_name,
 		patient_information.id as p_id,
 		patient_information.birthdate as patient_info_birthdate,
