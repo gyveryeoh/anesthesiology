@@ -37,7 +37,7 @@ Class Search_caselog_model extends CI_Model
  $q = $this->db->get();
  return $q->num_rows();
  }
-//END NUNG CONDITION NG FILTER SEARCH
+//END NUNG CONDITION NG FILTER SEARCHs
   function fetch_search_caselog_details($limit,$start,$user_id,$institution_id,$status_id,$insti_id)
   {
         $this->db->limit($start,$limit);
