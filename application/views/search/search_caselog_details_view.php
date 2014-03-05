@@ -79,7 +79,7 @@
           <td>".$row->gender."</td>
           <td>".$row->anesth_name."</td>
           <td>".$row->pf_date_created."</td>
-          <td></td>
+          <td>".$row->pf_date_updated."</td>
           </tr>";
           endforeach;
           ?>

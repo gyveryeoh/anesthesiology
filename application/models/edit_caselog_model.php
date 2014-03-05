@@ -9,6 +9,7 @@ Class Edit_caselog_model extends CI_Model
 	function edit_patient_form($patient_form_id,$datas2)
 	{
 		$this->db->where('id',$patient_form_id);
+		$this->db->set('date_updated', 'DATE_ADD(NOW(), INTERVAL 1 MINUTE)', FALSE);
 		$this->db->update('patient_form',$datas2); 
 	}
 	//MAIN AGENT

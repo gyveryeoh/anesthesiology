@@ -211,6 +211,7 @@ $this->user->add_anesthesiology_information_data($data);
   {
    $this->user->add_monitors_used_data($patient_form_id,$monitors_used);
   }
+  $this->user->update_users_date_encode($session_data['id']);
   redirect('home/successful_data','refresh');
  }
  else

@@ -76,6 +76,12 @@ Class User extends CI_Model
   $this->db->insert('patient_information', $data);
   return $this->db->insert_id();
  }
+ function update_users_date_encode($id)
+ {
+   $this->db->where('id', $id);
+   $this->db->set('date_encode', 'DATE_ADD(NOW(), INTERVAL 1 MINUTE)', FALSE);
+   $this->db->update('users');
+ }
  function add_anesthesiology_information_data($data)
  {
   $this->db->insert('patient_form', $data);
@@ -398,11 +404,15 @@ function change_password($datas,$username)
  $this->db->where('username',$username);
  $this->db->update('users',$datas); 
 }
-function date_encode()
+function date_encode($username,$datas)
 {
  $this->db->where('id',$username);
  $this->db->update('users',$datas); 
 }
-
+function update_profile($data,$id)
+{
+ $this->db->where('id',$id);
+ $this->db->update('users',$data);
+}
 }
 ?>
