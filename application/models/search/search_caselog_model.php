@@ -1,5 +1,4 @@
 <?php
-//PAUL YOINGCOs
 Class Search_caselog_model extends CI_Model
 {
  //MAHABANG APPROACH PARA GUMANA LAHAT YUNG CONDITION

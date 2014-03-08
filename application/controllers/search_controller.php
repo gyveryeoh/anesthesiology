@@ -40,7 +40,7 @@ function searched_index()
   }
   else
   {
-   $error['message'] = "CASE NUMBER NOT EXIST.";
+   $error['message'] = "CASE NUMBER DOES NOT EXIST.";
    $session_data = $this->session->userdata('logged_in');
    $data["user_information"] = $session_data;
    $this->load->view('header/header',$data);
