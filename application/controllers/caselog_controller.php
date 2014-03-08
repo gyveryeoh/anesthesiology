@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//palitan
+//asdasdasdasdas/
 session_start(); //we need to call PHP's session object to access it through CI
 class Caselog_controller extends CI_Controller {
 	function __construct()
