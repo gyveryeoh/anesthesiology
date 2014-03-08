@@ -1,6 +1,4 @@
 <?php foreach ($patient_information as $data){}
-//paul
-//echo $data->anesthesia_start_time;
 $time_1 = strtotime($data->anesthesia_start_time);
 $getHour_start = date('h', $time_1);
 $getMinute_start = date('i', $time_1);
