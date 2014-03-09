@@ -73,5 +73,97 @@ class Reports_controller extends CI_Controller
 		$this->load->view('header/header',$data);
 		$this->load->view('header/reports_header');
 		$this->load->view('reports/anesth_service_per_resident',$datas);
+	}	
+	function reports_list()
+	{
+		$user_id = $this->input->get('resident_id');  
+		$session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+		$data["year"] = "";
+		$data["user_id"] = $user_id;
+		$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
+		$datas['anesth_services'] = $this->dropdown_select->anesth_services();
+		
+		if($this->input->post('submit') == "submit")
+		{
+			$year1 = $this->input->post("year");
+			$data["year"] = $year1;
+			$operation_d = $this->reports_model->get_year($user_id);
+			
+			
+					$index = 1;
+					foreach($datas['anesth_technique'] as $n)
+					{	
+						$total_count = 0;
+						foreach($operation_d as $y)
+						{
+							$ye = $y->operation_date;
+							$year2 = date("Y", strtotime($ye));
+							if($year1 == $year2)
+							{
+								$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
+							}
+							else
+							{
+								$datas["count_per_technique"][$n->id] = 0;
+							}
+							
+						}
+						$datas["count_per_technique"][$n->id] = $total_count;
+						$index+=1;
+					}
+			
+					foreach($datas['anesth_services'] as $n)
+					{
+						$total_count = 0;
+						$index+=1;
+							foreach($operation_d as $y)
+							{
+								$ye = $y->operation_date;
+								$year2 = date("Y", strtotime($ye));
+								if($year1 == $year2)
+								{
+									$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
+								}
+								else
+								{
+									$datas["count_per_service"][$n->id] = 0;
+								}
+							}
+						$datas["count_per_service"][$n->id] = $total_count;
+						$index+=1;
+					}
+			
+			$this->load->view('header/header',$data);
+			$this->load->view('reports/reports_list_per_resident',$datas);
+		}
+		else
+		{
+			if($this->session->userdata('logged_in'))
+			{
+				
+				$index = 1;
+				foreach($datas['anesth_technique'] as $n)
+				{
+					$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
+					$index+=1;
+				}
+				
+				
+				$index = 1;
+				foreach($datas['anesth_services'] as $n)
+				{
+					$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+					$index+=1;
+				}
+				
+				$this->load->view('header/header',$data);
+				$this->load->view('reports/reports_list_per_resident',$datas);
+			}
+			else
+			{
+				redirect('login', 'refresh');
+			}
+		}
 	}
 }
