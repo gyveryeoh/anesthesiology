@@ -1,12 +1,23 @@
+<?php
+if($year == NULL)
+{$year = "";}
+?>
 <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
-			<form method="post" action="<?php echo base_url(); ?>index.php/home/reports_list?resident_id=<?php echo $user_id; ?>">
+			<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/reports_list?resident_id=<?php echo $user_id; ?>">
 			<th colspan="2" align="center">
 				Filter Year : <select name="year" size="1" style="width: 60px;">
 				<?php
 				for($x=date('Y');$x>=1900;$x--)
 				{
-					echo "<option value=".$x.">".$x."</option>";  
+					echo "<option value=".$x."";
+					
+						if($year == $x)
+						{
+							echo "selected = selected";
+						}
+					
+					echo ">".$x."</option>";  
 				}
 				?>
 			</select><input type="submit" name="submit" value="submit">
