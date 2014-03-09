@@ -33,30 +33,28 @@ class Reports_controller extends CI_Controller
 			redirect('login', 'refresh');
 		}
 	}
-	function login_summary()
+
+ 	function anesth_services()
 	{
-		if($this->session->userdata('logged_in'))
+		
+		$session_data = $this->session->userdata('logged_in');
+		$data["user_information"] = $session_data;
+		$data['username'] = $session_data['username'];
+		$data['lastname'] = $session_data['lastname'];
+		$data['firstname'] = $session_data['firstname'];
+		$data['middle_initials'] = $session_data['middle_initials'];
+		$data['role_id'] = $session_data['role_id'];
+		$data['id'] = $session_data['id'];
+		$user_id = $data['id'];	
+		$datas['anesth_services'] = $this->dropdown_select->anesth_services();
+		$index = 1;
+		foreach($datas['anesth_services'] as $n)
 		{
-			$resident_id =$this->input->get('resident_id');
-			$this->load->library('pagination');
-			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-			$config["base_url"] = base_url()."index.php/reports_controller/login_summary";
-			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-			$config["total_rows"] = $this->reports_model->count_users_login_summary_table($resident_id);
-			$data['total_number'] = $config['total_rows'];
-			$config["per_page"] = 10;
-			$config["uri_segment"] = 3;
-			$this->pagination->initialize($config);
-			$data['user_information'] = $this->session->userdata('logged_in');
-			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-			$data["login_summary"] = $this->reports_model->fetch_users_login_summary($page,$config["per_page"],$resident_id);
-			$data['resident_information'] = $this->user->resident_information($resident_id);
-			$this->load->view('header/header',$data);
-			$this->load->view('reports/login_summary',$data);
+			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+			$index+=1;
 		}
-		else
-		{
-			redirect('login', 'refresh');
-		}
+		$this->load->view('header/header',$data);
+		$this->load->view('header/reports_header');
+		$this->load->view('reports/anesth_service_per_resident',$datas);
 	}
 }
