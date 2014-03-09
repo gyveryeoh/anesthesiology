@@ -17,6 +17,7 @@ class Home extends CI_Controller {
    {
      $session_data = $this->session->userdata('logged_in');
      $data["user_information"] = $session_data;
+	
      $this->load->view('header/header', $data);
      $this->load->view('home_view');
    }
@@ -395,4 +396,5 @@ function pdf_report($patients_id='', $pf_id='')
            redirect('login', 'refresh');
           }
            }
+
 }
