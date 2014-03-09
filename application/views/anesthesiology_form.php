@@ -1,7 +1,6 @@
 <?php
-foreach($institution_details as $name):
-endforeach;
-?>
+foreach($institution_details as $name): endforeach; ?>
+<head>
 <script>
 $(document).ready(function(){
     var count1 = 1;
@@ -12,8 +11,8 @@ $('.add_sub').click(function(e){
      if (confirm('Do you want to Add Another Apgar Details?'))
  {
     $('.extra_subject').append('<tr class="sub_add_extra1">'
-                         +'<td class="border-less"><b>Apgar Score  : </b></td>'
- +'<td class="border-less" colspan=2><select name="agpar_score_1m['+(count1++)+']" class="agpar_score_required" style="width: 160px;">'
+                         +'<td class="border-less question">APGAR SCORE</td>'
+ +'<td class="border-less answer" colspan=2><select name="agpar_score_1m['+(count1++)+']" class="agpar_score_required" style="width: 160px;">'
  +'<option value="">Select Apgar Score</option>'
  +'<option value="01">01</option>'
  +'<option value="02">02</option>'
@@ -27,9 +26,9 @@ $('.add_sub').click(function(e){
  +'<option value="10">10</option>'
  +'</select> at 1min.</td></tr>'
  +'<tr class="sub_add_extra2">'
- +'<td class="border-less"></td>'
- +'<td class="border-less" colspan=2><select name="agpar_score_5m['+(count2++)+']" class="agpar_score_required" style="width: 160px;">'
- +'<option value="">Select Apgar Score</option>'
+ +'<td class="border-less question"></td>'
+ +'<td class="border-less answer" colspan=2><select name="agpar_score_5m['+(count2++)+']" class="agpar_score_required" style="width: 160px;">'
+ +'<option value="">Select Apgar Score<option>'
  +'<option value="01">01</option>'
  +'<option value="02">02</option>'
  +'<option value="03">03</option>'
@@ -42,8 +41,8 @@ $('.add_sub').click(function(e){
  +'<option value="10">10</option>'
  +'</select> at 5mins.</td>'
  +'<tr class="sub_add_extra3">'
- +'<td class="border-less"></td>'
- +'<td class="border-less" colspan=2><select name="agpar_score_10m['+(count3++)+']" class="agpar_score_required" style="width: 160px;">'
+ +'<td class="border-less question"></td>'
+ +'<td class="border-less answer" colspan=2><select name="agpar_score_10m['+(count3++)+']" class="agpar_score_required" style="width: 160px;">'
  +'<option value="">Select Apgar Score</option>'
  +'<option value="01">01</option>'
  +'<option value="02">02</option>'
@@ -69,6 +68,7 @@ $('.rem_sub').click(function(e){
 });
 });
 </script>
+</head>
  <?php
  foreach ($patient_information_data as $row): endforeach;
 //Male or Female
@@ -80,50 +80,56 @@ $diff = $date1->diff($date2);
  ?>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_anesthesiology_information">
  <input type="hidden" name="patient_information_id" value="<?php echo $row->id; ?>">
- <table width="80%" cellpadding="1" cellspacing="0" border=1 style="border-top:hidden;">
-          <tr>
+   <style>
+        td
+        {
+            border: hidden;
+        } 
+    </style>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd; border-top:hidden; font-size: 12px;">
+    <tr>
                     <td class="border-less header" align="center" colspan="4">PATIENT INFORMATION</td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Resident Name :</b></td>
-                    <td class="border-less" align="left"><?php echo ucwords($user_information['lastname']).", ".ucwords($user_information['firstname'])." ".ucwords($user_information['middle_initials'])."."; ?></td>
+                    <td class="border-less question" width=20%>RESIDENT NAME</td>
+                    <td class="border-less answer" colspan="4"><?php echo ucwords($user_information['lastname']).", ".ucwords($user_information['firstname'])." ".ucwords($user_information['middle_initials'])."."; ?></td>
           </tr>
           <tr>
-                    <td class="border-less" align="left"><b>Training Institution :</b></td>
-                    <td class="border-less" ><?php echo $name->name; ?></td>
+                    <td class="border-less question">TRAINING INSTITUTION</td>
+                    <td class="border-less answer" colspan="4"><?php echo $name->name; ?></td>
           </tr>
           <tr>
-                    <td class="border-less" align="left"><b>Hospital Rotation :</b></td>
-                    <td class="border-less"></td>
-                    <td class="border-less" align="left"><b>Weight :</b></td>
-                    <td class="border-less"><?php echo $row->weight; ?> KG</td>
+                    <td class="border-less question">HOSPITAL ROTATION</td>
+                    <td class="border-less answer"></td>
+                    <td class="border-less question" width=10%>WEIGHT</td>
+                    <td class="border-less answer"><?php echo $row->weight; ?> KG</td>
           </tr> 
           <tr>
-                    <td class="border-less" align="left"><b>Case Number :</b></td>
-                    <td class="border-less" ><?php echo $row->case_number; ?></td>
-                    <td class="border-less"><b>Age :</b></td>
-                    <td class="border-less" align="left"><?php echo $diff->y . "Y" . $diff->m."M".$diff->d."D"; ?></td>
+                    <td class="border-less question">CASE NUMBER</td>
+                    <td class="border-less answer"><?php echo $row->case_number; ?></td>
+                    <td class="border-less question">AGE</td>
+                    <td class="border-less answer"><?php echo $diff->y . "Y" . $diff->m."M".$diff->d."D"; ?></td>
           
           </tr>
            <tr>
-                    <td class="border-less" align="left"><b>Patient's Name/Initials :</b></td>
-                    <td class="border-less" ><?php echo ucwords($row->lastname[0])."-".ucwords($row->firstname[0])."-".ucwords($row->middle_initials[0]); ?></td>
-                      <td class="border-less"><b>Sex :</b></td>
-                    <td class="border-less" align="left"><?php echo $row->gender; ?></td>
+                    <td class="border-less question">PATIENT INITIALS</td>
+                    <td class="border-less answer"><?php echo ucwords($row->lastname[0])."-".ucwords($row->firstname[0])."-".ucwords($row->middle_initials[0]); ?></td>
+                    <td class="border-less question">GENDER</td>
+                    <td class="border-less answer"><?php echo $row->gender; ?></td>
           
           </tr>
 </table>
-         <table width="80%" cellpadding="1" cellspacing="0" border=1 style="border-top:hidden;">
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+        <tr>
+                    <td class="border-less header" align="center" colspan="2">DIAGNOSIS INFORMATION</td>
+        </tr>
           <tr>
-                    <td class="border-less header" align="center" colspan="4">CASE LOG FORM FORM</td>
+                    <td class="border-less question" width="20%">OPERATION DATE</td>
+                    <td class="border-less answer"><input type="text" id="datepicker-example11" name="operation_date" size="20" class="required"></td>
           </tr>
           <tr>
-                    <td class="border-less" width="25%"><b>Operation date :</b></td>
-                    <td class="border-less" align="left" colspan="2"><input type="text" id="datepicker-example11" name="operation_date" size="10" class="required"></td>
-          </tr>
-          <tr>
-                    <td class="border-less"><b>Type of Patient :</b></td>
-                    <td class="border-less" colspan="2"><select name="type_of_patient" class="required" style="width: 150px;">
+                    <td class="border-less question">TYPE OF PATIENT</td>
+                    <td class="border-less answer"><select name="type_of_patient" class="required" style="width: 240px;">
                               <option value="">Select Patient Type</option>
                               <option value="C">Charity</option>
                               <option value="P">Pay</option>
@@ -131,8 +137,8 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Level of Involvement :</b></td>
-                    <td class="border-less" colspan="2"><select name="level_of_involvement" class="required" style="width: 210px;">
+                    <td class="border-less  question">LEVEL OF INVOLVEMENT</td>
+                    <td class="border-less answer"><select name="level_of_involvement" class="required" style="width: 240px;">
                               <option value="">Select Level of Involvement</option>
                               <option value="P">Primary Anesthesiology</option>
                               <option value="A">Assist</option>
@@ -140,8 +146,8 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>ASA :</b></td>
-                    <td class="border-less" colspan="2"><select name="asa" class="required" style="width: 100px;">
+                    <td class="border-less question">ASA</td>
+                    <td class="border-less answer"><select name="asa" class="required" style="width: 100px;">
                               <option value="">Select ASA</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
@@ -153,20 +159,20 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>For Emergency :</b></td>
-                    <td class="border-less" align="left" colspan="2"><input type="radio" name="for_emergency" value="N" class="required"> No <input type="radio" name="for_emergency" value="Y"> Yes</td>
+                    <td class="border-less question">FOR EMERGENCY</td>
+                    <td class="border-less answer"><input type="radio" name="for_emergency" value="N" class="required"> NO <input type="radio" name="for_emergency" value="Y"> YES</td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Diagnosis :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="diagnosis" cols="35" row="7" class="required"></textarea></td>
+                    <td class="border-less question">DIAGNOSIS</td>
+                    <td class="border-less answer"><textarea name="diagnosis" rows="4" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Co-Morbid Diseases :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="comorbid_diseases" class="required" cols="35"></textarea></td>
+                    <td class="border-less question">CO-MORBID DISEASES</td>
+                    <td class="border-less answer"><textarea name="comorbid_diseases" class="required" cols="40" rows="4"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Service :</b></td>
-                    <td class="border-less" colspan="2">
+                    <td class="border-less question">SERVICE</td>
+                    <td class="border-less answer">
                         <select name="service" class="required">
                               <option value="">Select Services</option>
                               <?php
@@ -179,8 +185,8 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Anesthetic Technique :</b></td>
-                    <td class="border-less" colspan="2"><select name="anesthetic_technique" class="required" style="width: 360px;" id="anesthetic_technique">
+                    <td class="border-less question">ANESTHETIC TECHNIQUE</td>
+                    <td class="border-less answer"><select name="anesthetic_technique" class="required" style="width: 360px;" id="anesthetic_technique">
                                <option value="">Select Techniques</option>
                               <?php
                               foreach($anesth_technique_data as $and)
@@ -192,8 +198,8 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="peripheral_data" style="display: none;">
-                    <td class="border-less"></td>
-                    <td class="border-less" colspan="2"><select name="peripheral" class="peripheral_valid" style="width:380px;">
+                    <td class="border-less question"></td>
+                    <td class="border-less answer"><select name="peripheral" class="peripheral_valid" style="width:380px;">
                               <option value="">Select Peripheral Nerve Blocks and Pain Techniques</option>
                               <option value="1">Ultrasound Guided</option>
                               <option value="2">Nerve Stimulator Guided</option>
@@ -203,8 +209,8 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Airway :</b></td>
-                    <td class="border-less" colspan="2"><select name="airway" class="required" id="airway">
+                    <td class="border-less question">AIRWAY</td>
+                    <td class="border-less answer"><select name="airway" class="required" id="airway">
                     <option value="">Select Airway</option>
                     <?php
                               foreach($anesth_airway_data as $air)
@@ -216,13 +222,18 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="other_airway" style="display:none;">
-            <td class="border-less"></td>
-            <td class="border-less"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
+            <td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
           </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less header" align="center" colspan="4">NEEDLE FORM</td>
+    </tr>
           <tr>
-                    <td class="border-less"><b>Needle :</b></td>
-                    <td class="border-less"><b>Spinal Needle Type :</b></td>
-                    <td class="border-less" colspan="2"><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
+                    <td class="border-less question" width=20%>NEEDLE</td>
+                    <td class="border-less question" width=20%>SPINAL NEEDLE TYPE</td>
+                    <td class="border-less answer"><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
                               <option value="">Select Spinal Needle Type</option>
                               <?php
                               foreach($anesth_needle_data as $aneed)
@@ -234,13 +245,13 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="other_needle" style="display:none;">
-            <td class="border-less"></td><td class="border-less"></td>
-            <td class="border-less"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
+            <td class="border-less question"></td><td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
           </tr>
           <tr>
-                    <td class="border-less"></td>
-                    <td class="border-less"><b>Epidural Needle Type :</b></td>
-                    <td class="border-less" colspan="2"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
+                    <td class="border-less question"></td>
+                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
+                    <td class="border-less answer"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
                               <option value="">Select Epidural Needle Type</option>
                               <option value="Touhy">Touhy</option>
                               <option value="Others">Others (pls specify):</option>
@@ -249,16 +260,13 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="other_epidural_needle" style="display:none;">
-            <td class="border-less"></td><td class="border-less"></td>
-            <td class="border-less"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
+            <td class="border-less question"></td><td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
           </tr>
-          
-          
-          
           <tr>
-                    <td class="border-less"><b>Needle Gauge :</b></td>
-                    <td class="border-less"><b>Spinal Needle Guage :</b></td>
-                    <td class="border-less" colspan="2"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
+                    <td class="border-less question">NEEDLE GUAGE</td>
+                    <td class="border-less question">SPINAL NEEDLE GUAGE</td>
+                    <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
                               <option value="">Select Spinal Needle Gauge</option>
                               <?php
                               foreach($anesth_needle_gauge_data as $aneegd)
@@ -270,9 +278,9 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"></td>
-                    <td class="border-less"><b>Epidural Needle Gauge :</b></td>
-                    <td class="border-less" colspan="2"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
+                    <td class="border-less question"></td>
+                    <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
+                    <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
                               <option value="">Select Epidural Needle Gauge</option>
                               <?php
                               foreach($anesth_needle_gauge_data as $aneegd)
@@ -283,11 +291,16 @@ $diff = $date1->diff($date2);
                     </select>
                     </td>
           </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less header" align="center" colspan="4">ANESTHESIA FORM</td>
+    </tr>
           <tr>
-                    <td class="border-less"><b>Anesthesia Start :</b></td>
-                      <td class="border-less" align="left" colspan="6">
-                        <input type="text" name="anesthesia_start" id="datepicker-example14" class="required" size="10">
-                      <select name="anesthesia_start_hour" class="required" style="width:60px;">
+                    <td class="border-less question" width="20%">ANESTHESIA START</td>
+                      <td class="border-less answer">
+                        <input type="text" name="anesthesia_start" id="datepicker-example14" class="required" size="20">
+                      <select name="anesthesia_start_hour" class="required" style="width:80px;">
 	    <option value="" class="required">HOUR</option>
 				<?php
 				for ($i = 01; $i <= 12; $i++)
@@ -310,7 +323,7 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select> :
-			<select name="anesthesia_start_min" class="required" style="width: 50px;">
+			<select name="anesthesia_start_min" class="required" style="width: 70px;">
 			<option value="">MIN</option>
 			<option value="00">00</option>
 				<?php
@@ -334,16 +347,16 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select>
-			<select name="anesthesia_start_time" style="width:45px;">
+			<select name="anesthesia_start_time" style="width:65px;">
 			<option value="AM">AM</option>
 			<option value="PM">PM</option>
 			</select>
                     </td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Anesthesia End :</b></td>
-                      <td class="border-less" align="left" colspan="6"><input type="text" name="anesthesia_end" id="datepicker-example13" class="required" size="10">
-                      <select name="anesthesia_end_hour" class="required" style="width:60px;">
+                    <td class="border-less question">ANESTHESIA END</td>
+                      <td class="border-less answer"><input type="text" name="anesthesia_end" id="datepicker-example13" class="required" size="20">
+                      <select name="anesthesia_end_hour" class="required" style="width:80px;">
 	    <option value="">HOUR</option>
 				<?php
 				for ($i = 01; $i <= 12; $i++)
@@ -366,7 +379,7 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select> :
-			<select name="anesthesia_end_min" class="required" style="width: 50px;">
+			<select name="anesthesia_end_min" class="required" style="width: 70px;">
 			<option value="">MIN</option>
 			<option value="00">00</option>
 				<?php
@@ -390,23 +403,25 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select>
-			<select name="anesthesia_end_time" style="width:45px;">
+			<select name="anesthesia_end_time" style="width:65px;">
 			<option value="AM">AM</option>
 			<option value="PM">PM</option>
 			</select>
                       </td>
           </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less question" colspan="4">MAIN AGENTS</td>
+    </tr>
           <tr>
-                    <td class="border-less"><b>Main Agent :</b></td>
-          </tr>
-          <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='main_agent[]' class='main_agent_required'></td>
+            <td class="border-less answer" colspan=4><input type="checkbox" style="display: none;" name='main_agent[]' class='main_agent_required'></td>
           <?php
           $num_cols = 3;
           $current_col = 0;
           $x = 0;
           foreach($anesth_agent_data as $aad):
-          if($current_col == "0")echo "<tr><td></td>";
+          if($current_col == "0")echo "<tr class=answer></td>";
           echo "<td><input type='checkbox' value='".$aad->id."' id='".$x."' name='main_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
@@ -420,15 +435,17 @@ $diff = $date1->diff($date2);
             $x++;
             endforeach;
            ?>
+          <tr class="answer">
+            <td class="answer"><input type="checkbox" name="other_main_agent" id="81" value="other_main_agent_checkbox">Others Please Specify : </td>
+            <td class="border-less answer" colspan="2"  id="other_main_agent" style="display:none;"><input type="text" size="20" name="other_main_agent_data" class="other_main_agent_valid"></td>
+          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
           <tr>
-            <td></td></td><td><input type="checkbox" name="other_main_agent" id="81" value="other_main_agent_checkbox">Others Please Specify : </td>
-            <td class="border-less"  id="other_main_agent" style="display:none;"><input type="text" size="20" name="other_main_agent_data" class="other_main_agent_valid"></td>
+            <td class="border-less question" colspan="4">SUPPLEMENTARY AGENT</td>
           </tr>
           <tr>
-            <td class="border-less"><b>Supplementary Agent :</b></td>
-          </tr>
-          <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='supplementary_agent[]' class='supplementary_agent_required'></td>
+            <td class="border-less answer" colspan="4"><input type="checkbox" style="display: none;" name='supplementary_agent[]' class='supplementary_agent_required'></td>
           </tr>
           <?php
           $num_cols = 3;
@@ -436,7 +453,7 @@ $diff = $date1->diff($date2);
           $x = 0;
           $sa = "sa_";
           foreach($anesth_agent_data as $aad):
-          if($current_col == "0")echo "<tr><td></td>";
+          if($current_col == "0")echo "<tr class=answer><td></td>";
           echo "<td><input type='checkbox' value='".$aad->id."' id='"."sa_".$x."' name='supplementary_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
@@ -450,15 +467,17 @@ $diff = $date1->diff($date2);
             $x++;
             endforeach;
            ?>
-          <tr>
+          <tr class=answer>
             <td class="border-less"></td><td><input type="checkbox" name="other_supplementary_agent" id="sa_81" value="other_supplementary_agent_checkbox">Others Please Specify : </td>
-            <td class="border-less"  id="other_supplementary_agent" style="display:none;"><input type="text" size="20" name="other_supplementary_agent_data" class="other_supplementary_agent_valid"></td>
+            <td class="border-less" id="other_supplementary_agent" style="display:none;" colspan=2><input type="text" size="20" name="other_supplementary_agent_data" class="other_supplementary_agent_valid"></td>
           </tr>
-             <tr>
-                <td class="border-less"><b>Post-OP Pain Agents :</b></td>
-          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less question" colspan="4">POST-OP PAIN AGENTS</td>
+    </tr>
             <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='post_op_pain_agent[]' class='post_op_pain_agent_required'></td>
+            <td class="border-less answer" colspan="4"><input type="checkbox" style="display: none;" name='post_op_pain_agent[]' class='post_op_pain_agent_required'></td>
           </tr>
           <?php
           $num_cols = 3;
@@ -466,7 +485,7 @@ $diff = $date1->diff($date2);
           $x = 0;
           $sa = "post_";
           foreach($anesth_agent_data as $aad):
-          if($current_col == "0")echo "<tr><td></td>";
+          if($current_col == "0")echo "<tr class=answer><td></td>";
           echo "<td><input type='checkbox' value='".$aad->id."' id='"."post_".$x."' name='post_op_pain_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
@@ -480,13 +499,15 @@ $diff = $date1->diff($date2);
             $x++;
             endforeach;
            ?>
-          <tr>
+          <tr class=answer>
             <td></td><td><input type="checkbox" name="other_post_op_pain_agent" id="post_81" value="other_post_op_pain_agent_checkbox">Others Please Specify : </td>
-            <td class="border-less"  id="other_post_op_pain_agent" style="display:none;"><input type="text" size="20" name="other_post_op_pain_agent_data" class="other_post_op_pain_agent_valid"></td>
+            <td class="border-less" colspan=2 id="other_post_op_pain_agent" style="display:none;"><input type="text" size="20" name="other_post_op_pain_agent_data" class="other_post_op_pain_agent_valid"></td>
           </tr>
-          <tr>
-                <td class="border-less"><b>Post-OP Pain Management :</b></td>
-          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less question" colspan=3>POST-OP PAIN MANAGEMENT</td>
+    </tr>
             <?php
           foreach($anesth_post_op_pain_management_data as $apopmd)
           {
@@ -508,34 +529,54 @@ $multiIterator->attachIterator($apopmd_2);
 $multiIterator->attachIterator($apopmd_2_2);
 foreach($multiIterator as $combinedArray)
 {
-     echo "<tr><td></td>";
-          echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>(".$combinedArray[0].") ".$combinedArray[1]."</td>";
+     echo "<tr class=answer>";
+          echo "<td width=25%><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>(".$combinedArray[0].") ".$combinedArray[1]."</td>";
            echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management_1[]' class='required'>".$combinedArray[2]."</td>";
-          echo "<tr>";
+          echo "</tr>";
              }
            ?>
-          <tr>
-            <td class="border-less"><b>Monitors Used :</b></td>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+            <td class="border-less question" colspan="2">MONITORS USED</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='monitors_used[]' class="monitors_used_required"></td>
+            <td class="border-less answer" colspan=2><input type="checkbox" style="display: none;" name='monitors_used[]' class="monitors_used_required"></td>
           </tr>
           <?php
           foreach($anesth_monitor_data as $amd)
           {
-            echo "<tr><td class='border-less'><input type='checkbox' name='monitors_used[]' value='".$amd->id."'>".$amd->name."</td></tr>";
+            echo "<tr class=answer><td class='border-less' colspan=2><input type='checkbox' name='monitors_used[]' value='".$amd->id."'>".$amd->name."</td></tr>";
           }
           ?>
           <tr>
-            <td class="border-less"><input type="checkbox" name="other_monitors_used" id="monitors_used" value="other_monitors_used_checkbox">Others Please Specify : </td>
-            <td class="border-less" id="other_monitors_used" style="display:none;"><input type="text" size="20" name="other_monitors_used_data" class="other_monitors_used_valid"></td>
+            <td class="border-less answer" width=20%><input type="checkbox" name="other_monitors_used" id="monitors_used" value="other_monitors_used_checkbox">Others Please Specify : </td>
+            <td class="border-less answer" id="other_monitors_used" style="display:none;"><input type="text" size="20" name="other_monitors_used_data" class="other_monitors_used_valid"></td>
+          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less header" align="center" colspan="2">PROCEDURE FORM</td>
+    </tr>
+          <tr>
+                    <td class="border-less question" width=20%>PROCEDURE DONE</td>
+                    <td class="border-less answer"><textarea name="procedure_done" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less header" align="center" colspan="4"><h3>REPLACEMENT</h3></td>
+                    <td class="border-less question">OTHER PROCEDURE</td>
+                    <td class="border-less answer"><textarea name="other_procedure" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less" width="25%"><b>Blood Loss :</b></td>
-                    <td class="border-less" colspan="2"><select name="blood_loss" class="required" style="width: 150px;">
+                    <td class="border-less question">MUSCLE RELAXANT DONE</td>
+                    <td class="border-less answer"><input type="radio" name="muscle_relaxant_reversal_done" value="YES" class="required"> YES <input type="radio" name="muscle_relaxant_reversal_done" value="NO"> NO <input type="radio" name="muscle_relaxant_reversal_done" value="N/A" class="required"> N/A</td>
+          </tr>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+                    <td class="border-less header" align="center" colspan="4">REPLACEMENT</td>
+          </tr>
+          <tr>
+                    <td class="border-less question" width="20%">BLOOD LOSS</td>
+                    <td class="border-less answer" colspan="2"><select name="blood_loss" class="required" style="width: 150px;">
                               <option value="">Select Blood loss</option>
                                <?php
                               foreach($anesth_blood_loss as $abl)
@@ -547,22 +588,22 @@ foreach($multiIterator as $combinedArray)
                     </td>
           </tr>
           <tr>
-                    <td class="border-less" width="25%"><b>Crystalloids :</b></td>
-                    <td class="border-less" colspan="2">
-                        <input type="radio" name="crystalloids" value="YES" class="required"> Yes
-                        <input type="radio" name="crystalloids" value="NO"> No
+                    <td class="border-less question">CRYSTALLOOID</td>
+                    <td class="border-less answer" colspan="2">
+                        <input type="radio" name="crystalloids" value="YES" class="required"> YES
+                        <input type="radio" name="crystalloids" value="NO"> NO
                         <input type="radio" name="crystalloids" value="N/A"> N/A</td>
           </tr>
          
           <tr>
-                    <td class="border-less" width="25%"><b>Colloids :</b></td>
-                    <td class="border-less" colspan="2">
-                        <input type="radio" name="colloids" value="YES" class="required" id="colloids_used_show"> Yes
-                        <input type="radio" name="colloids" value="NO" id="colloids_used_hide"> No</td>
+                    <td class="border-less question">COLLOIDS</td>
+                    <td class="border-less answer" colspan="2">
+                        <input type="radio" name="colloids" value="YES" class="required" id="colloids_used_show"> YES
+                        <input type="radio" name="colloids" value="NO" id="colloids_used_hide"> NO</td>
           </tr>
           <tr id="colloids_used_info" style="display: none;">
-                    <td class="border-less" width="25%"><b>Colloids Used :</b></td>
-                    <td class="border-less" colspan="2"><select name="colloids_used" id="colloids_used" class="colloids_used_info_valid">
+                    <td class="border-less question" width="20%">COLLOIDS USED</td>
+                    <td class="border-less answer" colspan="2"><select name="colloids_used" id="colloids_used" class="colloids_used_info_valid">
                               <option value="">Select Colloids Used</option>
                                <?php
                               foreach($anesth_colloids_used as $acu)
@@ -574,53 +615,43 @@ foreach($multiIterator as $combinedArray)
                     </td>
           </tr>
           <tr id="other_colloids_used" style="display:none;">
-            <td class="border-less"></td>
-            <td class="border-less"><input type="text" size="20" name="other_colloids_used" class="colloids_used_valid"></td>
+            <td class="border-less question"></td>
+            <td class="border-less answer" colspan=2><input type="text" size="20" name="other_colloids_used" class="colloids_used_valid"></td>
           </tr>
           <tr>
-                    <td class="border-less" width="25%"><b>Blood Products Used :</b></td>
-                    <td class="border-less" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required"> Yes <input type="radio" name="blood_products_used" value="NO" class="required"> No <input type="radio" name="blood_products_used" value="N/A" class="required"> N/A</td>
+                    <td class="border-less question">BLOOD PRODUCT USED</td>
+                    <td class="border-less answer" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required"> YES <input type="radio" name="blood_products_used" value="NO" class="required"> NO <input type="radio" name="blood_products_used" value="N/A" class="required"> N/A</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less" width="25%"><b>Fresh Whole Blood :</b> </td><td class="border-less"><input type="radio" name="fresh_whole_blood" value="YES" class="required"> Yes <input type="radio" name="fresh_whole_blood" value="NO"> No</td>
+                    <td class="border-less"></td><td class="border-less question" width="20%">FRESH WHOLE BLOOD</td><td class="border-less answer"><input type="radio" name="fresh_whole_blood" value="YES" class="required"> YES <input type="radio" name="fresh_whole_blood" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less" width="25%"><b>Cyroprecipitate :</b> </td><td class="border-less"><input type="radio" name="cyroprecipitate" value="YES" class="required"> Yes <input type="radio" name="cyroprecipitate" value="NO"> No</td>
+                    <td class="border-less"></td><td class="border-less question">CYROPRECIPITATE</td><td class="border-less answer"><input type="radio" name="cyroprecipitate" value="YES" class="required"> YES <input type="radio" name="cyroprecipitate" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less" width="25%"><b>Platelets :</b> </td><td class="border-less"><input type="radio" name="platelets" value="YES" class="required"> Yes <input type="radio" name="platelets" value="NO"> No</td>
+                    <td class="border-less"></td><td class="border-less question">PLATELETS</td><td class="border-less answer"><input type="radio" name="platelets" value="YES" class="required"> YES <input type="radio" name="platelets" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less" width="25%"><b>Fresh Frozen Plasma :</b> </td><td class="border-less"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required"> Yes <input type="radio" name="fresh_frozen_plasma" value="NO"> No</td>
+                    <td class="border-less"></td><td class="border-less question">FRESH FROZEN PLASMA</td><td class="border-less answer"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required"> YES <input type="radio" name="fresh_frozen_plasma" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less" width="25%"><b>Packed RBC :</b> </td><td class="border-less"><input type="radio" name="packed_rbc" value="YES" class="required"> Yes <input type="radio" name="packed_rbc" value="NO"> No</td>
+                    <td class="border-less"></td><td class="border-less question">PACKED RBC</td><td class="border-less answer"><input type="radio" name="packed_rbc" value="YES" class="required"> YES <input type="radio" name="packed_rbc" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less"><b>Others :</b> </td><td class="border-less" colspan="2"><textarea name="others" cols="35" class="required"></textarea></td>
+                    <td class="border-less"></td><td class="border-less question">OTHERS</td><td class="border-less answer " colspan="2"><textarea name="others" cols="35" class="required"></textarea></td>
           </tr>
-           <tr>
-                    <td class="border-less header" align="center" colspan="4"><h3>PROCEDURES</h3></td>
-          </tr>
-          <tr>
-                    <td class="border-less"><b>Procedure Done :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="procedure_done" cols="35" class="required"></textarea></td>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+                    <td class="border-less header" align="center" colspan="4">FOR DELIVERY</td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Other Procedure :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="other_procedure" cols="35" class="required"></textarea></td>
-          </tr>
-          <tr>
-                    <td class="border-less" width="25%"><b>Muscle Relaxant Reversal Done :</b></td>
-                    <td class="border-less" colspan="2"><input type="radio" name="muscle_relaxant_reversal_done" value="YES" class="required"> Yes <input type="radio" name="muscle_relaxant_reversal_done" value="NO"> No <input type="radio" name="muscle_relaxant_reversal_done" value="N/A" class="required"> N/A</td>
-          </tr>
-          <tr>
-                    <td class="border-less" width="25%"><b>If Delivery :</b></td>
-                    <td class="border-less" colspan="2"><input type="radio" name="if_delivery" id="show" value="YES" class="required" /> Yes <input type="radio" name="if_delivery" id="hide" value="NO" /> No</td>
+                    <td class="border-less question" width="20%">IF DELIVERY</td>
+                    <td class="border-less answer" colspan="2"><input type="radio" name="if_delivery" id="show" value="YES" class="required" /> YES <input type="radio" name="if_delivery" id="hide" value="NO" /> NO</td>
           </tr>
           <tr id="agpar_score_1m" style="display:none">
-            <td class="border-less"><b>Apgar Score : </b></td>
-            <td class="border-less" colspan="2"><select name="agpar_score_1m[]" class="agpar_score_valid" style="width: 160px;">
+            <td class="border-less question">APGAR SCORE</td>
+            <td class="border-less answer" colspan="2"><select name="agpar_score_1m[]" class="agpar_score_valid" style="width: 160px;">
                               <option value="">Select Apgar Score</option>
                                <?php
                               foreach($anesth_agpar_score_data as $aasd)
@@ -631,8 +662,8 @@ foreach($multiIterator as $combinedArray)
                     </select> at 1min.</td>
           </tr>
           <tr id="agpar_score_5m" style="display:none">
-            <td class="border-less"></td>
-            <td class="border-less" colspan="2"><select name="agpar_score_5m[]" class="agpar_score_valid" style="width: 160px;">
+            <td class="border-less question"></td>
+            <td class="border-less answer" colspan="2"><select name="agpar_score_5m[]" class="agpar_score_valid" style="width: 160px;">
                               <option value="">Select Apgar Score</option>
                                <?php
                               foreach($anesth_agpar_score_data as $aasd)
@@ -643,8 +674,8 @@ foreach($multiIterator as $combinedArray)
                     </select> at 5mins.</td>
           </tr>
           <tr id="agpar_score_10m" style="display:none">
-            <td class="border-less"></td>
-            <td class="border-less" colspan="2"><select name="agpar_score_10m[]" class="agpar_score_valid" style="width: 160px;">
+            <td class="border-less question"></td>
+            <td class="border-less answer" colspan="2"><select name="agpar_score_10m[]" class="agpar_score_valid" style="width: 160px;">
                               <option value="">Select Apgar Score</option>
                                <?php
                               foreach($anesth_agpar_score_data as $aasd)
@@ -657,76 +688,86 @@ foreach($multiIterator as $combinedArray)
               <tbody class="extra_subject"></tbody>
 
             <tr id="add_apgar" style="display:none;">
-                <td class="border-less"></td><td class="border-less">
+                <td class="border-less question"></td><td class="border-less">
                 <input type="button" class="add_sub btn" value="Add Apgar"> | <input type="button" class="rem_sub btn" value="Remove"></td>
             </tr>
-          <tr>
-                    <td class="border-less"><b>Post-Operative Diagnosis :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="post_operative_diagnosis" cols="35" class="required"></textarea></td>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+                    <td class="border-less header" align="center" colspan="2">OTHER INFORMATION</td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Discharge Notes :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="discharged_notes" cols="35" class="required"></textarea></td>
+                    <td class="border-less question" width=20%>POST-OPERATIVE DIAGNOSIS</td>
+                    <td class="border-less answer"><textarea name="post_operative_diagnosis" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less"><b>Other Notes :</b></td>
-                    <td class="border-less" align="left" colspan="2"><textarea name="other_notes" cols="35" class="required"></textarea></td>
+                    <td class="border-less question">DISCHARGE NOTES</td>
+                    <td class="border-less answer"><textarea name="discharged_notes" cols="40" class="required"></textarea></td>
           </tr>
-          <tr id="critical_events_no">
-                    <td class="border-less"><b>Critical Events :</b></td>
-                    <td class="border-less" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> Yes <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> No <input type="radio" name="critical_events" id="critical_events_hides" value="NONE" class="critical_event_required"> None</td>
+          <tr>
+                    <td class="border-less question">OTHER NOTES</td>
+                    <td class="border-less answer"><textarea name="other_notes" cols="40" class="required"></textarea></td>
+          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+        <tr>
+                    <td class="border-less header" align="center" colspan="2">CRITICAL EVENTS</td>
+          </tr>
+    <tr id="critical_events_no">
+                    <td class="border-less question" width=20%>CRITICAL EVENTS</td>
+                    <td class="border-less answer" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> YES <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> NO <input type="radio" name="critical_events" id="critical_events_hides" value="NONE" class="critical_event_required"> NONE</td>
           </tr>
           <tr id="critical_events_yes" style="display: none;">
-                    <td class="border-less"><b>Critical Events :</b></td>
-                    <td class="border-less"><b>YES</b></td>
+                    <td class="border-less question">CRITICAL EVENTS</td>
+                    <td class="border-less answer"><b>YES</b></td>
           </tr>
           <tr id='critical_level_airway_title' style="display: none;">
-            <td class="border-less"><b>AIRWAY :</b></td>
+            <td class="border-less question" colspan=2>AIRWAY</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_airway[]' class="critical_level_airway_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_airway[]' class="critical_level_airway_valid"></td>
           </tr>
           <?php
           $x=0;
           foreach($critical_level_airway as $cla)
           {
-            echo "<tr id='critical_level_airway_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_airway[]' value='".$cla->id."'>&nbsp;&nbsp;&nbsp;".$cla->code."&nbsp;&nbsp;&nbsp;".$cla->name."</td></tr>";
+            echo "<tr id='critical_level_airway_data$x' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_airway[]' value='".$cla->id."'>&nbsp;&nbsp;&nbsp;".$cla->code."&nbsp;&nbsp;&nbsp;".$cla->name."</td></tr>";
           $x++;
           }
           ?>
           <tr id="cardiovascular_title" style="display: none;">
-            <td class="border-less"><b>CARDIOVASCULAR :</b></td>
+            <td class="border-less question" colspan=2>CARDIOVASCULAR</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_cardiovascular[]' class="cardiovascular_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_cardiovascular[]' class="cardiovascular_valid"></td>
           </tr>
           <?php
           $x=0;
           foreach($critical_level_cardiovascular as $clc)
           {
-            echo "<tr id='cardiovascular_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_cardiovascular[]' value='".$clc->id."'>&nbsp;&nbsp;&nbsp;".$clc->code."&nbsp;&nbsp;&nbsp;".$clc->name."</td></tr>";
+            echo "<tr id='cardiovascular_data$x' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_cardiovascular[]' value='".$clc->id."'>&nbsp;&nbsp;&nbsp;".$clc->code."&nbsp;&nbsp;&nbsp;".$clc->name."</td></tr>";
           $x++;
           }
           ?>
           <tr id="discharge_planning_title" style="display: none;">
-            <td class="border-less"><b>DISCHARGE PLANNING :</b></td>
+            <td class="border-less question" colspan=2>DISCHARGE PLANNING</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_discharge_planning[]' class="discharge_planning_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_discharge_planning[]' class="discharge_planning_valid"></td>
           </tr>
           <?php
           $x=0;
           foreach($critical_level_discharge_planning as $cldp)
           {
-            echo "<tr id='discharge_planning_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_discharge_planning[]' value='".$cldp->id."'>&nbsp;&nbsp;&nbsp;".$cldp->code."&nbsp;&nbsp;&nbsp;".$cldp->name."</td></tr>";
+            echo "<tr id='discharge_planning_data$x' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_discharge_planning[]' value='".$cldp->id."'>&nbsp;&nbsp;&nbsp;".$cldp->code."&nbsp;&nbsp;&nbsp;".$cldp->name."</td></tr>";
           $x++;
           }
           ?>
           <tr id="miscellaneous_title" style="display: none;">
-            <td class="border-less"><b>MISCELLANEOUS :</b></td>
+            <td class="border-less question" colspan=2>MISCELLANEOUS</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_miscellaneous[]' class="miscellaneous_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_miscellaneous[]' class="miscellaneous_valid"></td>
           </tr>
           <?php
           $cm=1;
@@ -737,74 +778,73 @@ foreach($multiIterator as $combinedArray)
             {
                 $cm="checked";
             }
-            echo "<tr id='miscellaneous_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' class='$x' name='critical_level_miscellaneous[]' value='".$clm->id."'>&nbsp;&nbsp;&nbsp;".$clm->code."&nbsp;&nbsp;&nbsp;".$clm->name."</td></tr>";
+            echo "<tr id='miscellaneous_data$x' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' class='$x' name='critical_level_miscellaneous[]' value='".$clm->id."'>&nbsp;&nbsp;&nbsp;".$clm->code."&nbsp;&nbsp;&nbsp;".$clm->name."</td></tr>";
           $cm++;
           $x++;
           }
           ?>
           <tr id="neurological_title" style="display: none;">
-            <td class="border-less"><b>NEUROLOGICAL :</b></td>
+            <td class="border-less question" colspan=2>NEUROLOGICAL</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_neurological[]' class="neurological_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_neurological[]' class="neurological_valid"></td>
           </tr>
           <?php
           $n=0;
           foreach($critical_level_neurogical as $cln)
           {
-            echo "<tr id='neurological_data$n' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_neurological[]' value='".$cln->id."'>&nbsp;&nbsp;&nbsp;".$cln->code."&nbsp;&nbsp;&nbsp;".$cln->name."</td></tr>";
+            echo "<tr id='neurological_data$n' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_neurological[]' value='".$cln->id."'>&nbsp;&nbsp;&nbsp;".$cln->code."&nbsp;&nbsp;&nbsp;".$cln->name."</td></tr>";
           $n++;
           }
           ?>
           <tr id="respiratory_title" style="display: none;">
-            <td class="border-less"><b>RESPIRATORY :</b></td>
+            <td class="border-less question" colspan=2>RESPIRATORY</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_respiratory[]' class="respiratory_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_respiratory[]' class="respiratory_valid"></td>
           </tr>
           <?php
           $res=1;
           foreach($critical_level_respiratory as $clr)
           {
-            echo "<tr id='respiratory_data$res' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_respiratory[]' value='".$clr->id."'>&nbsp;&nbsp;&nbsp;".$clr->code."&nbsp;&nbsp;&nbsp;".$clr->name."</td></tr>";
+            echo "<tr id='respiratory_data$res' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_respiratory[]' value='".$clr->id."'>&nbsp;&nbsp;&nbsp;".$clr->code."&nbsp;&nbsp;&nbsp;".$clr->name."</td></tr>";
           $res++;
           }
           ?>
           <tr id="regional_anesthesia_title" style="display: none;">
-            <td class="border-less"><b>REGIONAL ANESTHESIA :</b></td>
+            <td class="border-less question" colspan=2>REGIONAL ANESTHESIA</td>
           </tr>
           <tr>
-            <td class="border-less" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_regional_anesthesia[]' class="regional_anesthesia_valid"></td>
+            <td class="border-less answer" colspan="2"><input type="checkbox" style="display: none;" name='critical_level_regional_anesthesia[]' class="regional_anesthesia_valid"></td>
           </tr>
           <?php
           $r=0;
           foreach($critical_level_regional_anesthesia as $clra)
           {
-            echo "<tr id='regional_anesthesia_data$r' style='display: none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_regional_anesthesia[]' value='".$clra->id."'>&nbsp;&nbsp;&nbsp;".$clra->code."&nbsp;&nbsp;&nbsp;".$clra->name."</td></tr>";
+            echo "<tr id='regional_anesthesia_data$r' style='display: none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_regional_anesthesia[]' value='".$clra->id."'>&nbsp;&nbsp;&nbsp;".$clra->code."&nbsp;&nbsp;&nbsp;".$clra->name."</td></tr>";
           $r++;
           }
           ?>
           <tr id="preop_title" style="display: none;">
-            <td class="border-less"><b>PREOP :</b></td>
+            <td class="border-less question" colspan=2>PREOP</td>
           </tr>
           <?php
           $x=1;
           foreach($critical_level_preop as $clp)
           {
-            echo "<tr id='preop_data$x' style='display:none;'><td class='border-less' colspan='3'><input type='checkbox' name='critical_level_preop[]' value='".$clp->id."' class='preop_valid'>&nbsp;&nbsp;&nbsp;".$clp->code."&nbsp;&nbsp;&nbsp;".$clp->name."</td></tr>";
+            echo "<tr id='preop_data$x' style='display:none;'><td class='border-less answer' colspan='3'><input type='checkbox' name='critical_level_preop[]' value='".$clp->id."' class='preop_valid'>&nbsp;&nbsp;&nbsp;".$clp->code."&nbsp;&nbsp;&nbsp;".$clp->name."</td></tr>";
          $x++;
           }
           ?>
-          
           <tr>
-                    <td class="border-less" align="right">&nbsp;</td>
-                    <td class="border-less"><input type="submit" name="login" value="SAVE"></td>
-          </tr>  
-          <tr>
+                    <td class="border-less answer">&nbsp;</td>
+                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG INFORMATION"></td>
+          </tr>
+          <tr class=answer>
             <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
           </tr>
-         </table>
-</form>
+</table>
+</form>  
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/zebra_datepicker.js"></script>
 <script>
 $('input[id="monitors_used"]').change(function(){
@@ -818,7 +858,7 @@ $('input[id="monitors_used"]').change(function(){
     else{
       $('#other_monitors_used').hide();
       $('.other_monitors_used_required').attr('class','other_monitors_used_valid');
-      $('.monitors__used_valid').attr('class','monitors_used_required');
+      $('.monitors_used_valid').attr('class','monitors_used_required');
     }
 });
 $('#airway').change(function() {

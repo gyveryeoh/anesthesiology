@@ -42,7 +42,7 @@
 </td>
 </tr>
           <tr>
-                    <td class="border-less"><b>UPCOMING UPDATE FOR AENDICUS II</b></td>
+                    <td class="border-less"><b>AENDICUS II USERS UPDATE AS OF <font color=red><?php echo date('m-d-Y'); ?></font></b></td>
           </tr>
           <tr>
                     <td class="border-less">LOGIN SUMMARY OF USER</td>
@@ -52,6 +52,12 @@
           </tr>
           <tr>
                     <td class="border-less">DATE OF ENCODING</td>
+          </tr>
+          <tr>
+                    <td class="border-less">DATE UPDATE OF CASELOG FORM</td>
+          </tr>
+          <tr>
+                    <td class="border-less">USER INTERFACE OF OTHER FORMS</td>
           </tr>
 <tr>
 <td colspan="2" align="center" style="border-top:hidden;" class="border-less"><br><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>

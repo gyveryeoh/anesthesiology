@@ -4,7 +4,14 @@ body{
 	margin: auto;
 	font-size: 95%;
 }
-
+.question
+        {
+            background-color:skyblue;
+        }
+        .answer
+        {
+            background-color:#fafad2;
+        }
 /*.body{
     background-color: #D0D0D0  ;
 }*/

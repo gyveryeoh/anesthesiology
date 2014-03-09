@@ -1,14 +1,13 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searched_index">
- <input type="hidden" value="<?php echo $user_information['institution_id']; ?>" name="institution_id">
- <table width="80%" cellpadding="1" cellspacing="0">
+<table width="80%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">SEARCH</td>
           </tr>
           <tr>
            <td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
           <tr>
-                    <td class="border-less" align="right" width="40%">Patient Case Number :</td>
-                    <td class="border-less" colspan="2"><input type="text" name="case_number" size="20" class="required"></td>
+                    <td class="border-less" width="20%" bgcolor=skyblue>PATIENT CASE NUMBER</td>
+                    <td class="border-less" colspan="2" bgcolor=fafad2><input type="text" name="case_number" size="20" class="required"></td>
          </tr>
           <tr>
                     <td class="border-less" align="right">&nbsp;</td>

@@ -30,11 +30,10 @@ function searched_index()
    $session_data = $this->session->userdata('logged_in');
    $data["user_information"] = $session_data;
    $case_number = $this->input->post('case_number');
-   $institution_id = $this->input->post('institution_id');
-   $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
+   $datas['case_number'] = $this->user->case_number_checking($case_number,$session_data['institution_id']);
   if ($datas['case_number'] == true)
   {
-   $datas['case_number'] = $this->user->case_number_checking($case_number,$institution_id);
+   $datas['case_number'] = $this->user->case_number_checking($case_number,$session_data['institution_id']);
    $this->load->view('header/header',$data);
    $this->load->view('search/searched_index_view',$datas);
   }
