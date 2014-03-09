@@ -7,6 +7,7 @@
           <th class="border-less" bgcolor=skyblue><b>CASELOG</b></th>
           <th class="border-less" bgcolor=skyblue><b>LOGIN SUMMARY</b></th>
           <th class="border-less" bgcolor=skyblue><b>PROFILE</b></th>
+		  <th class="border-less" bgcolor=skyblue><b>REPORTS LIST</b></th>
           <th class="border-less" bgcolor=skyblue><b>LAST DATE OF ENCODING</b></th>
           </tr>
           <?php foreach($residents_information as $res_info):
@@ -24,6 +25,7 @@
             <td align="center" width=10% class="answer"><a href="<?php echo base_url(); ?>index.php/home/resident_encoded?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
             <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/reports_controller/login_summary?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
           <td align="center" width=15% class="answer">VIEW</a></td>
+          <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/reports_controller/reports_list?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
           <td align="center" width=15% bgcolor="<?php echo $color; ?>"><?php echo $res_info->date_encode; ?></td>
           </tr>
           <?php endforeach; ?>
