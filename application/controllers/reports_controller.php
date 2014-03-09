@@ -61,21 +61,13 @@ class Reports_controller extends CI_Controller
 	}
  	function anesth_services()
 	{
-		
 		$session_data = $this->session->userdata('logged_in');
 		$data["user_information"] = $session_data;
-		$data['username'] = $session_data['username'];
-		$data['lastname'] = $session_data['lastname'];
-		$data['firstname'] = $session_data['firstname'];
-		$data['middle_initials'] = $session_data['middle_initials'];
-		$data['role_id'] = $session_data['role_id'];
-		$data['id'] = $session_data['id'];
-		$user_id = $data['id'];	
 		$datas['anesth_services'] = $this->dropdown_select->anesth_services();
 		$index = 1;
 		foreach($datas['anesth_services'] as $n)
 		{
-			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$session_data['id']);
 			$index+=1;
 		}
 		$this->load->view('header/header',$data);

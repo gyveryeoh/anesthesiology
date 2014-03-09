@@ -9,18 +9,24 @@
           <th class="border-less" bgcolor=skyblue><b>PROFILE</b></th>
           <th class="border-less" bgcolor=skyblue><b>LAST DATE OF ENCODING</b></th>
           </tr>
-          <?php foreach($residents_information as $res_info)
-          {
+          <?php foreach($residents_information as $res_info):
             $user_id = $res_info->id;
-            ?>
-          <tr bgcolor=fafad2>
-            <td width=23%><?php echo $res_info->lastname." ".$res_info->firstname." ".$res_info->middle_initials."."; ?></td>
-            <td align="center" width=10%><a href="<?php echo base_url(); ?>index.php/home/resident_encoded?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
-            <td align="center" width=15%><a href="<?php echo base_url(); ?>index.php/reports_controller/login_summary?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
-          <td align="center" width=15%>VIEW</a></td>
-          <td align="center" width=15%><?php echo $res_info->date_encode; ?></td>
+            
+          if ($res_info->date_encode == NULL || $res_info->date_encode == "")
+          {
+            $color = "green";
+          }else{
+            $color = "fafad2";
+          }
+          ?>
+          <tr>
+            <td width=23% class="answer"><?php echo $res_info->lastname." ".$res_info->firstname." ".$res_info->middle_initials."."; ?></td>
+            <td align="center" width=10% class="answer"><a href="<?php echo base_url(); ?>index.php/home/resident_encoded?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
+            <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/reports_controller/login_summary?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
+          <td align="center" width=15% class="answer">VIEW</a></td>
+          <td align="center" width=15% bgcolor="<?php echo $color; ?>"><?php echo $res_info->date_encode; ?></td>
           </tr>
-          <?php } ?>
+          <?php endforeach; ?>
           <tr>
             <tr>
                 <td colspan="4" class="border-less"><?php echo $this->pagination->create_links(); ?></td>

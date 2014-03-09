@@ -14,7 +14,7 @@
           <?php endforeach; ?>
           </tr>
           <?php foreach($login_summary as $data): ?>
-          <tr bgcolor=fafad2>
+          <tr bgcolor="fafad2">
             <td colspan=2><?php echo $data->login_date; ?></td>
           </tr>
           <?php endforeach; ?>
