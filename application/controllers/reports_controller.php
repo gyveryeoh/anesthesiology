@@ -33,7 +33,32 @@ class Reports_controller extends CI_Controller
 			redirect('login', 'refresh');
 		}
 	}
-
+	function login_summary()
+	{
+		if($this->session->userdata('logged_in'))
+		{
+			$resident_id =$this->input->get('resident_id');
+			$this->load->library('pagination');
+			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
+			$config["base_url"] = base_url()."index.php/reports_controller/login_summary";
+			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
+			$config["total_rows"] = $this->reports_model->count_users_login_summary_table($resident_id);
+			$data['total_number'] = $config['total_rows'];
+			$config["per_page"] = 10;
+			$config["uri_segment"] = 3;
+			$this->pagination->initialize($config);
+			$data['user_information'] = $this->session->userdata('logged_in');
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["login_summary"] = $this->reports_model->fetch_users_login_summary($page,$config["per_page"],$resident_id);
+			$data['resident_information'] = $this->user->resident_information($resident_id);
+			$this->load->view('header/header',$data);
+			$this->load->view('reports/login_summary',$data);
+		}
+		else
+		{
+			redirect('login', 'refresh');
+		}
+	}
  	function anesth_services()
 	{
 		
