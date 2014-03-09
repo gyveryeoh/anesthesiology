@@ -1,6 +1,6 @@
 <table width="80%" cellpadding="1" cellspacing="0">
           <tr>
-		<th>ServiceSSS</th>
+		<th>Service</th>
 		<th>Count</th>
           </tr>
           <?php
