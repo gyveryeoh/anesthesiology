@@ -176,17 +176,29 @@ class Reports_controller extends CI_Controller
 	}
 	function get_resident_per_institution()
 	{
+<<<<<<< HEAD
 		$insti_id = $this->input->post('insti_id');
+=======
+		$inst_id = $this->input->get('inst_id');
+>>>>>>> 575644a97648a98611dacf788f5c641d6057fd39
 		$residents_list = array();
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->where('institution_id',$insti_id);
 		$result = $this->db->get();
 		$inst = $result->result();
+<<<<<<< HEAD
 			$data .= "<option value=''>--Pilih--</option>";
 		foreach ($inst as $mp){
 			$data .= "<option value='".$mp->id."'>".$mp->id."</option>\n";	
 		}
 		echo $data;
+=======
+		$count = $result->num_rows();
+		echo "<option value=''>Select Resident</option>";
+			foreach($inst as $ai):
+					echo "<option value='". $ai->institution_id ."'>".$ai->lastname.", ".$ai->firstname." ".$ai->middle_initials."</option>";
+			endforeach;
+>>>>>>> 575644a97648a98611dacf788f5c641d6057fd39
 	}
 }

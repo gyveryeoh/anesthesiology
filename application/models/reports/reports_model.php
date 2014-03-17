@@ -74,5 +74,10 @@ function anesth_service_count($anesth_service,$id)
 		$result = $this->db->get();
 		return $result->num_rows();
 	}
+<<<<<<< HEAD
+=======
+
+ 
+>>>>>>> 575644a97648a98611dacf788f5c641d6057fd39
 }
 ?>
