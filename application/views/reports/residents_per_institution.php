@@ -1,4 +1,4 @@
-<table width="80%" cellpadding="1" cellspacing="0">
+<table width="80%" cellpadding="1" cellspacing="0" border = "0">
           <form method="get" action="<?php echo base_url(); ?>index.php/reports_controller/get_resident_per_institution">
           <tr>				
 			<td colspan="2" align="center">
@@ -10,19 +10,15 @@
 					endforeach
 				?>
 				</select>
-			</td>
-			<tr>
-			      <td>
-				</br>
+
+			
 
 				Resident Name : <select id="sub_category"  name="sub_category" style="width: 250px;">
 				<option value="">Select Resident</option>
 
 				</select>
-			</td>
-			</tr>
-			<tr>
-				</br>
+
+
 				Filter Year : <select name="year" size="1" style="width: 60px;">
 				<?php
 				for($x=date('Y');$x>=1900;$x--)
@@ -38,13 +34,13 @@
 				}
 				?>
 			</select>
-</tr>
+
 			<input type="submit" name="submit" value="submit">
-			</th>
-			
+			</td>
 		  </tr>
 		  </form>
 </table>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.js"></script>
 <script type="text/javascript">
 	//Datepicker Format
 	//Province and Municipality Dropdown
