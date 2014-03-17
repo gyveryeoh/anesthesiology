@@ -1,5 +1,4 @@
-<?php
-foreach($institution_details as $name): endforeach; ?>
+<?php foreach($institution_details as $name): endforeach; ?>
 <head>
 <script>
 $(document).ready(function(){
@@ -99,8 +98,8 @@ $diff = $date1->diff($date2);
                     <td class="border-less answer" colspan="4"><?php echo $name->name; ?></td>
           </tr>
           <tr>
-                    <td class="border-less question">HOSPITAL ROTATION</td>
                     <td class="border-less answer"></td>
+                    <td class="border-less answer" width="40%"></td>
                     <td class="border-less question" width=10%>WEIGHT</td>
                     <td class="border-less answer"><?php echo $row->weight; ?> KG</td>
           </tr> 
@@ -120,6 +119,20 @@ $diff = $date1->diff($date2);
           </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+        <tr>
+                    <td class="border-less header" align="center" colspan="2">HOSPITAL ROTATION INFORMATION</td>
+        </tr>
+          <tr>
+            <td class="border-less question" width="20%">HOSPITAL</td>
+            <td class="border-less answer">
+                              <select name="hospital_rotation" style="width:300px;">
+                                        <option value="0">NONE</option>
+                                        <?php foreach ($hospital_details as $datas): ?>
+                                        <option value="<?php echo $datas->id; ?>"><?php echo $datas->name; ?></option>
+                                        <?php endforeach; ?>
+                              </select>
+                    </td>
+          </tr>
         <tr>
                     <td class="border-less header" align="center" colspan="2">DIAGNOSIS INFORMATION</td>
         </tr>
@@ -841,7 +854,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG INFORMATION"></td>
           </tr>
           <tr class=answer>
-            <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+            <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
           </tr>
 </table>
 </form>  

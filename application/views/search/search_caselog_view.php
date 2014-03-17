@@ -45,7 +45,7 @@
                     <td class="border-less" align="right">&nbsp;</td>
                     <td class="border-less"><input type="submit" name="login" value="SEARCH">
           </tr>  <tr>
-<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 </tr>
 </table>
 </form>

@@ -42,25 +42,22 @@
 </td>
 </tr>
           <tr>
-                    <td class="border-less"><b>AENDICUS II USERS UPDATE AS OF <font color=red><?php echo date('m-d-Y'); ?></font></b></td>
+                    <td class="border-less question"><b>AENDICUS II USERS UPDATE AS OF <font color=red><?php echo date('m-d-Y'); ?></font></b></td>
           </tr>
           <tr>
-                    <td class="border-less">LOGIN SUMMARY OF USER</td>
+                    <td class="border-less">"NONE" FIELD IN POST-OP PAIN MANAGEMENT</td>
           </tr>
           <tr>
-                    <td class="border-less">PROFILE UPDATE</td>
+                    <td class="border-less">HOSPITAL ROTATION</td>
           </tr>
           <tr>
-                    <td class="border-less">DATE OF ENCODING</td>
+                    <td class="border-less question"><b>UPCOMING AENDICUS II USERS UPDATE</b></td>
           </tr>
           <tr>
-                    <td class="border-less">DATE UPDATE OF CASELOG FORM</td>
-          </tr>
-          <tr>
-                    <td class="border-less">USER INTERFACE OF OTHER FORMS</td>
+                    <td class="border-less">ADDITIONAL MEDICINE FOR AGENTS</td>
           </tr>
 <tr>
-<td colspan="2" align="center" style="border-top:hidden;" class="border-less"><br><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+<td colspan="2" align="center" style="border-top:hidden;" class="border-less"><br><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
 </tr>
 </table>
 </table>

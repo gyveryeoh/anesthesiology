@@ -17,7 +17,6 @@ class Home extends CI_Controller {
    {
      $session_data = $this->session->userdata('logged_in');
      $data["user_information"] = $session_data;
-	
      $this->load->view('header/header', $data);
      $this->load->view('home_view');
    }
@@ -54,7 +53,8 @@ class Home extends CI_Controller {
    'weight'          => $this->input->post('weight'));
     $this->user->add_patient($data);
     $patient_information_id = $this->db->insert_id();
-  redirect('home/anesthesiology_form/'.$patient_information_id);
+    $hospital_rotation = $this->input->post('hospital_rotation');
+  redirect('home/anesthesiology_form/'.$patient_information_id."/".$hospital_rotation);
   }
   else
   {
@@ -64,6 +64,14 @@ class Home extends CI_Controller {
  }
  function add_anesthesiology_information()
  {
+  if ($this->input->post('patient_information_id') == "0")
+  {
+   redirect('search_controller','refresh');
+  }
+    if($this->session->userdata('logged_in'))
+       {
+        $session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
   $monitors_used = $this->input->post('monitors_used');
   $airway = $this->input->post('airway');
   $other_airway = $this->input->post('other_airway');
@@ -84,6 +92,8 @@ class Home extends CI_Controller {
   $anesthetic_technique = $this->input->post('anesthetic_technique');
   $critical_events = $this->input->post('critical_events');
   $peripheral = $this->input->post('peripheral');
+  $hospital_rotation = $this->input->post('hospital_rotation');
+  if ($hospital_rotation == "0") {$hospital_rotation = $session_data['institution_id'];}else{ $hospital_rotation = $hospital_rotation;}
   if ($airway == "Others (pls specify):"){$airway  = $other_airway; } else { $airway = $airway; }
   if ($spinal_needle == "Others (pls specify):"){ $spinal_needle = $other_spinal_needle; } else { $spinal_needle = $spinal_needle; }
   if ($epidural_needle == "Others"){ $epidural_needle = $other_epidural_needle; } else { $epidural_needle = $epidural_needle; }
@@ -95,12 +105,9 @@ class Home extends CI_Controller {
   if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
   if ($anesthetic_technique == "9") {$peripheral = $peripheral;} else {$peripheral = "NULL";}
   if ($anesthetic_technique == "3") {$critical_events ="YES";}
-  if($this->session->userdata('logged_in'))
-       {
-        $session_data = $this->session->userdata('logged_in');
-   $data["user_information"] = $session_data;
     $data = array(
    'patient_information_id' => $this->input->post('patient_information_id'),
+   'hospital_rotation_id' => $hospital_rotation,
    'user_id' => $session_data['id'],
    'institution_id' => $session_data['institution_id'],
    'operation_date' =>$this->input->post('operation_date'),
@@ -251,6 +258,7 @@ $this->user->add_anesthesiology_information_data($data);
    {
   $session_data = $this->session->userdata('logged_in');
      $data["user_information"] = $session_data;
+     $datas['hospital_details'] = $this->dropdown_select->anesth_institutions();
      $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
      $datas['anesth_services_data'] = $this->dropdown_select->anesth_services();
      $datas['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
@@ -396,5 +404,4 @@ function pdf_report($patients_id='', $pf_id='')
            redirect('login', 'refresh');
           }
            }
-
 }

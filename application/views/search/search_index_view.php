@@ -17,7 +17,7 @@
            <td colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo '<a href="'.base_url().'index.php/home/"><b>ADD NEW PATIENT INFORMATION</b></a>'; } ?></td>
           </tr>
           <tr>
-           <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+           <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
           </tr>
 </table>
 </form>

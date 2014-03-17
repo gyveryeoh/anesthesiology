@@ -32,7 +32,7 @@
           }
           ?>
           <tr>
-           <td colspan="5" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+           <td colspan="12" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
           </tr>
 </table>
 </form>

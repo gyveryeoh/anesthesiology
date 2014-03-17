@@ -1,6 +1,7 @@
 <?php
 foreach ($patient_information as $data): endforeach;
 foreach($institution_details as $name): endforeach;
+foreach($hospital_rotation_details as $hospital_name): endforeach;
 $date1 = new DateTime($data->birthdate);
 $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
@@ -44,7 +45,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">HOSPITAL ROTATION</td>
-        <td bgcolor="FAFAD2" colspan="3" class="border-less"></td>
+        <td bgcolor="FAFAD2" colspan="3" class="border-less"><?php echo $hospital_name->name; ?></td>
     
         <td bgcolor="SkyBlue" class="border-less">WEIGHT</td>
         <td colspan="3" bgcolor="FAFAD2" class="border-less"><?php echo $data->weight; ?> KG</td>
@@ -600,7 +601,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
         <?php } } ?>
     <tr>
-        <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+        <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
     </tr>
 </table>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/zebra_datepicker.js"></script>

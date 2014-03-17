@@ -5,24 +5,24 @@
           </tr>
           <tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
           <tr>
-                    <td class="border-less" align="right" width="40%">Case Number :</td>
-                    <td class="border-less"><input type="text" name="case_number" size="20" class="required" value="<?php echo $this->input->post('case_number'); ?>">
+                    <td class="border-less question" width="20%">CASE NUMBER</td>
+                    <td class="border-less answer"><input type="text" name="case_number" size="20" class="required" value="<?php echo $this->input->post('case_number'); ?>">
           </tr>
           <tr>
-                    <td class="border-less" align="right">Lastname/Initial :</td>
-                    <td class="border-less"><input type="text" name="lastname" size="20" class="required" maxlength="1" value="<?php echo $this->input->post('lastname'); ?>">
+                    <td class="border-less question">LASTNAME INITIAL</td>
+                    <td class="border-less answer"><input type="text" name="lastname" size="20" class="required" maxlength="1" value="<?php echo $this->input->post('lastname'); ?>">
           </tr>
           <tr>
-                    <td class="border-less" align="right">Firstname/Initial :</td>
-                    <td class="border-less"><input type="text" size="20" name="firstname" class="required" maxlength="1" value="<?php echo $this->input->post('firstname'); ?>">
+                    <td class="border-less question">FIRSTNAME INITIAL</td>
+                    <td class="border-less answer"><input type="text" size="20" name="firstname" class="required" maxlength="1" value="<?php echo $this->input->post('firstname'); ?>">
           </tr>
           <tr>
-                    <td class="border-less" align="right">Middle/Initial :</td>
-                    <td class="border-less"><input type="text" size="5" name="middle_initials" class="required" maxlength="4" value="<?php echo $this->input->post('middle_initials'); ?>">
+                    <td class="border-less question">MIDDLE INITIAL</td>
+                    <td class="border-less answer"><input type="text" size="5" name="middle_initials" class="required" maxlength="4" value="<?php echo $this->input->post('middle_initials'); ?>">
           </tr>
           <tr>
-                    <td class="border-less" align="right">Gender :</td>
-                    <td class="border-less"><select name="gender" class="required" style="width: 120px;">
+                    <td class="border-less question">GENDER</td>
+                    <td class="border-less answer"><select name="gender" class="required" style="width: 120px;">
                               <option value="">Select Gender</option>
                               <option value="M" <?php if ($this->input->post('gender') == 'M') echo "selected"; ?>>Male</option>
                               <option value="F" <?php if ($this->input->post('gender') == 'F') echo "selected"; ?>>Female</option>
@@ -30,8 +30,8 @@
           </tr>
           
           <tr>
-                    <td class="border-less" align="right">Birthdate :</td>
-                    <td class="border-less">
+                    <td class="border-less question">BIRTHDATE</td>
+                    <td class="border-less answer">
                     <select name="month" class="required" style="width:80px;">
 	    <option value="">MONTH</option>
 				<?php
@@ -93,14 +93,14 @@
                     </td>
           </tr>
           <tr>
-                    <td class="border-less" align="right">Weight :</td>
-                    <td class="border-less"><input type="text" size="5" name="weight" class="required" maxlength="5" value="<?php echo $this->input->post('weight'); ?>"> KG</td>
+                    <td class="border-less question">WEIGHT</td>
+                    <td class="border-less answer"><input type="text" size="5" name="weight" class="required" maxlength="5" value="<?php echo $this->input->post('weight'); ?>"> KG</td>
           </tr>
           <tr>
                     <td class="border-less" align="right">&nbsp;</td>
-                    <td class="border-less"><input type="submit" name="login" value="SAVE">
+                    <td class="border-less"><input type="submit" name="login" value="SAVE INFORMATION">
           </tr>  <tr>
-<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 </tr>
 </table>
 </form>

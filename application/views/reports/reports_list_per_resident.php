@@ -8,7 +8,7 @@ if($year == NULL)
 			<th colspan="2" align="center">
 				Filter Year : <select name="year" size="1" style="width: 60px;">
 				<?php
-				for($x=date('Y');$x>=1900;$x--)
+				for($x=date('Y');$x>=2013;$x--)
 				{
 					echo "<option value=".$x."";
 					
@@ -57,6 +57,6 @@ if($year == NULL)
                 ?>
           <tr><th align="right" class="border-less">TOTAL</th><td style="color: red;text-align: center;border: hidden;"><b><?php echo $total; ?></b></td></tr>
 	<tr>
-		<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+		<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 	</tr>
 </table>

@@ -184,6 +184,7 @@ function anesth_techniques_reports()
  {
      $this->db->select('*');
      $this->db->from('anesth_institution');
+     $this->db->where('id !=',0);
      $this->db->order_by("id", "asc");
      $query = $this->db->get();
      return $query->result();
@@ -218,6 +219,14 @@ function roles()
   $this->db->select('*');
   $this->db->from('anesth_institution');
   $this->db->where('id',$institution_id);
+  $query = $this->db->get();
+  return $query->result();
+ }
+ function select_hospital_rotation($hospital_rotation_id)
+ {
+  $this->db->select('*');
+  $this->db->from('anesth_institution');
+  $this->db->where('id',$hospital_rotation_id);
   $query = $this->db->get();
   return $query->result();
  }

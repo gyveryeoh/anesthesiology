@@ -159,5 +159,34 @@ class Reports_controller extends CI_Controller
 			}
 
 		}
+		else
+		{
+			redirect('login', 'refresh');
+		}
+	}
+	
+	function institution_view()
+	{
+		$session_data = $this->session->userdata('logged_in');
+		$data["user_information"] = $session_data;
+		$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
+		$datas["year"] = "";
+		$this->load->view('header/header',$data);
+		$this->load->view('reports/residents_per_institution',$datas);
+	}
+	function get_resident_per_institution()
+	{
+		$insti_id = $this->input->post('insti_id');
+		$residents_list = array();
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('institution_id',$insti_id);
+		$result = $this->db->get();
+		$inst = $result->result();
+			$data .= "<option value=''>--Pilih--</option>";
+		foreach ($inst as $mp){
+			$data .= "<option value='".$mp->id."'>".$mp->id."</option>\n";	
+		}
+		echo $data;
 	}
 }
