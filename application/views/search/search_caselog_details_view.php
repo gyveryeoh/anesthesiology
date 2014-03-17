@@ -3,7 +3,7 @@
           <tr>
                     <td class="border-less header" align="center" colspan="2">CASELOG SEARCH</td>
           </tr>
-          <tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
+          <tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="bo action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog_details"rder-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
           <tr>
                     <td class="border-less" align="right" width="40%">Resident Name :</td>
                      <td class="border-less" colspan="2">
