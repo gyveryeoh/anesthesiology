@@ -177,19 +177,17 @@ class Reports_controller extends CI_Controller
 	
 	function get_resident_per_institution()
 	{
-		$inst_id = $this->input->post('inst_id');
+		$inst_id = $this->input->get('inst_id');
 		$residents_list = array();
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->where('institution_id',$inst_id);
 		$result = $this->db->get();
 		$inst = $result->result();
-					foreach($inst as $ai):
-					$residents_list[] = array(
-							'value'=> $ai->id,
-							'text'=> $ai->lastname." ".$ai->firstname." ".$ai->middle_initials
-							);
-					endforeach;
-		echo json_encode ($residents_list);
+		$count = $result->num_rows();
+		echo "<option value=''>Select Resident</option>";
+			foreach($inst as $ai):
+					echo "<option value='". $ai->institution_id ."'>".$ai->lastname.", ".$ai->firstname." ".$ai->middle_initials."</option>";
+			endforeach;
 	}
 }
