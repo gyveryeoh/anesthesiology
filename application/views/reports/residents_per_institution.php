@@ -1,7 +1,6 @@
 <?php
 if($year == NULL)
 {$year = "";}
-echo "paul";
 ?>
 
 <table width="80%" cellpadding="1" cellspacing="0">
@@ -9,6 +8,7 @@ echo "paul";
           <tr>				
 			<th colspan="2" align="center">
 				Institution : <select name="institution" size="1" style="width: 300px;" id="category">
+				<option ="">Select Institution</option>
 				<?php
 					foreach($anesth_institutions as $ai):
 						echo "<option value='".$ai->id."'>".$ai->name."</option>";
@@ -16,8 +16,8 @@ echo "paul";
 				?>
 				</select>
 				</br>
-				Resident Name : <select id="sub_category" name="municipality_id" class="index_input" style="width: 200px;">
-				<option value="">Resident Name</option>
+				Resident Name : <select id="sub_category"  name="sub_category" style="width: 250px;">
+				<option value="">Select Resident</option>
 				</select>
 				</br>
 				Filter Year : <select name="year" size="1" style="width: 60px;">
@@ -44,35 +44,15 @@ echo "paul";
 		  <tr>
 </table>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.js"></script>
-<script>
+<script type="text/javascript">
 	//Datepicker Format
 	//Province and Municipality Dropdown
-	$("select#category").change(function(){
-			// Post string
-			var inst_id = $(this).val();
-			alert(inst_id);
-			
-			var option = "";
-			$.ajax({
-				type: "POST", 
-				data: inst_id, 
-				dataType: "json", 
-				cache: true,
-				
-				url: '<?php echo base_url();?>index.php/reports_controller/get_resident_per_institution',  
-				timeout: 1000, 
-				error: function()
-				{
-					alert("Failed to submit");
-				},
-				success: function(data)
-				{  
-			        $.each(data, function(i,j){ 
-		                var row = "<option value=\"" + j.value + "\">" + j.text + "</option>"; 
-				option += row;
-				});
-				$("#sub_category").html(option);
-				}
-				});
-			});
+	$(document).ready(function() {
+		$("#category").change(function() {
+			$.get('<?php echo base_url();?>index.php/reports_controller/get_resident_per_institution?inst_id=' + $(this).val(), function(data) {
+				$("#sub_category").html(data);
+			});	
+		});
+	 
+	});
 </script>
