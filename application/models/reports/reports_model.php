@@ -74,7 +74,7 @@ return $result->num_rows();
 }
 function get_users_institution($insti_id)
 {
-	$this->db->where('id',$insti_id);
+	$this->db->where('institution_id',$insti_id);
 	$result = $this->db->get('users');
 	if ($result->num_rows() > 0 )
 	{

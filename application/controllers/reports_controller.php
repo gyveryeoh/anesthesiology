@@ -177,12 +177,11 @@ $this->load->view('reports/residents_per_institution',$datas);
 function get_resident_per_institution()
 {
 	$insti_id = $this->input->post('insti_id');
-	$users_info = $this->reports_model->get_users_institution($insti_id);
-	$data .= "<option value=''>Select Resident</option>";
-	foreach ($users_info as $ui)
-	{
-		$data .= "<option value='$ui[id]'>$ui[lastname]</option>\n";	
-	}
-	echo $data;
+	$users_list = $this->reports_model->get_users_institution($insti_id);
+	$data .= "<option value=''>SELECT RESIDENT</option>";
+	foreach ($users_list as $u_list){
+			$data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname]</option>\n";	
+		}
+		echo $data;
 	}
 }
