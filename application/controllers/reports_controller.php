@@ -191,64 +191,59 @@ function get_resident_per_institution()
 		$operation_d = $this->reports_model->get_year($user_id);
 		$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
 		$datas['anesth_services'] = $this->dropdown_select->anesth_services();
-		$index = 1;
 		$total = 0;
-		if($year1!=0)
+		foreach($datas['anesth_technique'] as $n)
 		{
-			foreach($datas['anesth_technique'] as $n)
-			{	
-				$total_count = 0;
-				foreach($operation_d as $y)
-				{
-				$ye = $y->operation_date;
-				$year2 = date("Y", strtotime($ye));
-
-				if($year1 == $year2)
-				{
-						$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
-				}
-				else
-				{
-				$datas["count_per_technique"][$n->id] = 0;
-				}
-
-				}
-				$datas["count_per_technique"][$n->id] = $total_count;
-				$index+=1;
-			}
-			foreach($datas['anesth_services'] as $n)
+			if($year1 != 0)
 			{
 				$total_count = 0;
-				$index+=1;
 				foreach($operation_d as $y)
 				{
-				$ye = $y->operation_date;
-				$year2 = date("Y", strtotime($ye));
-				if($year1 == $year2)
-				{
-				$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
+					$ye = $y->operation_date;
+					$year2 = date("Y", strtotime($ye));
+					if($year1 == $year2)
+					{
+						$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
+					}
+					else
+					{
+						$datas["count_per_technique"][$n->id] = 0;
+					}
 				}
-				else
-				{
-				$datas["count_per_service"][$n->id] = 0;
-				}
-				}
-				$datas["count_per_service"][$n->id] = $total_count;
-				$index+=1;
+				$datas["count_per_technique"][$n->id] = $total_count;
 			}
-		}
-		else
-		{
-			foreach($datas['anesth_technique'] as $n)
+			else
 			{
 				$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
 			}
-			foreach($datas['anesth_services'] as $n)
-			{
-			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
-			}
 		}
 		
+		foreach($datas['anesth_services'] as $n)
+		{
+			if($year1 != 0)
+			{
+				$total_count = 0;
+				foreach($operation_d as $y)
+				{
+					$ye = $y->operation_date;
+					$year2 = date("Y", strtotime($ye));
+					if($year1 == $year2)
+					{
+						$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
+					}
+					else
+					{
+						$datas["count_per_service"][$n->id] = 0;
+					}
+				}
+				$datas["count_per_service"][$n->id] = $total_count;
+			}
+			else
+			{
+				$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+			}
+		}
+
 		echo "<table cellpadding='1' cellspacing='0'>
 		<tr>
 		<th width='1500'>Techniques</th>
@@ -280,6 +275,5 @@ function get_resident_per_institution()
 		$total += $datas["count_per_service"][$ser->id];		
 		endforeach;
 		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
-
 	}
 }
