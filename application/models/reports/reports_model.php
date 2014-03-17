@@ -74,6 +74,7 @@ function anesth_service_count($anesth_service,$id)
 		$result = $this->db->get();
 		return $result->num_rows();
 	}
+
  
 }
 ?>
