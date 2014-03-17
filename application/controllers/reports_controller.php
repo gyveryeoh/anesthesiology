@@ -18,11 +18,9 @@ $session_data = $this->session->userdata('logged_in');
 $data["user_information"] = $session_data;
 $user_id = $session_data['id'];
 $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
-$index = 1;
 foreach($datas['anesth_technique'] as $n)
 {
-$datas["count_per_technique"][$index] = $this->reports_model->anesth_technique_count($n->id,$user_id);
-$index+=1;
+$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
 }
 $this->load->view('header/header',$data);
 $this->load->view('header/reports_header');
@@ -76,93 +74,93 @@ $this->load->view('reports/anesth_service_per_resident',$datas);
 }	
 function reports_list()
 {
-$user_id = $this->input->get('resident_id');
-$session_data = $this->session->userdata('logged_in');
-        $data["user_information"] = $session_data;
-$data["year"] = "";
-$data["user_id"] = $user_id;
-$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
-$datas['anesth_services'] = $this->dropdown_select->anesth_services();
-if($this->session->userdata('logged_in'))
-{
-if($this->input->post('submit') == "submit")
-{
-$year1 = $this->input->post("year");
-$data["year"] = $year1;
-$operation_d = $this->reports_model->get_year($user_id);
+	$user_id = $this->input->get('resident_id');
+	$session_data = $this->session->userdata('logged_in');
+			$data["user_information"] = $session_data;
+	$data["year"] = "";
+	$data["user_id"] = $user_id;
+	$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
+	$datas['anesth_services'] = $this->dropdown_select->anesth_services();
+	if($this->session->userdata('logged_in'))
+	{
+	if($this->input->post('submit') == "submit")
+	{
+		$year1 = $this->input->post("year");
+		$data["year"] = $year1;
+		$operation_d = $this->reports_model->get_year($user_id);
 
-$index = 1;
-foreach($datas['anesth_technique'] as $n)
-{	
-$total_count = 0;
-foreach($operation_d as $y)
-{
-$ye = $y->operation_date;
-$year2 = date("Y", strtotime($ye));
-if($year1 == $year2)
-{
-$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
-}
-else
-{
-$datas["count_per_technique"][$n->id] = 0;
-}
+		$index = 1;
+		foreach($datas['anesth_technique'] as $n)
+		{	
+			$total_count = 0;
+			foreach($operation_d as $y)
+			{
+			$ye = $y->operation_date;
+			$year2 = date("Y", strtotime($ye));
+			if($year1 == $year2)
+			{
+			$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
+			}
+			else
+			{
+			$datas["count_per_technique"][$n->id] = 0;
+			}
 
-}
-$datas["count_per_technique"][$n->id] = $total_count;
-$index+=1;
-}
+			}
+			$datas["count_per_technique"][$n->id] = $total_count;
+			$index+=1;
+		}
 
-foreach($datas['anesth_services'] as $n)
-{
-$total_count = 0;
-$index+=1;
-foreach($operation_d as $y)
-{
-$ye = $y->operation_date;
-$year2 = date("Y", strtotime($ye));
-if($year1 == $year2)
-{
-$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
-}
-else
-{
-$datas["count_per_service"][$n->id] = 0;
-}
-}
-$datas["count_per_service"][$n->id] = $total_count;
-$index+=1;
-}
+		foreach($datas['anesth_services'] as $n)
+		{
+			$total_count = 0;
+			$index+=1;
+			foreach($operation_d as $y)
+			{
+			$ye = $y->operation_date;
+			$year2 = date("Y", strtotime($ye));
+			if($year1 == $year2)
+			{
+			$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
+			}
+			else
+			{
+			$datas["count_per_service"][$n->id] = 0;
+			}
+			}
+			$datas["count_per_service"][$n->id] = $total_count;
+			$index+=1;
+		}
 
-$this->load->view('header/header',$data);
-$this->load->view('reports/reports_list_per_resident',$datas);
-}
-else
-{
-$index = 1;
-foreach($datas['anesth_technique'] as $n)
-{
-$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
-$index+=1;
-}
+		$this->load->view('header/header',$data);
+		$this->load->view('reports/reports_list_per_resident',$datas);
+		}
+	else
+	{
+	$index = 1;
+	foreach($datas['anesth_technique'] as $n)
+	{
+	$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
+	$index+=1;
+	}
 
 
-$index = 1;
-foreach($datas['anesth_services'] as $n)
-{
-$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
-$index+=1;
-}
+	$index = 1;
+	foreach($datas['anesth_services'] as $n)
+	{
+	$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+	$index+=1;
+	}
 
-$this->load->view('header/header',$data);
-$this->load->view('reports/reports_list_per_resident',$datas);
-}
+	$this->load->view('header/header',$data);
+	$this->load->view('reports/reports_list_per_resident',$datas);
+	}
 
-}
-else
-{
-redirect('login', 'refresh');
-}
+	}
+	else
+	{
+	redirect('login', 'refresh');
+	}
 }
 
 function institution_view()
@@ -174,6 +172,7 @@ $datas["year"] = "";
 $this->load->view('header/header',$data);
 $this->load->view('reports/residents_per_institution',$datas);
 }
+
 function get_resident_per_institution()
 {
 	$insti_id = $this->input->post('insti_id');
@@ -183,5 +182,104 @@ function get_resident_per_institution()
 			$data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname]</option>\n";	
 		}
 		echo $data;
+}
+	function get_report_list()
+	{
+		$insti_id = $this->input->post('insti_id');
+		$user_id = $this->input->post('users_info');
+		$year1 = $this->input->post('year');
+		$operation_d = $this->reports_model->get_year($user_id);
+		$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
+		$datas['anesth_services'] = $this->dropdown_select->anesth_services();
+		$index = 1;
+		$total = 0;
+		if($year1!=0)
+		{
+			foreach($datas['anesth_technique'] as $n)
+			{	
+				$total_count = 0;
+				foreach($operation_d as $y)
+				{
+				$ye = $y->operation_date;
+				$year2 = date("Y", strtotime($ye));
+
+				if($year1 == $year2)
+				{
+						$total_count+=$this->reports_model->anesth_technique_count_year($n->id,$user_id,$ye);
+				}
+				else
+				{
+				$datas["count_per_technique"][$n->id] = 0;
+				}
+
+				}
+				$datas["count_per_technique"][$n->id] = $total_count;
+				$index+=1;
+			}
+			foreach($datas['anesth_services'] as $n)
+			{
+				$total_count = 0;
+				$index+=1;
+				foreach($operation_d as $y)
+				{
+				$ye = $y->operation_date;
+				$year2 = date("Y", strtotime($ye));
+				if($year1 == $year2)
+				{
+				$total_count+=$this->reports_model->anesth_services_count_year($n->id,$user_id,$ye);
+				}
+				else
+				{
+				$datas["count_per_service"][$n->id] = 0;
+				}
+				}
+				$datas["count_per_service"][$n->id] = $total_count;
+				$index+=1;
+			}
+		}
+		else
+		{
+			foreach($datas['anesth_technique'] as $n)
+			{
+				$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
+			}
+			foreach($datas['anesth_services'] as $n)
+			{
+			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
+			}
+		}
+		
+		echo "<table cellpadding='1' cellspacing='0'>
+		<tr>
+		<th width='1500'>Techniques</th>
+		<th>Count</th>
+		</tr>";
+		foreach($datas['anesth_technique'] as $tech):
+		echo "
+		<tr>
+		<td>".$tech->name."</td>
+		<td align=center>".$datas["count_per_technique"][$tech->id]."</td>
+		</tr>";
+		$total += $datas["count_per_technique"][$tech->id];
+		endforeach;
+		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
+		
+		$total = 0;
+		
+		echo "<table cellpadding='1' cellspacing='0'>
+		<tr>
+		<th width='1500'>Service</th>
+		<th>Count</th>
+		</tr>";
+		foreach($datas['anesth_services'] as $ser):
+		echo "
+		<tr>
+		<td>".$ser->name."</td>
+		<td align=center>".$datas["count_per_service"][$ser->id]."</td>
+		</tr>";
+		$total += $datas["count_per_service"][$ser->id];		
+		endforeach;
+		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
+
 	}
 }
