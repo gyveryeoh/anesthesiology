@@ -1,3 +1,15 @@
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.js"></script>
+<script type="text/javascript">
+	//Datepicker Format
+	//Province and Municipality Dropdown
+	$(document).ready(function() {
+		$("#category").change(function() {
+			$.get('<?php echo base_url();?>index.php/reports_controller/get_resident_per_institution?inst_id=' + $(this).val(), function(data) {
+				$("#sub_category").html(data);
+			});	
+		});
+	});
+</script>
 <table width="80%" cellpadding="1" cellspacing="0" border = "0">
           <form method="get" action="<?php echo base_url(); ?>index.php/reports_controller/get_resident_per_institution">
           <tr>				
@@ -34,22 +46,14 @@
 				}
 				?>
 			</select>
-
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
 			<input type="submit" name="submit" value="submit">
 			</td>
 		  </tr>
 		  </form>
 </table>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.js"></script>
-<script type="text/javascript">
-	//Datepicker Format
-	//Province and Municipality Dropdown
-	$(document).ready(function() {
-		$("#category").change(function() {
-			$.get('<?php echo base_url();?>index.php/reports_controller/get_resident_per_institution?inst_id=' + $(this).val(), function(data) {
-				$("#sub_category").html(data);
-			});	
-		});
-	 
-	});
-</script>
+
