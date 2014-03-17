@@ -72,5 +72,18 @@ $this->db->where('anesth_status_id',4);
 $result = $this->db->get();
 return $result->num_rows();
 }
+function get_users_institution($insti_id)
+{
+	$this->db->where('institution_id',$insti_id);
+	$result = $this->db->get('users');
+	if ($result->num_rows() > 0 )
+	{
+		return $result->result_array();	
+	}
+	else
+	{
+		return array();	
+	}
+	}
 }
 ?>

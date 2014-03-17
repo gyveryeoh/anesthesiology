@@ -36,6 +36,7 @@ table, th, td{
   border: 1px solid #ddd;
   padding: 3px;
   font-weight: normal;
+  font-size: 13px;
 }
 
 .text-left{

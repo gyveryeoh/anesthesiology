@@ -174,20 +174,14 @@ $datas["year"] = "";
 $this->load->view('header/header',$data);
 $this->load->view('reports/residents_per_institution',$datas);
 }
-
 function get_resident_per_institution()
 {
-$inst_id = $this->input->get('inst_id');
-$residents_list = array();
-$this->db->select('*');
-$this->db->from('users');
-$this->db->where('institution_id',$inst_id);
-$result = $this->db->get();
-$inst = $result->result();
-$count = $result->num_rows();
-echo "<option value=''>Select Resident</option>";
-foreach($inst as $ai):
-echo "<option value='". $ai->institution_id ."'>".$ai->lastname.", ".$ai->firstname." ".$ai->middle_initials."</option>";
-endforeach;
-}
+	$insti_id = $this->input->post('insti_id');
+	$users_list = $this->reports_model->get_users_institution($insti_id);
+	$data .= "<option value=''>SELECT RESIDENT</option>";
+	foreach ($users_list as $u_list){
+			$data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname]</option>\n";	
+		}
+		echo $data;
+	}
 }
