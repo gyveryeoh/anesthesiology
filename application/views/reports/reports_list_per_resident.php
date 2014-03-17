@@ -2,53 +2,61 @@
 if($year == NULL)
 {$year = "";}
 ?>
-
 <table width="80%" cellpadding="1" cellspacing="0">
-<form method="post" action="#">
-<tr>
-<th colspan="2" align="center">
-Institution : <select name="institution" size="1" style="width: 300px;" id="category">
-<option ="">Select Institution</option>
-<?php
-foreach($anesth_institutions as $ai):
-echo "<option value='".$ai->id."'>".$ai->name."</option>";
-endforeach
-?>
-</select>
-</br>
-Resident Name : <select id="sub_category" name="sub_category" style="width: 250px;">
-<option value="">Select Resident</option>
-</select>
-</br>
-Filter Year : <select name="year" size="1" style="width: 60px;">
-<?php
-for($x=date('Y');$x>=1900;$x--)
-{
-echo "<option value=".$x."";
-
-if($year == $x)
-{
-echo "selected = selected";
-}
-
-echo ">".$x."</option>";
-}
-?>
-</select>
-</br>
-<input type="submit" name="submit" value="submit">
-</th>
-</tr>
-</form>
-<tr>
+          <tr>
+			<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/reports_list?resident_id=<?php echo $user_id; ?>">
+			<th colspan="2" align="center">
+				Filter Year : <select name="year" size="1" style="width: 60px;">
+				<?php
+				for($x=date('Y');$x>=2013;$x--)
+				{
+					echo "<option value=".$x."";
+					
+						if($year == $x)
+						{
+							echo "selected = selected";
+						}
+					
+					echo ">".$x."</option>";  
+				}
+				?>
+			</select><input type="submit" name="submit" value="submit">
+			</th>
+			</form>
+		  </tr>
+		  <tr>
+		<th>Techniques</th>
+		<th>Count</th>
+          </tr>
+          <?php
+          $total=0;
+	foreach($anesth_technique as $tech):
+		echo "
+		<tr>
+		<td>".$tech->name."</td>
+		<td align=center>".$count_per_technique[$tech->id]."</td>
+		</tr>";
+                $total += $count_per_technique[$tech->id];
+                endforeach;
+                ?>
+          <tr><th align="right" class="border-less">TOTAL</th><td style="color: red;text-align: center;border: hidden;"><b><?php echo $total; ?></b></td></tr>
+          <tr>
+<th>Service</th>
+		<th>Count</th>
+          </tr>
+          <?php
+          $total=0;
+	foreach($anesth_services as $service):
+		echo "
+		<tr>
+		<td>".$service->name."</td>
+		<td align=center>".$count_per_service[$service->id]."</td>
+		</tr>";
+                $total += $count_per_service[$service->id];
+                endforeach;
+                ?>
+          <tr><th align="right" class="border-less">TOTAL</th><td style="color: red;text-align: center;border: hidden;"><b><?php echo $total; ?></b></td></tr>
+	<tr>
+		<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
+	</tr>
 </table>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/jquery.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-$("#category").change(function() {
-$.get('<?php echo base_url();?>index.php/reports_controller/get_resident_per_institution?inst_id=' + $(this).val(), function(data) {
-$("#sub_category").html(data);
-});
-});
-});
-</script>

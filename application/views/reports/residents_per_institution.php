@@ -14,7 +14,6 @@
 			<tr>
 			      <td>
 				</br>
-
 				Resident Name : <select id="sub_category"  name="sub_category" style="width: 250px;">
 				<option value="">Select Resident</option>
 

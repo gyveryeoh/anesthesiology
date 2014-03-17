@@ -12,12 +12,26 @@
           </tr>
           <?php foreach($residents_information as $res_info):
             $user_id = $res_info->id;
-            
-          if ($res_info->date_encode == NULL || $res_info->date_encode == "")
+            $date_legend =  date("Y-m-d H:i:s");
+            $date_oneday=date('Y-m-d H:i:s', time()+((60*60)*-24));
+            $date_oneweek=date('Y-m-d H:i:s', time()+((60*60)*-168));
+            echo "<br>";
+          if ($res_info->date_encode == "0000-00-00 00:00:00")
+          {
+            $color = "red";
+          }
+          else
+          {
+                $color = "white";    
+          }
+          
+          if ($date_oneday <= $res_info->date_encode)
           {
             $color = "green";
-          }else{
-            $color = "fafad2";
+          }
+          if($date_oneweek <= $res_info->date_encode)
+          {
+            $color = "black";
           }
           ?>
           <tr>
@@ -32,6 +46,18 @@
           <tr>
             <tr>
                 <td colspan="4" class="border-less"><?php echo $this->pagination->create_links(); ?></td>
+          </tr>
+          <tr>
+                    <td class="border-less"><b>LEGEND:</b></td>
+          </tr>
+          <tr>
+                    <td class="border-less" colspan=2><b><font color="green">GREEN</font></b> - Encoding not more than 1 day old </td>
+          </tr>
+          <tr>
+                    <td class="border-less" colspan=3><b><font color="black">GREEN</font></b> - Encoding older than 1 day but not more than 1 week old</td>
+          </tr>
+          <tr>
+                    <td class="border-less" colspan=2><b><font color="red">RED</font></b> - Encoding older than 1 week</td>
           </tr>
             <td colspan="7" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
           </tr>
