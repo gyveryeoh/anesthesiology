@@ -41,4 +41,53 @@ Class Users_model extends CI_Model
 		$query = $this->db->get();	
 		return $query->result();
 	}
+	
+	function count_hospital_list()
+	{
+		$this->db->select('*');
+		$this->db->from('anesth_institution');
+		$q = $this->db->get();
+		return $q->num_rows();	
+	}
+	
+	function hospital_list($limit,$start)
+	{
+		$this->db->limit($start,$limit);
+		$this->db->select('*');
+		$this->db->from('anesth_institution');
+		$q = $this->db->get();
+		return $q->result();		
+	}
+	function users_per_institution($id)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('institution_id',$id);
+		$this->db->order_by("users.lastname", "asc");
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_user_info($user_id)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('id',$user_id);
+		$query = $this->db->get();
+		return $query->result();	
+	}
+	
+	function get_roles()
+	{
+		$this->db->select('*');
+		$this->db->from('users_roles');
+		$query = $this->db->get();
+		return $query->result();		
+	}
+	
+	function edit_user($data,$user_id)
+	{
+		$this->db->where('id', $user_id);
+		$this->db->update('users', $data); 
+	}
 }
