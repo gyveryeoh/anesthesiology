@@ -5,6 +5,7 @@ class Users_controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('users_model/users_model','view_caselogs');
+		$this->load->model('reports/reports_model','reports_model');
 		$this->load->model('user','',TRUE);
 		$this->load->model('dropdown_select','',TRUE);
 		$this->load->library('session');
@@ -162,6 +163,89 @@ class Users_controller extends CI_Controller
 				$data['message'] = "SUCCESSFULLY UPDATED YOUR PROFILE INFORMATION PLEASE RE LOGGIN TO TAKE EFFECT";
 			}
 			$this->load->view('users/users_update_profile',$data);
+		}
+		else
+		{
+			redirect('login', 'refresh');
+		}
+	}
+	function hospital_list()
+	{
+		if($this->session->userdata('logged_in'))
+		{
+			$status = $this->input->get('status');
+			$session_data = $this->session->userdata('logged_in');
+			$data["user_information"] = $session_data;
+			$user_id = $session_data['id'];
+			$this->load->library('pagination');
+			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
+			$config["base_url"] = base_url()."index.php/users_controller/hospital_list";
+			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
+			$config["total_rows"] = $this->view_caselogs->count_hospital_list();
+			$config["per_page"] = 10;
+			$config["uri_segment"] = 3;
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$datas["hospital_list"] = $this->view_caselogs->hospital_list($page,$config["per_page"]);
+			foreach($datas["hospital_list"] as $row)
+			{
+				$id = $row->id;
+				$datas["user_per_hospital"][$id] = $this->view_caselogs->users_per_institution($id);
+			}
+			$this->load->view('header/header', $data);
+			$this->load->view('header/reports_header');
+			$this->load->view('users/hospital_list',$datas);
+		}
+		else
+		{
+			redirect('login', 'refresh');
+		}
+	}
+	
+	function edit_user()
+	{
+		if($this->session->userdata('logged_in'))
+		{
+			$user_id = $this->input->get('resident_id');
+			$session_data = $this->session->userdata('logged_in');
+			$data["user_information"] = $session_data;
+			$datas["user_info"] = $this->view_caselogs->get_user_info($user_id);
+			$datas["user_role"] = $this->view_caselogs->get_roles();
+			$this->load->view('header/header', $data);
+			$this->load->view('header/reports_header');
+			$this->load->view('users/edit_user',$datas);
+			if($this->input->post("submit") == "edit")
+			{
+				$username = $this->input->post('username');
+				$user_id = $this->input->post('resident_id');
+				$data['username'] = $this->user->user_checking($username);
+				if ($this->input->post('password') != $this->input->post('confirm_password'))
+				{
+					$data['message'] = "Password and Confirm Password do not Match.";
+					$data['user_role'] = $this->dropdown_select->roles();
+					$this->load->view('header/header', $data);
+					$this->load->view('header/reports_header');
+					$this->load->view('users/users_add');
+				}
+				elseif ($data['username'] == true)
+				{
+					$data['user_message'] = "USERNAME IS ALREADY EXISTS.";
+					$data['user_role'] = $this->dropdown_select->roles();
+					$this->load->view('header/header', $data);
+					$this->load->view('header/reports_header');
+					$this->load->view('users/edit_user');
+				}
+				$data = array
+				(
+				 'lastname'       => $this->input->post('lastname'),
+				 'firstname'      => $this->input->post('firstname'),
+				 'middle_initials'=> $this->input->post('middle_initials'),
+				 'username'       => $username,
+				 'password'	=> md5($this->input->post('password')),
+				 'role_id'	=> $this->input->post('role_id'));			
+				 $this->view_caselogs->edit_user($data,$user_id);
+				 redirect('users_controller/hospital_list');
+			}
 		}
 		else
 		{
