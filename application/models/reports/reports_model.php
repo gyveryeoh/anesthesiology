@@ -85,5 +85,5 @@ function get_users_institution($insti_id)
 		return array();	
 	}
 	}
-}
+}	
 ?>
