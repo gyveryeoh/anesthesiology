@@ -276,4 +276,42 @@ function get_resident_per_institution()
 		endforeach;
 		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
 	}
+	
+	function activate_deactivate()
+	{
+		$user_id = $this->input->post('user_id');
+		$index = $this->input->post('index');
+		//echo $user_id;
+		$status = $this->reports_model->act_dec($user_id);
+		foreach($status as $row)
+		{
+			if($row->status == 0)
+			{
+				echo "<button onClick='a_d($user_id,$index,1)'>Deactivate</button>";
+			}
+			else
+			{
+				echo "<button onClick='a_d($user_id,$index,2)'>Activate</button>";
+			}
+		}
+	}
+	
+	function execute()
+	{
+		$user_id = $this->input->post('user_id');
+		$id = $this->input->post('id');
+		if($id == 1)
+		{
+			$d = array(
+					 'status' => 1
+					 );
+		}
+		else
+		{
+			$d = array(
+					 'status' => 0
+					 );
+		}
+		$this->reports_model->exec($user_id,$d);
+	}
 }
