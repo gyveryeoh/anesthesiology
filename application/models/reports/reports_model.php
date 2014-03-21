@@ -85,5 +85,17 @@ function get_users_institution($insti_id)
 		return array();	
 	}
 	}
-}	
+function act_dec($user_id)
+{
+	$this->db->where('id',$user_id);
+	$result = $this->db->get('users');
+	return $result->result();
+}
+
+	function exec($user_id,$d)
+	{
+	 $this->db->where('id', $user_id);
+	 $this->db->update('users', $d); 
+	}
+}
 ?>
