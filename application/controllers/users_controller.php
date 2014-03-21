@@ -252,4 +252,5 @@ class Users_controller extends CI_Controller
 			redirect('login', 'refresh');
 		}
 	}
+
 }
