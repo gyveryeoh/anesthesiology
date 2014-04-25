@@ -15,6 +15,7 @@ Class Caselog_model extends CI_Model
                        anesth_needle_gauge_spinal.name as p1,
                        anesth_needle_gauge_epidural.name as p2,
                        anesth_status.id as anesth_id,
+                       anesth_institution.name as hospital_rotation_name,
                        anesth_peripheral_nerve_blocks_and_pain_techniques.name as apnbapt');
      $this->db->from('patient_information');
      //Patient Form
@@ -35,6 +36,8 @@ Class Caselog_model extends CI_Model
      $this->db->join('anesth_needle_gauge as anesth_needle_gauge_epidural', 'anesth_needle_gauge_epidural.id = patient_form.epidural_needle_gauge', 'left');
      //Peripheral Nerve
      $this->db->join('anesth_peripheral_nerve_blocks_and_pain_techniques', 'anesth_peripheral_nerve_blocks_and_pain_techniques.id = patient_form.peripheral', 'inner');
+     //training institution
+      $this->db->join('anesth_institution', 'anesth_institution.id = patient_form.hospital_rotation_id');
      $this->db->where('patient_information.id', $patients_id);
      $this->db->where('patient_form.id',$pf_id);
      $query = $this->db->get();

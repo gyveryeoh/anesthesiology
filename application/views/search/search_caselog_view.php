@@ -24,6 +24,7 @@
                      <td class="border-less" colspan="2">
                         <select name="status_id" class="required">
                               <option value="0">All</option>
+                              <option value="8">Open</option>
                               <?php
                               $x=0;
                               foreach($status_list as $list):

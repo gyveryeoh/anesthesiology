@@ -7,9 +7,13 @@ $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
 $age = $diff->y . "Y".$diff->m."M".$diff->d."D";
 //HOurs Computation
-$day1 = strtotime($data->anesthesia_start." ".$data->anesthesia_start_time);
-$day2 = strtotime($data->anesthesia_end." ".$data->anesthesia_end_time);
-$diffHours = round(($day2 - $day1) / 3600);
+$date_today = date('Y-m-d g:i A');
+$day1 = $data->anesthesia_start." ".$data->anesthesia_start_time;
+$day2 = $data->anesthesia_end." ".$data->anesthesia_end_time;
+$diff_seconds  = strtotime($day2) - strtotime($day1);
+$sumit_seconds  = strtotime($date_today) - strtotime($day2);
+$anesth_diff = floor($diff_seconds/3600).'.'.floor(($diff_seconds%3600)/60);
+$submit_diff = floor($sumit_seconds/3600).'.'.floor(($sumit_seconds%3600)/60);
 if ($data->gender == "M") { $data->gender = "Male"; } else { $data->gender = "Female"; }
 if ($data->level_of_involvement == "P") { $data->level_of_involvement = "Primary"; } else { $data->level_of_involvement = "Assist"; }
 if ($data->type_of_patient == "C") { $data->type_of_patient = "Charity"; } else { $data->type_of_patient = "Pay"; }
@@ -19,13 +23,18 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <style>
         td{border: hidden;}
     </style>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
+    <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/index">
+    <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
+    <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
     <tr>
                     <td colspan="9" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
-          </tr>
+    </tr>
     <tr>
-        <td width="15%" class="border-less" bgcolor="SkyBlue">DATE CREATED</td>
-        <td width="20%" colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo $data->pf_date_created; ?></td>
+        <td class="border-less header" align="center" colspan="7">PATIENT INFORMATION</td>
+    </tr> 
+    <tr>
+        <td width="20%" class="border-less" bgcolor="SkyBlue">DATE CREATED</td>
+        <td colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo $data->pf_date_created; ?></td>
     </tr>
     <tr>
         <td width="15%" class="border-less" bgcolor="SkyBlue">RESIDENT NAME</td>
@@ -68,7 +77,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td class="border-less" bgcolor="FAFAD2" colspan="4"><?php echo $data->for_emergency; ?></td>
     </tr>
      <?php
-      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -81,6 +90,9 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	<?php }} ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+    <tr>
+        <td class="border-less header" align="center" colspan="7">DIAGNOSIS INFORMATION</td>
+    </tr> 
     <tr>
         <td width="20%" class="border-less" bgcolor="SkyBlue">DIAGNOSIS</td>
         <td colspan="6" bgcolor="FAFAD2" class="border-less"><?php echo $data->diagnosis; ?></td>
@@ -110,7 +122,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td colspan="6" bgcolor="FAFAD2" class="border-less"><?php echo $data->airway; ?></td>
     </tr>
     <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7  || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -145,7 +157,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <td bgcolor="FAFAD2" class="border-less"><?php echo $data->p2; ?></td>
   </tr>
    <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -171,10 +183,10 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">TOTAL ANESTHESIA HOUR/S</td>
-        <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $diffHours.".".round(($day2 - $day1)/60,2); ?></td>
+        <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $anesth_diff; ?></td>
     </tr>
     <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -201,7 +213,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
             <td bgcolor=FAFAD2 class=border-less>".$data->other_main_agent."</td>
             </tr>";
             }
-             if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+             if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
             if($user_information['role_id'] == 1) { ?>
 	<tr>
@@ -231,7 +243,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=FAFAD2 class=border-less>".$data->other_supplementary_agent."</td>
         </tr>";
     }
-     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
     if($user_information['role_id'] == 1) { ?>
 	<tr>
@@ -260,7 +272,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=fafad2 class=border-less>".$data->other_post_op_pain_agent."</td>
     </tr>";
     }
-     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
     if($user_information['role_id'] == 1) { ?>
 	<tr>
@@ -290,9 +302,9 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
           for ($t=0;$t<count($apopmd_id+$apopmd_name1);$t++)
           {
             error_reporting(E_ALL ^ E_NOTICE);
-            echo "<tr><td width=20% class=border-less bgcolor=FAFAD2>(".$apopmd_id[$t].")".$apopmd_name[$t]."</td><td class=border-less  bgcolor=FAFAD2>".$apopmd_name1[$t]."</td></tr>";
+            echo "<tr><td width=20% class=border-less bgcolor=FAFAD2>".$apopmd_name[$t]."</td><td class=border-less  bgcolor=FAFAD2>".$apopmd_name1[$t]."</td></tr>";
           }
-           if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+           if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
     if($user_information['role_id'] == 1) { ?>
 	<tr>
@@ -321,7 +333,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=FAFAD2 class=border-less>".$data->other_monitors_used."</td>
     </tr>";
     }
-      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+      if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -350,7 +362,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=FAFAD class="border-less"><?php echo $data->muscle_relaxant_reversal_done; ?></td>
     </tr>
      <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -409,7 +421,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=FAFAD class=border-less><?php echo $data->others; ?></td>
     </tr>
     <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -448,7 +460,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     }
     ?>     
      <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -477,7 +489,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td bgcolor=FAFAD><?php echo $data->other_notes; ?></td>
     </tr>
     <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7)
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
       {
         if($user_information['role_id'] == 1)
 	{
@@ -495,7 +507,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
  </tr>
     <tr>
         <td valign="top" bgcolor=SkyBlue width="20%">CRITICAL EVENTS</td>
-        <td bgcolor=FAFAD><?php echo $data->critical_events; ?></td>
+        <td bgcolor=FAFAD><?php if ($data->critical_events == "NO") { echo $data->critical_events = "NO REPORTABLE REPORTS WITHIN 48 HOURS";} else { echo $data->critical_events = "YES"; } ?></td>
     </tr>
     <?php
         if ($data->critical_events=="YES")
@@ -541,17 +553,39 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
             echo "<tr><td bgcolor=fafad2 colspan=2>".$preop_data->code.' '.$preop_data->name."</td>
             </tr>";
             endforeach;
-             
             }
     ?>
+    <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
+      {
+        if($user_information['role_id'] == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_critical_events_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+    <?php }}
+    if ($submit_diff >= "48" && $data->anesth_status_id == 8 && $user_information['role_id'] == "1")
+    {
+    ?>
+          <tr>
+                    <td class="border-less answer">&nbsp;</td>
+                    <td class="border-less answer"><br><input type="submit" name="submit" value="SAVE CASELOG AS SUBMITTED"></td>
+          </tr>
+          <?php } ?>
 </table>
+</form>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
 <table border="0" cellpadding="0" width="80%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
    <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
    <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
    <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id'); ?>">
+   <input type="hidden" name="resident_id" value="<?php echo $this->input->get('resident_id'); ?>">
    <input type="hidden" name="institution_id" value="<?php echo $this->input->get('institution_id'); ?>">
-    <tr>
+   
+   <tr>
         <td width="15%">STATUS</td>
          <td>
         <select name="anesth_status_id" class="index_input" style="width: 200px;">
@@ -567,11 +601,12 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         elseif ($data->anesth_id == "4")
         {$status_name[3] = "Approved";}
         ?>
+        <option value="8" <?php if ($status_id[0] == $data->anesth_id) { echo 'selected';}?>>Open</option> 
          <option value="<?php echo $status_id[0]; ?>" <?php if ($status_id[0] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[0]; ?></option>
          <option value="<?php echo $status_id[1]; ?>" <?php if ($status_id[1] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[1]; ?></option>
          <?php if ($data->anesth_id == "7")
          {
-           echo '<option selected=selected>Revised</option>';
+           echo '<option selected=selected value=7>Revised</option>';
          }
          ?>
          <?php if ($data->anesth_id == "3")
@@ -580,7 +615,6 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
          }
          ?>
          <option value="<?php echo $status_id[3]; ?>" <?php if ($status_id[3] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[3]; ?></option>
-         
          <option value="<?php echo $status_id[4]; ?>" <?php if ($status_id[4] == $data->anesth_id) { echo 'selected';}?>><?php echo $status_name[4]; ?></option>        
         </select>
         </td>

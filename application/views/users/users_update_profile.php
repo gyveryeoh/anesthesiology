@@ -12,23 +12,27 @@
 		 }
 		?>
 		<tr>
-			<td class="border-less" bgcolor="SkyBlue" width=20%>FIRSTNAME</td>
-			<td class="border-less" align="left" colspan="2" bgcolor="FAFAD2"><input type="text" name="firstname" value="<?php echo $user_information['firstname']; ?>" class="required" size="25"></td>
+			<td class="border-less question" width=20%>FIRSTNAME</td>
+			<td class="border-less answer" align="left" colspan="2"><input type="text" name="firstname" value="<?php echo $user_information['firstname']; ?>" class="required" size="25"></td>
 		</tr>
 		<tr>
-			<td class="border-less" bgcolor="SkyBlue" width=20%>LASTNAME</td>
-			<td class="border-less" align="left" colspan="2" bgcolor="FAFAD2"><input type="text" name="lastname" value="<?php echo $user_information['lastname']; ?>" class="required" size="25"></td>
+			<td class="border-less question">LASTNAME</td>
+			<td class="border-less answer" align="left" colspan="2"><input type="text" name="lastname" value="<?php echo $user_information['lastname']; ?>" class="required" size="25"></td>
 		</tr>
 		<tr>
-			<td class="border-less" bgcolor="SkyBlue" width=20%>MIDDLE INITIALS</td>
-			<td class="border-less" align="left" colspan="2" bgcolor="FAFAD2"><input type="text" name="middle_initials" value="<?php echo $user_information['middle_initials']; ?>" class="required" size="25" maxlength="4"></td>
+			<td class="border-less question">MIDDLE INITIALS</td>
+			<td class="border-less answer" align="left" colspan="2"><input type="text" name="middle_initials" value="<?php echo $user_information['middle_initials']; ?>" class="required" size="25" maxlength="4"></td>
+		</tr>
+		<tr>
+			<td class="border-less question">PRC NUMBER</td>
+			<td class="border-less answer" align="left" colspan="2"><input type="text" name="prc_number" value="<?php echo $user_information['prc_number']; ?>" class="required" size="25"></td>
 		</tr>
 		<tr>
 			<td class="border-less"></td>
 			<td class="border-less"><input type="submit" name="update" value="Save Information"></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+			<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 		</tr>
 	</table>
 	</form>

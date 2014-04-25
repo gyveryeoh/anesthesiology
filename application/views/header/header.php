@@ -24,12 +24,15 @@
 	//Datepicker Format
 	$(document).ready(function(){
 	$('#datepicker-example11').Zebra_DatePicker({
+          direction: false,
         format: 'Y-m-d'
 	});
 	$('#datepicker-example14').Zebra_DatePicker({
+           direction: false,
         format: 'Y-m-d'
 	});
 	$('#datepicker-example13').Zebra_DatePicker({
+          direction: false,
         format: 'Y-m-d'
 	});
 	$('#datepicker-example12').Zebra_DatePicker({
@@ -53,8 +56,13 @@
           <tr>
                     <td class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 16px;font-weight:bold;" colspan=>&nbsp; You are logged in as : <?php echo ucwords($user_information['lastname']).", ".ucwords($user_information['firstname'])." ".ucwords($user_information['middle_initials'])."."; ?></td>
                     <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;">
-                              <a href="<?php echo base_url();?>index.php/search_controller/">HOME</a> |
+                    <?php
+                    if ($user_information['role_id'] == "1")
+                    {
+                    ?>
+                              <a href="<?php echo base_url();?>index.php/home/">HOME</a> |
                               <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">REPORTS</a> |
+                     <?php } ?>          
                               <a href="<?php echo base_url(); ?>index.php/users_controller/change_password">USERS</a> |
                     <?php
                     if ($user_information['role_id'] == "2")

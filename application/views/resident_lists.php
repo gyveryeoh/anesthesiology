@@ -7,7 +7,7 @@
           <th class="border-less" bgcolor=skyblue><b>CASELOG</b></th>
           <th class="border-less" bgcolor=skyblue><b>LOGIN SUMMARY</b></th>
           <th class="border-less" bgcolor=skyblue><b>PROFILE</b></th>
-		  <th class="border-less" bgcolor=skyblue><b>REPORTS LIST</b></th>
+	  <th class="border-less" bgcolor=skyblue><b>REPORTS LIST</b></th>
           <th class="border-less" bgcolor=skyblue><b>LAST DATE OF ENCODING</b></th>
           </tr>
           <?php foreach($residents_information as $res_info):
@@ -15,7 +15,6 @@
             $date_legend =  date("Y-m-d H:i:s");
             $date_oneday=date('Y-m-d H:i:s', time()+((60*60)*-24));
             $date_oneweek=date('Y-m-d H:i:s', time()+((60*60)*-168));
-            echo "<br>";
           if ($res_info->date_encode == "0000-00-00 00:00:00")
           {
             $color = "red";

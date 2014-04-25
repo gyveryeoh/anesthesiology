@@ -1,7 +1,9 @@
+<?php foreach ($patient_information as $data): endforeach; ?>
 <div align="center">		   
 <form method="post" id="anesth_form"  action="<?php echo base_url(); ?>index.php/edit_caselog_controller/edit_post_op_pain_management_information">
 <input type=hidden name=patient_form_id value="<?php echo $patient_form_id; ?>">
 <input type=hidden name=patient_information_id value="<?php echo $patient_information_id; ?>">
+<input type="hidden" name="anesth_status_id" value="<?php echo $data->anesth_status_id; ?>"/>
 <table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px; font-size: 14px;">
      <tr>
                 <td class="border-less" bgcolor=skyblue colspan=3>POST OP PAIN MANAGEMENT</td>
@@ -35,7 +37,7 @@ foreach($multiIterator as $combinedArray)
 					echo "checked";
 				}
 			}
-		  echo ">(".$combinedArray[0].") ".$combinedArray[1]."</td>";
+		  echo ">".$combinedArray[1]."</td>";
 		  echo "<td bgcolor=fafad2><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management_1[]' class='required'";
 			foreach($patient_form_post_op_pain_management_details_1 as $pfpopmd1)
 			{

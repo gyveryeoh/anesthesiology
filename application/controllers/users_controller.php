@@ -18,6 +18,7 @@ class Users_controller extends CI_Controller
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$data['user_role'] = $this->dropdown_select->roles();
+			$data['institutions_list'] = $this->dropdown_select->anesth_institutions();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/users_header');
 			$this->load->view('users/users_add');
@@ -52,7 +53,7 @@ class Users_controller extends CI_Controller
 			else
 			{
 				$data = array
-				('institution_id' => $session_data['institution_id'],
+				('institution_id' => $this->input->post('institution_id'),
 				 'lastname'       => $this->input->post('lastname'),
 				 'firstname'      => $this->input->post('firstname'),
 				 'middle_initials'=> $this->input->post('middle_initials'),
@@ -62,7 +63,7 @@ class Users_controller extends CI_Controller
 				$this->user->save_user($data);
 				$data['user_role'] = $this->dropdown_select->roles();
 				$data["user_information"] = $session_data;
-				$this->session->set_flashdata("success",'<b>SUCCESSFULLY CREATED RESIDENT INFO</b>');
+				$this->session->set_flashdata("success",'<b>SUCCESSFULLY CREATED USER INFO</b>');
 				redirect('users_controller/add_user');
 			}
 		}
@@ -94,7 +95,8 @@ class Users_controller extends CI_Controller
 			$datas["count_forRevision"] = $this->view_caselogs->count_view_caselog_details_1($user_id,3);
 			$datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,4);
 			$datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,5);
-			$datas["count_deleted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,7);
+			$datas["count_revised"] = $this->view_caselogs->count_view_caselog_details_1($user_id,7);
+			$datas["count_open"] = $this->view_caselogs->count_view_caselog_details_1($user_id,8);
 			$datas['status_list'] = $this->dropdown_select->anesth_status();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
@@ -158,9 +160,10 @@ class Users_controller extends CI_Controller
 			{
 				$data = array('firstname' => $this->input->post('firstname'),
 					      'lastname' => $this->input->post('lastname'),
-					      'middle_initials' => $this->input->post('middle_initials'));
+					      'middle_initials' => $this->input->post('middle_initials'),
+					      'prc_number' => $this->input->post('prc_number'));
 				$this->user->update_profile($data,$session_data['id']);
-				$data['message'] = "SUCCESSFULLY UPDATED YOUR PROFILE INFORMATION PLEASE RE LOGGIN TO TAKE EFFECT";
+				$data['message'] = "SUCCESSFULLY UPDATED YOUR PROFILE INFORMATION PLEASE RE LOGIN TO TAKE EFFECT";
 			}
 			$this->load->view('users/users_update_profile',$data);
 		}

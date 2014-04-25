@@ -4,7 +4,7 @@
         <a href="<?php echo base_url();?>index.php/users_controller/change_password">UPDATE PASSWORD</a> -
         <a href="<?php echo base_url();?>index.php/users_controller/update_profile">UPDATE PROFILE</a>
         <?php
-        if ($user_information['role_id'] == "2")
+        if ($user_information['role_id'] == "3")
         {
              echo ' - <a href="'.base_url().'index.php/users_controller/add_user">ADD USERS</a>';
         }

@@ -9,7 +9,18 @@ class Login extends CI_Controller {
   if($this->session->userdata('logged_in'))
    {
      $session_data = $this->session->userdata('logged_in');
-     redirect('search_controller/index','refresh');
+     if ($session_data['role_id'] == "1")
+     {
+     redirect('home','refresh');
+     }
+     if ($session_data['role_id'] == "2")
+     {
+     redirect('search_controller/searchcaselog','refresh');
+     }
+     if ($session_data['role_id'] == "3")
+     {
+     redirect('users_controller/add_user','refresh');
+     }
      }
  else
  {

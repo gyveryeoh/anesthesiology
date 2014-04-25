@@ -185,7 +185,7 @@ function anesth_techniques_reports()
      $this->db->select('*');
      $this->db->from('anesth_institution');
      $this->db->where('id !=',0);
-     $this->db->order_by("id", "asc");
+     $this->db->order_by("name", "asc");
      $query = $this->db->get();
      return $query->result();
 }

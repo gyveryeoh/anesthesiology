@@ -18,6 +18,18 @@ class Caselog_controller extends CI_Controller {
 			$data["user_information"] = $session_data;
 			$user_id = $session_data['id'];
 			$data['patient_information'] = $this->caselog_model->select_patient_information($patients_id,$pf_id);
+			//save caselog as submitted
+				if ($this->input->post('submit'))
+				{
+					$patient_form_id = $this->input->post('patient_form_id');
+					$data = array
+					(
+						'anesth_status_id' => 1);
+						$this->caselog_model->update_caselog_status($data,$patient_form_id);
+						
+						$this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED CASELOG AS SUBMITTED</b></span></font></p>');
+						redirect('users_controller/users_caselog?&status=0', 'refresh');
+					}
 			if ($data['patient_information'] != false)
 			{
 				foreach ($data['patient_information'] as $delivery){}
@@ -72,7 +84,7 @@ class Caselog_controller extends CI_Controller {
 			$user_id = $session_data['id'];
 			$patient_form_id = $this->input->post('patient_form_id');
 			$anesth_status_id = $this->input->post('anesth_status_id');
-			if ($anesth_status_id == "2"){$anesth_status_id ="3";}
+			if ($anesth_status_id == "2"){$anesth_status_id ="3";}else{$anesth_status_id = $anesth_status_id;}
 			$data = array
 			('anesth_status_id'  => $anesth_status_id,
 			 'notes'             => $this->input->post('notes'));
@@ -80,12 +92,19 @@ class Caselog_controller extends CI_Controller {
 			$this->session->set_flashdata("success",'<p style="background-color:#faadad; width:80%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;">
 						      <img src="../assets/images/error.png" width="15" height="15" style="margin-top:2px;">
 						      <font size="3" color="red"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED DATA.</b></span></font></p>');
+			if ($this->input->post('resident_id') != NULL)
+			{
+			redirect('home/resident_encoded?resident_id='.$this->input->post('resident_id').'&status='.$this->input->post('status_id').'');
+			}
+			if ($this->input->get('resident_id') == NULL)
+			{
 			redirect('search_controller/searchcaselog_details?institution_id='.$this->input->post('institution_id').'&user_id='.$this->input->post('user_id').'&status_id='.$this->input->post('status_id').'');
 			}
 			else
 			{
 				redirect('login', 'refresh');
 			}
+		}
 	}
 }
 ?>

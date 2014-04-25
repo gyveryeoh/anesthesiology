@@ -276,7 +276,6 @@ function get_resident_per_institution()
 		endforeach;
 		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
 	}
-	
 	function activate_deactivate()
 	{
 		$user_id = $this->input->post('user_id');
@@ -295,7 +294,6 @@ function get_resident_per_institution()
 			}
 		}
 	}
-	
 	function execute()
 	{
 		$user_id = $this->input->post('user_id');
@@ -303,8 +301,8 @@ function get_resident_per_institution()
 		if($id == 1)
 		{
 			$d = array(
-					 'status' => 1
-					 );
+				   'status' => 1
+				   );
 		}
 		else
 		{

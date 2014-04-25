@@ -435,7 +435,7 @@ $diff = $date1->diff($date2);
           $x = 0;
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='".$x."' name='main_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='main_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -467,7 +467,7 @@ $diff = $date1->diff($date2);
           $sa = "sa_";
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer><td></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='"."sa_".$x."' name='supplementary_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='supplementary_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -499,7 +499,7 @@ $diff = $date1->diff($date2);
           $sa = "post_";
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer><td></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='"."post_".$x."' name='post_op_pain_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='post_op_pain_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -543,7 +543,7 @@ $multiIterator->attachIterator($apopmd_2_2);
 foreach($multiIterator as $combinedArray)
 {
      echo "<tr class=answer>";
-          echo "<td width=25%><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>(".$combinedArray[0].") ".$combinedArray[1]."</td>";
+          echo "<td width=25%><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>".$combinedArray[1]."</td>";
            echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management_1[]' class='required'>".$combinedArray[2]."</td>";
           echo "</tr>";
              }
@@ -580,7 +580,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less answer"><textarea name="other_procedure" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less question">MUSCLE RELAXANT DONE</td>
+                    <td class="border-less question">MUSCLE RELAXANT REVERSAL DONE</td>
                     <td class="border-less answer"><input type="radio" name="muscle_relaxant_reversal_done" value="YES" class="required"> YES <input type="radio" name="muscle_relaxant_reversal_done" value="NO"> NO <input type="radio" name="muscle_relaxant_reversal_done" value="N/A" class="required"> N/A</td>
           </tr>
 <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
@@ -728,7 +728,7 @@ foreach($multiIterator as $combinedArray)
           </tr>
     <tr id="critical_events_no">
                     <td class="border-less question" width=20%>CRITICAL EVENTS</td>
-                    <td class="border-less answer" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> YES <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> NO <input type="radio" name="critical_events" id="critical_events_hides" value="NONE" class="critical_event_required"> NONE</td>
+                    <td class="border-less answer" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> YES <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> NO REPORTABLE REPORTS WITHIN 48 HOURS
           </tr>
           <tr id="critical_events_yes" style="display: none;">
                     <td class="border-less question">CRITICAL EVENTS</td>
@@ -851,7 +851,7 @@ foreach($multiIterator as $combinedArray)
           ?>
           <tr>
                     <td class="border-less answer">&nbsp;</td>
-                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG INFORMATION"></td>
+                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG AS OPEN"></td>
           </tr>
           <tr class=answer>
             <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
@@ -989,19 +989,19 @@ $('#critical_events_show').click(function() {
        {
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').show();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for($c = 0;$c<=9;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').show();
       <?php } ?>
       $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
       //CRITICAL LEVEL CARDIOVASCULAR
        $('#cardiovascular_title').show();
-      <?php for($car = 1;$car<=9;$car++){ ?>
+      <?php for($car = 0;$car<=9;$car++){ ?>
       $('#cardiovascular_data<?php echo $car; ?>').show();
       <?php } ?>
       $('.cardiovascular_valid').attr('class','cardiovascular_required');
       //CRITICAL LEVEL DISCHARGE PLANNING
        $('#discharge_planning_title').show();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
+      <?php for($dis = 0;$dis<=7;$dis++){ ?>
       $('#discharge_planning_data<?php echo $dis; ?>').show();
       <?php } ?>
       $('.discharge_planning_valid').attr('class','discharge_planning_required');
@@ -1013,7 +1013,7 @@ $('#critical_events_show').click(function() {
       $('.miscellaneous_valid').attr('class','miscellaneous_required');
       //CRITICAL LEVEL NEUROLOGICAL
       $('#neurological_title').show();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
+      <?php for($neuro = 0;$neuro<=5;$neuro++){ ?>
       $('#neurological_data<?php echo $neuro; ?>').show();
       <?php } ?>
       $('.neurological_valid').attr('class','neurological_required');
@@ -1025,7 +1025,7 @@ $('#critical_events_show').click(function() {
       $('.respiratory_valid').attr('class','respiratory_required');
       //REGIONAL ANESTHESIA
       $('#regional_anesthesia_title').show();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
+      <?php for($regional_anesthesia = 0;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
       $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').show();
       <?php } ?>
       $('.regional_anesthesia_valid').attr('class','regional_anesthesia_required');
@@ -1037,79 +1037,25 @@ $('#critical_events_show').click(function() {
       $('.preop_valid').attr('class','preop_required');
        }
 });
-    $('#critical_events_hides').click(function() {
-       var selected = $(this).val();
-       if(selected == 'NONE') 
-       {
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').hide();
-      <?php } ?>
-      $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').hide();
-      <?php } ?>
-      $('.cardiovascular_required').attr('class','cardiovascular_valid');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').hide();
-      <?php } ?>
-      $('.discharge_planning_required').attr('class','discharge_planning_valid');
-      //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').hide();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').hide();
-      <?php } ?>
-      $('.miscellaneous_required').attr('class','miscellaneous_valid');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').hide();
-      <?php } ?>
-      $('.neurological_required').attr('class','neurological_valid');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').hide();
-      <?php } ?>
-      $('.respiratory_required').attr('class','respiratory_valid');
-      //CRITICAL LEVEL REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
-      <?php } ?>
-      $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').hide();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').hide();
-      <?php } ?>
-      $('.preop_required').attr('class','preop_valid');
-       }
-});
     $('#critical_events_hide').click(function() {
        var selected = $(this).val();
        if(selected == 'NO') 
        {
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for($c = 0;$c<=10;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').hide();
       <?php } ?>
       $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
       //CRITICAL LEVEL CARDIOVASCULAR
        $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
+      <?php for($car = 0;$car<=9;$car++){ ?>
       $('#cardiovascular_data<?php echo $car; ?>').hide();
       <?php } ?>
       $('.cardiovascular_required').attr('class','cardiovascular_valid');
       //CRITICAL LEVEL DISCHARGE PLANNING
        $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
+      <?php for($dis = 0;$dis<=7;$dis++){ ?>
       $('#discharge_planning_data<?php echo $dis; ?>').hide();
       <?php } ?>
       $('.discharge_planning_required').attr('class','discharge_planning_valid');
@@ -1121,19 +1067,19 @@ $('#critical_events_show').click(function() {
       $('.miscellaneous_required').attr('class','miscellaneous_valid');
       //CRITICAL LEVEL NEUROLOGICAL
       $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
+      <?php for($neuro = 0;$neuro<=5;$neuro++){ ?>
       $('#neurological_data<?php echo $neuro; ?>').hide();
       <?php } ?>
       $('.neurological_required').attr('class','neurological_valid');
       //CRITICAL LEVEL RESPIRATORY
       $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
+      <?php for($respiratory = 0;$respiratory<=12;$respiratory++){ ?>
       $('#respiratory_data<?php echo $respiratory; ?>').hide();
       <?php } ?>
       $('.respiratory_required').attr('class','respiratory_valid');
       //CRITICAL LEVEL REGIONAL ANESTHESIA
       $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
+      <?php for($regional_anesthesia = 0;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
       $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
       <?php } ?>
       $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
@@ -1193,7 +1139,6 @@ $('#anesthetic_technique').change(function() {
       <?php } ?>
       $('.9').prop('checked',true);
       $('.9').click(false);
-      
       $('.miscellaneous_valid').attr('class','miscellaneous_required');
       //CRITICAL LEVEL NEUROLOGICAL
       $('#neurological_title').show();

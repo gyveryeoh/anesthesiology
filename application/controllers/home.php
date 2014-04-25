@@ -64,9 +64,9 @@ class Home extends CI_Controller {
  }
  function add_anesthesiology_information()
  {
-  if ($this->input->post('patient_information_id') == "0")
+  if ($this->input->post('patient_information_id') == "0" || $this->input->post('operation_date') == "0000-00-00") 
   {
-   redirect('search_controller','refresh');
+   redirect('home','refresh');
   }
     if($this->session->userdata('logged_in'))
        {
@@ -307,6 +307,8 @@ function pdf_report($patients_id='', $pf_id='')
           $this->load->helper('file');
           $this->load->model('pdf_report','',TRUE);
           $data['patient_information'] = $this->pdf_report->select_patient_information($patients_id,$pf_id);
+          $data['institution_details'] = $this->dropdown_select->institution_info($session_data['institution_id']);
+				
           if ($data['patient_information'] != false)
           {
           foreach ($data['patient_information'] as $delivery){}
