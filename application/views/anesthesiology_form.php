@@ -239,7 +239,124 @@ $diff = $date1->diff($date2);
             <td class="border-less answer"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
           </tr>
 </table>
-
+<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less header" align="center" colspan="4">ANESTHESIA FORM</td>
+    </tr>
+          <tr>
+                    <td class="border-less question" width="20%">ANESTHESIA START</td>
+                      <td class="border-less answer">
+                        <input name="anesthesia_start" id="datepicker-example14" class="required" size="20">
+                      <select name="anesthesia_start_hour" class="required" style="width:80px;">
+	    <option value="" class="required">HOUR</option>
+				<?php
+				for ($i = 01; $i <= 12; $i++)
+				{
+					$value = strlen($i);
+					if($value==1)
+					{
+						$k = "0".$i;
+					}
+					else
+					{
+						$k=$i;
+					}
+					echo "<option value='$k'";
+					if ($this->input->post('hour') == $i)
+					{
+						echo "selected='selected'";
+					}
+						echo ">$k</option>";
+					}
+				?>
+			</select> :
+			<select name="anesthesia_start_min" class="required" style="width: 70px;">
+			<option value="">MIN</option>
+			<option value="00">00</option>
+				<?php
+				for ($i = 01; $i <= 59; $i++)
+				{
+					$value = strlen($i);
+					if($value==1)
+					{
+						$k = "0".$i;
+					}
+					else
+					{
+						$k=$i;
+					}
+					echo "<option value='$k'";
+					if ($this->input->post('min') == $i)
+					{
+						echo "selected='selected'";
+					}
+						echo ">$k</option>";
+					}
+				?>
+			</select>
+			<select name="anesthesia_start_time" style="width:65px;">
+			<option value="AM">AM</option>
+			<option value="PM">PM</option>
+			</select>
+                    </td>
+          </tr>
+          <tr>
+                    <td class="border-less question">ANESTHESIA END</td>
+                      <td class="border-less answer"><input name="anesthesia_end" id="datepicker-example13" class="required" size="20">
+                      <select name="anesthesia_end_hour" class="required" style="width:80px;">
+	    <option value="">HOUR</option>
+				<?php
+				for ($i = 01; $i <= 12; $i++)
+				{
+					$value = strlen($i);
+					if($value==1)
+					{
+						$k = "0".$i;
+					}
+					else
+					{
+						$k=$i;
+					}
+					echo "<option value='$k'";
+					if ($this->input->post('hour') == $i)
+					{
+						echo "selected='selected'";
+					}
+						echo ">$k</option>";
+					}
+				?>
+			</select> :
+			<select name="anesthesia_end_min" class="required" style="width: 70px;">
+			<option value="">MIN</option>
+			<option value="00">00</option>
+				<?php
+				for ($i = 01; $i <= 59; $i++)
+				{
+					$value = strlen($i);
+					if($value==1)
+					{
+						$k = "0".$i;
+					}
+					else
+					{
+						$k=$i;
+					}
+					echo "<option value='$k'";
+					if ($this->input->post('min') == $i)
+					{
+						echo "selected='selected'";
+					}
+						echo ">$k</option>";
+					}
+				?>
+			</select>
+			<select name="anesthesia_end_time" style="width:65px;">
+			<option value="AM">AM</option>
+			<option value="PM">PM</option>
+			</select>
+                      </td>
+          </tr>
+</table>
 <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
