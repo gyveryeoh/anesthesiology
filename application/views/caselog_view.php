@@ -18,6 +18,19 @@ if ($data->gender == "M") { $data->gender = "Male"; } else { $data->gender = "Fe
 if ($data->level_of_involvement == "P") { $data->level_of_involvement = "Primary"; } else { $data->level_of_involvement = "Assist"; }
 if ($data->type_of_patient == "C") { $data->type_of_patient = "Charity"; } else { $data->type_of_patient = "Pay"; }
 if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->for_emergency = "Emergency"; }
+if ($data->operation_date == "0000-00-00") { $operation_date = "bgcolor=red"; } else { $operation_date = "bgcolor=fafad2"; }
+if ($data->anesthesia_start == "0000-00-00") { $anesth_start = "bgcolor=red"; } else { $anesth_start = "bgcolor=fafad2"; }
+if ($data->anesthesia_end == "0000-00-00") { $anesth_end = "bgcolor=red"; } else { $anesth_end = "bgcolor=fafad2"; }
+if ($data->birthdate == "0000-00-00") { $birth_date = "bgcolor=red"; } else { $birth_date = "bgcolor=fafad2"; }
+
+if ($data->anesthesia_end == "0000-00-00" || $data->anesthesia_start == "0000-00-00" || $data->operation_date == "0000-00-00" || $data->birthdate == "0000-00-00")
+{
+    $msg_error = "PLEASE FIX ERROR";
+}
+else
+{
+    $msg_error = "";
+}
 ?>
 <div align="center">
     <style>
@@ -27,7 +40,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
     <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
     <tr>
-                    <td colspan="9" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
+                    <td colspan="9" align="center"><b><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); } ?> <b style="color: red;font-size: 30px;"><?php echo $msg_error; ?></b></td>
     </tr>
     <tr>
         <td class="border-less header" align="center" colspan="7">PATIENT INFORMATION</td>
@@ -41,9 +54,9 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td width="20%" colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo ucwords(strtolower($data->lastname)).", ".ucwords($data->firstname)." ".ucwords($data->middle_initials)."."; ?></td>
     </tr>
     <tr>
-        <td colspan="4" class="border-less" bgcolor="FAFAD2"></td>
-        <td class="border-less" bgcolor="SkyBlue">OPERATION DATE</td>
-        <td colspan="3" class="border-less" bgcolor="FAFAD2"> <?php echo $data->operation_date; ?></td>
+        <td colspan="4" class="border-less answer"></td>
+        <td class="border-less question">OPERATION DATE</td>
+        <td colspan="3" class="border-less" <?php echo $operation_date; ?>> <?php echo $data->operation_date; ?></td>
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">TRAINING INSTITUTION</td>
@@ -56,18 +69,18 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
         <td class="border-less" bgcolor="SkyBlue">HOSPITAL ROTATION</td>
         <td bgcolor="FAFAD2" colspan="3" class="border-less"><?php echo $hospital_name->name; ?></td>
     
-        <td bgcolor="SkyBlue" class="border-less">WEIGHT</td>
-        <td colspan="3" bgcolor="FAFAD2" class="border-less"><?php echo $data->weight; ?> KG</td>
+        <td bgcolor="SkyBlue" class="border-less">TYPE OF PATIENT</td>
+        <td colspan="3" bgcolor="FAFAD2" class="border-less"><?php echo $data->type_of_patient; ?></td>
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">CASE NUMBER</td>
         <td bgcolor="FAFAD2" class="border-less"><?php echo $data->case_number; ?></td>
-        <td width="5%" class="border-less" bgcolor="SkyBlue">AGE</td>
-        <td width="10%" bgcolor="FAFAD2" class="border-less"><?php echo $age; ?></td>
+        <td width="5%" class="border-less question">AGE</td>
+        <td width="10%" class="border-less" <?php echo $birth_date; ?>><?php echo $age; ?></td>
         <td width="20%" class="border-less" bgcolor="SkyBlue">GENDER</td>
         <td bgcolor="FAFAD2" class="border-less"><?php echo $data->gender; ?></td>
-        <td width="15%" class="border-less" bgcolor="SkyBlue">TYPE OF PATIENT</td>
-        <td bgcolor="FAFAD2" class="border-less"><?php echo $data->type_of_patient; ?></td>
+        <td width="15%" class="border-less" bgcolor="SkyBlue">WEIGHT</td>
+        <td bgcolor="FAFAD2" class="border-less"><?php echo $data->weight; ?> KG</td>
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">PATIENT INITIALS</td>
@@ -135,55 +148,26 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	<?php }} ?>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
- <tr>
-    <td class="border-less header" align="center" colspan="4">NEEDLE</td>
- </tr>   
- <tr>
-    <td rowspan="2" class="border-less" bgcolor="SkyBlue" width="20%">NEEDLE</td>
-    <td class="border-less" bgcolor="SkyBlue" width="20%">SPINAL NEEDLE TYPE</td>
-    <td bgcolor="FAFAD2" class="border-less"><?php echo $data->spinal_needle; ?></td>
-  </tr>
-  <tr>
-    <td class="border-less" bgcolor="SkyBlue">EPIDURAL NEEDLE TYPE</td>
-    <td bgcolor="FAFAD2" class="border-less"><?php echo $data->epidural_needle; ?></td>
-  </tr>
-   <tr>
-    <td rowspan="2" class="border-less" bgcolor="SkyBlue" width="20%">NEEDLE GAUGE</td>
-    <td class="border-less" bgcolor="SkyBlue" width="20%">SPINAL NEEDLE GAUGE</td>
-    <td bgcolor="FAFAD2" class="border-less"><?php echo $data->p1; ?></td>
-  </tr>
-  <tr>
-    <td class="border-less" bgcolor="SkyBlue">EPIDURAL NEEDLE GAUGE</td>
-    <td bgcolor="FAFAD2" class="border-less"><?php echo $data->p2; ?></td>
-  </tr>
-   <?php
-    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
-      {
-        if($user_information['role_id'] == 1)
-	{
-	?>
-	<tr>
-	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
-		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_epidural/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
-	</td>
-	</tr>
-	<?php }} ?>
-</table>
-  <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
     <td class="border-less header" align="center" colspan="2">ANESTHESIA</td>
  </tr>   
   <tr>
-        <td class="border-less" bgcolor="SkyBlue" width="20%">ANESTHESIA START</td>
-        <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $data->anesthesia_start." ".$data->anesthesia_start_time; ?></td>
+        <td class="border-less question" width="20%">ANESTHESIA START</td>
+        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_start."&nbsp;&nbsp;&nbsp;&nbsp;".$data->anesthesia_start_time; ?></td>
     </tr>
     <tr>
-        <td class="border-less" bgcolor="SkyBlue">ANESTHESIA END</td>
-        <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $data->anesthesia_end." ".$data->anesthesia_end_time; ?></td>
+        <td class="border-less question">ANESTHESIA END</td>
+        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_end."&nbsp;&nbsp;&nbsp;&nbsp;".$data->anesthesia_end_time; ?></td>
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">TOTAL ANESTHESIA HOUR/S</td>
-        <td bgcolor="FAFAD2" class="border-less" colspan="2"><?php echo $anesth_diff; ?></td>
+    <?php
+    if ($anesth_diff <= "24" && $anesth_diff >="0" )
+    {
+        $color = "bgcolor=FAFAD2";
+    }
+    ?>
+        <td class="border-less" <?php echo $color; ?> colspan="2"><?php echo $anesth_diff; ?></td>
     </tr>
     <?php
     if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
@@ -194,6 +178,39 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	<tr>
 	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
 		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_anesthesia_information/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
+	</td>
+	</tr>
+	<?php }} ?>
+</table>
+<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<tr>
+        <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
+    </tr>
+          <tr>
+                    <td class="border-less question" width=7% rowspan="2">NEEDLE</td>
+                    <td class="border-less question" width=18%>SPINAL NEEDLE TYPE</td>
+                    <td class="border-less answer" width=15%><?php echo $data->spinal_needle; ?></td>
+                    </td>
+                    <td class="border-less question" width=20% rowspan=2>NEEDLE GUAGE</td>
+                    <td class="border-less question" width=20%>SPINAL NEEDLE GUAGE</td>
+                    <td class="border-less answer"><?php echo $data->p1; ?></td>
+          </tr>
+          <tr>
+                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
+                    <td class="border-less answer"><?php echo $data->epidural_needle; ?></td>
+                    <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
+                    <td class="border-less answer"><?php echo $data->p2; ?></td>
+                    </td>
+          </tr>
+   <?php
+    if ($data->anesth_status_id == 3 || $data->anesth_status_id == 7 || $data->anesth_status_id == 8)
+      {
+        if($user_information['role_id'] == 1)
+	{
+	?>
+	<tr>
+	<td bgcolor="FAFAD2" colspan="8" align="center" class="border-less" style="font-family: sans-serif;font-size: 14px;font-weight:bold;">
+		<a href="<?php echo base_url();?>index.php/edit_caselog_controller/edit_epidural/<?php echo $data->patient_information_id?>/<?php echo $data->patient_form_id; ?>">UPDATE</a>
 	</td>
 	</tr>
 	<?php }} ?>
@@ -438,7 +455,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     <td class="border-less header" align="center" colspan="2">FOR DELIVERY</td>
  </tr>   
     <tr>
-        <td valign="top" width="20%" bgcolor=SkyBlue>IF DELIVERY</td>
+        <td valign="top" width="20%" bgcolor=SkyBlue>DELIVERY</td>
         <td bgcolor=FAFAD><?php echo $data->if_delivery; ?></td>
     </tr>
         <?php
@@ -567,7 +584,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
 	</td>
 	</tr>
     <?php }}
-    if ($submit_diff >= "48" && $data->anesth_status_id == 8 && $user_information['role_id'] == "1")
+    if ($submit_diff >= "48" && $data->anesth_status_id == 8 && $user_information['role_id'] == "1" && $data->anesthesia_end != "0000-00-00" && $data->anesthesia_start != "0000-00-00" && $data->operation_date != "0000-00-00" && $data->birthdate != "0000-00-00")
     {
     ?>
           <tr>

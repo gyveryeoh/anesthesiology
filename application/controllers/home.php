@@ -392,6 +392,7 @@ function pdf_report($patients_id='', $pf_id='')
            $datas['resident_information'] = $this->user->resident_information($resident_id);
            $user_id = $resident_id;
             $datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($user_id,0);
+            $datas["count_open"] = $this->view_caselogs->count_view_caselog_details_1($user_id,8);
             $datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,1);
             $datas["count_forRevision"] = $this->view_caselogs->count_view_caselog_details_1($user_id,3);
             $datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,4);

@@ -51,7 +51,7 @@
  </table>
   <table width="80%" cellpadding="1" cellspacing="0" style="border-top: hidden;border-bottom: hidden;font-size: 13px;">
           <tr bgcolor=skyblue>
-           <th width="15%">CASE NUMBER</th>
+           <th width="10%">CASE NUMBER</th>
            <th>RESIDENT NAME</th>
            <th>INITIALS</th>
            <th>BIRTHDATE</th>
@@ -59,6 +59,7 @@
            <th>WEIGHT</th>
            <th>GENDER</th>
            <th>STATUS</th>
+           <th>DATE OF OPERATION</th>
            <th>DATE ENCODED</th>
            <th>DATE UPDATED</th>
           </tr>
@@ -79,6 +80,7 @@
           <td>".$row->patient_info_weight." KG</td>
           <td>".$row->gender."</td>
           <td>".$row->anesth_name."</td>
+          <td>".$row->operation_date."</td>
           <td>".$row->pf_date_created."</td>
           <td>".$row->pf_date_updated."</td>
           </tr>";

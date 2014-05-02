@@ -138,7 +138,7 @@ $diff = $date1->diff($date2);
         </tr>
           <tr>
                     <td class="border-less question" width="20%">OPERATION DATE</td>
-                    <td class="border-less answer"><input type="text" id="datepicker-example11" name="operation_date" size="20" class="required"></td>
+                    <td class="border-less answer"><input id="datepicker-example11" name="operation_date" size="20" class="required" readonly="readonly"></td>
           </tr>
           <tr>
                     <td class="border-less question">TYPE OF PATIENT</td>
@@ -187,7 +187,7 @@ $diff = $date1->diff($date2);
                     <td class="border-less question">SERVICE</td>
                     <td class="border-less answer">
                         <select name="service" class="required">
-                              <option value="">Select Services</option>
+                              <option value="">Select Service</option>
                               <?php
                               foreach($anesth_services_data as $ser)
                               {
@@ -239,14 +239,15 @@ $diff = $date1->diff($date2);
             <td class="border-less answer"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
           </tr>
 </table>
+
 <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
-        <td class="border-less header" align="center" colspan="4">NEEDLE FORM</td>
+        <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
     </tr>
           <tr>
-                    <td class="border-less question" width=20%>NEEDLE</td>
-                    <td class="border-less question" width=20%>SPINAL NEEDLE TYPE</td>
-                    <td class="border-less answer"><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
+                    <td class="border-less question" width=7% rowspan="3">NEEDLE</td>
+                    <td class="border-less question" width=18%>SPINAL NEEDLE TYPE</td>
+                    <td class="border-less answer" width=10%><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
                               <option value="">Select Spinal Needle Type</option>
                               <?php
                               foreach($anesth_needle_data as $aneed)
@@ -256,30 +257,9 @@ $diff = $date1->diff($date2);
                               ?>
                     </select>
                     </td>
-          </tr>
-          <tr id="other_needle" style="display:none;">
-            <td class="border-less question"></td><td class="border-less question"></td>
-            <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
-          </tr>
-          <tr>
-                    <td class="border-less question"></td>
-                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
-                    <td class="border-less answer"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
-                              <option value="">Select Epidural Needle Type</option>
-                              <option value="Touhy">Touhy</option>
-                              <option value="Others">Others (pls specify):</option>
-                              <option value="None">None</option>
-                    </select>
-                    </td>
-          </tr>
-          <tr id="other_epidural_needle" style="display:none;">
-            <td class="border-less question"></td><td class="border-less question"></td>
-            <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
-          </tr>
-          <tr>
-                    <td class="border-less question">NEEDLE GUAGE</td>
-                    <td class="border-less question">SPINAL NEEDLE GUAGE</td>
-                    <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
+                    <td class="border-less question" rowspan=3>NEEDLE GUAGE</td>
+                     <td class="border-less question">SPINAL NEEDLE GUAGE</td>
+                     <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
                               <option value="">Select Spinal Needle Gauge</option>
                               <?php
                               foreach($anesth_needle_gauge_data as $aneegd)
@@ -290,10 +270,21 @@ $diff = $date1->diff($date2);
                     </select>
                     </td>
           </tr>
+          <tr id="other_needle" style="display:none;">
+            <td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
+          </tr>
           <tr>
-                    <td class="border-less question"></td>
+                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
+                    <td class="border-less answer"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
+                              <option value="">Select Epidural Needle Type</option>
+                              <option value="Touhy">Touhy</option>
+                              <option value="Others">Others (pls specify):</option>
+                              <option value="None">None</option>
+                    </select>
+                    </td>
                     <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
-                    <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
+                     <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
                               <option value="">Select Epidural Needle Gauge</option>
                               <?php
                               foreach($anesth_needle_gauge_data as $aneegd)
@@ -304,123 +295,9 @@ $diff = $date1->diff($date2);
                     </select>
                     </td>
           </tr>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
-    <tr>
-        <td class="border-less header" align="center" colspan="4">ANESTHESIA FORM</td>
-    </tr>
-          <tr>
-                    <td class="border-less question" width="20%">ANESTHESIA START</td>
-                      <td class="border-less answer">
-                        <input type="text" name="anesthesia_start" id="datepicker-example14" class="required" size="20">
-                      <select name="anesthesia_start_hour" class="required" style="width:80px;">
-	    <option value="" class="required">HOUR</option>
-				<?php
-				for ($i = 01; $i <= 12; $i++)
-				{
-					$value = strlen($i);
-					if($value==1)
-					{
-						$k = "0".$i;
-					}
-					else
-					{
-						$k=$i;
-					}
-					echo "<option value='$k'";
-					if ($this->input->post('hour') == $i)
-					{
-						echo "selected='selected'";
-					}
-						echo ">$k</option>";
-					}
-				?>
-			</select> :
-			<select name="anesthesia_start_min" class="required" style="width: 70px;">
-			<option value="">MIN</option>
-			<option value="00">00</option>
-				<?php
-				for ($i = 01; $i <= 59; $i++)
-				{
-					$value = strlen($i);
-					if($value==1)
-					{
-						$k = "0".$i;
-					}
-					else
-					{
-						$k=$i;
-					}
-					echo "<option value='$k'";
-					if ($this->input->post('min') == $i)
-					{
-						echo "selected='selected'";
-					}
-						echo ">$k</option>";
-					}
-				?>
-			</select>
-			<select name="anesthesia_start_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-			</select>
-                    </td>
-          </tr>
-          <tr>
-                    <td class="border-less question">ANESTHESIA END</td>
-                      <td class="border-less answer"><input type="text" name="anesthesia_end" id="datepicker-example13" class="required" size="20">
-                      <select name="anesthesia_end_hour" class="required" style="width:80px;">
-	    <option value="">HOUR</option>
-				<?php
-				for ($i = 01; $i <= 12; $i++)
-				{
-					$value = strlen($i);
-					if($value==1)
-					{
-						$k = "0".$i;
-					}
-					else
-					{
-						$k=$i;
-					}
-					echo "<option value='$k'";
-					if ($this->input->post('hour') == $i)
-					{
-						echo "selected='selected'";
-					}
-						echo ">$k</option>";
-					}
-				?>
-			</select> :
-			<select name="anesthesia_end_min" class="required" style="width: 70px;">
-			<option value="">MIN</option>
-			<option value="00">00</option>
-				<?php
-				for ($i = 01; $i <= 59; $i++)
-				{
-					$value = strlen($i);
-					if($value==1)
-					{
-						$k = "0".$i;
-					}
-					else
-					{
-						$k=$i;
-					}
-					echo "<option value='$k'";
-					if ($this->input->post('min') == $i)
-					{
-						echo "selected='selected'";
-					}
-						echo ">$k</option>";
-					}
-				?>
-			</select>
-			<select name="anesthesia_end_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-			</select>
-                      </td>
+          <tr id="other_epidural_needle" style="display:none;">
+            <td class="border-less question"></td><td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
           </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
@@ -659,7 +536,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less header" align="center" colspan="4">FOR DELIVERY</td>
           </tr>
           <tr>
-                    <td class="border-less question" width="20%">IF DELIVERY</td>
+                    <td class="border-less question" width="20%">DELIVERY</td>
                     <td class="border-less answer" colspan="2"><input type="radio" name="if_delivery" id="show" value="YES" class="required" /> YES <input type="radio" name="if_delivery" id="hide" value="NO" /> NO</td>
           </tr>
           <tr id="agpar_score_1m" style="display:none">
@@ -1007,7 +884,7 @@ $('#critical_events_show').click(function() {
       $('.discharge_planning_valid').attr('class','discharge_planning_required');
        //CRITICAL LEVEL MISCELLANEOUS
       $('#miscellaneous_title').show();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
+      <?php for($misc = 1;$misc<=13;$misc++){ ?>
       $('#miscellaneous_data<?php echo $misc; ?>').show();
       <?php } ?>    
       $('.miscellaneous_valid').attr('class','miscellaneous_required');
@@ -1110,118 +987,6 @@ $('#colloids_used_show').click(function() {
 });
 $('#anesthetic_technique').change(function() {
     var selected = $(this).val();
-    if(selected == '3'){
-      $('#critical_events_yes').show();
-      $('#critical_events_no').hide();
-      $('.critical_event_required').attr('class','critical_event_valid');
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').show();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').show();
-      <?php } ?>
-      $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').show();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').show();
-      <?php } ?>
-      $('.cardiovascular_valid').attr('class','cardiovascular_required');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').show();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').show();
-      <?php } ?>
-      $('.discharge_planning_valid').attr('class','discharge_planning_required');
-       //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').show();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').show();
-      <?php } ?>
-      $('.9').prop('checked',true);
-      $('.9').click(false);
-      $('.miscellaneous_valid').attr('class','miscellaneous_required');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').show();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').show();
-      <?php } ?>
-      $('.neurological_valid').attr('class','neurological_required');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').show();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').show();
-      <?php } ?>
-      $('.respiratory_valid').attr('class','respiratory_required');
-      //REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').show();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').show();
-      <?php } ?>
-      $('.regional_anesthesia_valid').attr('class','regional_anesthesia_required');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').show();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').show();
-      <?php } ?>
-      $('.preop_valid').attr('class','preop_required');
-    }
-    else
-    {
-      $('#critical_events_yes').hide();
-      $('#critical_events_no').show();
-      $('.critical_event_valid').attr('class','critical_event_required');
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').hide();
-      <?php } ?>
-      $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
-      
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').hide();
-      <?php } ?>
-      $('.cardiovascular_required').attr('class','cardiovascular_valid');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').hide();
-      <?php } ?>
-      $('.discharge_planning_required').attr('class','discharge_planning_valid');
-      //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').hide();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').hide();
-      <?php } ?>
-       $('.9').prop('disabled',false);
-      $('.9').prop('checked',false);
-      $('.miscellaneous_required').attr('class','miscellaneous_valid');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').hide();
-      <?php } ?>
-      $('.neurological_required').attr('class','neurological_valid');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').hide();
-      <?php } ?>
-      $('.respiratory_required').attr('class','respiratory_valid');
-      //CRITICAL LEVEL REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
-      <?php } ?>
-      $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').hide();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').hide();
-      <?php } ?>
-      $('.preop_required').attr('class','preop_valid');
-    }
     if (selected == '9')
     {
         $('#peripheral_data').show();

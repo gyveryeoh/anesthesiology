@@ -14,6 +14,7 @@ Class Dropdown_select extends CI_Model
      $this->db->select('*');
      $this->db->from('anesth_technique');
      $this->db->where('id !=',8);
+     $this->db->where('id !=',3);
      $this->db->order_by("name", "asc");
      $query = $this->db->get();
      return $query->result();
