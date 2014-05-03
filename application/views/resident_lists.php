@@ -21,11 +21,11 @@
             
           if ($res_info->date_encode == "0000-00-00 00:00:00")
           { $color = "red"; } else { $color = "white";}
-          if($total =="0")
+          if($total >="0" && $total <="7")
           { $color = "lightgreen"; }
-          elseif($total >="1" && $total <="7")
+          elseif($total >="8" && $total <="30")
           { $color = "yellow";}
-          elseif($total >="7")
+          elseif($total >="31")
           { $color = "red";}
           ?>
           <tr>
@@ -45,13 +45,13 @@
                     <td class="border-less"><b>LEGEND:</b></td>
           </tr>
           <tr>
-                    <td class="border-less" colspan=2><b><font color="lightgreen">GREEN</font></b> - Encoding not more than 1 day old </td>
+                    <td class="border-less" colspan=2><b><font color="lightgreen">GREEN</font></b> - Encoding not more than 1 week old </td>
           </tr>
           <tr>
-                    <td class="border-less" colspan=3><b><font color="yellow">YELLOW</font></b> - Encoding older than 1 day but not more than 1 week old</td>
+                    <td class="border-less" colspan=3><b><font color="yellow">YELLOW</font></b> - Encoding older than 1 week but not more than 1 month old</td>
           </tr>
           <tr>
-                    <td class="border-less" colspan=2><b><font color="red">RED</font></b> - Encoding older than 1 week</td>
+                    <td class="border-less" colspan=2><b><font color="red">RED</font></b> - Encoding older than 1 month</td>
           </tr>
             <td colspan="7" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
           </tr>
