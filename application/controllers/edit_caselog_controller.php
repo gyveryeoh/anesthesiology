@@ -232,9 +232,9 @@ function edit_anesthesia_information($patients_id='', $pf_id='')
 		 { $anesth_status_id = "8";}else{$anesth_status_id = "7";}
 		 $datas2 = array(
 		 'anesthesia_start' => $this->input->post('anesthesia_start'),
-		 'anesthesia_start_time' => $this->input->post('anesthesia_start_hour').":".$this->input->post('anesthesia_start_min')." ".$this->input->post('anesthesia_start_time'),
+		 'anesthesia_start_time' => DATE("h:i A", STRTOTIME($this->input->post('anesthesia_start_hour').":".$this->input->post('anesthesia_start_min'))),
 		 'anesthesia_end' => $this->input->post('anesthesia_end'),
-		 'anesthesia_end_time' => $this->input->post('anesthesia_end_hour').":".$this->input->post('anesthesia_end_min')." ".$this->input->post('anesthesia_end_time'),
+		 'anesthesia_end_time' => DATE("h:i A", STRTOTIME($this->input->post('anesthesia_end_hour').":".$this->input->post('anesthesia_end_min'))),
 		 'anesth_status_id' => $anesth_status_id);
 		 $this->edit_caselog_model->edit_patient_form($patient_form_id,$datas2);
 		 $this->session->set_flashdata("success",'<p style="background-color:#fafad2; width:70%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:#860d0d; font-family:tahoma;"><font size="3" color="green"><span style="padding-top:10px;"><b>SUCCESSFULLY UPDATED PATIENT ANESTHESIA INFORMATION</b></span></font></p>');

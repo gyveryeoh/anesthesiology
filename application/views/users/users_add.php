@@ -36,7 +36,7 @@
           </tr>
           <tr>
                     <td class="border-less question">MIDDLE INITIALS</td>
-                    <td class="border-less answer"><input type="text" size="20" name="middle_initials" class="required" value="<?php echo $this->input->post('middle_initials'); ?>">
+                    <td class="border-less answer"><input type="text" size="20" name="middle_initials" value="<?php echo $this->input->post('middle_initials'); ?>">
           </tr>
           <tr>
                     <td class="border-less question">USERNAME</td>

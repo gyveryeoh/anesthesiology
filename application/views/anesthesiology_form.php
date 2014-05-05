@@ -107,7 +107,7 @@ $diff = $date1->diff($date2);
                     <td class="border-less question">CASE NUMBER</td>
                     <td class="border-less answer"><?php echo $row->case_number; ?></td>
                     <td class="border-less question">AGE</td>
-                    <td class="border-less answer"><?php echo $diff->y . "Y" . $diff->m."M".$diff->d."D"; ?></td>
+                    <td class="border-less answer"><?php echo $diff->y ."Y-". $diff->m."M-".$diff->d."D"; ?></td>
           
           </tr>
            <tr>
@@ -172,7 +172,7 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less question">FOR EMERGENCY</td>
+                    <td class="border-less question">EMERGENCY</td>
                     <td class="border-less answer"><input type="radio" name="for_emergency" value="N" class="required"> NO <input type="radio" name="for_emergency" value="Y"> YES</td>
           </tr>
           <tr>
@@ -200,7 +200,7 @@ $diff = $date1->diff($date2);
           <tr>
                     <td class="border-less question">ANESTHETIC TECHNIQUE</td>
                     <td class="border-less answer"><select name="anesthetic_technique" class="required" style="width: 360px;" id="anesthetic_technique">
-                               <option value="">Select Techniques</option>
+                               <option value="">Select Technique</option>
                               <?php
                               foreach($anesth_technique_data as $and)
                               {
@@ -250,7 +250,7 @@ $diff = $date1->diff($date2);
                       <select name="anesthesia_start_hour" class="required" style="width:80px;">
 	    <option value="" class="required">HOUR</option>
 				<?php
-				for ($i = 01; $i <= 12; $i++)
+				for ($i = 01; $i <= 24; $i++)
 				{
 					$value = strlen($i);
 					if($value==1)
@@ -294,10 +294,6 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select>
-			<select name="anesthesia_start_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-			</select>
                     </td>
           </tr>
           <tr>
@@ -306,7 +302,7 @@ $diff = $date1->diff($date2);
                       <select name="anesthesia_end_hour" class="required" style="width:80px;">
 	    <option value="">HOUR</option>
 				<?php
-				for ($i = 01; $i <= 12; $i++)
+				for ($i = 01; $i <= 24; $i++)
 				{
 					$value = strlen($i);
 					if($value==1)
@@ -349,10 +345,6 @@ $diff = $date1->diff($date2);
 						echo ">$k</option>";
 					}
 				?>
-			</select>
-			<select name="anesthesia_end_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
 			</select>
                       </td>
           </tr>

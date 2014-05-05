@@ -5,7 +5,7 @@ foreach($hospital_rotation_details as $hospital_name): endforeach;
 $date1 = new DateTime($data->birthdate);
 $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
-$age = $diff->y . "Y".$diff->m."M".$diff->d."D";
+$age = $diff->y . "Y-".$diff->m."M-".$diff->d."D";
 //HOurs Computation
 $date_today = date('Y-m-d g:i A');
 $day1 = $data->anesthesia_start." ".$data->anesthesia_start_time;
@@ -153,11 +153,11 @@ else
  </tr>   
   <tr>
         <td class="border-less question" width="20%">ANESTHESIA START</td>
-        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_start."&nbsp;&nbsp;&nbsp;&nbsp;".$data->anesthesia_start_time; ?></td>
+        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_start."&nbsp;&nbsp;&nbsp;&nbsp;".DATE("H:i", STRTOTIME("$data->anesthesia_start_time")); ?></td>
     </tr>
     <tr>
         <td class="border-less question">ANESTHESIA END</td>
-        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_end."&nbsp;&nbsp;&nbsp;&nbsp;".$data->anesthesia_end_time; ?></td>
+        <td <?php echo $anesth_start; ?> class="border-less" colspan="2"><?php echo $data->anesthesia_end."&nbsp;&nbsp;&nbsp;&nbsp;".DATE("H:i", STRTOTIME("$data->anesthesia_end_time")); ?></td>
     </tr>
     <tr>
         <td class="border-less" bgcolor="SkyBlue">TOTAL ANESTHESIA HOUR/S</td>
