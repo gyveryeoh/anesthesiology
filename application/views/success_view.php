@@ -1,4 +1,4 @@
-<table border="1" width="80%" cellpadding="10" cellspacing="0" style="font-size: 20px;">
+<table border="1" width="90%" cellpadding="10" cellspacing="0" style="font-size: 20px;">
           <tr>
                     <td colspan="2" class="border-less" align="center"><b>SUCCESSFULLY CREATED CASE LOG FORM</b></td>
           </tr>

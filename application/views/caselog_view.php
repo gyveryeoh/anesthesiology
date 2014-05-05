@@ -38,7 +38,7 @@ else
     </style>
     <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/index">
     <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
-    <table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;">
     <tr>
                     <td colspan="9" align="center"><b><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); } ?> <b style="color: red;font-size: 30px;"><?php echo $msg_error; ?></b></td>
     </tr>
@@ -46,7 +46,7 @@ else
         <td class="border-less header" align="center" colspan="7">PATIENT INFORMATION</td>
     </tr> 
     <tr>
-        <td width="20%" class="border-less" bgcolor="SkyBlue">DATE CREATED</td>
+        <td width="15%" class="border-less" bgcolor="SkyBlue">DATE CREATED</td>
         <td colspan="7" class="border-less" bgcolor="FAFAD2"><?php echo $data->pf_date_created; ?></td>
     </tr>
     <tr>
@@ -73,12 +73,12 @@ else
         <td colspan="3" bgcolor="FAFAD2" class="border-less"><?php echo $data->type_of_patient; ?></td>
     </tr>
     <tr>
-        <td class="border-less" bgcolor="SkyBlue">CASE NUMBER</td>
-        <td bgcolor="FAFAD2" class="border-less"><?php echo $data->case_number; ?></td>
+        <td class="border-less question">CASE NUMBER</td>
+        <td class="border-less answer" width=20%><?php echo $data->case_number; ?></td>
         <td width="5%" class="border-less question">AGE</td>
         <td width="10%" class="border-less" <?php echo $birth_date; ?>><?php echo $age; ?></td>
         <td width="20%" class="border-less" bgcolor="SkyBlue">GENDER</td>
-        <td bgcolor="FAFAD2" class="border-less"><?php echo $data->gender; ?></td>
+        <td class="border-lesss answer"><?php echo $data->gender; ?></td>
         <td width="15%" class="border-less" bgcolor="SkyBlue">WEIGHT</td>
         <td bgcolor="FAFAD2" class="border-less"><?php echo $data->weight; ?> KG</td>
     </tr>
@@ -102,7 +102,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
         <td class="border-less header" align="center" colspan="7">DIAGNOSIS INFORMATION</td>
     </tr> 
@@ -147,7 +147,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
     <td class="border-less header" align="center" colspan="2">ANESTHESIA</td>
  </tr>   
@@ -162,9 +162,17 @@ else
     <tr>
         <td class="border-less" bgcolor="SkyBlue">TOTAL ANESTHESIA HOUR/S</td>
     <?php
-    if ($anesth_diff <= "24" && $anesth_diff >="0" )
+    if ($anesth_diff >="0" )
     {
         $color = "bgcolor=FAFAD2";
+    }
+    if ($anesth_diff <= "0" && $anesth_diff <= "48")
+    {
+        $color = "bgcolor=red";
+    }
+    if ($anesth_diff >= "49")
+    {
+        $color = "bgcolor=red";
     }
     ?>
         <td class="border-less" <?php echo $color; ?> colspan="2"><?php echo $anesth_diff; ?></td>
@@ -182,7 +190,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
 <tr>
         <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
     </tr>
@@ -191,14 +199,14 @@ else
                     <td class="border-less question" width=18%>SPINAL NEEDLE TYPE</td>
                     <td class="border-less answer" width=15%><?php echo $data->spinal_needle; ?></td>
                     </td>
-                    <td class="border-less question" width=20% rowspan=2>NEEDLE GUAGE</td>
-                    <td class="border-less question" width=20%>SPINAL NEEDLE GUAGE</td>
+                    <td class="border-less question" width=20% rowspan=2>NEEDLE GAUGE</td>
+                    <td class="border-less question" width=20%>SPINAL NEEDLE GAUGE</td>
                     <td class="border-less answer"><?php echo $data->p1; ?></td>
           </tr>
           <tr>
                     <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
                     <td class="border-less answer"><?php echo $data->epidural_needle; ?></td>
-                    <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
+                    <td class="border-less question">EPIDURAL NEEDLE GAUGE</td>
                     <td class="border-less answer"><?php echo $data->p2; ?></td>
                     </td>
           </tr>
@@ -215,7 +223,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
         <td class="border-less" bgcolor="SkyBlue" colspan="5">MAIN AGENTS</td>
     </tr>
@@ -243,7 +251,7 @@ else
      }
      ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
         <td class="border-less" colspan="2" bgcolor="SkyBlue">SUPPLEMENTARY AGENTS</td>
     </tr>
@@ -273,7 +281,7 @@ else
       }
     ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
         <td class=border-less bgcolor="SkyBlue" width=20% colspan="2">POST OP PAIN AGENTS</td>
     </tr>
@@ -302,7 +310,7 @@ else
       }
     ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
         <td class="border-less" colspan="2" bgcolor="SkyBlue">POST OP PAIN MANAGEMENT</td>
     </tr>
@@ -333,7 +341,7 @@ else
      }
       }
 ?>
-    <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+    <table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     
     <tr>
         <td class="border-less" colspan="2" bgcolor="SkyBlue">MONITORS USED</td>
@@ -362,7 +370,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-    <table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+    <table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
  <tr>
     <td class="border-less header" align="center" colspan="2">PROCEDURE</td>
  </tr>   
@@ -391,7 +399,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
      <tr>
                     <td class="border-less header" align="center" colspan="5">REPLACEMENT</td>
           </tr>
@@ -450,7 +458,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
     <td class="border-less header" align="center" colspan="2">FOR DELIVERY</td>
  </tr>   
@@ -489,7 +497,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
   <tr>
     <td class="border-less header" align="center" colspan="2">OTHER INFORMATION</td>
  </tr>
@@ -518,7 +526,7 @@ else
 	</tr>
 	<?php }} ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="80%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
+<table border="0" cellpadding="0" cellspacing="2" width="90%" style="font-family: sans-serif; border: solid 1px; font-size: 12px;border-top: hidden;">
     <tr>
     <td class="border-less header" align="center" colspan="2">CRITICAL EVENTS INFORMATION</td>
  </tr>
@@ -595,7 +603,7 @@ else
 </table>
 </form>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
-<table border="0" cellpadding="0" width="80%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
+<table border="0" cellpadding="0" width="90%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
    <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
    <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
    <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id'); ?>">
@@ -650,7 +658,7 @@ else
         <td class='border-less' align='right'>&nbsp;</td>
         <td class='border-less'><input type='submit' name='update' value='UPDATE'></td>
     </tr>
-        <?php } } ?>
+        <?php } } ?>
     <tr>
         <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
     </tr>

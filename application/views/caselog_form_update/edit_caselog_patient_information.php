@@ -8,7 +8,7 @@ $date1 = new DateTime($data->birthdate);
 <input type="hidden" name="patient_information_id" value="<?php echo $data->patient_information_id?>"/>
 <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>"/>
 <input type="hidden" name="anesth_status_id" value="<?php echo $data->anesth_status_id; ?>"/>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px; font-size: 10px;">
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px; font-size: 10px;">
     <tr>
 		<td class="border-less header" align="center" colspan="2"><h3>PATIENT INFORMATION</h3></td>
     </tr>

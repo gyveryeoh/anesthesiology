@@ -177,7 +177,7 @@ function get_resident_per_institution()
 {
 	$insti_id = $this->input->post('insti_id');
 	$users_list = $this->reports_model->get_users_institution($insti_id);
-	$data .= "<option value=''>SELECT RESIDENT</option>";
+	$data .= "<option value='0'>SELECT RESIDENT</option>";
 	foreach ($users_list as $u_list){
 			$data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname]</option>\n";	
 		}

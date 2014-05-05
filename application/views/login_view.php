@@ -6,7 +6,7 @@
 </noscript>
           <link href="<?php echo base_url(); ?>assets/css/style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
-<table border="1" width="80%" cellpadding="10" cellspacing="0" class="table border-less">
+<table border="1" width="90%" cellpadding="10" cellspacing="0" class="table border-less">
           <tr align="center">
                     
                     <td class="header td_left" colspan="2"><img src="<?php echo base_url();?>assets/images/aendicus.jpg" width="100%" height="100%"></td>

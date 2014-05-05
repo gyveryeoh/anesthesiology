@@ -49,7 +49,7 @@
    });
     </script>
 </head>
-<table border="1" width=80%" cellpadding="0" cellspacing="0" class="table">
+<table border="1" width="90%" cellpadding="0" cellspacing="0" class="table">
           <tr align="center">
                     <td class="header td_left" colspan="2"><img src="<?php echo base_url();?>assets/images/aendicus.jpg" width="100%" height="100%"></td>
 </tr>

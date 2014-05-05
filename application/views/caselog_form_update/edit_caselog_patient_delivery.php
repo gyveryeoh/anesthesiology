@@ -7,7 +7,7 @@ if ($data->if_delivery == "YES")
 <input type="hidden" name="patient_information_id" value="<?php echo $data->patient_information_id; ?>"/>
 <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>"/>
 <input type="hidden" name="anesth_status_id" value="<?php echo $data->anesth_status_id; ?>"/>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-bottom: hidden; font-size: 14px;">
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-bottom: hidden; font-size: 14px;">
  <tr>
   <td class="border-less header" align="center" colspan="4"><h3>DELIVERY</h3></td>
   </tr>
@@ -18,7 +18,7 @@ if ($data->if_delivery == "YES")
    <input type="radio" name="if_delivery" value="NO"   id="hide" <?php if($data->if_delivery == "NO"){ echo "checked";}?>> NO</td>
  </tr>
 </table>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px; display: <?php echo $display; ?>;" id="add_apgar">
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px; display: <?php echo $display; ?>;" id="add_apgar">
  <tr>
   <td class="border-less header" align="center" colspan="4"><h3>ADDITIONAL APGAR SCORE</h3></td>
   </tr>
@@ -62,14 +62,14 @@ foreach($anesth_agpar_score_data as $aasd)
 </select> at 10mins.</td>
 </tr>
 </table>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px;" id=add_apgar>
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px;" id=add_apgar>
       <tr>
  <td class="border-less" width=25%></td>
  <td class="border-less"><input type="submit" name="submit" value="UPDATE INFORMATION"></td>
  </tr>
 </table>
 </form>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px; display: <?php echo $display; ?>;" id="add_apgar">
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; border-bottom: hidden; font-size: 14px; display: <?php echo $display; ?>;" id="add_apgar">
 <?php
         if ($data->if_delivery=="YES")
         {
@@ -109,7 +109,7 @@ foreach($anesth_agpar_score_data as $aasd)
     }
     ?>
     </table>
-    <table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; font-size: 14px;">
+    <table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px;border-top: hidden; font-size: 14px;">
  <tr>
 <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
 </tr>

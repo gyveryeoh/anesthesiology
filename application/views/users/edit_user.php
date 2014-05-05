@@ -1,7 +1,7 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/edit_user">
  <?php foreach($user_info as $row)?>
  <input type="hidden" name="resident_id" value="<?php echo $row->id;?>"/>
- <table width="80%" cellpadding="1" cellspacing="0">
+ <table width="90%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">EDIT USER</td>
           </tr>

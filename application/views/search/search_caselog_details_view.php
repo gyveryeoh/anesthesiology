@@ -1,5 +1,5 @@
 <form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog_details">
- <table width="80%" cellpadding="1" cellspacing="0"  style="border-top: hidden;">
+ <table width="90%" cellpadding="1" cellspacing="0"  style="border-top: hidden;">
           <tr>
                     <td class="border-less header" align="center" colspan="2">CASELOG SEARCH</td>
           </tr>
@@ -49,7 +49,7 @@
            echo "<tr><td colspan=6 align=center>".$this->session->flashdata("success")."</td></tr>";
            }?>
  </table>
-  <table width="80%" cellpadding="1" cellspacing="0" style="border-top: hidden;border-bottom: hidden;font-size: 13px;">
+  <table width="90%" cellpadding="1" cellspacing="0" style="border-top: hidden;border-bottom: hidden;font-size: 13px;">
           <tr bgcolor=skyblue>
            <th width="10%">CASE NUMBER</th>
            <th>RESIDENT NAME</th>
@@ -63,7 +63,8 @@
            <th>DATE ENCODED</th>
            <th>DATE UPDATED</th>
           </tr>
-          <?php foreach($caselog_information as $row):
+          <?php
+          foreach($caselog_information as $row):
            $date1 = new DateTime($row->patient_info_birthdate);
            $date2 = new DateTime(date('Y-m-d'));
            $diff = $date1->diff($date2);

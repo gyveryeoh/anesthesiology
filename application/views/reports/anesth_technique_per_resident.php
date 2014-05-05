@@ -1,4 +1,4 @@
-<table width="80%" cellpadding="1" cellspacing="0">
+<table width="90%" cellpadding="1" cellspacing="0">
           <tr>
 		<th>Techniques</th>
 		<th>Count</th>

@@ -2,7 +2,7 @@
 if($year == NULL)
 {$year = "";}
 ?>
-<table width="80%" cellpadding="1" cellspacing="0">
+<table width="90%" cellpadding="1" cellspacing="0">
           <tr>
 			<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/reports_list?resident_id=<?php echo $user_id; ?>">
 			<th colspan="2" align="center">

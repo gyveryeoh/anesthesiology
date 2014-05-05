@@ -1,6 +1,6 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/save_user">
  
- <table width="80%" cellpadding="1" cellspacing="0">
+ <table width="90%" cellpadding="1" cellspacing="0">
           <tr>
                     <td class="border-less header" align="center" colspan="2">ADD NEW USER</td>
           </tr>

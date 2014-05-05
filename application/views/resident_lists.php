@@ -1,4 +1,4 @@
- <table width="80%" cellpadding="0" cellspacing="0" border="0" style="border-top: hidden;border-bottom: hidden;font-size: 13px;">
+ <table width="90%" cellpadding="0" cellspacing="0" border="0" style="border-top: hidden;border-bottom: hidden;font-size: 13px;">
           <tr>
                     <td class="border-less header" align="center" colspan="7">RESIDENT LISTS</td>
           </tr>

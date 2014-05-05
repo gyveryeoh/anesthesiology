@@ -85,7 +85,7 @@ $diff = $date1->diff($date2);
             border: hidden;
         } 
     </style>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd; border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd; border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">PATIENT INFORMATION</td>
           </tr>
@@ -118,7 +118,7 @@ $diff = $date1->diff($date2);
           
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
         <tr>
                     <td class="border-less header" align="center" colspan="2">HOSPITAL ROTATION INFORMATION</td>
         </tr>
@@ -239,7 +239,7 @@ $diff = $date1->diff($date2);
             <td class="border-less answer"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="4">ANESTHESIA FORM</td>
     </tr>
@@ -357,7 +357,7 @@ $diff = $date1->diff($date2);
                       </td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
     </tr>
@@ -374,8 +374,8 @@ $diff = $date1->diff($date2);
                               ?>
                     </select>
                     </td>
-                    <td class="border-less question" rowspan=3>NEEDLE GUAGE</td>
-                     <td class="border-less question">SPINAL NEEDLE GUAGE</td>
+                    <td class="border-less question" rowspan=3>NEEDLE GAUGE</td>
+                     <td class="border-less question">SPINAL NEEDLE GAUGE</td>
                      <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
                               <option value="">Select Spinal Needle Gauge</option>
                               <?php
@@ -400,7 +400,7 @@ $diff = $date1->diff($date2);
                               <option value="None">None</option>
                     </select>
                     </td>
-                    <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
+                    <td class="border-less question">EPIDURAL NEEDLE GAUGE</td>
                      <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
                               <option value="">Select Epidural Needle Gauge</option>
                               <?php
@@ -417,7 +417,7 @@ $diff = $date1->diff($date2);
             <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan="4">MAIN AGENTS</td>
     </tr>
@@ -447,7 +447,7 @@ $diff = $date1->diff($date2);
             <td class="border-less answer" colspan="2"  id="other_main_agent" style="display:none;"><input type="text" size="20" name="other_main_agent_data" class="other_main_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
           <tr>
             <td class="border-less question" colspan="4">SUPPLEMENTARY AGENT</td>
           </tr>
@@ -479,7 +479,7 @@ $diff = $date1->diff($date2);
             <td class="border-less" id="other_supplementary_agent" style="display:none;" colspan=2><input type="text" size="20" name="other_supplementary_agent_data" class="other_supplementary_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan="4">POST-OP PAIN AGENTS</td>
     </tr>
@@ -511,7 +511,7 @@ $diff = $date1->diff($date2);
             <td class="border-less" colspan=2 id="other_post_op_pain_agent" style="display:none;"><input type="text" size="20" name="other_post_op_pain_agent_data" class="other_post_op_pain_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan=3>POST-OP PAIN MANAGEMENT</td>
     </tr>
@@ -543,7 +543,7 @@ foreach($multiIterator as $combinedArray)
              }
            ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
             <td class="border-less question" colspan="2">MONITORS USED</td>
           </tr>
@@ -561,7 +561,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less answer" id="other_monitors_used" style="display:none;"><input type="text" size="20" name="other_monitors_used_data" class="other_monitors_used_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="2">PROCEDURE FORM</td>
     </tr>
@@ -577,7 +577,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less question">MUSCLE RELAXANT REVERSAL DONE</td>
                     <td class="border-less answer"><input type="radio" name="muscle_relaxant_reversal_done" value="YES" class="required"> YES <input type="radio" name="muscle_relaxant_reversal_done" value="NO"> NO <input type="radio" name="muscle_relaxant_reversal_done" value="N/A" class="required"> N/A</td>
           </tr>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">REPLACEMENT</td>
           </tr>
@@ -648,7 +648,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less"></td><td class="border-less question">OTHERS</td><td class="border-less answer " colspan="2"><textarea name="others" cols="35" class="required"></textarea></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">FOR DELIVERY</td>
           </tr>
@@ -699,7 +699,7 @@ foreach($multiIterator as $combinedArray)
                 <input type="button" class="add_sub btn" value="Add Apgar"> | <input type="button" class="rem_sub btn" value="Remove"></td>
             </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="2">OTHER INFORMATION</td>
           </tr>
@@ -716,7 +716,7 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less answer"><textarea name="other_notes" cols="40" class="required"></textarea></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
         <tr>
                     <td class="border-less header" align="center" colspan="2">CRITICAL EVENTS</td>
           </tr>

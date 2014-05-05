@@ -1,5 +1,5 @@
 <form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog_details">
- <table width="80%" cellpadding="1" cellspacing="0">
+ <table width="90%" cellpadding="1" cellspacing="0">
   <tr>
                     <td colspan="6" align="center"><?php if($this->session->flashdata("success") !== FALSE){ echo $this->session->flashdata("success"); }?></td>
           </tr>
@@ -17,7 +17,7 @@
    </td>
    </tr>
  </table>
-  <table width="80%" cellpadding="1" cellspacing="0">
+  <table width="90%" cellpadding="1" cellspacing="0">
           <tr>
            <th class='border-less question' width="15%">CASE NUMBER</th>
            <th class='border-less question'>INITIALS</th>

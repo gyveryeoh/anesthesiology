@@ -1,7 +1,39 @@
 <?php
 Class Search_caselog_model extends CI_Model
 {
- //MAHABANG APPROACH PARA GUMANA LAHAT YUNG CONDITION
+ function count_caselog1($institution_id,$user_id,$status_id,$insti_id)
+ {
+        $this->db->select('*');
+        if($institution_id == 0 && $user_id==0 && $status_id == 0)
+        {
+        $this->db->from('patient_form');
+        }
+        elseif($institution_id != 0 && $user_id == 0 && $status_id == 0)
+        {
+        $this->db->from('patient_form');
+        $this->db->where('institution_id',$institution_id);
+        }
+        elseif($user_id == 0 && $institution_id ==0 && $status_id !=0)
+        {
+        $this->db->from('patient_form');
+        $this->db->where('anesth_status_id',$status_id);
+        }
+        elseif($user_id != 0 && $institution_id !=0 && $status_id ==0)
+        {
+        $this->db->from('patient_form');
+        $this->db->where('user_id',$user_id);
+        }
+        elseif($user_id != 0 && $institution_id !=0 && $status_id !=0)
+        {
+                $this->db->from('patient_form');
+                $this->db->where('user_id',$user_id);
+                $this->db->where('institution_id',$institution_id);
+                $this->db->where('anesth_status_id',$status_id);
+        }
+        $q = $this->db->get();
+        return $q->num_rows();
+}
+ //MAHABANG APPROACH PARA GUMANA LAHAT YUNG CONDITION FOR TRAINING OFFICER
  function count_search_caselog_details_1($user_id,$insti_id)
  {
  $this->db->select('*');
@@ -38,7 +70,7 @@ Class Search_caselog_model extends CI_Model
  return $q->num_rows();
  }
 //END NUNG CONDITION NG FILTER SEARCHs
-  function fetch_search_caselog_details($limit,$start,$user_id,$institution_id,$status_id,$insti_id)
+  function fetch_search_caselog_details($limit,$start,$institution_id,$user_id,$status_id,$insti_id)
   {
         $this->db->limit($start,$limit);
 	$this->db->select('*,
@@ -71,7 +103,10 @@ Class Search_caselog_model extends CI_Model
 	{
 	$this->db->where('patient_form.anesth_status_id', $status_id);
 	}
-        $this->db->where('patient_form.institution_id', $insti_id);
+        if($insti_id != 0)
+	{
+                $this->db->where('patient_form.institution_id', $insti_id);
+	}
         $this->db->order_by("users.lastname", "asc");
 	$query = $this->db->get();	
 	return $query->result();

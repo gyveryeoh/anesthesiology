@@ -1,5 +1,5 @@
 <script src="<?php echo base_url() ?>assets/javascript/jquery.js" type="text/javascript"></script>
-<table width="80%" cellpadding="1" cellspacing="0">
+<table width="90%" cellpadding="1" cellspacing="0">
           <tr>
            <th width="50%">Institution Name</th>
            <th colspan="4">Users</th>
