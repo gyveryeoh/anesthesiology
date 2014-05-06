@@ -176,25 +176,10 @@ class Users_controller extends CI_Controller
 	{
 		if($this->session->userdata('logged_in'))
 		{
-			$status = $this->input->get('status');
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$user_id = $session_data['id'];
-			$this->load->library('pagination');
-			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-			$config["base_url"] = base_url()."index.php/users_controller/hospital_list";
-			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-			$config["total_rows"] = $this->view_caselogs->count_hospital_list();
-			$config["per_page"] = 10;
-			$config["uri_segment"] = 3;
-			$this->pagination->initialize($config);
-			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-			$datas["hospital_list"] = $this->view_caselogs->hospital_list($page,$config["per_page"]);
-			foreach($datas["hospital_list"] as $row)
-			{
-				$id = $row->id;
-				$datas["user_per_hospital"][$id] = $this->view_caselogs->users_per_institution($id);
-			}
+			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
 			$this->load->view('users/hospital_list',$datas);

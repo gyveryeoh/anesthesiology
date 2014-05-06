@@ -62,7 +62,13 @@
                     ?>
                               <a href="<?php echo base_url();?>index.php/home/">HOME</a> |
                               <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">REPORTS</a> |
-                     <?php } ?>          
+                     <?php } ?>
+                     <?php
+                    if ($user_information['role_id'] == "3")
+                    {
+                    ?>
+                              <a href="<?php echo base_url();?>index.php/users_controller/hospital_list">INSTITUTIONS LIST</a> |
+                     <?php } ?>
                               <a href="<?php echo base_url(); ?>index.php/users_controller/change_password">USERS</a> |
                     <?php
                     if ($user_information['role_id'] == "2")

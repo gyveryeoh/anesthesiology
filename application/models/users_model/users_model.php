@@ -50,11 +50,12 @@ Class Users_model extends CI_Model
 		return $q->num_rows();	
 	}
 	
-	function hospital_list($limit,$start)
+	function hospital_list()
 	{
-		$this->db->limit($start,$limit);
 		$this->db->select('*');
 		$this->db->from('anesth_institution');
+		$this->db->order_by("name", "asc");
+		$this->db->where('name !=','NONE');
 		$q = $this->db->get();
 		return $q->result();		
 	}
