@@ -115,11 +115,13 @@
                     <td class="border-less"><br><input type="submit" name="submit" value="SEARCH"><br><br>
           </tr>
           <?php
-
+          if (!empty($caselog_information))
+          {
           if($this->session->flashdata("success") !== FALSE)
           {
            echo "<tr><td colspan=11 align=center>".$this->session->flashdata("success")."</td></tr>";
-           }?>
+           }
+           ?>
           <tr bgcolor=skyblue>
            <th width="10%">CASE NUMBER</th>
            <th>RESIDENT NAME</th>
@@ -134,7 +136,6 @@
            <th>DATE UPDATED</th>
           </tr>
           <?php
-          if (!empty($caselog_information))
           foreach($caselog_information as $row):
            $date1 = new DateTime($row->patient_info_birthdate);
            $date2 = new DateTime(date('Y-m-d'));
@@ -157,11 +158,18 @@
           <td>".$row->pf_date_updated."</td>
           </tr>";
           endforeach;
+          }
           ?>
            <tr>
                 <td colspan="8" style="border: hidden;"><?php echo $this->pagination->create_links(); ?><br><br></td>
           </tr>
+            <?php if (!empty($total))
+            {
+        ?>
            <tr><td colspan='3' class="border-less"><b>TOTAL RESULT FOUND : <?php echo $total; ?></b></td></tr>
+          <?php
+            }
+            ?>
           <tr>
 <td colspan="11" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 </tr>
