@@ -80,7 +80,7 @@ else
                         $end_date          = $this->input->get('end_date');
                         $hopital_id        = $this->input->get('hospital_id');
                         
-                        $config["total_rows"] = $this->search_caselogs->count_search_caselog_details($case_number,$service,$technique,$user_id,$status_id,$include_date,$start_date,$end_date,$hopital_id);
+                        $datas['total'] = $config["total_rows"] = $this->search_caselogs->count_search_caselog_details($case_number,$service,$technique,$user_id,$status_id,$include_date,$start_date,$end_date,$hopital_id);
                         $config["per_page"] = 10;
                         $config["uri_segment"] = 3;
                         $this->pagination->initialize($config);

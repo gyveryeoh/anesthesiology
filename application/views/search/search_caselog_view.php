@@ -159,8 +159,9 @@
           endforeach;
           ?>
            <tr>
-                <td colspan="8" style="border: hidden;"><?php echo $this->pagination->create_links(); ?></td>
+                <td colspan="8" style="border: hidden;"><?php echo $this->pagination->create_links(); ?><br><br></td>
           </tr>
+           <tr><td colspan='3' class="border-less"><b>TOTAL RESULT FOUND : <?php echo $total; ?></b></td></tr>
           <tr>
 <td colspan="11" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 </tr>
