@@ -18,6 +18,12 @@ Class Search_caselog_model extends CI_Model
         $this->db->from('patient_form');
         $this->db->where('anesth_status_id',$status_id);
         }
+        elseif($user_id == 0 && $institution_id !=0 && $status_id !=0)
+        {
+        $this->db->from('patient_form');
+        $this->db->where('institution_id',$institution_id);
+        $this->db->where('anesth_status_id',$status_id);
+        }
         elseif($user_id != 0 && $institution_id !=0 && $status_id ==0)
         {
         $this->db->from('patient_form');

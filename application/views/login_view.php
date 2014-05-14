@@ -26,36 +26,21 @@
 <?php echo form_open('verifylogin'); ?>
 <table width="60%" cellpadding="1" cellspacing="0" class="border-less">
           <tr>
-                    <td class="td_top td_bottom td_left td_right" align="right" style="border: 1px solid dodgerblue;">Username :</td>
-                    <td style="border: 1px solid dodgerblue; border-left:hidden;"><input type="text" name="username" size="30">
+                    <td class="td_top td_bottom td_left td_right question" align="right" style="border: 1px solid dodgerblue;">USERNAME</td>
+                    <td style="border: 1px solid dodgerblue; border-left:hidden;" class="answer"><input type="text" name="username" size="30">
           </tr>
           <tr>
-                    <td class="td_top td_bottom td_left td_right" align="right" style="border: 1px solid dodgerblue;border-top:hidden;">Password :</td>
-                    <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;"><input type="password" size="30" name="password">
+                    <td class="td_top td_bottom td_left td_right question" align="right" style="border: 1px solid dodgerblue;border-top:hidden;">PASSWORD</td>
+                    <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;" class="answer"><input type="password" size="30" name="password">
           </tr>
           <tr>
-                    <td class="td_top td_bottom td_left td_right" align="right" style="border: 1px solid dodgerblue;border-top:hidden;">&nbsp;</td>
-                    <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;"><input type="submit" name="login" value="LOGIN">
+                    <td class="td_top td_bottom td_left td_right answer" align="right" style="border: 1px solid dodgerblue;border-top:hidden;">&nbsp;</td>
+                    <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;" class=answer><input type="submit" name="login" value="LOGIN">
           </tr>
 </table>
 <br><br>
 </td>
 </tr>
-          <tr>
-                    <td class="border-less question"><b>AENDICUS II USERS UPDATE AS OF <font color=red><?php echo date('m-d-Y'); ?></font></b></td>
-          </tr>
-          <tr>
-                    <td class="border-less">"NONE" FIELD IN POST-OP PAIN MANAGEMENT</td>
-          </tr>
-          <tr>
-                    <td class="border-less">HOSPITAL ROTATION</td>
-          </tr>
-          <tr>
-                    <td class="border-less question"><b>UPCOMING AENDICUS II USERS UPDATE</b></td>
-          </tr>
-          <tr>
-                    <td class="border-less">ADDITIONAL MEDICINE FOR AGENTS</td>
-          </tr>
 <tr>
 <td colspan="2" align="center" style="border-top:hidden;" class="border-less"><br><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
 </tr>
