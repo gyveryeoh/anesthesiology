@@ -35,6 +35,7 @@ class Caselog_controller extends CI_Controller {
 				foreach ($data['patient_information'] as $delivery){}
 				$patient_form_id = $delivery->patient_form_id;
 				$hospital_rotation_id = $delivery->hospital_rotation_id;
+				$institution_id = $delivery->institution_id;
 				$data['main_agent'] = $this->caselog_model->patient_form_main_agent_details($patient_form_id);
 				$data['supplementary_agent'] = $this->caselog_model->patient_form_supplementary_agent_details($patient_form_id);
 				$data['post_op_pain_agent'] = $this->caselog_model->patient_form_post_op_pain_agent_details($patient_form_id);
@@ -58,7 +59,7 @@ class Caselog_controller extends CI_Controller {
 				}
 				$this->load->view('header/header', $data);
 				$data['status_list'] = $this->dropdown_select->anesth_status();
-				$data['institution_details'] = $this->dropdown_select->institution_info($session_data['institution_id']);
+				$data['institution_details'] = $this->dropdown_select->institution_info($institution_id);
 				$data['hospital_rotation_details'] = $this->dropdown_select->select_hospital_rotation($hospital_rotation_id);
 				$this->load->view('caselog_view',$data);
 				}

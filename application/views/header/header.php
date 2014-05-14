@@ -72,9 +72,13 @@
                      <?php } ?>
                               <a href="<?php echo base_url(); ?>index.php/users_controller/change_password">USERS</a> |
                     <?php
+                    if ($user_information['role_id'] == "2" || $user_information['role_id'] == "3")
+                    {
+                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">FIND CASELOG</a> |';
+                    }
                     if ($user_information['role_id'] == "2")
                     {
-                              echo '<a href="'.base_url().'index.php/search_controller/searchcaselog">FIND CASELOG</a> | <a href="'.base_url().'index.php/home/resident_lists">SUBMITTED FORM</a> |';
+                    echo ' <a href="'.base_url().'index.php/home/resident_lists">SUBMITTED FORM</a> |';
                     }
                     ?>
                     <a href="<?php echo base_url();?>index.php/home/logout">LOGOUT</a> 
