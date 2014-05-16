@@ -162,7 +162,7 @@ from (
                     patient_form pf
                 where
                     pf.type_of_patient = 'C'
-                    and pf.level_of_involvement = 'Y'
+                    and pf.for_emergency = 'Y'
             ) `charity_emergency`,
             (
                 -- pay: primary emergency
@@ -172,7 +172,7 @@ from (
                     patient_form pf
                 where
                     pf.type_of_patient = 'P'
-                    and pf.level_of_involvement = 'Y'
+                    and pf.for_emergency = 'Y'
             ) `pay_emergency`
     ) `pf1`
 ) `pf2`

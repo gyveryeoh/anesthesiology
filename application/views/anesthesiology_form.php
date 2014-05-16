@@ -975,7 +975,7 @@ $('#critical_events_show').click(function() {
        {
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').show();
-      <?php for($c = 0;$c<=9;$c++){ ?>
+      <?php for ($c = 0;$c<=9;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').show();
       <?php } ?>
       $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
