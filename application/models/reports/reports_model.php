@@ -117,7 +117,7 @@ from (
             (
                 -- charity: primary elective
                 select
-                    count(pf.id)
+                    count(pf.level_of_involvement)
                 from
                     patient_form pf
                 where
@@ -127,7 +127,7 @@ from (
             (
                 -- charity: assist elective
                 select
-                    count(pf.id)
+                    count(pf.level_of_involvement)
                 from
                     patient_form pf
                 where
@@ -137,7 +137,7 @@ from (
             (
                 -- pay: primary elective
                 select
-                    count(pf.id)
+                    count(pf.level_of_involvement)
                 from
                     patient_form pf
                 where
@@ -147,7 +147,7 @@ from (
             (
                 -- pay: assist elective
                 select
-                    count(pf.id)
+                    count(pf.level_of_involvement)
                 from
                     patient_form pf
                 where
@@ -155,9 +155,9 @@ from (
                     and pf.level_of_involvement = 'A'
             ) `pay_assist_elective`,
             (
-                -- charity: primary emergency
+                -- charity: emergency
                 select
-                    count(pf.id)
+                    count(pf.for_emergency)
                 from
                     patient_form pf
                 where
@@ -165,9 +165,9 @@ from (
                     and pf.for_emergency = 'Y'
             ) `charity_emergency`,
             (
-                -- pay: primary emergency
+                -- pay: emergency
                 select
-                    count(pf.id)
+                    count(pf.for_emergency)
                 from
                     patient_form pf
                 where
