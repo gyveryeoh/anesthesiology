@@ -619,22 +619,22 @@ foreach($multiIterator as $combinedArray)
           </tr>
           <tr>
                     <td class="border-less question">BLOOD PRODUCT USED</td>
-                    <td class="border-less answer" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required"> YES <input type="radio" name="blood_products_used" value="NO" class="required"> NO <input type="radio" name="blood_products_used" value="N/A" class="required"> N/A</td>
+                    <td class="border-less answer" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required" id="unchecked"> YES <input type="radio" name="blood_products_used" value="NO" class="required" id="checked_no"> NO <input type="radio" name="blood_products_used" value="N/A" class="required" id="checked_na"> N/A</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question" width="20%">FRESH WHOLE BLOOD</td><td class="border-less answer"><input type="radio" name="fresh_whole_blood" value="YES" class="required"> YES <input type="radio" name="fresh_whole_blood" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question" width="20%">FRESH WHOLE BLOOD</td><td class="border-less answer"><input type="radio" name="fresh_whole_blood" value="YES" class="required" id="check1_yes"> YES <input type="radio" id="check1_no" name="fresh_whole_blood" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">CYROPRECIPITATE</td><td class="border-less answer"><input type="radio" name="cyroprecipitate" value="YES" class="required"> YES <input type="radio" name="cyroprecipitate" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">CYROPRECIPITATE</td><td class="border-less answer"><input type="radio" name="cyroprecipitate" value="YES" class="required" id="check2_yes"> YES <input type="radio" name="cyroprecipitate" value="NO" id="check2_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">PLATELETS</td><td class="border-less answer"><input type="radio" name="platelets" value="YES" class="required"> YES <input type="radio" name="platelets" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">PLATELETS</td><td class="border-less answer"><input type="radio" name="platelets" value="YES" class="required" id="check3_yes"> YES <input type="radio" name="platelets" value="NO" id="check3_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">FRESH FROZEN PLASMA</td><td class="border-less answer"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required"> YES <input type="radio" name="fresh_frozen_plasma" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">FRESH FROZEN PLASMA</td><td class="border-less answer"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required" id="check4_yes"> YES <input type="radio" name="fresh_frozen_plasma" value="NO" id="check4_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">PACKED RBC</td><td class="border-less answer"><input type="radio" name="packed_rbc" value="YES" class="required"> YES <input type="radio" name="packed_rbc" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">PACKED RBC</td><td class="border-less answer"><input type="radio" name="packed_rbc" value="YES" class="required" id="check5_yes"> YES <input type="radio" name="packed_rbc" value="NO" id="check5_no"> NO</td>
           </tr>
           <tr>
                     <td class="border-less"></td><td class="border-less question">OTHERS</td><td class="border-less answer " colspan="2"><textarea name="others" cols="35" class="required"></textarea></td>
@@ -846,6 +846,8 @@ foreach($multiIterator as $combinedArray)
 </form>  
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/zebra_datepicker.js"></script>
 <script>
+    
+    
 $('input[id="monitors_used"]').change(function(){
     var pClass = '.'+$(this).val();
     if ($(this).is(':checked')){
@@ -1077,7 +1079,6 @@ $('#critical_events_show').click(function() {
       $('.preop_required').attr('class','preop_valid');
        }
 });
-
 $('#colloids_used_show').click(function() {
        var selected = $(this).val();
        if(selected == 'YES')
@@ -1094,6 +1095,33 @@ $('#colloids_used_show').click(function() {
         $('.colloids_used_info_required').attr('class','colloids_used_info_valid');
        }
 });
+    $('#checked_no').click(function() {
+       var selected = $(this).val();
+       if(selected == 'NO')
+       {
+        <?php for ($x=1;$x<=5;$x++) { ?>
+        $('#check<?php echo $x; ?>_no').prop('checked',true)
+        $('#check<?php echo $x; ?>_yes').prop('disabled',true)
+        <?php } ?>
+       }
+       });
+        $('#checked_na').click(function() {
+            if ($(this).is(':checked'))
+            <?php for ($x=1;$x<=5;$x++) { ?>
+            $('#check<?php echo $x; ?>_no').prop('checked',true)
+            $('#check<?php echo $x; ?>_yes').prop('disabled',true)
+            <?php } ?>
+       });
+        $('#unchecked').click(function() {
+       if ($(this).is(':checked'))
+            <?php for ($x=1;$x<=5;$x++) { ?>
+            $('#check<?php echo $x; ?>_no').prop('checked',false)
+            $('#check<?php echo $x; ?>_yes').prop('disabled',false)
+            <?php } ?>
+       });
+
+    
+    
 $('#anesthetic_technique').change(function() {
     var selected = $(this).val();
     if (selected == '9')
@@ -1107,5 +1135,6 @@ $('#anesthetic_technique').change(function() {
         $('.peripheral_required').attr('class','peripheral_valid');
     }
 });
+
 </script>
 </html>
