@@ -125,8 +125,42 @@ where
     pf.service = asv.id
     and pf.anesthetic_technique = at.id
 group by
-    pf.service
+    pf.service,
+    pf.anesthetic_technique
 order by
-    pf.anesthetic_technique asc,
-    pf.service asc
+    pf.service asc,
+    pf.anesthetic_technique asc
+;
+
+
+select
+    *
+from 
+anesth_services t0
+left join (
+    select
+        pf.service `id`,
+        count(pf.anesthetic_technique) `total`
+    from
+        patient_form `pf`
+    where
+        pf.anesthetic_technique = 1
+    group by
+        pf.service,
+        pf.anesthetic_technique
+) t1
+    on t0.id = t1.service_id
+left join (
+    select
+        pf.service `id`,
+        count(pf.anesthetic_technique) `total`
+    from
+        patient_form `pf`
+    where
+        pf.anesthetic_technique = 2
+    group by
+        pf.service,
+        pf.anesthetic_technique
+) t2
+    on t1.service_id = t2.service_id
 ;
