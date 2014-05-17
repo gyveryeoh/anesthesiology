@@ -605,10 +605,15 @@ else
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
 <table border="0" cellpadding="0" width="90%" cellspacing="5" style="font-family: sans-serif; border: solid 1px; font-size: 16px;">
    <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
-   <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
+   <input type="hidden" name="case_number" value="<?php echo $this->input->get('case_number'); ?>">
+   <input type="hidden" name="service" value="<?php echo $this->input->get('service'); ?>">
+   <input type="hidden" name="technique" value="<?php echo $this->input->get('technique'); ?>">
+   <input type="hidden" name="hospital_id" value="<?php echo $this->input->get('hospital_id'); ?>">
    <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id'); ?>">
+   <input type="hidden" name="start_date" value="<?php echo $this->input->get('start_date'); ?>">
+   <input type="hidden" name="end_date" value="<?php echo $this->input->get('end_date'); ?>">
    <input type="hidden" name="resident_id" value="<?php echo $this->input->get('resident_id'); ?>">
-   <input type="hidden" name="institution_id" value="<?php echo $this->input->get('institution_id'); ?>">
+   <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
    
    <tr>
         <td width="15%">STATUS</td>
