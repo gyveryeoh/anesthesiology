@@ -183,6 +183,61 @@ EOD
             )
         )->result();
         
+        return isset($results[0]) ? $results[0] : null;
+    }
+    
+    function get_services_grid()
+    {
+        $results = $this->db->query(<<<EOD
+select
+    pf.service `service_id`,
+    asv.name `service_name`,
+    count(pf.service) `total`
+from
+    patient_form `pf`,
+    anesth_services `asv`
+where
+    pf.service = asv.id
+group by
+    pf.service
+order by
+    pf.service asc
+EOD
+            , array(
+            
+            )
+        )->result();
+        
+        return $results;
+    }
+    
+    function get_services_techniques_grid()
+    {
+        $results = $this->db->query(<<<EOD
+select
+    pf.service `service_id`,
+    asv.name `service_name`,
+    pf.anesthetic_technique `technique_id`,
+    at.name `technique_name`,
+    count(pf.anesthetic_technique) `technique_total`
+from
+    patient_form `pf`,
+    anesth_services `asv`,
+    anesth_technique `at`
+where
+    pf.service = asv.id
+    and pf.anesthetic_technique = at.id
+group by
+    pf.anesthetic_technique
+order by
+    pf.service asc,
+    at.id asc
+EOD
+            , array(
+            
+            )
+        )->result();
+        
         return $results;
     }
 }

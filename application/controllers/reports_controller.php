@@ -326,18 +326,14 @@ class Reports_controller extends CI_Controller
         
         if($this->session->userdata('logged_in'))
         {
-            $results = $this->reports_model->get_patient_type_matrix();
-            
-            /* $output = array(
-                array($results['charity_primary_elective'], $results['charity_assist_elective'], $results['pay_primary_elective'], $results['pay_assist_elective'], $results['total_elective']),
-                array($results['charity_primary_emergency'], '', $results['pay_primary_emergency'], '', $results['total_emergency']),
-                array($results['total_charity'], '', $results['total_pay'], '', $results['total_overall']),
-            ); */
-            
             $this->load->view('header/header', $data);
-            $this->load->view('reports/monthly_report', array(
-                'results' => $results[0],
-            ));
+            
+            $results['patient_type_matrix'] = $this->reports_model->get_patient_type_matrix();
+            $results['services_grid'] = $this->reports_model->get_services_grid();
+            
+            // $servicesTechniques = $this->
+            
+            $this->load->view('reports/monthly_report', $results);
         }
         else
         {

@@ -1,20 +1,4 @@
-select
-    pf.service 'service_id',
-    asv.name 'Service',
-    count(pf.id) 'Total'
-from
-    patient_form pf,
-    anesth_services asv
-where
-    pf.service = asv.id
-    and pf.type_of_patient = 'C'
-    and pf.level_of_involvement = 'P'
-group by
-    pf.service
-order by
-    pf.service asc
-
-
+-- patient_type_matrix
 select
     *,
     (`total_elective` + `total_emergency`) `total_overall`
@@ -90,3 +74,59 @@ from (
     ) `pf1`
 ) `pf2`
 
+-- services_grid
+select
+    pf.service `service_id`,
+    asv.name `service_name`,
+    count(pf.service) `total`
+from
+    patient_form `pf`,
+    anesth_services `asv`
+where
+    pf.service = asv.id
+group by
+    pf.service
+order by
+    pf.service asc
+;
+
+-- services_techniques_grid
+select
+    pf.service `service_id`,
+    asv.name `service_name`,
+    pf.anesthetic_technique `technique_id`,
+    at.name `technique_name`,
+    count(pf.anesthetic_technique) `technique_total`
+from
+    patient_form `pf`,
+    anesth_services `asv`,
+    anesth_technique `at`
+where
+    pf.service = asv.id
+    and pf.anesthetic_technique = at.id
+group by
+    pf.anesthetic_technique
+order by
+    pf.service asc,
+    at.id asc
+;
+
+select
+    pf.service `service_id`,
+    asv.name `service_name`,
+    pf.anesthetic_technique `technique_id`,
+    at.name `technique_name`,
+    count(pf.anesthetic_technique) `technique_total`
+from
+    patient_form `pf`,
+    anesth_services `asv`,
+    anesth_technique `at`
+where
+    pf.service = asv.id
+    and pf.anesthetic_technique = at.id
+group by
+    pf.service
+order by
+    pf.anesthetic_technique asc,
+    pf.service asc
+;

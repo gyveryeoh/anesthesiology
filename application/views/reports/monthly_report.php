@@ -19,23 +19,41 @@
     <tbody>
         <tr>
             <td>Elective</td>
-            <td><?php echo $results->charity_primary_elective ?></td>
-            <td><?php echo $results->charity_assist_elective ?></td>
-            <td><?php echo $results->pay_primary_elective ?></td>
-            <td><?php echo $results->pay_assist_elective ?></td>
-            <td><?php echo $results->total_elective ?></td>
+            <td><?php echo $patient_type_matrix->charity_primary_elective ?></td>
+            <td><?php echo $patient_type_matrix->charity_assist_elective ?></td>
+            <td><?php echo $patient_type_matrix->pay_primary_elective ?></td>
+            <td><?php echo $patient_type_matrix->pay_assist_elective ?></td>
+            <td><?php echo $patient_type_matrix->total_elective ?></td>
         </tr>
         <tr>
             <td>Emergency</td>
-            <td colspan="2"><?php echo $results->charity_emergency ?></td>
-            <td colspan="2"><?php echo $results->pay_emergency ?></td>
-            <td><?php echo $results->total_emergency ?></td>
+            <td colspan="2"><?php echo $patient_type_matrix->charity_emergency ?></td>
+            <td colspan="2"><?php echo $patient_type_matrix->pay_emergency ?></td>
+            <td><?php echo $patient_type_matrix->total_emergency ?></td>
         </tr>
         <tr>
             <td>Total</td>
-            <td colspan="2"><?php echo $results->total_charity ?></td>
-            <td colspan="2"><?php echo $results->total_pay ?></td>>
-            <td><?php echo $results->total_overall ?></td>
+            <td colspan="2"><?php echo $patient_type_matrix->total_charity ?></td>
+            <td colspan="2"><?php echo $patient_type_matrix->total_pay ?></td>>
+            <td><?php echo $patient_type_matrix->total_overall ?></td>
         </tr>
+    </tbody>
+</table>
+
+<table id="services_grid-tbl" border="1">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <?php foreach ($services_grid as $service): ?>
+            <tr>
+                <td><?php echo $service->service_name ?></td>
+                <td><?php echo $service->total ?></td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
