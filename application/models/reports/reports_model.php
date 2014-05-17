@@ -212,30 +212,60 @@ EOD
     
     function get_services_techniques_grid()
     {
-        $results = $this->db->query(<<<EOD
-select
-    pf.service `service_id`,
-    asv.name `service_name`,
-    pf.anesthetic_technique `technique_id`,
-    at.name `technique_name`,
-    count(pf.anesthetic_technique) `technique_total`
-from
-    patient_form `pf`,
-    anesth_services `asv`,
-    anesth_technique `at`
-where
-    pf.service = asv.id
-    and pf.anesthetic_technique = at.id
-group by
-    pf.anesthetic_technique
-order by
-    pf.service asc,
-    at.id asc
-EOD
-            , array(
+        $results = array();
+        $query = '';
+        $cols = '';
+        $joins = '';
+        
+        $techniques = $this->dropdown_select->anesth_techniques();
+        
+        foreach ($techniques as $i => $t) {
+            $id = $t->id;
+            $name = $t->name;
+            $next = $i+1;
             
-            )
-        )->result();
+            $joins .= <<<EOD
+
+left join (
+    select
+        pf.service `id`,
+        count(pf.anesthetic_technique) `total`
+    from
+        patient_form `pf`,
+        anesth_technique `atq`
+    where
+        pf.anesthetic_technique = $id
+        and pf.anesthetic_technique = atq.id
+    group by
+        pf.service,
+        pf.anesthetic_technique
+) t{$next}
+    on t0.id = t{$next}.id
+EOD
+            ;
+            
+            $cols .= <<<EOD
+                t{$next}.total `$name`,
+EOD
+            ;
+        }
+        
+        if (!empty($cols) and !empty($joins)) {
+            $cols = substr($cols, 0, -1);
+            
+            $query = <<<EOD
+select
+    -- t0.id `service_id`,
+    t0.name `Service - Technique`, -- `service_name`
+    {$cols}
+from
+    anesth_services t0
+    {$joins}
+EOD
+            ;
+            
+            $results = $this->db->query($query)->result();
+        }
         
         return $results;
     }

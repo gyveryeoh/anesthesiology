@@ -40,6 +40,8 @@
     </tbody>
 </table>
 
+<hr/>
+
 <table id="services_grid-tbl" border="1">
     <thead>
         <tr>
@@ -53,6 +55,28 @@
             <tr>
                 <td><?php echo $service->service_name ?></td>
                 <td><?php echo $service->total ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<hr/>
+
+<table id="services_techniques_grid-tbl" border="1">
+    <thead>
+        <tr>
+            <?php foreach ($services_techniques_grid_headers as $header): ?>
+                <th><?php echo $header; ?></th>
+            <?php endforeach; ?>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <?php foreach($services_techniques_grid as $row): ?>
+            <tr>
+                <?php foreach($services_techniques_grid_headers as $col): ?>
+                    <td><?php echo empty($row->$col) ? 0 : $row->$col; ?></td>
+                <?php endforeach; ?>
             </tr>
         <?php endforeach; ?>
     </tbody>

@@ -330,8 +330,8 @@ class Reports_controller extends CI_Controller
             
             $results['patient_type_matrix'] = $this->reports_model->get_patient_type_matrix();
             $results['services_grid'] = $this->reports_model->get_services_grid();
-            
-            // $servicesTechniques = $this->
+            $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid();
+            $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
             
             $this->load->view('reports/monthly_report', $results);
         }
