@@ -239,6 +239,17 @@ left join (
     group by
         pf.service,
         pf.anesthetic_technique
+    union (
+        select
+            -111 `id`,
+            count(pf.anesthetic_technique) `total`
+        from
+            patient_form `pf`,
+            anesth_technique `atq`
+        where
+            pf.anesthetic_technique = $id
+            and pf.anesthetic_technique = atq.id
+    )
 ) t{$next}
     on t0.id = t{$next}.id
 EOD
@@ -255,11 +266,19 @@ EOD
             
             $query = <<<EOD
 select
-    -- t0.id `service_id`,
-    t0.name `Service - Technique`, -- `service_name`
+    t0.name `Service - Technique`,
     {$cols}
-from
-    anesth_services t0
+from (
+        select
+            *
+        from
+            anesth_services t0
+        union (
+            select
+                -111 `id`,
+                'Total' `name`
+        )
+    ) t0
     {$joins}
 EOD
             ;
