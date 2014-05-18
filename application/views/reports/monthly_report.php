@@ -57,7 +57,7 @@
 <tr>
 <td class="border-less question" align="right" colspan="2"><?php echo form_label('STATUS', 'monthly_report-status-sel'); ?></td>
 <td class="border-less answer" colspan="9"> <?php
-                echo form_dropdown('MonthlyReport[anesth_status_id]', $statuses, $anesth_status_id, 'id="monthly_report-status-sel" style="width:100px"'); ?>
+                echo form_dropdown('MonthlyReport[anesth_status_id]', $statuses, $anesth_status_id, 'id="monthly_report-status-sel" style="width:150px"'); ?>
 </td>
 </tr>
 <tr>
@@ -182,3 +182,30 @@ echo form_close(); ?>
 </tr>
 </tbody>
 </table>
+
+<hr/>
+
+<?php foreach ($critical_levels_grid as $name => $level): ?>
+<table id="critical_levels_<?php echo $name; ?>_grid-tbl" border="1">
+<thead>
+<tr>
+<th colspan="3"><?php echo strtoupper(str_replace('_', ' ', $name)); ?></th>
+</tr>
+<tr>
+<th>Code</th>
+<th>Name</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($level as $l): ?>
+<tr>
+<td><?php echo $l->code; ?></td>
+<td><?php echo $l->name; ?></td>
+<td><?php echo empty($l->total) ? 0 : $l->total; ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<hr/>
+<?php endforeach; ?>
