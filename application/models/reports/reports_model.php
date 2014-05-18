@@ -95,7 +95,7 @@ Class Reports_model extends CI_Model
     function exec($user_id,$d)
     {
         $this->db->where('id', $user_id);
-        $this->db->update('users', $d);
+        $this->db->update('users', $d); 
     }
     
     function prepareFilters($options, $where=false) {
@@ -132,84 +132,84 @@ Class Reports_model extends CI_Model
         
         $query = <<<EOD
 select
-*,
-(`total_elective` + `total_emergency`) `total_overall`
+    *,
+    (`total_elective` + `total_emergency`) `total_overall`
 from (
-select
-*,
-(`charity_primary_elective` + `charity_assist_elective` + `pay_primary_elective` + `pay_assist_elective`) `total_elective`,
-(`charity_emergency` + `pay_emergency`) `total_emergency`,
-(`charity_primary_elective` + `charity_assist_elective` + `charity_emergency`) `total_charity`,
-(`pay_primary_elective` + `pay_assist_elective` + `pay_emergency`) `total_pay`
-from (
-select
-(
--- charity: primary elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.level_of_involvement = 'P'
-{$filters}
-) `charity_primary_elective`,
-(
--- charity: assist elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.level_of_involvement = 'A'
-{$filters}
-) `charity_assist_elective`,
-(
--- pay: primary elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.level_of_involvement = 'P'
-{$filters}
-) `pay_primary_elective`,
-(
--- pay: assist elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.level_of_involvement = 'A'
-{$filters}
-) `pay_assist_elective`,
-(
--- charity: emergency
-select
-count(pf.for_emergency)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.for_emergency = 'Y'
-{$filters}
-) `charity_emergency`,
-(
--- pay: emergency
-select
-count(pf.for_emergency)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.for_emergency = 'Y'
-{$filters}
-) `pay_emergency`
-) `pf1`
+    select
+        *,
+        (`charity_primary_elective` + `charity_assist_elective` + `pay_primary_elective` + `pay_assist_elective`) `total_elective`,
+        (`charity_emergency` + `pay_emergency`) `total_emergency`,
+        (`charity_primary_elective` + `charity_assist_elective` + `charity_emergency`) `total_charity`,
+        (`pay_primary_elective` + `pay_assist_elective` + `pay_emergency`) `total_pay`
+    from (
+        select
+            (
+                -- charity: primary elective
+                select
+                    count(pf.level_of_involvement)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'C'
+                    and pf.level_of_involvement = 'P'
+                    {$filters}
+            ) `charity_primary_elective`,
+            (
+                -- charity: assist elective
+                select
+                    count(pf.level_of_involvement)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'C'
+                    and pf.level_of_involvement = 'A'
+                    {$filters}
+            ) `charity_assist_elective`,
+            (
+                -- pay: primary elective
+                select
+                    count(pf.level_of_involvement)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'P'
+                    and pf.level_of_involvement = 'P'
+                    {$filters}
+            ) `pay_primary_elective`,
+            (
+                -- pay: assist elective
+                select
+                    count(pf.level_of_involvement)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'P'
+                    and pf.level_of_involvement = 'A'
+                    {$filters}
+            ) `pay_assist_elective`,
+            (
+                -- charity: emergency
+                select
+                    count(pf.for_emergency)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'C'
+                    and pf.for_emergency = 'Y'
+                    {$filters}
+            ) `charity_emergency`,
+            (
+                -- pay: emergency
+                select
+                    count(pf.for_emergency)
+                from
+                    patient_form pf
+                where
+                    pf.type_of_patient = 'P'
+                    and pf.for_emergency = 'Y'
+                    {$filters}
+            ) `pay_emergency`
+    ) `pf1`
 ) `pf2`
 EOD
         ;
@@ -225,24 +225,24 @@ EOD
         
         $results = $this->db->query(<<<EOD
 select
-t0.id `service_id`,
-t0.name `service_name`,
-t1.total
+    t0.id `service_id`,
+    t0.name `service_name`,
+    t1.total
 from
-anesth_services t0
-left join (
-select
-pf.service `service_id`,
-count(pf.service) `total`
-from
-patient_form `pf`
-{$filters}
-group by
-pf.service
-order by
-pf.service asc
-) t1
-on t0.id = t1.service_id
+    anesth_services t0
+    left join (
+        select
+            pf.service `service_id`,
+            count(pf.service) `total`
+        from
+            patient_form `pf`
+        {$filters}
+        group by
+            pf.service
+        order by
+            pf.service asc
+    ) t1
+    on t0.id = t1.service_id
 EOD
             , array(
             
@@ -271,38 +271,38 @@ EOD
             $joins .= <<<EOD
 
 left join (
-select
-pf.service `id`,
-count(pf.anesthetic_technique) `total`
-from
-patient_form `pf`,
-anesth_technique `atq`
-where
-pf.anesthetic_technique = $id
-and pf.anesthetic_technique = atq.id
-{$filters}
-group by
-pf.service,
-pf.anesthetic_technique
-union (
-select
--111 `id`,
-count(pf.anesthetic_technique) `total`
-from
-patient_form `pf`,
-anesth_technique `atq`
-where
-pf.anesthetic_technique = $id
-and pf.anesthetic_technique = atq.id
-{$filters}
-)
+    select
+        pf.service `id`,
+        count(pf.anesthetic_technique) `total`
+    from
+        patient_form `pf`,
+        anesth_technique `atq`
+    where
+        pf.anesthetic_technique = $id
+        and pf.anesthetic_technique = atq.id
+        {$filters}
+    group by
+        pf.service,
+        pf.anesthetic_technique
+    union (
+        select
+            -111 `id`,
+            count(pf.anesthetic_technique) `total`
+        from
+            patient_form `pf`,
+            anesth_technique `atq`
+        where
+            pf.anesthetic_technique = $id
+            and pf.anesthetic_technique = atq.id
+            {$filters}
+    )
 ) t{$next}
-on t0.id = t{$next}.id
+    on t0.id = t{$next}.id
 EOD
             ;
             
             $cols .= <<<EOD
-t{$next}.total `$name`,
+                t{$next}.total `$name`,
 EOD
             ;
         }
@@ -312,20 +312,20 @@ EOD
             
             $query = <<<EOD
 select
-t0.name `Service - Technique`,
-{$cols}
+    t0.name `Service - Technique`,
+    {$cols}
 from (
-select
-*
-from
-anesth_services t0
-union (
-select
--111 `id`,
-'<b>Total</b>' `name`
-)
-) t0
-{$joins}
+        select
+            *
+        from
+            anesth_services t0
+        union (
+            select
+                -111 `id`,
+                '<b>Total</b>' `name`
+        )
+    ) t0
+    {$joins}
 EOD
             ;
             
@@ -340,12 +340,12 @@ EOD
         
         $query = <<<EOD
 select
-sum(if(upper(pf.critical_events) = 'YES', 1, 0)) `Yes`,
-sum(if(upper(pf.critical_events) = 'NO', 1, 0)) `No`,
-sum(if(upper(pf.critical_events) in ('YES', 'NO'), 1, 0)) `Total`
+    sum(if(upper(pf.critical_events) = 'YES', 1, 0)) `Yes`,
+    sum(if(upper(pf.critical_events) = 'NO', 1, 0)) `No`,
+    sum(if(upper(pf.critical_events) in ('YES', 'NO'), 1, 0)) `Total`
 from
-patient_form `pf`
-{$filters}
+    patient_form `pf`
+    {$filters}
 EOD
         ;
         
