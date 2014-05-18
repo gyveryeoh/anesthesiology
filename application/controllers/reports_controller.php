@@ -361,7 +361,7 @@ $insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data
             }
             
             $results['years'] = array('' => '- Select year -');
-            foreach (range(intval(date('Y')), 1990) as $year) {
+            foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
