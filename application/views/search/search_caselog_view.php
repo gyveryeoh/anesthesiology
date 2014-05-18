@@ -109,7 +109,6 @@
                 </td>
         </tr>
         <tr>
-        <tr>
                 <td class="border-less" align="right" colspan="2">&nbsp;</td>
                 <td class="border-less"><br><input type="submit" name="submit" value="SEARCH"><br><br>
         </tr>

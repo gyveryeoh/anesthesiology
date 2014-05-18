@@ -122,6 +122,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.level_of_involvement = 'P'
+                    and pf.institution_id = '1'
             ) `charity_primary_elective`,
             (
                 -- charity: assist elective
@@ -132,6 +133,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.level_of_involvement = 'A'
+                    and pf.institution_id = '1'
             ) `charity_assist_elective`,
             (
                 -- pay: primary elective
@@ -142,6 +144,7 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.level_of_involvement = 'P'
+                    and pf.institution_id = '1'
             ) `pay_primary_elective`,
             (
                 -- pay: assist elective
@@ -152,6 +155,7 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.level_of_involvement = 'A'
+                    and pf.institution_id = '1'
             ) `pay_assist_elective`,
             (
                 -- charity: emergency
@@ -162,6 +166,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.for_emergency = 'Y'
+                    and pf.institution_id = '1'
             ) `charity_emergency`,
             (
                 -- pay: emergency
@@ -172,6 +177,7 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.for_emergency = 'Y'
+                    and pf.institution_id = '1'
             ) `pay_emergency`
     ) `pf1`
 ) `pf2`

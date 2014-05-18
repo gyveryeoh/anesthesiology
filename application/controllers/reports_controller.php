@@ -321,9 +321,12 @@ class Reports_controller extends CI_Controller
         $data["user_information"] = $session_data;
         $data["year"] = "";
         $data["user_id"] = $user_id;
+	$insti_id = $session_data['institution_id'];
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-        
+        $data['institution_list'] = $this->dropdown_select->anesth_institutions();
+        $data['status_list'] = $this->dropdown_select->anesth_status();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);

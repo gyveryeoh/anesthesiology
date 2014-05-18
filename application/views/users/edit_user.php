@@ -14,27 +14,27 @@
 	}
 	?>
 	<tr>
-		<td class="border-less" align="right" width="40%">Lastname :</td>
+		<td class="border-less" align="right" width="40%">LASTNAME</td>
 		<td class="border-less"><input type="text" name="lastname" size="20" class="required" value="<?php echo $row->lastname; ?>">
         </tr>
         <tr>
-	        <td class="border-less" align="right">Firstname :</td>
+	        <td class="border-less" align="right">FIRSTNAME</td>
                 <td class="border-less"><input type="text" name="firstname" size="20" class="required" value="<?php echo $row->firstname; ?>">
         </tr>
         <tr>
-		<td class="border-less" align="right">Middle Initials :</td>
+		<td class="border-less" align="right">MIDDLE INITIALS</td>
 		<td class="border-less"><input type="text" size="20" name="middle_initials" class="required" value="<?php echo $row->middle_initials; ?>">
         </tr>
         <tr>
-		<td class="border-less" align="right">Username :</td>
+		<td class="border-less" align="right">USERNAME</td>
                 <td class="border-less"><input type="text" size="20" name="username" class="required"  value="<?php echo $row->username; ?>">
 	</tr>
 	<tr>
-		<td class="border-less" align="right">Password :</td>
+		<td class="border-less" align="right">PASSWORD</td>
 		<td class="border-less"><input type="password" size="20" name="password" class="required"  value="<?php echo $this->input->post('password'); ?>">
 	</tr>
 	<tr>
-                <td class="border-less" align="right">Confirm Password :</td>
+                <td class="border-less" align="right">CONFIRM PASSWORD</td>
                 <td class="border-less"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $this->input->post('confirm_password'); ?>">
         </tr>
 	<tr>

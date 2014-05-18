@@ -148,7 +148,7 @@ class Users_controller extends CI_Controller
 				redirect('login', 'refresh');
 			}
 	}
-	function update_profile()
+	function update_profile($resident_id='')
 	{
 		if($this->session->userdata('logged_in'))
 		{
