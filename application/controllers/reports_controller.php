@@ -341,28 +341,28 @@ class Reports_controller extends CI_Controller
             $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
             
             $institutions = $this->dropdown_select->anesth_institutions();
-            $results['institutions'][''] = '';
+            $results['institutions'][''] = '- Select institution -';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
             
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
-            $results['trainees'][''] = '';
+            $results['trainees'][''] = '- Select trainee -';
             foreach ($trainees as $trainee) {
                 $results['trainees'][$trainee->id] = $trainee->username;
             }
             
-            $results['months'] = array('' => '');
+            $results['months'] = array('' => '- Select month -');
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
             }
             
-            $results['years'] = array('' => '');
+            $results['years'] = array('' => '- Select year -');
             foreach (range(intval(date('Y')), 1990) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
-            $results['statuses'] = array('' => '');
+            $results['statuses'] = array('' => '- Select status -');
             $statuses = $this->dropdown_select->anesth_status();
             foreach ($statuses as $stat) {
                 $results['statuses'][$stat->id] = $stat->name;
