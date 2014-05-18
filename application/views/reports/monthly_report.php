@@ -3,12 +3,19 @@
         'id' => 'monthly_report-form',
     ));
         echo form_fieldset();
-            echo form_label('Name of hospital: ', 'monthly_report-institution_id-sel');
+            echo form_label('Institution: ', 'monthly_report-institution_id-sel');
             echo form_dropdown('MonthlyReport[institution_id]', $institutions, $institution_id, 'id="monthly_report-institution_id-sel"');
+            
             echo '<br/>';
+            
             echo form_label('Date: ', 'monthly_report-month-sel');
             echo form_dropdown('MonthlyReport[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:100px"');
             echo form_dropdown('MonthlyReport[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:100px"');
+            
+            echo '<br/>';
+            
+            echo form_label('Status: ', 'monthly_report-status-sel');
+            echo form_dropdown('MonthlyReport[anesth_status_id]', $statuses, $anesth_status_id, 'id="monthly_report-status-sel"  style="width:100px"');
         echo form_fieldset_close();
         
         echo form_fieldset();
@@ -17,8 +24,13 @@
                 'content' => 'Generate Report',
             ));
             echo form_button(array(
-                'type' => 'reset',
                 'content' => 'Clear',
+                'onclick' => <<<EOD
+                    $('select', $(this).closest('form')).each(function() {
+                        this.value = -111;
+                    });
+EOD
+                    ,
             ));
         echo form_fieldset_close();
     echo form_close();

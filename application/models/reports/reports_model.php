@@ -102,7 +102,11 @@ Class Reports_model extends CI_Model
         $filters = '';
         $conditions = array();
         if (!empty($options)) {
-            $options = array_filter($options);
+            $options = array_filter($options, function($val) {
+                if (!empty($val) and $val != -111) {
+                    return $val;
+                }
+            });
             
             foreach ($options as $key => $val) {
                 if ($key == 'year') {
@@ -318,7 +322,7 @@ from (
         union (
             select
                 -111 `id`,
-                'Total' `name`
+                '<b>Total</b>' `name`
         )
     ) t0
     {$joins}
