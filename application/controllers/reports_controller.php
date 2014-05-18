@@ -323,11 +323,7 @@ class Reports_controller extends CI_Controller
         $data["user_id"] = $user_id;
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-<<<<<<< HEAD
-$insti_id = $session_data['institution_id'];
-=======
-	    $insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
->>>>>>> ac9e60b31f6a7c088eaa746f42d3478fb018c299
+$insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
