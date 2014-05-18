@@ -186,3 +186,32 @@ echo form_close(); ?>
         </tr>
     </tbody>
 </table>
+
+<hr/>
+
+<?php foreach ($critical_levels_grid as $name => $level): ?>
+    <table id="critical_levels_<?php echo $name; ?>_grid-tbl" border="1">
+        <thead>
+            <tr>
+                <th colspan="3"><?php echo strtoupper(str_replace('_', ' ', $name)); ?></th>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <?php foreach ($level as $l): ?>
+                <tr>
+                    <td><?php echo $l->code; ?></td>
+                    <td><?php echo $l->name; ?></td>
+                    <td><?php echo empty($l->total) ? 0 : $l->total; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    
+    <hr/>
+<?php endforeach; ?>
