@@ -338,6 +338,7 @@ class Reports_controller extends CI_Controller
             $results['services_grid'] = $this->reports_model->get_services_grid($filters);
             $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
             $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
+            $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
             
             $institutions = $this->dropdown_select->anesth_institutions();
             $results['institutions'][''] = '';

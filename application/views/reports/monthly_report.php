@@ -122,3 +122,28 @@ EOD
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<hr/>
+
+<table id="critical_events_grid-tbl" border="1">
+    <thead>
+        <tr>
+            <th colspan="2">Critical Events</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td>Yes</td>
+            <td><?php echo $critical_events_grid->{'Yes'}; ?></td>
+        </tr>
+        <tr>
+            <td>No</td>
+            <td><?php echo $critical_events_grid->{'No'}; ?></td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><?php echo $critical_events_grid->{'Total'}; ?></td>
+        </tr>
+    </tbody>
+</table>
