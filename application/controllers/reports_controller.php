@@ -245,16 +245,16 @@ class Reports_controller extends CI_Controller
         }
 
         echo "<table cellpadding='1' cellspacing='0'>
-        <tr>
-        <th width='1500'>Techniques</th>
-        <th>Count</th>
-        </tr>";
+<tr>
+<th width='1500'>Techniques</th>
+<th>Count</th>
+</tr>";
         foreach($datas['anesth_technique'] as $tech):
         echo "
-        <tr>
-        <td>".$tech->name."</td>
-        <td align=center>".$datas["count_per_technique"][$tech->id]."</td>
-        </tr>";
+<tr>
+<td>".$tech->name."</td>
+<td align=center>".$datas["count_per_technique"][$tech->id]."</td>
+</tr>";
         $total += $datas["count_per_technique"][$tech->id];
         endforeach;
         echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
@@ -262,17 +262,17 @@ class Reports_controller extends CI_Controller
         $total = 0;
         
         echo "<table cellpadding='1' cellspacing='0'>
-        <tr>
-        <th width='1500'>Service</th>
-        <th>Count</th>
-        </tr>";
+<tr>
+<th width='1500'>Service</th>
+<th>Count</th>
+</tr>";
         foreach($datas['anesth_services'] as $ser):
         echo "
-        <tr>
-        <td>".$ser->name."</td>
-        <td align=center>".$datas["count_per_service"][$ser->id]."</td>
-        </tr>";
-        $total += $datas["count_per_service"][$ser->id];		
+<tr>
+<td>".$ser->name."</td>
+<td align=center>".$datas["count_per_service"][$ser->id]."</td>
+</tr>";
+        $total += $datas["count_per_service"][$ser->id];	
         endforeach;
         echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
     }
@@ -321,17 +321,10 @@ class Reports_controller extends CI_Controller
         $data["user_information"] = $session_data;
         $data["year"] = "";
         $data["user_id"] = $user_id;
-	$insti_id = $session_data['institution_id'];
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-<<<<<<< HEAD
-        $data['institution_list'] = $this->dropdown_select->anesth_institutions();
-        $data['status_list'] = $this->dropdown_select->anesth_status();
-        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
-=======
         $this->load->helper('form');
         
->>>>>>> b207bb2f58f127d4a1797dafecc8174248b2df6e
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);
