@@ -27,7 +27,7 @@
             <td class="border-less question" align="right" colspan="2">HOSPITAL</td>
             <td class="border-less answer" colspan="9">
                 <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
-                        <option value="-111">ALL</option>
+                        <option value="-111">ALL INSTITUTIONS</option>
                         <?php foreach ($institution_list as $ai): ?>
                             <option value="<?php echo $ai->id; ?>"  <?php if ($ai->id == $institution_id) { echo 'selected="selected"'; }?>><?php echo $ai->name; ?></option>
                         <?php endforeach; ?>
@@ -37,8 +37,8 @@
         <tr>
             <td class="border-less question" align="right" colspan="2">RESIDENT NAME</td>
             <td class="border-less answer" colspan="9">
-                    <select name="MonthlyReport[user_id]" style="width: auto;" id="users_info">
-                          <option value="-111">ALL</option>
+                    <select name="MonthlyReport[user_id]" style="width: 300px;" id="users_info">
+                          <option value="-111">ALL RESIDENTS</option>
                           <?php
                           foreach($users_list as $list)
                           {

@@ -177,7 +177,7 @@ class Reports_controller extends CI_Controller
         $data = '';
         $insti_id = $this->input->post('insti_id');
         $users_list = $this->reports_model->get_users_institution($insti_id);
-        $data .= "<option value='0'>SELECT RESIDENT</option>";
+        $data .= "<option value=''>ALL RESIDENTS</option>";
         foreach ($users_list as $u_list){
             $data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname] $u_list[middle_initials].</option>\n";	
         }
@@ -345,28 +345,28 @@ class Reports_controller extends CI_Controller
             $results['critical_levels_grid'] = $this->reports_model->get_critical_levels_grid($filters);
             
             $institutions = $this->dropdown_select->anesth_institutions();
-            $results['institutions'][''] = '- Select institution -';
+            $results['institutions'][''] = 'ALL INSTITUTIONS';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
             
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
-            $results['trainees'][''] = '- Select trainee -';
+            $results['trainees'][''] = 'ALL RESIDENTS';
             foreach ($trainees as $trainee) {
                 $results['trainees'][$trainee->id] = $trainee->username;
             }
             
-            $results['months'] = array('' => '- Select month -');
+            $results['months'] = array('' => 'ALL MONTHS');
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
             }
             
-            $results['years'] = array('' => '- Select year -');
+            $results['years'] = array('' => 'ALL YEARS');
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
-            $results['statuses'] = array('' => '- Select status -');
+            $results['statuses'] = array('' => 'ALL STATUSES');
             $statuses = $this->dropdown_select->anesth_status();
             foreach ($statuses as $stat) {
                 $results['statuses'][$stat->id] = $stat->name;
