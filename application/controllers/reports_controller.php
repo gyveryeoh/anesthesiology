@@ -179,7 +179,7 @@ class Reports_controller extends CI_Controller
         $users_list = $this->reports_model->get_users_institution($insti_id);
         $data .= "<option value='0'>SELECT RESIDENT</option>";
         foreach ($users_list as $u_list){
-            $data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname]</option>\n";	
+            $data .= "<option value='$u_list[id]'>$u_list[lastname], $u_list[firstname] $u_list[middle_initials].</option>\n";	
         }
         echo $data;
     }
@@ -323,7 +323,7 @@ class Reports_controller extends CI_Controller
         $data["user_id"] = $user_id;
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-	$insti_id = $session_data['institution_id'];
+	    $insti_id = !empty($_POST['MonthlyReport']['institution_id']) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
