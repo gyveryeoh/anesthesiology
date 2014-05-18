@@ -323,6 +323,9 @@ class Reports_controller extends CI_Controller
         $data["user_id"] = $user_id;
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
+	$insti_id = $session_data['institution_id'];
+        $data['institution_list'] = $this->dropdown_select->anesth_institutions();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
         
         if($this->session->userdata('logged_in'))
@@ -330,7 +333,7 @@ class Reports_controller extends CI_Controller
             $this->load->view('header/header', $data);
             
             $filters = array();
-            foreach (array('institution_id', 'month', 'year') as $key) {
+            foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
                 $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
             }
             
@@ -338,11 +341,18 @@ class Reports_controller extends CI_Controller
             $results['services_grid'] = $this->reports_model->get_services_grid($filters);
             $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
             $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
+            $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
             
             $institutions = $this->dropdown_select->anesth_institutions();
             $results['institutions'][''] = '';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
+            }
+            
+            $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
+            $results['trainees'][''] = '';
+            foreach ($trainees as $trainee) {
+                $results['trainees'][$trainee->id] = $trainee->username;
             }
             
             $results['months'] = array('' => '');
@@ -353,6 +363,12 @@ class Reports_controller extends CI_Controller
             $results['years'] = array('' => '');
             foreach (range(intval(date('Y')), 1990) as $year) {
                 $results['years'][$year] = intval($year);
+            }
+            
+            $results['statuses'] = array('' => '');
+            $statuses = $this->dropdown_select->anesth_status();
+            foreach ($statuses as $stat) {
+                $results['statuses'][$stat->id] = $stat->name;
             }
             
             $results = array_merge($results, $filters);

@@ -102,7 +102,11 @@ Class Reports_model extends CI_Model
         $filters = '';
         $conditions = array();
         if (!empty($options)) {
-            $options = array_filter($options);
+            $options = array_filter($options, function($val) {
+                if (!empty($val) and $val != -111) {
+                    return $val;
+                }
+            });
             
             foreach ($options as $key => $val) {
                 if ($key == 'year') {
@@ -318,7 +322,7 @@ anesth_services t0
 union (
 select
 -111 `id`,
-'Total' `name`
+'<b>Total</b>' `name`
 )
 ) t0
 {$joins}
@@ -329,6 +333,25 @@ EOD
         }
         
         return $results;
+    }
+    
+    function get_critical_events_grid($options) {
+        $filters = $this->prepareFilters($options, true);
+        
+        $query = <<<EOD
+select
+sum(if(upper(pf.critical_events) = 'YES', 1, 0)) `Yes`,
+sum(if(upper(pf.critical_events) = 'NO', 1, 0)) `No`,
+sum(if(upper(pf.critical_events) in ('YES', 'NO'), 1, 0)) `Total`
+from
+patient_form `pf`
+{$filters}
+EOD
+        ;
+        
+        $results = $this->db->query($query)->result();
+        
+        return isset($results[0]) ? $results[0] : null;
     }
 }
 ?>
