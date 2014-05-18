@@ -98,9 +98,35 @@ Class Reports_model extends CI_Model
         $this->db->update('users', $d); 
     }
     
-    function get_patient_type_matrix() {
-        $results = $this->db->query(<<<EOD
-
+    function prepareFilters($options, $where=false) {
+        $filters = '';
+        $conditions = array();
+        if (!empty($options)) {
+            $options = array_filter($options);
+            
+            foreach ($options as $key => $val) {
+                if ($key == 'year') {
+                    $conditions[] = 'year(operation_date) = ' . intval($val);
+                }
+                elseif ($key == 'month') {
+                    $conditions[] = 'month(operation_date) = ' . intval($val);
+                }
+                else {
+                    $conditions[] = $key . " = '" . $val . "'";
+                }
+            }
+            
+            if (!empty($conditions))
+                $filters = (empty($where) ? ' and ' : ' where ') . implode(' and ', $conditions);
+        }
+        
+        return $filters;
+    }
+    
+    function get_patient_type_grid($options=array()) {
+        $filters = $this->prepareFilters($options);
+        
+        $query = <<<EOD
 select
     *,
     (`total_elective` + `total_emergency`) `total_overall`
@@ -122,6 +148,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.level_of_involvement = 'P'
+                    {$filters}
             ) `charity_primary_elective`,
             (
                 -- charity: assist elective
@@ -132,6 +159,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.level_of_involvement = 'A'
+                    {$filters}
             ) `charity_assist_elective`,
             (
                 -- pay: primary elective
@@ -142,6 +170,7 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.level_of_involvement = 'P'
+                    {$filters}
             ) `pay_primary_elective`,
             (
                 -- pay: assist elective
@@ -152,6 +181,7 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.level_of_involvement = 'A'
+                    {$filters}
             ) `pay_assist_elective`,
             (
                 -- charity: emergency
@@ -162,6 +192,7 @@ from (
                 where
                     pf.type_of_patient = 'C'
                     and pf.for_emergency = 'Y'
+                    {$filters}
             ) `charity_emergency`,
             (
                 -- pay: emergency
@@ -172,35 +203,42 @@ from (
                 where
                     pf.type_of_patient = 'P'
                     and pf.for_emergency = 'Y'
+                    {$filters}
             ) `pay_emergency`
     ) `pf1`
 ) `pf2`
--- filter condition
 EOD
-            , array(
-                
-            )
-        )->result();
+        ;
+        
+        $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
     }
     
-    function get_services_grid()
+    function get_services_grid($options=array())
     {
+        $filters = $this->prepareFilters($options, true);
+        
         $results = $this->db->query(<<<EOD
 select
-    pf.service `service_id`,
-    asv.name `service_name`,
-    count(pf.service) `total`
+    t0.id `service_id`,
+    t0.name `service_name`,
+    t1.total
 from
-    patient_form `pf`,
-    anesth_services `asv`
-where
-    pf.service = asv.id
-group by
-    pf.service
-order by
-    pf.service asc
+    anesth_services t0
+    left join (
+        select
+            pf.service `service_id`,
+            count(pf.service) `total`
+        from
+            patient_form `pf`
+        {$filters}
+        group by
+            pf.service
+        order by
+            pf.service asc
+    ) t1
+    on t0.id = t1.service_id
 EOD
             , array(
             
@@ -210,8 +248,10 @@ EOD
         return $results;
     }
     
-    function get_services_techniques_grid()
+    function get_services_techniques_grid($options=array())
     {
+        $filters = $this->prepareFilters($options);
+        
         $results = array();
         $query = '';
         $cols = '';
@@ -236,6 +276,7 @@ left join (
     where
         pf.anesthetic_technique = $id
         and pf.anesthetic_technique = atq.id
+        {$filters}
     group by
         pf.service,
         pf.anesthetic_technique
@@ -249,6 +290,7 @@ left join (
         where
             pf.anesthetic_technique = $id
             and pf.anesthetic_technique = atq.id
+            {$filters}
     )
 ) t{$next}
     on t0.id = t{$next}.id

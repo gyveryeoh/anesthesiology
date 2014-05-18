@@ -323,15 +323,39 @@ class Reports_controller extends CI_Controller
         $data["user_id"] = $user_id;
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
+        $this->load->helper('form');
         
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);
             
-            $results['patient_type_matrix'] = $this->reports_model->get_patient_type_matrix();
-            $results['services_grid'] = $this->reports_model->get_services_grid();
-            $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid();
+            $filters = array();
+            foreach (array('institution_id', 'month', 'year') as $key) {
+                $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
+            }
+            
+            $results['patient_type_grid'] = $this->reports_model->get_patient_type_grid($filters);
+            $results['services_grid'] = $this->reports_model->get_services_grid($filters);
+            $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
             $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
+            
+            $institutions = $this->dropdown_select->anesth_institutions();
+            $results['institutions'][''] = '';
+            foreach ($institutions as $inst) {
+                $results['institutions'][$inst->id] = $inst->name;
+            }
+            
+            $results['months'] = array('' => '');
+            foreach (range(1, 12) as $monthNum) {
+                $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
+            }
+            
+            $results['years'] = array('' => '');
+            foreach (range(intval(date('Y')), 1990) as $year) {
+                $results['years'][$year] = intval($year);
+            }
+            
+            $results = array_merge($results, $filters);
             
             $this->load->view('reports/monthly_report', $results);
         }
