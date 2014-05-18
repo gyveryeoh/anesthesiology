@@ -23,7 +23,7 @@
         <tr>
             <td class="border-less header" align="center" colspan="11">MONTHLY REPORT</td>
         </tr>
-        <tr>
+        <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : '' ?>>
             <td class="border-less question" align="right" colspan="2">HOSPITAL</td>
             <td class="border-less answer" colspan="9">
                 <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
