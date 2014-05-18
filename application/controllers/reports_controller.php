@@ -323,7 +323,7 @@ class Reports_controller extends CI_Controller
         $data["user_id"] = $user_id;
         $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-	$insti_id = $session_data['institution_id'];
+$insti_id = $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
