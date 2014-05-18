@@ -8,6 +8,11 @@
             
             echo '<br/>';
             
+            echo form_label('Resident Trainee: ', 'monthly_report-user_id-sel');
+            echo form_dropdown('MonthlyReport[user_id]', $trainees, $user_id, 'id="monthly_report-user_id-sel"');
+            
+            echo '<br/>';
+        
             echo form_label('Date: ', 'monthly_report-month-sel');
             echo form_dropdown('MonthlyReport[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:100px"');
             echo form_dropdown('MonthlyReport[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:100px"');
@@ -26,9 +31,7 @@
             echo form_button(array(
                 'content' => 'Clear',
                 'onclick' => <<<EOD
-                    $('select', $(this).closest('form')).each(function() {
-                        this.value = -111;
-                    });
+                    $('select', $(this).closest('form')).val('');
 EOD
                     ,
             ));

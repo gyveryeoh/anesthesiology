@@ -330,7 +330,7 @@ class Reports_controller extends CI_Controller
             $this->load->view('header/header', $data);
             
             $filters = array();
-            foreach (array('institution_id', 'month', 'year', 'anesth_status_id') as $key) {
+            foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
                 $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
             }
             
@@ -340,22 +340,28 @@ class Reports_controller extends CI_Controller
             $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
             
             $institutions = $this->dropdown_select->anesth_institutions();
-            $results['institutions'][-111] = '';
+            $results['institutions'][''] = '';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
             
-            $results['months'] = array(-111 => '');
+            $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
+            $results['trainees'][''] = '';
+            foreach ($trainees as $trainee) {
+                $results['trainees'][$trainee->id] = $trainee->username;
+            }
+            
+            $results['months'] = array('' => '');
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
             }
             
-            $results['years'] = array(-111 => '');
+            $results['years'] = array('' => '');
             foreach (range(intval(date('Y')), 1990) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
-            $results['statuses'] = array(-111 => '');
+            $results['statuses'] = array('' => '');
             $statuses = $this->dropdown_select->anesth_status();
             foreach ($statuses as $stat) {
                 $results['statuses'][$stat->id] = $stat->name;
