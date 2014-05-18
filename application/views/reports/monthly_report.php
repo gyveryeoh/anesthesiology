@@ -57,7 +57,7 @@
         <tr>
             <td class="border-less question" align="right" colspan="2"><?php echo form_label('STATUS', 'monthly_report-status-sel'); ?></td>
             <td class="border-less answer" colspan="9"> <?php
-                echo form_dropdown('MonthlyReport[anesth_status_id]', $statuses, $anesth_status_id, 'id="monthly_report-status-sel"  style="width:100px"'); ?>
+                echo form_dropdown('MonthlyReport[anesth_status_id]', $statuses, $anesth_status_id, 'id="monthly_report-status-sel"  style="width:150px"'); ?>
             </td>
         </tr>
         <tr>

@@ -361,7 +361,7 @@ class Reports_controller extends CI_Controller
             }
             
             $results['years'] = array('' => '- Select year -');
-            foreach (range(intval(date('Y')), 1990) as $year) {
+            foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
