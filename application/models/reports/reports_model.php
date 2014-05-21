@@ -308,11 +308,11 @@ EOD
         }
         
         if (!empty($cols) and !empty($joins)) {
-            $cols = substr($cols, 0, -1);
+            $cols =substr($cols, 0, -1);
             
             $query = <<<EOD
 select
-t0.name `Service - Technique`,
+t0.name `SERVICE & TECHNIQUE`,
 {$cols}
 from (
 select
@@ -322,7 +322,7 @@ anesth_services t0
 union (
 select
 -111 `id`,
-'<b>Total</b>' `name`
+'<b>TOTAL : </b>' `name`
 )
 ) t0
 {$joins}
@@ -352,6 +352,67 @@ EOD
         $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
+    }
+    
+    function get_critical_levels_grid($options) {
+        $filters = $this->prepareFilters($options, true);
+        
+        $results = array();
+        $critical_levels = array(
+            'airway' => 'airway',
+            'cardiovascular' => 'cardiovascular',
+            'discharge_planning' => 'discharge_planning',
+            'miscellaneous' => 'miscellaneous',
+            'neurological' => 'neurogical',
+            'respiratory' => 'respiratory',
+            'regional_anesthesia' => 'regional_anesthesia',
+            'preop' => 'preop',
+        );
+        
+        foreach ($critical_levels as $key => $level) {
+            $query = <<<EOD
+select
+t0.id,
+t0.code,
+t0.name,
+t1.*
+from
+critical_level_{$level} t0
+left join (
+select
+t1.critical_level_{$key}_id `id`,
+count(t1.id) `total`
+from
+patient_form_critical_level_{$key}_details t1
+left join patient_form t2
+on t1.patient_form_id = t2.id
+{$filters}
+group by
+t1.critical_level_{$key}_id
+) t1
+on t0.id = t1.id
+EOD
+            ;
+            
+            $query1 = <<<EOD
+select
+t0.id,
+t0.code,
+t0.name,
+count(t1.id) `total`
+from
+critical_level_{$level} t0
+left join patient_form_critical_level_{$key}_details t1
+on t0.id = t1.critical_level_{$key}_id
+left join patient_form t2
+on t1.patient_form_id = t2.id
+group by
+t0.id
+EOD;
+$results[$level] = $this->db->query($query)->result();
+        }
+        
+        return $results;
     }
 }
 ?>
