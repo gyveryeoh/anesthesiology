@@ -18,7 +18,6 @@
     'id' => 'monthly_report-form',
     'autocomplete' => 'off',
 )); ?>
-<<<<<<< HEAD
 <table width="90%" cellpadding="0" cellspacing="0">
         <tr>
                 <td class="border-less header" align="center" colspan="11">MONTHLY REPORT</td>
@@ -41,31 +40,6 @@
                                 <option value="-111">ALL</option>
                                 <?php
                                 foreach($users_list as $list):
-=======
-    <table width="90%" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="border-less header" align="center" colspan="11">MONTHLY REPORT</td>
-        </tr>
-        <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : '' ?>>
-            <td class="border-less question" align="right" colspan="2">HOSPITAL</td>
-            <td class="border-less answer" colspan="9">
-                <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
-                        <option value="-111">ALL INSTITUTIONS</option>
-                        <?php foreach ($institution_list as $ai): ?>
-                            <option value="<?php echo $ai->id; ?>"  <?php if ($ai->id == $institution_id) { echo 'selected="selected"'; }?>><?php echo $ai->name; ?></option>
-                        <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="border-less question" align="right" colspan="2">RESIDENT NAME</td>
-            <td class="border-less answer" colspan="9">
-                    <select name="MonthlyReport[user_id]" style="width: 300px;" id="users_info">
-                          <option value="-111">ALL RESIDENTS</option>
-                          <?php
-                          foreach($users_list as $list)
-                          {
->>>>>>> a36af7895d30c39b993b305d00b909a95f9a102c
                                 echo "<option value='".$list->id."' " . ($user_id == $list->id ? 'selected="selected"' : '') . ">".$list->lastname.", ".$list->firstname." ".$list->middle_initials.".</option>";
                                 endforeach;
                                 ?>
