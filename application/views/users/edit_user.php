@@ -1,45 +1,53 @@
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/edit_user">
 <?php foreach($user_info as $row)?>
 <input type="hidden" name="resident_id" value="<?php echo $row->id;?>"/>
-<table width="90%" cellpadding="1" cellspacing="0">
+<table width="90%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td class="border-less header" align="center" colspan="2">EDIT USER</td>
 	</tr>
-	<tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td></tr>
-	<tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php if (isset($user_message)){ echo $user_message; } ?></td></tr>
-	<?PHP
+	<?php if (isset($message)){ ?>
+	<tr>
+		<td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php echo $message; ?></td>
+	</tr>
+	<?php }
+	if (isset($user_message)){
+	?>
+	<tr>
+		<td style='color: red;font-size: 30px;font-weight: bold;' colspan="2" class="border-less" align="center"><?php echo $user_message; ?></td>
+	</tr>
+	<?PHP }
 	if($this->session->flashdata("success") !== FALSE)
 	{
 		echo "<tr><td style='color: red;font-size: 30px;font-weight: bold;' colspan=2 class=border-less align=center>".$this->session->flashdata("success")."</td></tr>";
 	}
 	?>
 	<tr>
-		<td class="border-less" align="right" width="40%">LASTNAME</td>
-		<td class="border-less"><input type="text" name="lastname" size="20" class="required" value="<?php echo $row->lastname; ?>">
+		<td class="border-less question" width="20%">LASTNAME</td>
+		<td class="border-less answer"><input type="text" name="lastname" size="20" class="required" value="<?php echo $row->lastname; ?>">
         </tr>
         <tr>
-	        <td class="border-less" align="right">FIRSTNAME</td>
-                <td class="border-less"><input type="text" name="firstname" size="20" class="required" value="<?php echo $row->firstname; ?>">
+	        <td class="border-less question">FIRSTNAME</td>
+                <td class="border-less answer"><input type="text" name="firstname" size="20" class="required" value="<?php echo $row->firstname; ?>">
         </tr>
         <tr>
-		<td class="border-less" align="right">MIDDLE INITIALS</td>
-		<td class="border-less"><input type="text" size="20" name="middle_initials" class="required" value="<?php echo $row->middle_initials; ?>">
+		<td class="border-less question">MIDDLE INITIALS</td>
+		<td class="border-less answer"><input type="text" size="20" name="middle_initials" value="<?php echo $row->middle_initials; ?>">
         </tr>
         <tr>
-		<td class="border-less" align="right">USERNAME</td>
-                <td class="border-less"><input type="text" size="20" name="username" class="required"  value="<?php echo $row->username; ?>">
+		<td class="border-less question">USERNAME</td>
+                <td class="border-less answer"><input type="text" size="20" name="username" class="required"  value="<?php echo $row->username; ?>">
 	</tr>
 	<tr>
-		<td class="border-less" align="right">PASSWORD</td>
-		<td class="border-less"><input type="password" size="20" name="password" class="required"  value="<?php echo $this->input->post('password'); ?>">
+		<td class="border-less question">PASSWORD</td>
+		<td class="border-less answer"><input type="password" size="20" name="password" class="required"  value="<?php echo $row->password; ?>">
 	</tr>
 	<tr>
-                <td class="border-less" align="right">CONFIRM PASSWORD</td>
-                <td class="border-less"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $this->input->post('confirm_password'); ?>">
+                <td class="border-less question">CONFIRM PASSWORD</td>
+                <td class="border-less answer"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $row->password; ?>">
         </tr>
 	<tr>
-		<td class="border-less" align="right">User Role :</td>
-		<td class="border-less" colspan="2">
+		<td class="border-less question">USER ROLE</td>
+		<td class="border-less answer" colspan="2">
 			<select name="role_id" class="required" style="width:220px;">
 			<?php
 			foreach($user_role as $datas)
@@ -57,10 +65,10 @@
 	</tr>
 	<tr>
 		<td class="border-less" align="right">&nbsp;</td>
-                <td class="border-less"><input type="submit" name="submit" value="edit">
+                <td class="border-less"><input type="submit" name="submit" value="SAVE">
         </tr>
 	<tr>
-		<td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PGH - Philippine General Hospital </td>
+		<td colspan="2" align="center" class="border-less"><br>Copyright 2013 PBA - Philippine Board of Anestthesiology</td>
 	</tr>
 </table>
 </form>

@@ -74,7 +74,7 @@ class VerifyLogin extends CI_Controller {
        );
         $this->session->set_userdata('logged_in', $sess_array);
        $session_data = $this->session->userdata('logged_in');
-        redirect('users_controller/add_user', 'refresh');
+        redirect('users_controller/hospital_list', 'refresh');
        }
        else
        {

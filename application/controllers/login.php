@@ -19,7 +19,7 @@ class Login extends CI_Controller {
      }
      if ($session_data['role_id'] == "3")
      {
-     redirect('users_controller/add_user','refresh');
+     redirect('users_controller/hospital_list','refresh');
      }
      }
  else

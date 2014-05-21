@@ -32,7 +32,7 @@
             <td width=23% class="answer"><?php echo $res_info->lastname." ".$res_info->firstname." ".$res_info->middle_initials."."; ?></td>
             <td align="center" width=10% class="answer"><a href="<?php echo base_url(); ?>index.php/home/resident_encoded?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
             <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/reports_controller/login_summary?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
-          <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/users_controller/edit_user?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
+          <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/users_controller/edit_user/<?php echo $user_id; ?>">VIEW</a></td>
           <td align="center" width=15% class="answer"><a href="<?php echo base_url(); ?>index.php/reports_controller/reports_list?resident_id=<?php echo $user_id; ?>">VIEW</a></td>
           <td align="center" width=15% bgcolor="<?php echo $color; ?>"><?php echo $res_info->date_encode; ?></td>
           </tr>

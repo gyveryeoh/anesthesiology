@@ -654,7 +654,7 @@ else
         <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
     <?php
-    if ($user_information['role_id'] == "2")
+    if ($user_information['role_id'] == "2" || $user_information['role_id'] == "3")
     {
      if ($data->anesth_id == "1" || $data->anesth_id == "7")
     {

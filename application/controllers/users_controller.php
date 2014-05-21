@@ -223,6 +223,8 @@ class Users_controller extends CI_Controller
 					$this->load->view('header/reports_header');
 					$this->load->view('users/edit_user');
 				}
+				else
+				{
 				$data = array
 				(
 				 'lastname'       => $this->input->post('lastname'),
@@ -233,6 +235,7 @@ class Users_controller extends CI_Controller
 				 'role_id'	=> $this->input->post('role_id'));			
 				 $this->view_caselogs->edit_user($data,$user_id);
 				 redirect('users_controller/hospital_list');
+			}
 			}
 		}
 		else
