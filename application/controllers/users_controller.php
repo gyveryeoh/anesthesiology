@@ -190,51 +190,41 @@ class Users_controller extends CI_Controller
 		}
 	}
 	
-	function edit_user()
+	function edit_user($user_id='')
 	{
 		if($this->session->userdata('logged_in'))
 		{
-			$user_id = $this->input->get('resident_id');
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$datas["user_info"] = $this->view_caselogs->get_user_info($user_id);
 			$datas["user_role"] = $this->view_caselogs->get_roles();
+			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
 			$this->load->view('users/edit_user',$datas);
-			if($this->input->post("submit") == "edit")
+			if($this->input->post("submit"))
 			{
-				$username = $this->input->post('username');
-				$user_id = $this->input->post('resident_id');
-				$data['username'] = $this->user->user_checking($username);
+				$user_id = $this->input->post('user_id');
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
 				{
-					$data['message'] = "Password and Confirm Password do not Match.";
-					$data['user_role'] = $this->dropdown_select->roles();
-					$this->load->view('header/header', $data);
-					$this->load->view('header/reports_header');
-					$this->load->view('users/users_add');
-				}
-				elseif ($data['username'] == true)
-				{
-					$data['user_message'] = "USERNAME IS ALREADY EXISTS.";
-					$data['user_role'] = $this->dropdown_select->roles();
-					$this->load->view('header/header', $data);
-					$this->load->view('header/reports_header');
-					$this->load->view('users/edit_user');
+					$this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:red; font-family:tahoma;font-size: 16px"><b>PASSWORD DO NOT MATCH</b></td>');
+					redirect('users_controller/edit_user/'.$user_id);
 				}
 				else
 				{
 				$data = array
 				(
-				 'lastname'       => $this->input->post('lastname'),
-				 'firstname'      => $this->input->post('firstname'),
-				 'middle_initials'=> $this->input->post('middle_initials'),
-				 'username'       => $username,
-				 'password'	=> md5($this->input->post('password')),
-				 'role_id'	=> $this->input->post('role_id'));			
+				'institution_id' => $this->input->post('institution_id'),
+				'lastname'       => $this->input->post('lastname'),
+				'firstname'      => $this->input->post('firstname'),
+				'middle_initials'=> $this->input->post('middle_initials'),
+				'password'	=> md5($this->input->post('password')),
+				'role_id'	=> $this->input->post('role_id'),
+				'year_lvl'	=> $this->input->post('year_level'),
+				'status'	=> $this->input->post('status'));
 				 $this->view_caselogs->edit_user($data,$user_id);
-				 redirect('users_controller/hospital_list');
+				 $this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED USER INFORMATION</b></td>');
+				 redirect('users_controller/edit_user/'.$user_id);
 			}
 			}
 		}

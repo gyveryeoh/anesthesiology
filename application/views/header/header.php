@@ -45,7 +45,14 @@
 <script type="text/javascript">
       $(document).ready(function() {
       $('form').each(function(){
-          $(this).validate()
+          $(this).validate({
+rules: {
+password: {
+required: true,
+rangelength: [6, 15]
+}
+}
+});
    });
    });
     </script>
@@ -57,12 +64,13 @@
           <tr>
                     <td class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 16px;font-weight:bold;" colspan=>&nbsp; You are logged in as : <?php echo ucwords($user_information['lastname']).", ".ucwords($user_information['firstname'])." ".ucwords($user_information['middle_initials'])."."; ?></td>
                     <td align="right" class="border-less" style="background-color:#FFF5EE; font-family: sans-serif;font-size: 10px;font-weight:bold;">
+                    <a href="<?php echo base_url();?>index.php/reports_controller/anesth_services">REPORTS</a> |
+                     
                     <?php
                     if ($user_information['role_id'] == "1" || $user_information['role_id'] == "4")
                     {
                     ?>
-                              <a href="<?php echo base_url();?>index.php/home/">HOME</a> |
-                              <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">REPORTS</a> |
+                              <a href="<?php echo base_url();?>index.php/home/">HOME</a>
                      <?php } ?>
                      <?php
                     if ($user_information['role_id'] == "3")

@@ -61,13 +61,32 @@ class Reports_controller extends CI_Controller
     {
         $session_data = $this->session->userdata('logged_in');
         $data["user_information"] = $session_data;
+	if ($session_data['role_id'] == "3")
+	{
+		$insti_id = $this->input->post('hospital_id');
+	}
+	else
+	{
+		$insti_id = $session_data['institution_id'];
+	}
+	$user_role = "1";
         $datas['anesth_services'] = $this->dropdown_select->anesth_services();
+	$data['institution_list'] = $this->dropdown_select->anesth_institutions();
+	$data['status_list'] = $this->dropdown_select->anesth_status();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+	if ($this->input->post('submit'))
+	{
+		$month = $this->input->post('month');
+		$year = $this->input->post('year');
+		$status = $this->input->post('status_id');
+		$user_id = $this->input->post('user_id');
         $index = 1;
         foreach($datas['anesth_services'] as $n)
         {
-            $datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$session_data['id']);
-            $index+=1;
+            $datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id,$status,$month,$year);
+	    $index+=1;
         }
+	}
         $this->load->view('header/header',$data);
         $this->load->view('header/reports_header');
         $this->load->view('reports/anesth_service_per_resident',$datas);
@@ -172,7 +191,7 @@ class Reports_controller extends CI_Controller
         $this->load->view('reports/residents_per_institution',$datas);
     }
 
-    function get_resident_per_institution()
+    function get_resident_per_institution($insti_id='')
     {
         $data = '';
         $insti_id = $this->input->post('insti_id');

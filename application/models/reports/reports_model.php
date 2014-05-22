@@ -30,13 +30,15 @@ Class Reports_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    function anesth_service_count($anesth_service,$id)
+    function anesth_service_count($anesth_service,$user_id,$status,$month,$year)
     {
         $this->db->select('*');
         $this->db->from('patient_form');
-        $this->db->where('user_id',$id);
+        $this->db->where('user_id',$user_id);
         $this->db->where('service',$anesth_service);
-        $this->db->where('anesth_status_id',4);
+        $this->db->where('anesth_status_id',$status);
+	$this->db->where('month(operation_date)', $month);
+	$this->db->where('year(operation_date) ', $year);
         $result = $this->db->get();
         return $result->num_rows();
     }
@@ -75,6 +77,8 @@ Class Reports_model extends CI_Model
     function get_users_institution($insti_id)
     {
         $this->db->where('institution_id',$insti_id);
+        $this->db->where('role_id',1);
+	$this->db->order_by("lastname", "asc");
         $result = $this->db->get('users');
         if ($result->num_rows() > 0 )
         {

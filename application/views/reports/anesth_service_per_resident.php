@@ -14,46 +14,44 @@
         });
     });
 </script>
-<form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog">
-<table width="90%" cellpadding="0" cellspacing="0">
+<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/anesth_services">
+<table width="90%" cellpadding="0" cellspacing="2">
         <tr>
                 <td class="border-less header" align="center" colspan="3">SERVICE REPORT</td>
         </tr>
         <tr>
                 <td style='color: red;font-size: 30px;font-weight: bold;' colspan="3" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td>
 	</tr>
-        <tr>
+        <tr <?php if ($user_information['role_id'] !=3) {echo "style=display:none;"; } ?>>
                 <td class="border-less question" align="right" colspan="2">HOSPITAL </td>
                 <td class="border-less answer" colspan="3">
-                        <select name="hospital_id" id="insti_id" style="width:600px;">
-                                <option value="0">ALL</option>
+                        <select name="hospital_id" id="insti_id">
+                                <option value="">-SELECT HOSPITAL-</option>
                                 <?php
                                 foreach ($institution_list as $ai):
                                 ?>
-                                <option value="<?php echo $ai->id; ?>"  <?php if ($ai->id == $user_information['institution_id']) { echo 'selected=selected'; }?>><?php echo $ai->name; ?></option>
+                                <option value="<?php echo $ai->id; ?>" <?php if ($ai->id == $this->input->post('hospital_id')) { echo 'selected=selected'; }?>><?php echo $ai->name; ?></option>
                                 <?php
                                 endforeach;
                                 ?>
                         </select>
                 </td>
         </tr>
-        <tr>
-                <td class="border-less question" align="right" colspan="2">RESIDENT NAME</td>
+        <tr <?php if ($user_information['role_id'] !=3 && $user_information['role_id'] !=2) {echo "style=display:none;"; } ?>>
+                <td class="border-less question" align="right" colspan="2" width="40%">RESIDENT NAME</td>
                 <td class="border-less answer" colspan="3">
                         <select name="user_id" style="width: auto;" id="users_info">
-                              <option value="0">ALL</option>
+			      <option value="0" <?php if ($user_information['id'] == 3) { echo 'selected=selected'; }?>>SELECT RESIDENT</option>
                               <?php
-                              foreach($users_list as $list)
-                              {
-                               echo "<option value='".$list->id."'>".$list->lastname.", ".$list->firstname." ".$list->middle_initials.".</option>";
-                              }
-                              ?>
+                              foreach($users_list as $list): ?>
+                              <option value="<?php echo $list->id; ?>" <?php if ($list->id == $user_information['id'] || $list->id == $this->input->post('user_id')) { echo 'selected=selected'; }?>><?php echo $list->lastname.", ".$list->firstname." ".$list->middle_initials; ?></option>
+                              <?php endforeach; ?>
                         </select>
                 </td>
         </tr>
 	<tr>
 	  <td class="border-less question" align="right" colspan="2">DATE</td>
-	  <td>
+	  <td class="border-less answer">
 		    <select name="month" style="width: auto;">
 <?php
 for($i=1;$i<13;$i++)
@@ -99,7 +97,6 @@ for($i=1;$i<13;$i++)
                 <td class="border-less question" align="right" colspan="2">STATUS</td>
                 <td class="border-less answer" colspan="3">
                         <select name="status_id" style="width: auto;">
-                              <option value="0">ALL</option>
                               <option value="8">Open</option>
                               <?php
                               $x=0;
@@ -108,19 +105,22 @@ for($i=1;$i<13;$i++)
                               $list_name[$x] = $list->name;
                               $x++;
                               endforeach;
-                              echo "<option value='".$list_id[0]."'>".$list_name[0]."</option>
-                                    <option value='".$list_id[2]."'>".$list_name[2]."</option>
-                                    <option value='".$list_id[5]."'>".$list_name[5]."</option>
-                                    <option value='".$list_id[3]."'>".$list_name[3]."d</option>
-                                    <option value='".$list_id[4]."'>".$list_name[4]."d</option>";
-                              ?>
+			      ?>
+			           
+				    <option value="<?php echo $list_id[0];?>"<?php if ($this->input->post('status_id') == $list_id[0]) {echo "selected=selected";} ?>><?php echo $list_name[0]; ?></option>
+                                    <option value="<?php echo $list_id[2];?>"<?php if ($this->input->post('status_id') == $list_id[2]) {echo "selected=selected";} ?>><?php echo $list_name[2]; ?></option>
+                                    <option value="<?php echo $list_id[5];?>"<?php if ($this->input->post('status_id') == $list_id[5]) {echo "selected=selected";} ?>><?php echo $list_name[5]; ?></option>
+                                    <option value="<?php echo $list_id[3];?>"<?php if ($this->input->post('status_id') == $list_id[3]) {echo "selected=selected";} ?>><?php echo $list_name[3]; ?>d</option>
+                                    <option value="<?php echo $list_id[4];?>"<?php if ($this->input->post('status_id') == $list_id[4]) {echo "selected=selected";} ?>><?php echo $list_name[4]; ?>d</option>";
+                              
                         </select>
                 </td>
         </tr>
 	<tr>
-	  <td colspan=2></td>
-	  <td><input type="submit" name="submit" value="SEARCH"></td>
+	  <td colspan=2 class="border-less"></td>
+	  <td class="border-less"><input type="submit" name="submit" value="SEARCH"></td>
 	</tr>
+<?php if (!empty($count_per_service)) { ?>
 <table width="90%" cellpadding="1" cellspacing="0">
           <tr>
 		<th width="40%" class="question header">SERVICE</th>
@@ -128,13 +128,13 @@ for($i=1;$i<13;$i++)
 		<th class="border-less"></th>
           </tr>
           <?php
-          $total=0;
-	foreach($anesth_services as $service):
-	if ($count_per_service[$service->id] == "0")
-	{
-	  $count_per_service[$service->id] = "-";
-	}
-		echo "
+		    $total=0;
+		    foreach($anesth_services as $service):
+		    if ($count_per_service[$service->id] == "0")
+		    {
+			      $count_per_service[$service->id] = "-";
+			      }
+			      echo "
 		<tr>
 		<td class='answer'>".$service->name."</td>
 		<td align=center style='font-size:16px;' class='answer'>".$count_per_service[$service->id]."</td>
@@ -144,6 +144,7 @@ for($i=1;$i<13;$i++)
                 ?>
           <tr><th align="right" class="border-less" style="font-size: 20px;">TOTAL</th><td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total; ?></b></td></tr>
 	<tr>
+	  <?php } ?>
 		<td colspan="3" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 	</tr>
 </table>

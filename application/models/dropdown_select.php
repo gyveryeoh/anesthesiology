@@ -198,6 +198,7 @@ function anesth_techniques_reports()
      if (!empty($insti_id))
           $this->db->where('institution_id',$insti_id);
      
+     $this->db->where("role_id",1);
      $this->db->order_by("lastname", "asc");
      $query = $this->db->get();
      return $query->result();
