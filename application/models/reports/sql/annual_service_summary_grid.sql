@@ -14,7 +14,8 @@ from (
         sum(if(month_operation_date = 9, 1, 0)) `SEP`,
         sum(if(month_operation_date = 10, 1, 0)) `OCT`,
         sum(if(month_operation_date = 11, 1, 0)) `NOV`,
-        sum(if(month_operation_date = 12, 1, 0)) `DEC`
+        sum(if(month_operation_date = 12, 1, 0)) `DEC`,
+        sum(1) `TOTAL`
     from (
         select
             asv.id `service_id`,
@@ -49,7 +50,8 @@ union all (
         sum(if(month_operation_date = 9, 1, 0)) `SEP`,
         sum(if(month_operation_date = 10, 1, 0)) `OCT`,
         sum(if(month_operation_date = 11, 1, 0)) `NOV`,
-        sum(if(month_operation_date = 12, 1, 0)) `DEC`
+        sum(if(month_operation_date = 12, 1, 0)) `DEC`,
+        sum(1) `TOTAL`
     from (
         select
             asv.id `service_id`,
