@@ -23,7 +23,7 @@
                 <td class="border-less header" align="center" colspan="11">MONTHLY REPORT</td>
         </tr>
         <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
-                <td class="border-less question" align="right" colspan="2">HOSPITAL</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
                 <td class="border-less answer" colspan="9">
                         <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
                                 <option value="-111">ALL</option>
@@ -34,7 +34,7 @@
                 </td>
         </tr>
         <tr>
-                <td class="border-less question" align="right" colspan="2">RESIDENT NAME</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('RESIDENT NAME', 'users_info'); ?></td>
                 <td class="border-less answer" colspan="9">
                         <select name="MonthlyReport[user_id]" style="width: auto;" id="users_info">
                                 <option value="-111">ALL</option>
@@ -57,7 +57,7 @@
                 </td>
         </tr>
         <tr>
-                <td class="border-less question" align="right" colspan="2">STATUS</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('STATUS', 'monthly_report-status-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
                         <select name="MonthlyReport[anesth_status_id]" id="monthly_report-status-sel" style="width: auto;">
                               <option value="0">ALL</option>
@@ -130,7 +130,7 @@ echo form_close(); ?>
                         <td class="answer" class="answer"><?php echo $patient_type_grid->total_elective; ?></td>
                 </tr>
                 <tr>
-                        <th>EMERGENCT</th>
+                        <th>EMERGENCY</th>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->charity_emergency; ?></td>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->pay_emergency; ?></td>
                         <td class="answer"><?php echo $patient_type_grid->total_emergency; ?></td>
