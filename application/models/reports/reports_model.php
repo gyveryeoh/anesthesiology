@@ -157,89 +157,9 @@ Class Reports_model extends CI_Model
     function get_patient_type_grid($options=array()) {
         $filters = $this->prepareFilters($options);
         
-        $query = <<<EOD
-select
-*,
-(`total_elective` + `total_emergency`) `total_overall`
-from (
-select
-*,
-(`charity_primary_elective` + `charity_assist_elective` + `pay_primary_elective` + `pay_assist_elective`) `total_elective`,
-(`charity_emergency` + `pay_emergency`) `total_emergency`,
-(`charity_primary_elective` + `charity_assist_elective` + `charity_emergency`) `total_charity`,
-(`pay_primary_elective` + `pay_assist_elective` + `pay_emergency`) `total_pay`
-from (
-select
-(
--- charity: primary elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.level_of_involvement = 'P'
-{$filters}
-) `charity_primary_elective`,
-(
--- charity: assist elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.level_of_involvement = 'A'
-{$filters}
-) `charity_assist_elective`,
-(
--- pay: primary elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.level_of_involvement = 'P'
-{$filters}
-) `pay_primary_elective`,
-(
--- pay: assist elective
-select
-count(pf.level_of_involvement)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.level_of_involvement = 'A'
-{$filters}
-) `pay_assist_elective`,
-(
--- charity: emergency
-select
-count(pf.for_emergency)
-from
-patient_form pf
-where
-pf.type_of_patient = 'C'
-and pf.for_emergency = 'Y'
-{$filters}
-) `charity_emergency`,
-(
--- pay: emergency
-select
-count(pf.for_emergency)
-from
-patient_form pf
-where
-pf.type_of_patient = 'P'
-and pf.for_emergency = 'Y'
-{$filters}
-) `pay_emergency`
-) `pf1`
-) `pf2`
-EOD
-        ;
+        $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/patient_type_grid.sql'), array(
+            '{$filters}' => $filters,
+        ));
         
         $results = $this->db->query($query)->result();
         
@@ -250,31 +170,11 @@ EOD
     {
         $filters = $this->prepareFilters($options, true);
         
-        $results = $this->db->query(<<<EOD
-select
-t0.id `service_id`,
-t0.name `service_name`,
-t1.total
-from
-anesth_services t0
-left join (
-select
-pf.service `service_id`,
-count(pf.service) `total`
-from
-patient_form `pf`
-{$filters}
-group by
-pf.service
-order by
-pf.service asc
-) t1
-on t0.id = t1.service_id
-EOD
-            , array(
-            
-            )
-        )->result();
+        $query = $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/services_grid.sql'), array(
+            '{$filters}' => $filters,
+        ));
+        
+        $results = $this->db->query($query)->result();
         
         return $results;
     }
@@ -295,66 +195,23 @@ EOD
             $name = $t->name;
             $next = $i+1;
             
-            $joins .= <<<EOD
-
-left join (
-select
-pf.service `id`,
-count(pf.anesthetic_technique) `total`
-from
-patient_form `pf`,
-anesth_technique `atq`
-where
-pf.anesthetic_technique = $id
-and pf.anesthetic_technique = atq.id
-{$filters}
-group by
-pf.service,
-pf.anesthetic_technique
-union (
-select
--111 `id`,
-count(pf.anesthetic_technique) `total`
-from
-patient_form `pf`,
-anesth_technique `atq`
-where
-pf.anesthetic_technique = $id
-and pf.anesthetic_technique = atq.id
-{$filters}
-)
-) t{$next}
-on t0.id = t{$next}.id
-EOD
-            ;
+            $joins .= strtr(file_get_contents(dirname(__FILE__) . '/sql/services_techniques_grid_joins.sql'), array(
+                '{$filters}' => $filters,
+                '{$id}' => $id,
+                '{$next}' => $next,
+            ));
             
-            $cols .= <<<EOD
-t{$next}.total `$name`,
-EOD
-            ;
+            $cols .= "t{$next}.total `{$name}`,";
         }
         
         if (!empty($cols) and !empty($joins)) {
             $cols =substr($cols, 0, -1);
             
-            $query = <<<EOD
-select
-t0.name `SERVICE & TECHNIQUE`,
-{$cols}
-from (
-select
-*
-from
-anesth_services t0
-union (
-select
--111 `id`,
-'<b>TOTAL : </b>' `name`
-)
-) t0
-{$joins}
-EOD
-            ;
+            $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/services_techniques_grid_query.sql'), array(
+                '{$filters}' => $filters,
+                '{$cols}' => $cols,
+                '{$joins}' => $joins,
+            ));
             
             $results = $this->db->query($query)->result();
         }
@@ -362,26 +219,19 @@ EOD
         return $results;
     }
     
-    function get_critical_events_grid($options) {
+    function get_critical_events_grid($options=array()) {
         $filters = $this->prepareFilters($options, true);
         
-        $query = <<<EOD
-select
-sum(if(upper(pf.critical_events) = 'YES', 1, 0)) `Yes`,
-sum(if(upper(pf.critical_events) = 'NO', 1, 0)) `No`,
-sum(if(upper(pf.critical_events) in ('YES', 'NO'), 1, 0)) `Total`
-from
-patient_form `pf`
-{$filters}
-EOD
-        ;
+        $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/critical_events_grid.sql'), array(
+            '{$filters}' => $filters,
+        ));
         
         $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
     }
     
-    function get_critical_levels_grid($options) {
+    function get_critical_levels_grid($options=array()) {
         $filters = $this->prepareFilters($options, true);
         
         $results = array();
@@ -397,50 +247,18 @@ EOD
         );
         
         foreach ($critical_levels as $key => $level) {
-            $query = <<<EOD
-select
-t0.id,
-t0.code,
-t0.name,
-t1.*
-from
-critical_level_{$level} t0
-left join (
-select
-t1.critical_level_{$key}_id `id`,
-count(t1.id) `total`
-from
-patient_form_critical_level_{$key}_details t1
-left join patient_form t2
-on t1.patient_form_id = t2.id
-{$filters}
-group by
-t1.critical_level_{$key}_id
-) t1
-on t0.id = t1.id
-EOD
-            ;
+            $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/critical_levels_grid.sql'), array(
+                '{$filters}' => $filters,
+                '{$key}' => $key,
+                '{$level}' => $level,
+            ));
             
-            $query1 = <<<EOD
-select
-t0.id,
-t0.code,
-t0.name,
-count(t1.id) `total`
-from
-critical_level_{$level} t0
-left join patient_form_critical_level_{$key}_details t1
-on t0.id = t1.critical_level_{$key}_id
-left join patient_form t2
-on t1.patient_form_id = t2.id
-group by
-t0.id
-EOD;
-$results[$level] = $this->db->query($query)->result();
+            $results[$level] = $this->db->query($query)->result();
         }
         
         return $results;
     }
+    
     function get_annual_service_summary_grid($options=array()) {
         $filters = $this->prepareFilters($options);
         
@@ -451,112 +269,14 @@ $results[$level] = $this->db->query($query)->result();
         
         // $months = implode(",\n\t", $monthsArr);
         
-        $query = <<<EOD
-	select
-    *
-from (
-    select
-        asv.name service_name,
-        t0.*
-    from
-        anesth_services asv
-        left join (
-            select
-                *
-            from (
-                select
-                    service_id,
-                    sum(if(month_operation_date = 1, 1, 0)) `JAN`,
-                    sum(if(month_operation_date = 2, 1, 0)) `FEB`,
-                    sum(if(month_operation_date = 3, 1, 0)) `MAR`,
-                    sum(if(month_operation_date = 4, 1, 0)) `APR`,
-                    sum(if(month_operation_date = 5, 1, 0)) `MAY`,
-                    sum(if(month_operation_date = 6, 1, 0)) `JUN`,
-                    sum(if(month_operation_date = 7, 1, 0)) `JUL`,
-                    sum(if(month_operation_date = 8, 1, 0)) `AUG`,
-                    sum(if(month_operation_date = 9, 1, 0)) `SEP`,
-                    sum(if(month_operation_date = 10, 1, 0)) `OCT`,
-                    sum(if(month_operation_date = 11, 1, 0)) `NOV`,
-                    sum(if(month_operation_date = 12, 1, 0)) `DEC`,
-                    sum(1) `TOTAL`
-                from (
-                    select
-                        asv.id `service_id`,
-                        asv.name `service_name`,
-                        pf.operation_date,
-                        pf.service,
-                        pf.user_id,
-                        month(operation_date) month_operation_date
-                    from
-                        anesth_services asv,
-                        patient_form pf
-                    where
-                        asv.id = pf.service
-                        and pf.anesth_status_id = (
-                            select
-                                id
-                            from
-                                anesth_status
-                            where
-                                upper(name) in ('APPROVED', 'APPROVE')
-                        )
-                        {$filters}
-                ) t0
-                group by
-                    t0.service_id
-            ) t0
-        ) t0
-        on asv.id = t0.service_id
-    order by
-        service_name
-) t0
-union all (
-    select
-        'TOTAL' service_name,
-        -111 service_id,
-        sum(if(month_operation_date = 1, 1, 0)) `JAN`,
-        sum(if(month_operation_date = 2, 1, 0)) `FEB`,
-        sum(if(month_operation_date = 3, 1, 0)) `MAR`,
-        sum(if(month_operation_date = 4, 1, 0)) `APR`,
-        sum(if(month_operation_date = 5, 1, 0)) `MAY`,
-        sum(if(month_operation_date = 6, 1, 0)) `JUN`,
-        sum(if(month_operation_date = 7, 1, 0)) `JUL`,
-        sum(if(month_operation_date = 8, 1, 0)) `AUG`,
-        sum(if(month_operation_date = 9, 1, 0)) `SEP`,
-        sum(if(month_operation_date = 10, 1, 0)) `OCT`,
-        sum(if(month_operation_date = 11, 1, 0)) `NOV`,
-        sum(if(month_operation_date = 12, 1, 0)) `DEC`,
-        sum(1) `TOTAL`
-    from (
-        select
-            asv.id `service_id`,
-            asv.name `service_name`,
-            pf.operation_date,
-            pf.service,
-            pf.user_id,
-            month(operation_date) month_operation_date
-        from
-            anesth_services asv,
-            patient_form pf
-        where
-            asv.id = pf.service
-            and pf.anesth_status_id = (
-                select
-                    id
-                from
-                    anesth_status
-                where
-                    upper(name) in ('APPROVED', 'APPROVE')
-            )
-            {$filters}
-    ) t1
-)
-EOD;
+        $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/annual_service_summary_grid.sql'), array(
+            // '{$months}' => $months,
+            '{$filters}' => $filters,
+        ));
         chrome_log($query);
         $results = $this->db->query($query)->result();
         
         return $results;
     }
-    
 }
 ?>

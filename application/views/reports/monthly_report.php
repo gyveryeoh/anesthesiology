@@ -23,9 +23,9 @@
                 <td class="border-less header" align="center" colspan="11">ANESTHESIOLOGY MONTHLY REPORT</td>
         </tr>
         <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
-                <td class="border-less question" align="right" colspan="2">HOSPITAL</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
+                        <select name="Report[institution_id]" id="insti_id" style="width:auto;">
                                 <option value="-111">ALL</option>
                                 <?php foreach ($institution_list as $ai): ?>
                                 <option value="<?php echo $ai->id; ?>" <?php if ($ai->id == $institution_id) { echo 'selected="selected"'; }?>><?php echo $ai->name; ?></option>
@@ -34,9 +34,9 @@
                 </td>
         </tr>
         <tr>
-                <td class="border-less question" align="right" colspan="2">RESIDENT NAME</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('RESIDENT NAME', 'users_info'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[user_id]" style="width: auto;" id="users_info">
+                        <select name="Report[user_id]" style="width: auto;" id="users_info">
                                 <option value="-111">ALL</option>
                                 <?php
                                 foreach($users_list as $list):
@@ -50,16 +50,16 @@
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('DATE', 'monthly_report-month-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
                 <?php
-                echo form_dropdown('MonthlyReport[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:150px"');
+                echo form_dropdown('Report[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:150px"');
                 ?> -
                 <?php
-                echo form_dropdown('MonthlyReport[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:150px"'); ?>
+                echo form_dropdown('Report[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:150px"'); ?>
                 </td>
         </tr>
         <tr>
-                <td class="border-less question" align="right" colspan="2">STATUS</td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('STATUS', 'monthly_report-status-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[anesth_status_id]" id="monthly_report-status-sel" style="width: auto;">
+                        <select name="Report[anesth_status_id]" id="monthly_report-status-sel" style="width: auto;">
                               <option value="0">ALL</option>
                               <option value="8">Open</option>
                               <?php
@@ -128,19 +128,19 @@ echo form_close(); ?>
                         <td class="answer"><?php echo $patient_type_grid->charity_assist_elective; ?></td>
                         <td class="answer"><?php echo $patient_type_grid->pay_primary_elective; ?></td>
                         <td class="answer"><?php echo $patient_type_grid->pay_assist_elective; ?></td>
-                        <td class="answer" class="answer"><?php echo $patient_type_grid->total_elective; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_elective; ?></td>
                 </tr>
                 <tr>
-                        <th>EMERGENCT</th>
+                        <th>EMERGENCY</th>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->charity_emergency; ?></td>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->pay_emergency; ?></td>
-                        <td class="answer"><?php echo $patient_type_grid->total_emergency; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_emergency; ?></td>
                 </tr>
                 <tr>
                         <th>TOTAL</th>
-                        <td colspan="2" class="answer"><?php echo $patient_type_grid->total_charity; ?></td>
-                        <td colspan="2" class="answer"><?php echo $patient_type_grid->total_pay; ?></td>
-                        <td class="answer"><?php echo $patient_type_grid->total_overall; ?></td>
+                        <td colspan="2" class="answer total-cell"><?php echo $patient_type_grid->total_charity; ?></td>
+                        <td colspan="2" class="answer total-cell"><?php echo $patient_type_grid->total_pay; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_overall; ?></td>
                 </tr>
 </table>
 <br>
@@ -181,12 +181,12 @@ echo form_close(); ?>
         </thead>
         <tbody>
         <?php
-        
-        foreach($services_techniques_grid as $row): ?>
+        $endRow = count($services_techniques_grid) - 1;
+        foreach($services_techniques_grid as $i => $row): ?>
         <tr>
         <?php
-        foreach($services_techniques_grid_headers as $col): ?>
-        <td class="border-less answer"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
+        foreach($services_techniques_grid_headers as $j => $col): ?>
+        <td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?>"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
         <?php endforeach; ?>
         </tr>
         <?php endforeach; ?>
@@ -237,7 +237,7 @@ echo form_close(); ?>
 <tr class="border-less answer">
         <td><?php echo $l->code; ?></td>
         <td><?php echo $l->name; ?></td>
-        <td><?php echo empty($l->total) ? '-' : $l->total; ?></td>
+        <td class="total-cell"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

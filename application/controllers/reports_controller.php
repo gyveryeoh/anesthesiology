@@ -389,48 +389,51 @@ function annual_patient_classification_and_distribution_summary()
         $data["year"] = "";
         $data["user_id"] = $user_id;
         $data['status_list'] = $this->dropdown_select->anesth_status();
-	$insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
+        
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);
-            $this->load->view('header/reports_header');
-	   
+
             $filters = array();
             foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
-                $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
             }
-	     $institutions = $this->dropdown_select->anesth_institutions();
+            
+            $institutions = $this->dropdown_select->anesth_institutions();
             $results['institutions'][''] = '- Select institution -';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
-            
+
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
             $results['trainees'][''] = '- Select trainee -';
             foreach ($trainees as $trainee) {
                 $results['trainees'][$trainee->id] = $trainee->username;
             }
+            
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
             }
-
+            
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
-            if ($this->input->post('submit'))
-	    {
-            $results['patient_type_grid'] = $this->reports_model->get_patient_type_grid($filters);
-            $results['services_grid'] = $this->reports_model->get_services_grid($filters);
-            $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
-            $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
-            $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
-            $results['critical_levels_grid'] = $this->reports_model->get_critical_levels_grid($filters);
             
-	    }
-	    $results = array_merge($results, $filters);
+            if ($this->input->post('submit'))
+            {
+                $results['patient_type_grid'] = $this->reports_model->get_patient_type_grid($filters);
+                $results['services_grid'] = $this->reports_model->get_services_grid($filters);
+                $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
+                $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
+                $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
+                $results['critical_levels_grid'] = $this->reports_model->get_critical_levels_grid($filters);
+            }
+            
+            $results = array_merge($results, $filters);
             $this->load->view('reports/monthly_report', $results);
         }
         else
@@ -438,6 +441,7 @@ function annual_patient_classification_and_distribution_summary()
             redirect('login', 'refresh');
         }
     }
+    
     function annual_report() {
         $user_id = $this->input->get('resident_id');
         $session_data = $this->session->userdata('logged_in');
@@ -445,7 +449,7 @@ function annual_patient_classification_and_distribution_summary()
         $data["year"] = "";
         $data["user_id"] = $user_id;
         $data['status_list'] = $this->dropdown_select->anesth_status();
-        $insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
@@ -456,7 +460,7 @@ function annual_patient_classification_and_distribution_summary()
 
             $filters = array();
             foreach (array('institution_id', 'user_id', 'year') as $key) {
-                $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
             }
             
             $institutions = $this->dropdown_select->anesth_institutions();
@@ -475,6 +479,7 @@ function annual_patient_classification_and_distribution_summary()
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
                 $results['month_labels'][$monthNum] = strtoupper(date('M', mktime(0,0,0,$monthNum)));
             }
+            $results['month_labels'][] = 'TOTAL';
             
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);

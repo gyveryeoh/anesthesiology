@@ -20,7 +20,7 @@
 )); ?>
 <table width="90%" cellpadding="0" cellspacing="0">
 <tr>
-<td class="border-less header" align="center" colspan="11">Resident Trainee's Annual Anesthetic Service Summary</td>
+<td class="border-less header" align="center" colspan="11">Resident Trainee's Annual Service Summary</td>
 </tr>
 <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
 <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
@@ -62,6 +62,7 @@
                     'value' => 'SEARCH',
                     'content' => 'Get Summary',
                 ));
+                ?> <?php
                 echo form_submit(array(
                     'type' => 'submit',
                     'name' => 'clear',
@@ -78,7 +79,7 @@ EOD
 echo form_close(); ?>
 
 <?php if (!empty($annual_service_summary_grid)): ?>
-<table id="services_grid-tbl" border="0" cellspacing="2" cellpadding="0" width="45%">
+<table id="services_grid-tbl" border="0" cellspacing="2" cellpadding="0" width="90%">
 <thead>
 <tr>
 <th class="question border-less">SERVICE</th>
@@ -92,7 +93,7 @@ echo form_close(); ?>
 <tr>
 <th align="left" class="answer"><?php echo $data->service_name; ?></th>
 <?php foreach ($month_labels as $month): ?>
-<td class="answer <?php echo ((strtoupper($month) == 'TOTAL' or strtoupper($data->service_name) == 'TOTAL') ? 'total-cell' : ''); ?>"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
+<td class="total-cell"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
 <?php endforeach; ?>
 </tr>
 <?php endforeach; ?>
