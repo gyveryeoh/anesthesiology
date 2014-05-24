@@ -341,7 +341,7 @@ class Reports_controller extends CI_Controller
         $data["year"] = "";
         $data["user_id"] = $user_id;
         $data['status_list'] = $this->dropdown_select->anesth_status();
-        $insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
@@ -352,7 +352,7 @@ class Reports_controller extends CI_Controller
 
             $filters = array();
             foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
-                $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
             }
             
             $institutions = $this->dropdown_select->anesth_institutions();
@@ -401,7 +401,7 @@ class Reports_controller extends CI_Controller
         $data["year"] = "";
         $data["user_id"] = $user_id;
         $data['status_list'] = $this->dropdown_select->anesth_status();
-        $insti_id = (!empty($_POST['MonthlyReport']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['MonthlyReport']['institution_id'] : $session_data['institution_id'];
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
@@ -412,7 +412,7 @@ class Reports_controller extends CI_Controller
 
             $filters = array();
             foreach (array('institution_id', 'user_id', 'year') as $key) {
-                $filters[$key] = isset($_POST['MonthlyReport'][$key]) ? $_POST['MonthlyReport'][$key] : null;
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
             }
             
             $institutions = $this->dropdown_select->anesth_institutions();

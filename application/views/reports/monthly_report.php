@@ -25,7 +25,7 @@
         <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[institution_id]" id="insti_id" style="width:auto;">
+                        <select name="Report[institution_id]" id="insti_id" style="width:auto;">
                                 <option value="-111">ALL</option>
                                 <?php foreach ($institution_list as $ai): ?>
                                 <option value="<?php echo $ai->id; ?>" <?php if ($ai->id == $institution_id) { echo 'selected="selected"'; }?>><?php echo $ai->name; ?></option>
@@ -36,7 +36,7 @@
         <tr>
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('RESIDENT NAME', 'users_info'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[user_id]" style="width: auto;" id="users_info">
+                        <select name="Report[user_id]" style="width: auto;" id="users_info">
                                 <option value="-111">ALL</option>
                                 <?php
                                 foreach($users_list as $list):
@@ -50,16 +50,16 @@
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('DATE', 'monthly_report-month-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
                 <?php
-                echo form_dropdown('MonthlyReport[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:150px"');
+                echo form_dropdown('Report[month]', $months, intval($month), 'id="monthly_report-month-sel" style="width:150px"');
                 ?> -
                 <?php
-                echo form_dropdown('MonthlyReport[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:150px"'); ?>
+                echo form_dropdown('Report[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:150px"'); ?>
                 </td>
         </tr>
         <tr>
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('STATUS', 'monthly_report-status-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
-                        <select name="MonthlyReport[anesth_status_id]" id="monthly_report-status-sel" style="width: auto;">
+                        <select name="Report[anesth_status_id]" id="monthly_report-status-sel" style="width: auto;">
                               <option value="0">ALL</option>
                               <option value="8">Open</option>
                               <?php
