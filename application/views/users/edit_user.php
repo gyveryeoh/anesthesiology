@@ -10,7 +10,7 @@
                     <?php echo $this->session->flashdata("success");?>
 	</tr>
 	<?php } ?>
-	<tr><td colspan=2>ATTENTION : USERNAME OF RESIDENT IS PERMANENT</td></tr>
+	<tr><td colspan=2 style="font-weight: bold; color: red;">ATTENTION : USERNAME OF RESIDENT IS PERMANENT</td></tr>
 	<tr <?php if ($user_information['role_id'] != "3") { echo "style=display:none"; } ?>>
 		<td class="border-less question">INSTITUTION</td>
 		<td class="border-less answer" colspan="2">

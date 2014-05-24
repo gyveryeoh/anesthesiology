@@ -3,7 +3,7 @@
                     <td class="border-less header" align="center" colspan="7">USERS LIST</td>
           </tr>
           <tr>
-          <th class="border-less" bgcolor=skyblue><b>RESIDENT NAME</b></th>
+          <th class="border-less" bgcolor=skyblue><b>USERS INFORMATION</b></th>
           <th class="border-less" bgcolor=skyblue><b>CASELOG</b></th>
           <th class="border-less" bgcolor=skyblue><b>LOGIN SUMMARY</b></th>
           <th class="border-less" bgcolor=skyblue><b>PROFILE</b></th>

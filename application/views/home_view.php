@@ -21,7 +21,7 @@
           </tr>
           <tr>
                     <td class="border-less question">GENDER</td>
-                    <td class="border-less answer" colspan=4><select name="gender" class="required" style="width: 120px;">
+                    <td class="border-less answer" colspan=4><select name="gender" class="required" style="width: auto;">
                               <option value="">Select Gender</option>
                               <option value="M" <?php if ($this->input->post('gender') == 'M') echo "selected"; ?>>Male</option>
                               <option value="F" <?php if ($this->input->post('gender') == 'F') echo "selected"; ?>>Female</option>
@@ -31,7 +31,7 @@
           <tr>
                     <td class="border-less question">BIRTHDATE</td>
                     <td class="border-less answer" colspan=4>
-                    <select name="month" class="required" style="width:80px;">
+                    <select name="month" class="required" style="width:auto;">
 	    <option value="">MONTH</option>
 				<?php
 				for ($i = 01; $i <= 12; $i++)
@@ -54,7 +54,7 @@
 					}
 				?>
 			</select>
-			<select name="day" class="required" style="width: 50px;">
+			<select name="day" class="required" style="width: auto;">
 			<option value="">DAY</option>
 				<?php
 				for ($i = 01; $i <= 59; $i++)
@@ -77,7 +77,7 @@
 					}
 				?>
 			</select>
-                        <select name="year" size="1" style="width: 60px;" class="required">
+                        <select name="year" size="1" style="width:auto;" class="required">
 				<option value="">YEAR</option>
 				<?php
 			for($x=date('Y');$x>=1900;$x--)
@@ -99,9 +99,7 @@
                     <td class="border-less" align="right">&nbsp;</td>
                     <td class="border-less"><br><input type="submit" name="login" value="SAVE INFORMATION">
           </tr>
-          <?php if (isset($message))
-          {
-          ?>
+          <?php if (isset($message)){?>
           <tr>
                 <td class="border-less" align="center" colspan="5" style="color: red;"><h1>RESULT</h1></td>
         </tr>

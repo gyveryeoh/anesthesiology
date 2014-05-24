@@ -1,6 +1,6 @@
 <div align="center">
 	<form method="post" id="anesth_form"  action="<?php echo base_url(); ?>index.php/users_controller/update_profile">
-	<table border="0" cellpadding="0" width="90%" cellspacing="2" autocomplete="off" style="font-family: sans-serif; border: solid 1px; font-size: 14px;">
+	<table border="0" cellpadding="0" width="90%" cellspacing="2" autocomplete="off">
 		<tr>
 			<td class="border-less header" align="center" colspan="2">PROFILE</td>
 		</tr>
