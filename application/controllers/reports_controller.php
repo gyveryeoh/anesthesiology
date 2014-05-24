@@ -431,6 +431,7 @@ class Reports_controller extends CI_Controller
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
                 $results['month_labels'][$monthNum] = strtoupper(date('M', mktime(0,0,0,$monthNum)));
             }
+            $results['month_labels'][] = 'TOTAL';
             
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);

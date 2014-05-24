@@ -91,7 +91,7 @@ echo form_close(); ?>
             
         <?php foreach ($annual_service_summary_grid as $data): ?>
         <tr>
-            <th align="left" class="answer"><?php echo $data->{'SERVICE'}; ?></th>
+            <th align="left" class="answer"><?php echo $data->service_name; ?></th>
             <?php foreach ($month_labels as $month): ?>
                 <td class="answer"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
             <?php endforeach; ?>
