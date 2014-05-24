@@ -113,3 +113,11 @@ th
 	font-weight: bold;
 	border: 1px solid;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+.total-cell {
+    font-weight: bold;
+}

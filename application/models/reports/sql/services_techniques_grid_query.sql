@@ -9,7 +9,7 @@ from (
         union (
             select
                 -111 `id`,
-                '<b>Total</b>' `name`
+                'TOTAL' `name`
         )
     ) t0
     {$joins}

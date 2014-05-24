@@ -127,19 +127,19 @@ echo form_close(); ?>
                         <td class="answer"><?php echo $patient_type_grid->charity_assist_elective; ?></td>
                         <td class="answer"><?php echo $patient_type_grid->pay_primary_elective; ?></td>
                         <td class="answer"><?php echo $patient_type_grid->pay_assist_elective; ?></td>
-                        <td class="answer" class="answer"><?php echo $patient_type_grid->total_elective; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_elective; ?></td>
                 </tr>
                 <tr>
                         <th>EMERGENCY</th>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->charity_emergency; ?></td>
                         <td colspan="2" class="answer"><?php echo $patient_type_grid->pay_emergency; ?></td>
-                        <td class="answer"><?php echo $patient_type_grid->total_emergency; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_emergency; ?></td>
                 </tr>
                 <tr>
                         <th>TOTAL</th>
-                        <td colspan="2" class="answer"><?php echo $patient_type_grid->total_charity; ?></td>
-                        <td colspan="2" class="answer"><?php echo $patient_type_grid->total_pay; ?></td>
-                        <td class="answer"><?php echo $patient_type_grid->total_overall; ?></td>
+                        <td colspan="2" class="answer total-cell"><?php echo $patient_type_grid->total_charity; ?></td>
+                        <td colspan="2" class="answer total-cell"><?php echo $patient_type_grid->total_pay; ?></td>
+                        <td class="answer total-cell"><?php echo $patient_type_grid->total_overall; ?></td>
                 </tr>
 </table>
 <br>
@@ -180,12 +180,12 @@ echo form_close(); ?>
         </thead>
         <tbody>
         <?php
-        
-        foreach($services_techniques_grid as $row): ?>
+        $endRow = count($services_techniques_grid) - 1;
+        foreach($services_techniques_grid as $i => $row): ?>
         <tr>
         <?php
-        foreach($services_techniques_grid_headers as $col): ?>
-        <td class="border-less answer"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
+        foreach($services_techniques_grid_headers as $j => $col): ?>
+        <td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?>"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
         <?php endforeach; ?>
         </tr>
         <?php endforeach; ?>
@@ -236,7 +236,7 @@ echo form_close(); ?>
 <tr class="border-less answer">
         <td><?php echo $l->code; ?></td>
         <td><?php echo $l->name; ?></td>
-        <td><?php echo empty($l->total) ? '-' : $l->total; ?></td>
+        <td class="total-cell"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

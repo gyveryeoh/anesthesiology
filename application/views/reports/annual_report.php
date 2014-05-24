@@ -93,7 +93,7 @@ echo form_close(); ?>
         <tr>
             <th align="left" class="answer"><?php echo $data->service_name; ?></th>
             <?php foreach ($month_labels as $month): ?>
-                <td class="answer"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
+                <td class="answer <?php echo ((strtoupper($month) == 'TOTAL' or strtoupper($data->service_name) == 'TOTAL') ? 'total-cell' : ''); ?>"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
             <?php endforeach; ?>
         </tr>
         <?php endforeach; ?>
