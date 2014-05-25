@@ -62,6 +62,7 @@
                     'value' => 'SEARCH',
                     'content' => 'Get Summary',
                 ));
+               ?> <?php
                 echo form_submit(array(
                     'type' => 'submit',
                     'name' => 'clear',

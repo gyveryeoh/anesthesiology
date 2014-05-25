@@ -17,7 +17,7 @@
 <form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/index">
 <table width="90%" cellpadding="0" cellspacing="2">
         <tr>
-                <td class="border-less header" align="center" colspan="3">MONTHLY TECHNIQUE REPORT</td>
+                <td class="border-less header" align="center" colspan="3">ANNUAL PATIENT CLASSIFICATION AND DISTRIBUTION SUMMARY</td>
         </tr>
         <tr>
                 <td style='color: red;font-size: 30px;font-weight: bold;' colspan="3" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td>
@@ -50,33 +50,10 @@
                 </td>
         </tr>
 	<tr>
-	  <td class="border-less question" align="right" colspan="2">DATE</td>
+	  <td class="border-less question" align="right" colspan="2">YEAR</td>
 	  <td class="border-less answer">
-		    <select name="month" style="width: auto;">
-<?php
-for($i=1;$i<13;$i++)
-{
-	  $monthName = date("F", mktime(0, 0, 0, $i, 10));
-	  $value = strlen($i);
-	  if($value==1)
-	  {
-		    $k = "0".$i;
-		    }
-		    else
-		    {
-			      $k=$i;
-		    }
-		    echo "<option value='$k'";
-		    if ($this->input->post('month') == $i)
-		    {
-			      echo "selected='selected'";
-		    }
-		    echo ">$monthName</option>";
-	  }
-
-?>
-</select> -
-<select name="year" size="1" style="width: 60px;">
+	    <select name="year" size="1" style="width: 60px;">
+		<option value="0">ALL</option>
 				<?php
 				for($x=date('Y');$x>=2013;$x--)
 				{
@@ -120,27 +97,34 @@ for($i=1;$i<13;$i++)
 	  <td colspan=2 class="border-less"></td>
 	  <td class="border-less"><input type="submit" name="submit" value="SEARCH"></td>
 	</tr>
-        <?php if (!empty($count_per_technique)) { ?>
 <table width="90%" cellpadding="0" cellspacing="2">
           <tr>
-		<th width="40%" class="question header">TECHNIQUE</th>
-		<th width="20%" class="question header">TOTAL</th>
+		<th width="30%" class="question header">ASA CLASSIFICATION</th>
+		<th width="10%" class="question header">TOTAL</th>
+		<th width="14%" class="question header">EMERGENCY</th>
 		<th class="border-less"></th>
           </tr>
           <?php
-          $total=0;
-	foreach($anesth_technique as $tech):
+          $total_asa=0;
+          $total_emergency=0;
+	foreach($anesth_asa as $asa):
 		echo "
 		<tr>
-		<td class='answer'>".$tech->name."</td>
-		<td align=center style='font-size:16px;' class='answer'>".$count_per_technique[$tech->id]."</td>
+		<td class='answer'>".$asa->name."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_asa[$asa->id]."</td>";
+		
+		echo "<td align=center style='font-size:16px;' class='answer'>".$count_emergency[$asa->id]."</td>
 		</tr>";
-                $total += $count_per_technique[$tech->id];
+		$total_asa += $count_asa[$asa->id];
+		$total_emergency += $count_emergency[$asa->id];
                 endforeach;
                 ?>
-          <tr><th align="right" class="border-less" style="font-size: 20px;">TOTAL</th><td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total; ?></b></td></tr>
+          <tr><th align="right" class="border-less" style="font-size: 20px;">TOTAL</th>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_asa; ?></b></td>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_emergency; ?></b></td>
+	  
+	  </tr>
 	<tr>
-          <?php } ?>
 		<td colspan="3" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 	</tr>
 </table>

@@ -2,7 +2,7 @@
 <head>
           <meta charset="UTF-8">
                     <link REL="SHORTCUT ICON" HREF="<?php echo base_url(); ?>assets/images/icon.png">
-          <title>AENDICUS</title>
+          <title>AENDICUS II</title>
 <noscript>
           <meta http-equiv="refresh" content="0; url=http://oltrap.pchrd.dost.gov.ph/index.php/administrator/javascript/" />
 </noscript>
@@ -47,9 +47,9 @@
       $('form').each(function(){
           $(this).validate({
 rules: {
-password: {
+new_password: {
 required: true,
-rangelength: [6, 15]
+rangelength: [6, 32]
 }
 }
 });
@@ -70,7 +70,7 @@ rangelength: [6, 15]
                     if ($user_information['role_id'] == "1" || $user_information['role_id'] == "4")
                     {
                     ?>
-                              <a href="<?php echo base_url();?>index.php/home/">HOME</a>
+                              <a href="<?php echo base_url();?>index.php/home/">HOME</a> |
                      <?php } ?>
                      <?php
                     if ($user_information['role_id'] == "3")

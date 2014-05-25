@@ -1,17 +1,53 @@
 <?php
 Class Reports_model extends CI_Model
 {
-    function anesth_technique_count($anesth_technique,$user_id)
+    function anesth_technique_count($anesth_technique,$user_id,$status,$month,$year)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('user_id',$user_id);
+        $this->db->where('anesthetic_technique',$anesth_technique);
+        $this->db->where('anesth_status_id',$status);
+	$this->db->where('month(operation_date)', $month);
+	$this->db->where('year(operation_date) ', $year);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function anesth_service_count($anesth_service,$user_id,$status,$month,$year)
     {
         $this->db->select('*');
         $this->db->from('patient_form');
         $this->db->where('user_id',$user_id);
-        $this->db->where('anesthetic_technique',$anesth_technique);
-        $this->db->where('anesth_status_id',4);
+        $this->db->where('service',$anesth_service);
+        $this->db->where('anesth_status_id',$status);
+	$this->db->where('month(operation_date)', $month);
+	$this->db->where('year(operation_date) ', $year);
         $result = $this->db->get();
         return $result->num_rows();
     }
-
+    function annual_patient_classification_and_distribution_summary_count($anesth_asa,$user_id,$status,$year)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('user_id',$user_id);
+        $this->db->where('asa',$anesth_asa);
+        $this->db->where('anesth_status_id',$status);
+	$this->db->where('year(operation_date) ', $year);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_emergency_count($anesth_asa,$user_id,$status,$year)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('user_id',$user_id);
+        $this->db->where('asa',$anesth_asa);
+        $this->db->where('for_emergency',"Y");
+        $this->db->where('anesth_status_id',$status);
+	$this->db->where('year(operation_date) ', $year);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
     function count_users_login_summary_table($resident_id)
     {
         $this->db->select('*');
@@ -30,19 +66,6 @@ Class Reports_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    function anesth_service_count($anesth_service,$user_id,$status,$month,$year)
-    {
-        $this->db->select('*');
-        $this->db->from('patient_form');
-        $this->db->where('user_id',$user_id);
-        $this->db->where('service',$anesth_service);
-        $this->db->where('anesth_status_id',$status);
-	$this->db->where('month(operation_date)', $month);
-	$this->db->where('year(operation_date) ', $year);
-        $result = $this->db->get();
-        return $result->num_rows();
-    }
-
     function get_year($user_id)
     {
         $this->db->select('operation_date');
@@ -241,7 +264,7 @@ Class Reports_model extends CI_Model
         
         // $monthsArr = array();
         // foreach (range(date('m', strtotime('january')), date('m', strtotime('december'))) as $m) {
-        //     $monthsArr[] = 'sum(if(month_operation_date = ' . $m . ', 1, 0)) `' . date('M', mktime(0, 0, 0, $m, 10)) . '`';
+        // $monthsArr[] = 'sum(if(month_operation_date = ' . $m . ', 1, 0)) `' . date('M', mktime(0, 0, 0, $m, 10)) . '`';
         // }
         
         // $months = implode(",\n\t", $monthsArr);

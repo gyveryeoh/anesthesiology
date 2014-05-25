@@ -17,7 +17,7 @@
 <form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/anesth_services">
 <table width="90%" cellpadding="0" cellspacing="2">
         <tr>
-                <td class="border-less header" align="center" colspan="3">SERVICE REPORT</td>
+                <td class="border-less header" align="center" colspan="3">MONTHLY SERVICE REPORT</td>
         </tr>
         <tr>
                 <td style='color: red;font-size: 30px;font-weight: bold;' colspan="3" class="border-less" align="center"><?php if (isset($message)){ echo $message; } ?></td>
@@ -121,7 +121,7 @@ for($i=1;$i<13;$i++)
 	  <td class="border-less"><input type="submit" name="submit" value="SEARCH"></td>
 	</tr>
 <?php if (!empty($count_per_service)) { ?>
-<table width="90%" cellpadding="1" cellspacing="0">
+<table width="90%" cellpadding="0" cellspacing="2">
           <tr>
 		<th width="40%" class="question header">SERVICE</th>
 		<th width="20%" class="question header">TOTAL</th>

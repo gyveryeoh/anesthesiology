@@ -20,7 +20,7 @@
 )); ?>
 <table width="90%" cellpadding="0" cellspacing="0">
         <tr>
-                <td class="border-less header" align="center" colspan="11">MONTHLY REPORT</td>
+                <td class="border-less header" align="center" colspan="11">ANESTHESIOLOGY MONTHLY REPORT</td>
         </tr>
         <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
                 <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
@@ -87,6 +87,7 @@
                     'value' => 'SEARCH',
                     'content' => 'Generate Report',
                 ));
+                ?> &nbsp;&nbsp;<?php
                 echo form_submit(array(
                     'type' => 'submit',
                     'name' => 'clear',

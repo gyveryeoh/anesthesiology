@@ -1,36 +1,118 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Reports_controller extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('dropdown_select','',TRUE);
-        $this->load->model('user');
-        $this->load->model('reports/reports_model','reports_model');
-        $this->load->library('session');
-        $this->load->helper('url');
-    }
-    function index()
-    {
-        if($this->session->userdata('logged_in'))
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('dropdown_select','',TRUE);
+		$this->load->model('user');
+		$this->load->model('reports/reports_model','reports_model');
+		$this->load->library('session');
+		$this->load->helper('url');
+	}
+	//ANESTHETIC MONTHLY REPORT
+	function index()
+	{
+		if($this->session->userdata('logged_in'))
         {
-            $session_data = $this->session->userdata('logged_in');
-            $data["user_information"] = $session_data;
-            $user_id = $session_data['id'];
-            $datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
-            foreach($datas['anesth_technique'] as $n)
-            {
-                $datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
-            }
-            $this->load->view('header/header',$data);
-            $this->load->view('header/reports_header');
-            $this->load->view('reports/anesth_technique_per_resident',$datas);
-        }
+		$session_data = $this->session->userdata('logged_in');
+		$data["user_information"] = $session_data;
+		if ($session_data['role_id'] == "3")
+	{
+		$insti_id = $this->input->post('hospital_id');
+	}
+	else
+	{
+		$insti_id = $session_data['institution_id'];
+	}
+		$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques();
+		$data['institution_list'] = $this->dropdown_select->anesth_institutions();
+		$data['status_list'] = $this->dropdown_select->anesth_status();
+		$data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+		if ($this->input->post('submit'))
+		{
+			$month = $this->input->post('month');
+			$year = $this->input->post('year');
+			$status = $this->input->post('status_id');
+			$user_id = $this->input->post('user_id');
+			$index = 1;
+			foreach($datas['anesth_technique'] as $n)
+		{
+			$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id,$status,$month,$year);
+		}
+		}
+		$this->load->view('header/header',$data);
+		$this->load->view('header/reports_header');
+		$this->load->view('reports/anesth_technique_per_resident',$datas);
+	}
         else
         {
             redirect('login', 'refresh');
         }
-    }
+}
+//SERVICE MONTHLY REPORT
+function anesth_services()
+{
+	$session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+	if ($session_data['role_id'] == "3")
+	{
+		$insti_id = $this->input->post('hospital_id');
+	}
+	else
+	{
+		$insti_id = $session_data['institution_id'];
+	}
+	$user_role = "1";
+        $datas['anesth_services'] = $this->dropdown_select->anesth_services();
+	$data['institution_list'] = $this->dropdown_select->anesth_institutions();
+	$data['status_list'] = $this->dropdown_select->anesth_status();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+	if ($this->input->post('submit'))
+	{
+		$month = $this->input->post('month');
+		$year = $this->input->post('year');
+		$status = $this->input->post('status_id');
+		$user_id = $this->input->post('user_id');
+		foreach($datas['anesth_services'] as $n)
+		{
+			$datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id,$status,$month,$year);
+		}
+	}
+        $this->load->view('header/header',$data);
+        $this->load->view('header/reports_header');
+        $this->load->view('reports/anesth_service_per_resident',$datas);
+}
+//Annual Patient Classification and Distribution Summary
+function annual_patient_classification_and_distribution_summary()
+{
+	$session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+	if ($session_data['role_id'] == "3")
+	{
+		$insti_id = $this->input->post('hospital_id');
+	}
+	else
+	{
+		$insti_id = $session_data['institution_id'];
+	}
+	$user_role = "1";
+        $datas['anesth_asa'] = $this->dropdown_select->anesth_asa();
+        $datas['anesth_emergency'] = $this->dropdown_select->anesth_emergency();
+	$data['institution_list'] = $this->dropdown_select->anesth_institutions();
+	$data['status_list'] = $this->dropdown_select->anesth_status();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+	$user_id = "4";
+	$status ="8";
+	$year ="2014";
+	foreach($datas['anesth_asa'] as $asa):
+	$datas["count_asa"][$asa->id] = $this->reports_model->annual_patient_classification_and_distribution_summary_count($asa->id,$user_id,$status,$year);
+	$datas["count_emergency"][$asa->id] = $this->reports_model->annual_patient_classification_and_distribution_summary_emergency_count($asa->id,$user_id,$status,$year);
+	endforeach;
+        $this->load->view('header/header',$data);
+        $this->load->view('header/reports_header');
+        $this->load->view('reports/annual_patient_classification_and_distribution_summary',$datas);
+}
     function login_summary()
     {
         if($this->session->userdata('logged_in'))
@@ -56,40 +138,6 @@ class Reports_controller extends CI_Controller
         {
             redirect('login', 'refresh');
         }
-    }
-    function anesth_services()
-    {
-        $session_data = $this->session->userdata('logged_in');
-        $data["user_information"] = $session_data;
-	if ($session_data['role_id'] == "3")
-	{
-		$insti_id = $this->input->post('hospital_id');
-	}
-	else
-	{
-		$insti_id = $session_data['institution_id'];
-	}
-	$user_role = "1";
-        $datas['anesth_services'] = $this->dropdown_select->anesth_services();
-	$data['institution_list'] = $this->dropdown_select->anesth_institutions();
-	$data['status_list'] = $this->dropdown_select->anesth_status();
-        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
-	if ($this->input->post('submit'))
-	{
-		$month = $this->input->post('month');
-		$year = $this->input->post('year');
-		$status = $this->input->post('status_id');
-		$user_id = $this->input->post('user_id');
-        $index = 1;
-        foreach($datas['anesth_services'] as $n)
-        {
-            $datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id,$status,$month,$year);
-	    $index+=1;
-        }
-	}
-        $this->load->view('header/header',$data);
-        $this->load->view('header/reports_header');
-        $this->load->view('reports/anesth_service_per_resident',$datas);
     }	
     function reports_list()
     {

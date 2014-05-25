@@ -27,6 +27,10 @@ class Home extends CI_Controller {
         }
         function add_patient()
         {
+                if ($this->input->post('month') == "00")
+                {
+                        redirect('home','refresh');
+                }
                 if($this->session->userdata('logged_in'))
                 {
                         $session_data = $this->session->userdata('logged_in');
@@ -44,11 +48,11 @@ class Home extends CI_Controller {
                                 $data = array
                                 ('case_number'     => $case_number,
                                  'institution_id'  => $session_data['institution_id'],
+                                 'birthdate'       => mysql_real_escape_string($this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day')),
                                  'lastname'        => $this->input->post('lastname'),
                                  'firstname'       => $this->input->post('firstname'),
                                  'middle_initials' => $this->input->post('middle_initials'),
                                  'gender'          => $this->input->post('gender'),
-                                 'birthdate'       => $this->input->post('year')."-".$this->input->post('month')."-".$this->input->post('day'),
                                  'weight'          => $this->input->post('weight'));
                                 $this->user->add_patient($data);
                                 $patient_information_id = $this->db->insert_id();
@@ -104,14 +108,14 @@ class Home extends CI_Controller {
                         if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
                         if ($anesthetic_technique == "9") {$peripheral = $peripheral;} else {$peripheral = "NULL";}
                         if ($anesthetic_technique == "3") {$critical_events ="YES";}
-                        if ($session_data['role_id'] == "1") {$anesth_status_id = "8";}else {$anesth_status_id = "1";}
+                        if ($session_data['role_id'] == "1") {$anesth_status_id = "8";} else {$anesth_status_id = "1";}
                         $data = array(
                                       'patient_information_id' => $this->input->post('patient_information_id'),
                                       'hospital_rotation_id' => $hospital_rotation,
                                       'user_id' => $session_data['id'],
                                       'anesth_status_id' => $anesth_status_id,
                                       'institution_id' => $session_data['institution_id'],
-                                      'operation_date' =>$this->input->post('operation_date'),
+                                      'operation_date' => mysql_real_escape_string($this->input->post('operation_date')),
                                       'level_of_involvement' =>$this->input->post('level_of_involvement'),
                                       'type_of_patient' => $this->input->post('type_of_patient'),
                                       'asa' => $this->input->post('asa'),
@@ -126,9 +130,9 @@ class Home extends CI_Controller {
                                       'epidural_needle' => $epidural_needle,
                                       'spinal_needle_gauge' => $this->input->post('spinal_needle_gauge'),
                                       'epidural_needle_gauge' => $this->input->post('epidural_needle_gauge'),
-                                      'anesthesia_start' => $this->input->post('anesthesia_start'),
+                                      'anesthesia_start' => mysql_real_escape_string($this->input->post('anesthesia_start')),
                                       'anesthesia_start_time' => DATE("h:i A", STRTOTIME($this->input->post('anesthesia_start_hour').":".$this->input->post('anesthesia_start_min'))),
-                                      'anesthesia_end' => $this->input->post('anesthesia_end'),
+                                      'anesthesia_end' => mysql_real_escape_string($this->input->post('anesthesia_end')),
                                       'anesthesia_end_time' => DATE("h:i A", STRTOTIME($this->input->post('anesthesia_end_hour').":".$this->input->post('anesthesia_end_min'))),
                                       'other_main_agent' => addslashes($others_m),
                                       'other_supplementary_agent' => addslashes($others_s),

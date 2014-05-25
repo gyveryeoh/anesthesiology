@@ -181,7 +181,6 @@ class Users_controller extends CI_Controller
 			$user_id = $session_data['id'];
 			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
-			$this->load->view('header/reports_header');
 			$this->load->view('users/hospital_list',$datas);
 		}
 		else
