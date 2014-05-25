@@ -356,21 +356,23 @@ class Reports_controller extends CI_Controller
             }
             
             $institutions = $this->dropdown_select->anesth_institutions();
-            $results['institutions'][''] = '- Select institution -';
+            $results['institutions'][''] = 'ALL';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
 
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
-            $results['trainees'][''] = '- Select trainee -';
+            $results['trainees'][''] = 'ALL';
             foreach ($trainees as $trainee) {
                 $results['trainees'][$trainee->id] = $trainee->username;
             }
             
+            $results['months'][-111] = 'ALL';
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
             }
             
+            $results['years'][-111] = 'ALL';
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
@@ -416,23 +418,25 @@ class Reports_controller extends CI_Controller
             }
             
             $institutions = $this->dropdown_select->anesth_institutions();
-            $results['institutions'][''] = '- Select institution -';
+            $results['institutions'][''] = 'ALL';
             foreach ($institutions as $inst) {
                 $results['institutions'][$inst->id] = $inst->name;
             }
 
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
-            $results['trainees'][''] = '- Select trainee -';
+            $results['trainees'][''] = 'ALL';
             foreach ($trainees as $trainee) {
                 $results['trainees'][$trainee->id] = $trainee->username;
             }
             
+            $results['month_labels'][-111] = 'ALL';
             foreach (range(1, 12) as $monthNum) {
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
                 $results['month_labels'][$monthNum] = strtoupper(date('M', mktime(0,0,0,$monthNum)));
             }
             $results['month_labels'][] = 'TOTAL';
             
+            $results['years'][-111] = 'ALL';
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
@@ -443,6 +447,56 @@ class Reports_controller extends CI_Controller
             
             $results = array_merge($results, $filters);
             $this->load->view('reports/annual_report', $results);
+        }
+        else
+        {
+            redirect('login', 'refresh');
+        }
+    }
+    
+    function total_anesth_hours() {
+        $user_id = $this->input->get('resident_id');
+        $session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+        $data["year"] = "";
+        $data["user_id"] = $user_id;
+        $data['status_list'] = $this->dropdown_select->anesth_status();
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
+        $data['institution_list'] = $this->dropdown_select->anesth_institutions();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+        $this->load->helper('form');
+        
+        if($this->session->userdata('logged_in'))
+        {
+            $this->load->view('header/header', $data);
+
+            $filters = array();
+            foreach (array('institution_id', 'year_level', 'year') as $key) {
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
+            }
+            
+            $institutions = $this->dropdown_select->anesth_institutions();
+            $results['institutions'][''] = '- Select institution -';
+            foreach ($institutions as $inst) {
+                $results['institutions'][$inst->id] = $inst->name;
+            }
+            
+            $results['year_levels'][-111] = 'ALL';
+            foreach (range(1, 5) as $year_level) {
+                $results['year_levels'][$year_level] = $year_level;
+            }
+
+            $results['years'][-111] = 'ALL';
+            foreach (range(intval(date('Y')), 2013) as $year) {
+                $results['years'][$year] = intval($year);
+            }
+            
+            if ($this->input->post('submit')) {
+                $results['total_anesth_hours'] = $this->reports_model->get_total_anesth_hours($filters);
+            }
+            
+            $results = array_merge($results, $filters);
+            $this->load->view('reports/total_anesth_hours', $results);
         }
         else
         {

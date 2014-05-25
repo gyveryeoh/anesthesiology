@@ -47,10 +47,10 @@
                 </td>
         </tr>
         <tr>
-                <td class="border-less question" align="right" colspan="2"><?php echo form_label('YEAR', 'monthly_report-year-sel'); ?></td>
+                <td class="border-less question" align="right" colspan="2"><?php echo form_label('YEAR', 'annual_report-year-sel'); ?></td>
                 <td class="border-less answer" colspan="9">
                 <?php
-                echo form_dropdown('Report[year]', $years, intval($year), 'id="monthly_report-year-sel" style="width:150px"'); ?>
+                echo form_dropdown('Report[year]', $years, intval($year), 'id="annual_report-year-sel" style="width:150px"'); ?>
                 </td>
         </tr>
         <tr>
