@@ -2,15 +2,30 @@
 <?php foreach($user_info as $row)?>
 <input type="hidden" name="user_id" value="<?php echo $row->id;?>"/>
 <table width="90%" cellpadding="0" cellspacing="2">
-	<tr>
-		<td class="border-less header" align="center" colspan="2">EDIT USER</td>
-	</tr>
 	<?php if($this->session->flashdata("success") !== FALSE){ ?>
 	<tr>
                     <?php echo $this->session->flashdata("success");?>
 	</tr>
 	<?php } ?>
-	<tr><td colspan=2 style="font-weight: bold; color: red;">ATTENTION : USERNAME OF RESIDENT IS PERMANENT</td></tr>
+	<tr>
+		<td class="border-less header" align="center" colspan="2">EDIT PASSWORD</td>
+	</tr>
+	<tr><td colspan=2 style="font-weight: bold; color: red;" class="border-less">ATTENTION : USERNAME OF RESIDENT IS PERMANENT</td></tr>
+	<tr>
+		<td class="border-less question">PASSWORD</td>
+		<td class="border-less answer"><input type="password" size="20" name="password" class="required"  value="<?php echo $row->password; ?>">
+	</tr>
+	<tr>
+                <td class="border-less question">CONFIRM PASSWORD</td>
+                <td class="border-less answer"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $row->password; ?>">
+        </tr>
+	<tr>
+		<td class="border-less" align="right">&nbsp;</td>
+                <td class="border-less"><br><input type="submit" name="update_password" value="UPDATE">
+        </tr>
+	<tr>
+		<td class="border-less header" align="center" colspan="2">EDIT USER</td>
+	</tr>
 	<tr <?php if ($user_information['role_id'] != "3") { echo "style=display:none"; } ?>>
 		<td class="border-less question">INSTITUTION</td>
 		<td class="border-less answer" colspan="2">
@@ -46,14 +61,6 @@
 		<td class="border-less answer"><input type="text" size="20" name="middle_initials" value="<?php echo $row->middle_initials; ?>">
         </tr>
 	<tr>
-		<td class="border-less question">PASSWORD</td>
-		<td class="border-less answer"><input type="password" size="20" name="password" class="required"  value="<?php echo $row->password; ?>">
-	</tr>
-	<tr>
-                <td class="border-less question">CONFIRM PASSWORD</td>
-                <td class="border-less answer"><input type="password" size="20" name="confirm_password" class="required" value="<?php echo $row->password; ?>">
-        </tr>
-	<tr>
 		<td class="border-less question">USER ROLE</td>
 		<td class="border-less answer" colspan="2">
 			<select name="role_id" class="required" style="width:auto;">
@@ -81,7 +88,7 @@
 			<option value="3" <?php if ($row->year_lvl == "3"){ echo 'selected=SELECTED';} ?></option>3</option>
 			<option value="4" <?php if ($row->year_lvl == "4"){ echo 'selected=SELECTED';} ?></option>4</option>
 			<option value="5" <?php if ($row->year_lvl == "5"){ echo 'selected=SELECTED';} ?></option>5</option>
-			<option value="6" <?php if ($row->year_lvl == "6"){ echo 'selected=SELECTED';} ?></option>GRAUATE</option>
+			<option value="6" <?php if ($row->year_lvl == "6"){ echo 'selected=SELECTED';} ?></option>GRADUATE</option>
 		</select>
 		</td>
 	</tr>

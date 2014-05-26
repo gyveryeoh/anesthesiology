@@ -196,12 +196,12 @@ class Users_controller extends CI_Controller
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$datas["user_info"] = $this->view_caselogs->get_user_info($user_id);
-			$datas["user_role"] = $this->view_caselogs->get_roles();
+			$datas["user_role"] = $this->view_caselogs->get_roles($data["user_information"]);
 			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
 			$this->load->view('users/edit_user',$datas);
-			if($this->input->post("submit"))
+			if($this->input->post('update_password'))
 			{
 				$user_id = $this->input->post('user_id');
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
@@ -212,19 +212,29 @@ class Users_controller extends CI_Controller
 				else
 				{
 				$data = array
+				('password' => md5($this->input->post('password')));
+				 $this->view_caselogs->edit_user($data,$user_id);
+				 $this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED USER PASSWORD</b></td>');
+				 redirect('users_controller/edit_user/'.$user_id);
+			}
+			}
+			if($this->input->post('submit'))
+			{
+				$user_id = $this->input->post('user_id');
+				$data = array
 				(
 				'institution_id' => $this->input->post('institution_id'),
 				'lastname'       => $this->input->post('lastname'),
 				'firstname'      => $this->input->post('firstname'),
 				'middle_initials'=> $this->input->post('middle_initials'),
-				'password'	=> md5($this->input->post('password')),
 				'role_id'	=> $this->input->post('role_id'),
 				'year_lvl'	=> $this->input->post('year_level'),
 				'status'	=> $this->input->post('status'));
 				 $this->view_caselogs->edit_user($data,$user_id);
+				 $data = array('year_lvl_id'	=> $this->input->post('year_level'));
+				 $this->view_caselogs->edit_patient_form_year_lvl_id($data,$user_id);
 				 $this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED USER INFORMATION</b></td>');
 				 redirect('users_controller/edit_user/'.$user_id);
-			}
 			}
 		}
 		else

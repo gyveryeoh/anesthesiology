@@ -53,6 +53,8 @@ class Reports_controller extends CI_Controller
 //SERVICE MONTHLY REPORT
 function anesth_services()
 {
+	if($this->session->userdata('logged_in'))
+        {
 	$session_data = $this->session->userdata('logged_in');
         $data["user_information"] = $session_data;
 	if ($session_data['role_id'] == "3")
@@ -81,7 +83,13 @@ function anesth_services()
 	}
         $this->load->view('header/header',$data);
         $this->load->view('header/reports_header');
+        $this->load->view('header/service_report_header');
         $this->load->view('reports/anesth_service_per_resident',$datas);
+}
+else
+{
+	redirect('login', 'refresh');
+}
 }
 //Annual Patient Classification and Distribution Summary
 function annual_patient_classification_and_distribution_summary()
@@ -397,7 +405,7 @@ function annual_patient_classification_and_distribution_summary()
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);
-
+	    $this->load->view('header/reports_header');
             $filters = array();
             foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
                 $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
@@ -441,8 +449,63 @@ function annual_patient_classification_and_distribution_summary()
             redirect('login', 'refresh');
         }
     }
-    
-    function annual_report() {
+    function annual_anesthetic_report() {
+        $user_id = $this->input->get('resident_id');
+        $session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+        $data["year"] = "";
+        $data["user_id"] = $user_id;
+        $data['status_list'] = $this->dropdown_select->anesth_status();
+        $insti_id = (!empty($_POST['Report']['institution_id']) and $session_data['role_id'] == 3) ? $_POST['Report']['institution_id'] : $session_data['institution_id'];
+        $data['institution_list'] = $this->dropdown_select->anesth_institutions();
+        $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
+        $this->load->helper('form');
+        
+        if($this->session->userdata('logged_in'))
+        {
+            $this->load->view('header/header', $data);
+
+            $filters = array();
+            foreach (array('institution_id', 'user_id', 'year') as $key) {
+                $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
+            }
+            
+            $institutions = $this->dropdown_select->anesth_institutions();
+            $results['institutions'][''] = '- Select institution -';
+            foreach ($institutions as $inst) {
+                $results['institutions'][$inst->id] = $inst->name;
+            }
+
+            $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
+            $results['trainees'][''] = '- Select trainee -';
+            foreach ($trainees as $trainee) {
+                $results['trainees'][$trainee->id] = $trainee->username;
+            }
+            
+            foreach (range(1, 12) as $monthNum) {
+                $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
+                $results['month_labels'][$monthNum] = strtoupper(date('M', mktime(0,0,0,$monthNum)));
+            }
+            $results['month_labels'][] = 'TOTAL';
+            
+            foreach (range(intval(date('Y')), 2013) as $year) {
+                $results['years'][$year] = intval($year);
+            }
+            
+            if ($this->input->post('submit')) {
+                $results['annual_anesthetic_summary_grid'] = $this->reports_model->get_annual_anesthetic_summary_grid($filters);
+            }
+            
+            $results = array_merge($results, $filters);
+            $this->load->view('reports/annual_anesthetic_report', $results);
+        }
+        else
+        {
+            redirect('login', 'refresh');
+        }
+    }
+    //ANNUAL SERVICE REPORT
+    function annual_service_report() {
         $user_id = $this->input->get('resident_id');
         $session_data = $this->session->userdata('logged_in');
         $data["user_information"] = $session_data;
@@ -490,7 +553,9 @@ function annual_patient_classification_and_distribution_summary()
             }
             
             $results = array_merge($results, $filters);
-            $this->load->view('reports/annual_report', $results);
+	    $this->load->view('header/reports_header');
+	    $this->load->view('header/service_report_header');
+            $this->load->view('reports/annual_service_report', $results);
         }
         else
         {

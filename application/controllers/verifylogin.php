@@ -54,7 +54,8 @@ class VerifyLogin extends CI_Controller {
          'middle_initials' => $row->middle_initials,
          'role_id' => $row->role_id,
          'institution_id' => $row->institution_id,
-         'prc_number' => $row->prc_number
+         'prc_number' => $row->prc_number,
+         'year_lvl' => $row->year_lvl
        );
         $this->session->set_userdata('logged_in', $sess_array);
        $session_data = $this->session->userdata('logged_in');
@@ -70,7 +71,8 @@ class VerifyLogin extends CI_Controller {
          'middle_initials' => $row->middle_initials,
          'role_id' => $row->role_id,
          'institution_id' => $row->institution_id,
-         'prc_number' => $row->prc_number
+         'prc_number' => $row->prc_number,
+         'year_lvl' => $row->year_lvl
        );
         $this->session->set_userdata('logged_in', $sess_array);
        $session_data = $this->session->userdata('logged_in');
@@ -86,7 +88,8 @@ class VerifyLogin extends CI_Controller {
          'middle_initials' => $row->middle_initials,
          'role_id' => $row->role_id,
          'institution_id' => $row->institution_id,
-         'prc_number' => $row->prc_number
+         'prc_number' => $row->prc_number,
+         'year_lvl' => $row->year_lvl
        );
        $this->session->set_userdata('logged_in', $sess_array);
        $session_data = $this->session->userdata('logged_in');

@@ -258,7 +258,25 @@ Class Reports_model extends CI_Model
         
         return $results;
     }
-    
+    function get_annual_anesthetic_summary_grid($options=array()) {
+        $filters = $this->prepareFilters($options);
+        
+        // $monthsArr = array();
+        // foreach (range(date('m', strtotime('january')), date('m', strtotime('december'))) as $m) {
+        // $monthsArr[] = 'sum(if(month_operation_date = ' . $m . ', 1, 0)) `' . date('M', mktime(0, 0, 0, $m, 10)) . '`';
+        // }
+        
+        // $months = implode(",\n\t", $monthsArr);
+        
+        $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/annual_anesthetic_summary_grid.sql'), array(
+            // '{$months}' => $months,
+            '{$filters}' => $filters,
+        ));
+        chrome_log($query);
+        $results = $this->db->query($query)->result();
+        
+        return $results;
+    }
     function get_annual_service_summary_grid($options=array()) {
         $filters = $this->prepareFilters($options);
         

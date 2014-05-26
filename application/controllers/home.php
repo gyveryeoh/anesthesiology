@@ -113,6 +113,7 @@ class Home extends CI_Controller {
                                       'patient_information_id' => $this->input->post('patient_information_id'),
                                       'hospital_rotation_id' => $hospital_rotation,
                                       'user_id' => $session_data['id'],
+                                      'year_lvl_id' => $session_data['year_lvl'],
                                       'anesth_status_id' => $anesth_status_id,
                                       'institution_id' => $session_data['institution_id'],
                                       'operation_date' => mysql_real_escape_string($this->input->post('operation_date')),

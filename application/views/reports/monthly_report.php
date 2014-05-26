@@ -186,7 +186,9 @@ echo form_close(); ?>
         <tr>
         <?php
         foreach($services_techniques_grid_headers as $j => $col): ?>
+        <?php if ($row->$col == "ZTOTAL") {$row->$col="TOTAL";} ?>
         <td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?>"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
+        
         <?php endforeach; ?>
         </tr>
         <?php endforeach; ?>
