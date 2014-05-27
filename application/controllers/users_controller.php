@@ -199,7 +199,6 @@ class Users_controller extends CI_Controller
 			$datas["user_role"] = $this->view_caselogs->get_roles($data["user_information"]);
 			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
-			$this->load->view('header/reports_header');
 			$this->load->view('users/edit_user',$datas);
 			if($this->input->post('update_password'))
 			{

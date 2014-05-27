@@ -1,6 +1,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
           <title>AENDICUS</title>
+          <style>
+                    .blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    font-size: 20PX;
+    color: RED;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+          </style>
 <noscript>
           <meta http-equiv="refresh" content="0; url=http://oltrap.pchrd.dost.gov.ph/index.php/administrator/javascript/" />
 </noscript>
@@ -37,7 +75,47 @@
                     <td class="td_top td_bottom td_left td_right answer" align="right" style="border: 1px solid dodgerblue;border-top:hidden;">&nbsp;</td>
                     <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;" class=answer><input type="submit" name="login" value="LOGIN">
           </tr>
-</table>
+          <tr>
+                    <td colspan=2 class="header">AENDICUS II UPDATE AS OF MAY 28, 2014</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* SERVICE MONTHLY AND ANNUAL REPORT</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ANESTHETIC TECHNIQUE MONTHLY REPORT</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ANESTHESIOLOGY MONTHLY REPORT</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* CASELOG SEARCH MODULE</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ADDED LEGEND IN USER'S LIST</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* UPDATE/EDIT USER'S PASSWORD AND PROFILE</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* BLOOD PRODUCT USED</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ADDED FELLOW ROLE</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ADDED CASELOG SEARCH IN PBA USERS</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ADDED TOTAL RESULT FOUND IN CASELOG SEARCH</td>
+          </tr>
+                    <td class="answer" colspan="2">* FIXED CHANGE PASSWORD ERROR</td>
+          </tr>
+          <tr>
+                    <td class="answer blink_me" colspan="2"><b>REMINDER for TRAINING OFFICERS</b></td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">please update the year level of the residents for future reports. Found in "SUBMITTED FORM > PROFILE > EDIT USER</td>
+          </tr>
 <br><br>
 </td>
 </tr>
