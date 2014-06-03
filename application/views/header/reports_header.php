@@ -6,11 +6,13 @@
 		{
 		?>
         <a href="<?php echo base_url();?>index.php/reports_controller/institution_view">INSTITUTION SUMMARY REPORT</a>-
+        <a href="<?php echo base_url();?>index.php/reports_controller/caselog_view_superuser">CASELOG SUMMARY REPORT</a>-
         <a href="<?php echo base_url();?>index.php/users_controller/hospital_list">HOSPITAL LIST</a>-
 		<?php 
 		}
 		?>
         <a href="<?php echo base_url();?>index.php/reports_controller/">ANESTHETIC SUMMARY REPORT</a> - 
+        <a href="<?php echo base_url();?>index.php/reports_controller/monthly_report">MONTHLY REPORT</a> - 
         <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">ENCODED SUMMARY</a>
         </td>
     </tr>
