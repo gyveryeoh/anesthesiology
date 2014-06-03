@@ -6,6 +6,7 @@ function __construct()
 parent::__construct();
 $this->load->model('dropdown_select','',TRUE);
 $this->load->model('user');
+$this->load->model('users_model/users_model','view_caselogs');
 $this->load->model('reports/reports_model','reports_model');
 $this->load->library('session');
 $this->load->helper('url');
@@ -165,12 +166,41 @@ function reports_list()
 
 function institution_view()
 {
-$session_data = $this->session->userdata('logged_in');
-$data["user_information"] = $session_data;
-$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
-$datas["year"] = "";
-$this->load->view('header/header',$data);
-$this->load->view('reports/residents_per_institution',$datas);
+	
+	$session_data = $this->session->userdata('logged_in');
+	$data["user_information"] = $session_data;
+	if($this->session->userdata('logged_in'))
+	{	
+		$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
+		$datas["year"] = "";
+		$this->load->view('header/header',$data);
+		$this->load->view('header/reports_header',$data);
+		$this->load->view('reports/residents_per_institution',$datas);
+	}
+	else
+	{
+		redirect('login', 'refresh');
+	}
+}
+
+function caselog_view_superuser()
+{
+	
+	$session_data = $this->session->userdata('logged_in');
+	$user_id = $session_data['id'];
+	$data["user_information"] = $session_data;
+	if($this->session->userdata('logged_in'))
+	{	
+		$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
+		$datas['anesth_status'] = $this->dropdown_select->anesth_status();
+		$this->load->view('header/header',$data);
+		$this->load->view('header/reports_header',$data);
+		$this->load->view('reports/search_caselog_superuser',$datas);
+	}
+	else
+	{
+		redirect('login', 'refresh');
+	}
 }
 
 function get_resident_per_institution()
@@ -313,5 +343,24 @@ function get_resident_per_institution()
 					 );
 		}
 		$this->reports_model->exec($user_id,$d);
+	}
+	
+	function superuser_caselog()
+	{
+		$insti_id = $this->input->post("insti_id");
+		$user_id = $this->input->post("user_id");
+		$status = $this->input->post("status");
+		$this->load->library('pagination');
+		if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
+		$config["base_url"] = base_url()."index.php/users_controller/users_caselog";
+		$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
+		$config["total_rows"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,$status);
+		$config["per_page"] = 10;
+		$config["uri_segment"] = 3;
+		$this->pagination->initialize($config);
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$insti_id,$user_id,$status);
+			
+		echo "fuck";
 	}
 }
