@@ -76,6 +76,12 @@
                     <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;" class=answer><input type="submit" name="login" value="LOGIN">
           </tr>
           <tr>
+                    <td colspan=2 class="header">AENDICUS II UPDATE AS OF JUNE 04, 2014</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* FIXED ERROR OF MAIN AGENTS, SUPPLEMENTARY AGENTS, AND POST OP AGENTS UPDATE MODULE.</td>
+          </tr>
+          <tr>
                     <td colspan=2 class="header">AENDICUS II UPDATE AS OF MAY 28, 2014</td>
           </tr>
           <tr>
