@@ -3,10 +3,11 @@ foreach ($patient_information as $data):
 endforeach;
 ?>
 <div align="center">
-<form method="post" id="anesth_form"  action="<?php echo base_url(); ?>index.php/edit_caselog_controller/edit_epidural">
+<form method="post" id="anesth_form" autocomplete="off"  action="<?php echo base_url(); ?>index.php/edit_caselog_controller/edit_epidural">
 <input type="hidden" name="patient_information_id" value="<?php echo $data->patient_information_id?>"/>
 <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>"/>
-<table border="0" cellpadding="0" width="80%" cellspacing="2" style="font-family: sans-serif; border: solid 1px; font-size: 14px;">
+<input type="hidden" name="anesth_status_id" value="<?php echo $data->anesth_status_id; ?>"/>
+<table border="0" cellpadding="0" width="90%" cellspacing="2" style="font-family: sans-serif; border: solid 1px; font-size: 14px;">
 <tr>
     <td class="border-less header" align="center" colspan="4">NEEDLE INFORMATION</td>
 </tr>

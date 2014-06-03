@@ -1,38 +1,37 @@
-<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/change_password">
-<table width="80%" cellpadding="1" cellspacing="0">
+<form method="post" id="myform" autocomplete="off" action="<?php echo base_url(); ?>index.php/users_controller/change_password">
+<table width="90%" cellpadding="0" cellspacing="2">
 	<tr>
-		<td  class="border-less header" align="center" colspan="2">Change Password</td>
+		<td  class="border-less header" align="center" colspan="2">CHANGE PASSWORD</td>
 	</tr>
 	<?php
 		if($error_1 == 1)
 		{
 	echo '<tr>
-		<td  class="border-less" style="color: red" align="center" colspan="2">Invalid Old Password</td>
-	</tr>';
+	<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:red; font-family:tahoma;font-size: 16px"><b>INVALID OLD PASSWORD</b></td></tr>';
 		}
 		if($error_2 == 1)
 		{
 	echo '<tr>
-		<td  class="border-less" style="color: red" align="center" colspan="2">Password Does Not Match</td>
+	<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:red; font-family:tahoma;font-size: 16px"><b>PASSWORD DO NOT MATCH</b></td>
 	</tr>';
 		}
 		if($success == 1)
 		{
 	echo '<tr>
-		<td  class="border-less" style="color: green" align="center" colspan="2">Password Changed!</td>
+		<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED YOUR PASSWORD</b></td>
 	</tr>';		
 		}
 	?>
 	
 	<tr>
-		<td class="border-less" align="right" width="40%">Old Password:</td>
-		<td class="border-less"><input type="password" name="old_password" maxlength="25" value="<?php echo $this->input->post('old_password'); ?>" class="required"></td>
+		<td class="border-less question" width="20%">OLD PASSWORD</td>
+		<td class="border-less answer"><input type="password" name="old_password" value="<?php echo $this->input->post('old_password'); ?>" class="required"></td>
 	</tr>	<tr>
-		<td class="border-less" align="right" width="40%">New Password:</td>
-		<td class="border-less"><input type="password" name="new_password" maxlength="25" value="<?php echo $this->input->post('new_password'); ?>" class="required"></td>
+		<td class="border-less question">NEW PASSWORD</td>
+		<td class="border-less answer"><input type="password" name="new_password" value="<?php echo $this->input->post('new_password'); ?>" class='required'></td>
 	</tr>	<tr>
-		<td class="border-less" align="right" width="40%">Confirm Password:</td>
-		<td class="border-less"><input type="password" name="confirm_password" maxlength="25" value="<?php echo $this->input->post('confirm_password'); ?>" class="required"></td>
+		<td class="border-less question">CONFIRM PASSWORD</td>
+		<td class="border-less answer"><input type="password" name="confirm_password" value="<?php echo $this->input->post('confirm_password'); ?>" class="required"></td>
 	</tr>
 	<tr>
 		<td class="border-less" align="right">&nbsp;</td>
@@ -40,4 +39,8 @@
 	</tr>
 </table>
 </form>
+<script>
+</script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/zebra_datepicker.js"></script>
+</body>
+</html>

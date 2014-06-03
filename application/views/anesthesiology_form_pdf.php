@@ -1,4 +1,5 @@
 <?php foreach ($patient_information as $data){}
+foreach($institution_details as $name): endforeach;
 $date1 = new DateTime($data->birthdate);
 $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
@@ -25,7 +26,7 @@ if ($data->for_emergency == "N") { $data->for_emergency = " "; } else { $data->f
     </tr>
     <tr>
         <td>Training Institution</td>
-        <td>: UPCM-PGH Medical Center</td>
+        <td><?php echo $name->name; ?></td>
         <td colspan="2"></td>
         <td align="right">Level of Involvement</td>
         <td>: <?php echo $data->level_of_involvement; ?></td>

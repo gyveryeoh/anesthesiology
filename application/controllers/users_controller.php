@@ -18,6 +18,7 @@ class Users_controller extends CI_Controller
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$data['user_role'] = $this->dropdown_select->roles();
+			$data['institutions_list'] = $this->dropdown_select->anesth_institutions();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/users_header');
 			$this->load->view('users/users_add');
@@ -52,7 +53,7 @@ class Users_controller extends CI_Controller
 			else
 			{
 				$data = array
-				('institution_id' => $session_data['institution_id'],
+				('institution_id' => $this->input->post('institution_id'),
 				 'lastname'       => $this->input->post('lastname'),
 				 'firstname'      => $this->input->post('firstname'),
 				 'middle_initials'=> $this->input->post('middle_initials'),
@@ -62,7 +63,7 @@ class Users_controller extends CI_Controller
 				$this->user->save_user($data);
 				$data['user_role'] = $this->dropdown_select->roles();
 				$data["user_information"] = $session_data;
-				$this->session->set_flashdata("success",'<b>SUCCESSFULLY CREATED RESIDENT INFO</b>');
+				$this->session->set_flashdata("success",'<b>SUCCESSFULLY CREATED USER INFO</b>');
 				redirect('users_controller/add_user');
 			}
 		}
@@ -89,6 +90,7 @@ class Users_controller extends CI_Controller
 			$config["uri_segment"] = 3;
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+<<<<<<< HEAD
 			$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$insti_id,$user_id,$status);
 			$datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,0);
 			$datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,1);
@@ -96,6 +98,16 @@ class Users_controller extends CI_Controller
 			$datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$insti_id,$user_id,4);
 			$datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,5);
 			$datas["count_deleted"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,7);
+=======
+			$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$user_id,$status);
+			$datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($user_id,0);
+			$datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,1);
+			$datas["count_forRevision"] = $this->view_caselogs->count_view_caselog_details_1($user_id,3);
+			$datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,4);
+			$datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,5);
+			$datas["count_revised"] = $this->view_caselogs->count_view_caselog_details_1($user_id,7);
+			$datas["count_open"] = $this->view_caselogs->count_view_caselog_details_1($user_id,8);
+>>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
 			$datas['status_list'] = $this->dropdown_select->anesth_status();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
@@ -147,7 +159,7 @@ class Users_controller extends CI_Controller
 				redirect('login', 'refresh');
 			}
 	}
-	function update_profile()
+	function update_profile($resident_id='')
 	{
 		if($this->session->userdata('logged_in'))
 		{
@@ -159,9 +171,10 @@ class Users_controller extends CI_Controller
 			{
 				$data = array('firstname' => $this->input->post('firstname'),
 					      'lastname' => $this->input->post('lastname'),
-					      'middle_initials' => $this->input->post('middle_initials'));
+					      'middle_initials' => $this->input->post('middle_initials'),
+					      'prc_number' => $this->input->post('prc_number'));
 				$this->user->update_profile($data,$session_data['id']);
-				$data['message'] = "SUCCESSFULLY UPDATED YOUR PROFILE INFORMATION PLEASE RE LOGGIN TO TAKE EFFECT";
+				$data['message'] = "SUCCESSFULLY UPDATED YOUR PROFILE INFORMATION PLEASE RE LOGIN TO TAKE EFFECT";
 			}
 			$this->load->view('users/users_update_profile',$data);
 		}
@@ -174,27 +187,11 @@ class Users_controller extends CI_Controller
 	{
 		if($this->session->userdata('logged_in'))
 		{
-			$status = $this->input->get('status');
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$user_id = $session_data['id'];
-			$this->load->library('pagination');
-			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-			$config["base_url"] = base_url()."index.php/users_controller/hospital_list";
-			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-			$config["total_rows"] = $this->view_caselogs->count_hospital_list();
-			$config["per_page"] = 10;
-			$config["uri_segment"] = 3;
-			$this->pagination->initialize($config);
-			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-			$datas["hospital_list"] = $this->view_caselogs->hospital_list($page,$config["per_page"]);
-			foreach($datas["hospital_list"] as $row)
-			{
-				$id = $row->id;
-				$datas["user_per_hospital"][$id] = $this->view_caselogs->users_per_institution($id);
-			}
+			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
-			$this->load->view('header/reports_header');
 			$this->load->view('users/hospital_list',$datas);
 		}
 		else
@@ -203,49 +200,51 @@ class Users_controller extends CI_Controller
 		}
 	}
 	
-	function edit_user()
+	function edit_user($user_id='')
 	{
 		if($this->session->userdata('logged_in'))
 		{
-			$user_id = $this->input->get('resident_id');
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$datas["user_info"] = $this->view_caselogs->get_user_info($user_id);
-			$datas["user_role"] = $this->view_caselogs->get_roles();
+			$datas["user_role"] = $this->view_caselogs->get_roles($data["user_information"]);
+			$datas["hospital_list"] = $this->view_caselogs->hospital_list();
 			$this->load->view('header/header', $data);
-			$this->load->view('header/reports_header');
 			$this->load->view('users/edit_user',$datas);
-			if($this->input->post("submit") == "edit")
+			if($this->input->post('update_password'))
 			{
-				$username = $this->input->post('username');
-				$user_id = $this->input->post('resident_id');
-				$data['username'] = $this->user->user_checking($username);
+				$user_id = $this->input->post('user_id');
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
 				{
-					$data['message'] = "Password and Confirm Password do not Match.";
-					$data['user_role'] = $this->dropdown_select->roles();
-					$this->load->view('header/header', $data);
-					$this->load->view('header/reports_header');
-					$this->load->view('users/users_add');
+					$this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: #c39495 1px solid; padding:10px 10px 10px 20px; color:red; font-family:tahoma;font-size: 16px"><b>PASSWORD DO NOT MATCH</b></td>');
+					redirect('users_controller/edit_user/'.$user_id);
 				}
-				elseif ($data['username'] == true)
+				else
 				{
-					$data['user_message'] = "USERNAME IS ALREADY EXISTS.";
-					$data['user_role'] = $this->dropdown_select->roles();
-					$this->load->view('header/header', $data);
-					$this->load->view('header/reports_header');
-					$this->load->view('users/edit_user');
-				}
+				$data = array
+				('password' => md5($this->input->post('password')));
+				 $this->view_caselogs->edit_user($data,$user_id);
+				 $this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED USER PASSWORD</b></td>');
+				 redirect('users_controller/edit_user/'.$user_id);
+			}
+			}
+			if($this->input->post('submit'))
+			{
+				$user_id = $this->input->post('user_id');
 				$data = array
 				(
-				 'lastname'       => $this->input->post('lastname'),
-				 'firstname'      => $this->input->post('firstname'),
-				 'middle_initials'=> $this->input->post('middle_initials'),
-				 'username'       => $username,
-				 'password'	=> md5($this->input->post('password')),
-				 'role_id'	=> $this->input->post('role_id'));			
+				'institution_id' => $this->input->post('institution_id'),
+				'lastname'       => $this->input->post('lastname'),
+				'firstname'      => $this->input->post('firstname'),
+				'middle_initials'=> $this->input->post('middle_initials'),
+				'role_id'	=> $this->input->post('role_id'),
+				'year_lvl'	=> $this->input->post('year_level'),
+				'status'	=> $this->input->post('status'));
 				 $this->view_caselogs->edit_user($data,$user_id);
-				 redirect('users_controller/hospital_list');
+				 $data = array('year_lvl_id'	=> $this->input->post('year_level'));
+				 $this->view_caselogs->edit_patient_form_year_lvl_id($data,$user_id);
+				 $this->session->set_flashdata("success",'<td colspan="2" align="center"style="background-color:#fafad2; width:90%; text-align:center; border: green 1px solid; padding:10px 10px 10px 20px; color:green; font-family:tahoma;font-size: 16px"><b>SUCCESSFULLY UPDATED USER INFORMATION</b></td>');
+				 redirect('users_controller/edit_user/'.$user_id);
 			}
 		}
 		else

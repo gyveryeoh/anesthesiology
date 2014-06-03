@@ -21,7 +21,7 @@ if($data->other_monitors_used == NULL or $data->other_monitors_used == "NULL" ){
    });
     </script>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/edit_caselog_controller/edit_patient_form">
-<table width="80%" cellpadding="1" cellspacing="0" border=1 style="border-top:hidden;">
+<table width="90%" cellpadding="1" cellspacing="0" border=1 style="border-top:hidden;">
  <input type="hidden" name="patient_information_id" value="<?php echo $data->patient_information_id; ?>">
  <input type="hidden" name="patient_form_id" value="<?php echo $data->patient_form_id; ?>">
 

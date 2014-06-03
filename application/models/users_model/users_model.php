@@ -58,11 +58,12 @@ Class Users_model extends CI_Model
 		return $q->num_rows();	
 	}
 	
-	function hospital_list($limit,$start)
+	function hospital_list()
 	{
-		$this->db->limit($start,$limit);
 		$this->db->select('*');
 		$this->db->from('anesth_institution');
+		$this->db->order_by("name", "asc");
+		$this->db->where('name !=','NONE');
 		$q = $this->db->get();
 		return $q->result();		
 	}
@@ -85,10 +86,15 @@ Class Users_model extends CI_Model
 		return $query->result();	
 	}
 	
-	function get_roles()
+	function get_roles($user_information)
 	{
 		$this->db->select('*');
 		$this->db->from('users_roles');
+		if ($user_information['role_id'] != "3")
+		{
+		$this->db->where('id !=', 3);
+		$this->db->where('id !=', 4);
+		}
 		$query = $this->db->get();
 		return $query->result();		
 	}
@@ -97,5 +103,10 @@ Class Users_model extends CI_Model
 	{
 		$this->db->where('id', $user_id);
 		$this->db->update('users', $data); 
+	}
+	function edit_patient_form_year_lvl_id($data,$user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->update('patient_form', $data); 
 	}
 }

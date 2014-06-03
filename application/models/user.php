@@ -344,7 +344,6 @@ function fetch_residents($limit, $start,$insti_id)
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('institution_id',$insti_id);
-        $this->db->where('role_id',1);
         $query = $this->db->get();	
 	return $query->result();
 }

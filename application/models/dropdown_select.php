@@ -1,24 +1,41 @@
 <?php
 Class Dropdown_select extends CI_Model
 {
- function anesth_services()
- {
-     $this->db->select('*');
-     $this->db->from('anesth_services');
-     $this->db->order_by("name", "asc");
-     $query = $this->db->get();
-     return $query->result();
+function anesth_services()
+{
+        $this->db->select('*');
+        $this->db->from('anesth_services');
+        $this->db->order_by("name", "asc");
+        $query = $this->db->get();
+        return $query->result();
 }
- function anesth_techniques()
- {
-     $this->db->select('*');
-     $this->db->from('anesth_technique');
-     $this->db->where('id !=',8);
-     $this->db->order_by("name", "asc");
-     $query = $this->db->get();
-     return $query->result();
+function anesth_techniques()
+{
+        $this->db->select('*');
+        $this->db->from('anesth_technique');
+        $this->db->where('id !=',8);
+        $this->db->where('id !=',3);
+        $this->db->order_by("name", "asc");
+        $query = $this->db->get();
+        return $query->result();
 }
- function anesth_peripheral_nerve_blocks_and_pain_techniques()
+function anesth_asa()
+{
+        $this->db->select('*');
+        $this->db->from('anesth_asa');
+        $this->db->order_by("id", "asc");
+        $query = $this->db->get();
+        return $query->result(); 
+}
+function anesth_emergency()
+{
+        $this->db->select('*');
+        $this->db->from('anesth_emergency');
+        $this->db->where('id',1);
+        $query = $this->db->get();
+        return $query->result(); 
+}
+function anesth_peripheral_nerve_blocks_and_pain_techniques()
  {
      $this->db->select('*');
      $this->db->from('anesth_peripheral_nerve_blocks_and_pain_techniques');
@@ -185,7 +202,7 @@ function anesth_techniques_reports()
      $this->db->select('*');
      $this->db->from('anesth_institution');
      $this->db->where('id !=',0);
-     $this->db->order_by("id", "asc");
+     $this->db->order_by("name", "asc");
      $query = $this->db->get();
      return $query->result();
 }
@@ -193,7 +210,11 @@ function anesth_techniques_reports()
  {
      $this->db->select('*');
      $this->db->from('users');
-     $this->db->where('institution_id',$insti_id);
+     
+     if (!empty($insti_id))
+          $this->db->where('institution_id',$insti_id);
+     
+     $this->db->where("role_id",1);
      $this->db->order_by("lastname", "asc");
      $query = $this->db->get();
      return $query->result();

@@ -85,7 +85,7 @@ $diff = $date1->diff($date2);
             border: hidden;
         } 
     </style>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd; border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd; border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">PATIENT INFORMATION</td>
           </tr>
@@ -107,7 +107,7 @@ $diff = $date1->diff($date2);
                     <td class="border-less question">CASE NUMBER</td>
                     <td class="border-less answer"><?php echo $row->case_number; ?></td>
                     <td class="border-less question">AGE</td>
-                    <td class="border-less answer"><?php echo $diff->y . "Y" . $diff->m."M".$diff->d."D"; ?></td>
+                    <td class="border-less answer"><?php echo $diff->y ."Y-". $diff->m."M-".$diff->d."D"; ?></td>
           
           </tr>
            <tr>
@@ -118,7 +118,7 @@ $diff = $date1->diff($date2);
           
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
         <tr>
                     <td class="border-less header" align="center" colspan="2">HOSPITAL ROTATION INFORMATION</td>
         </tr>
@@ -138,7 +138,7 @@ $diff = $date1->diff($date2);
         </tr>
           <tr>
                     <td class="border-less question" width="20%">OPERATION DATE</td>
-                    <td class="border-less answer"><input type="text" id="datepicker-example11" name="operation_date" size="20" class="required"></td>
+                    <td class="border-less answer"><input id="datepicker-example11" name="operation_date" size="20" class="required" readonly="readonly"></td>
           </tr>
           <tr>
                     <td class="border-less question">TYPE OF PATIENT</td>
@@ -172,7 +172,7 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr>
-                    <td class="border-less question">FOR EMERGENCY</td>
+                    <td class="border-less question">EMERGENCY</td>
                     <td class="border-less answer"><input type="radio" name="for_emergency" value="N" class="required"> NO <input type="radio" name="for_emergency" value="Y"> YES</td>
           </tr>
           <tr>
@@ -187,7 +187,7 @@ $diff = $date1->diff($date2);
                     <td class="border-less question">SERVICE</td>
                     <td class="border-less answer">
                         <select name="service" class="required">
-                              <option value="">Select Services</option>
+                              <option value="">Select Service</option>
                               <?php
                               foreach($anesth_services_data as $ser)
                               {
@@ -200,7 +200,7 @@ $diff = $date1->diff($date2);
           <tr>
                     <td class="border-less question">ANESTHETIC TECHNIQUE</td>
                     <td class="border-less answer"><select name="anesthetic_technique" class="required" style="width: 360px;" id="anesthetic_technique">
-                               <option value="">Select Techniques</option>
+                               <option value="">Select Technique</option>
                               <?php
                               foreach($anesth_technique_data as $and)
                               {
@@ -239,84 +239,18 @@ $diff = $date1->diff($date2);
             <td class="border-less answer"><input type="text" size="20" name="other_airway" class="airway_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
-    <tr>
-        <td class="border-less header" align="center" colspan="4">NEEDLE FORM</td>
-    </tr>
-          <tr>
-                    <td class="border-less question" width=20%>NEEDLE</td>
-                    <td class="border-less question" width=20%>SPINAL NEEDLE TYPE</td>
-                    <td class="border-less answer"><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
-                              <option value="">Select Spinal Needle Type</option>
-                              <?php
-                              foreach($anesth_needle_data as $aneed)
-                              {
-                               echo "<option value='".$aneed->name."'>".$aneed->name."</option>";
-                              }
-                              ?>
-                    </select>
-                    </td>
-          </tr>
-          <tr id="other_needle" style="display:none;">
-            <td class="border-less question"></td><td class="border-less question"></td>
-            <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
-          </tr>
-          <tr>
-                    <td class="border-less question"></td>
-                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
-                    <td class="border-less answer"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
-                              <option value="">Select Epidural Needle Type</option>
-                              <option value="Touhy">Touhy</option>
-                              <option value="Others">Others (pls specify):</option>
-                              <option value="None">None</option>
-                    </select>
-                    </td>
-          </tr>
-          <tr id="other_epidural_needle" style="display:none;">
-            <td class="border-less question"></td><td class="border-less question"></td>
-            <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
-          </tr>
-          <tr>
-                    <td class="border-less question">NEEDLE GUAGE</td>
-                    <td class="border-less question">SPINAL NEEDLE GUAGE</td>
-                    <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
-                              <option value="">Select Spinal Needle Gauge</option>
-                              <?php
-                              foreach($anesth_needle_gauge_data as $aneegd)
-                              {
-                               echo "<option value='".$aneegd->id."'>".$aneegd->name."</option>";
-                              }
-                              ?>
-                    </select>
-                    </td>
-          </tr>
-          <tr>
-                    <td class="border-less question"></td>
-                    <td class="border-less question">EPIDURAL NEEDLE GUAGE</td>
-                    <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
-                              <option value="">Select Epidural Needle Gauge</option>
-                              <?php
-                              foreach($anesth_needle_gauge_data as $aneegd)
-                              {
-                               echo "<option value='".$aneegd->id."'>".$aneegd->name."</option>";
-                              }
-                              ?>
-                    </select>
-                    </td>
-          </tr>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="4">ANESTHESIA FORM</td>
     </tr>
           <tr>
                     <td class="border-less question" width="20%">ANESTHESIA START</td>
                       <td class="border-less answer">
-                        <input type="text" name="anesthesia_start" id="datepicker-example14" class="required" size="20">
+                        <input name="anesthesia_start" id="datepicker-example14" class="required" size="20">
                       <select name="anesthesia_start_hour" class="required" style="width:80px;">
 	    <option value="" class="required">HOUR</option>
 				<?php
-				for ($i = 01; $i <= 12; $i++)
+				for ($i = 01; $i <= 24; $i++)
 				{
 					$value = strlen($i);
 					if($value==1)
@@ -360,19 +294,15 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select>
-			<select name="anesthesia_start_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-			</select>
                     </td>
           </tr>
           <tr>
                     <td class="border-less question">ANESTHESIA END</td>
-                      <td class="border-less answer"><input type="text" name="anesthesia_end" id="datepicker-example13" class="required" size="20">
+                      <td class="border-less answer"><input name="anesthesia_end" id="datepicker-example13" class="required" size="20">
                       <select name="anesthesia_end_hour" class="required" style="width:80px;">
 	    <option value="">HOUR</option>
 				<?php
-				for ($i = 01; $i <= 12; $i++)
+				for ($i = 01; $i <= 24; $i++)
 				{
 					$value = strlen($i);
 					if($value==1)
@@ -416,14 +346,70 @@ $diff = $date1->diff($date2);
 					}
 				?>
 			</select>
-			<select name="anesthesia_end_time" style="width:65px;">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-			</select>
                       </td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+    <tr>
+        <td class="border-less header" align="center" colspan="6">NEEDLE FORM</td>
+    </tr>
+          <tr>
+                    <td class="border-less question" width=7% rowspan="3">NEEDLE</td>
+                    <td class="border-less question" width=18%>SPINAL NEEDLE TYPE</td>
+                    <td class="border-less answer" width=10%><select name="spinal_needle" class="required" id="needle" style="width: 200px;">
+                              <option value="">Select Spinal Needle Type</option>
+                              <?php
+                              foreach($anesth_needle_data as $aneed)
+                              {
+                               echo "<option value='".$aneed->name."'>".$aneed->name."</option>";
+                              }
+                              ?>
+                    </select>
+                    </td>
+                    <td class="border-less question" rowspan=3>NEEDLE GAUGE</td>
+                     <td class="border-less question">SPINAL NEEDLE GAUGE</td>
+                     <td class="border-less answer"><select name="spinal_needle_gauge" class="required" id="spinal_needle_gauge" style="width: 200px;">
+                              <option value="">Select Spinal Needle Gauge</option>
+                              <?php
+                              foreach($anesth_needle_gauge_data as $aneegd)
+                              {
+                               echo "<option value='".$aneegd->id."'>".$aneegd->name."</option>";
+                              }
+                              ?>
+                    </select>
+                    </td>
+          </tr>
+          <tr id="other_needle" style="display:none;">
+            <td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
+          </tr>
+          <tr>
+                    <td class="border-less question">EPIDURAL NEEDLE TYPE</td>
+                    <td class="border-less answer"><select name="epidural_needle" class="required" id="epidural_needle" style="width:220px;">
+                              <option value="">Select Epidural Needle Type</option>
+                              <option value="Touhy">Touhy</option>
+                              <option value="Others">Others (pls specify):</option>
+                              <option value="None">None</option>
+                    </select>
+                    </td>
+                    <td class="border-less question">EPIDURAL NEEDLE GAUGE</td>
+                     <td class="border-less answer"><select name="epidural_needle_gauge" class="required" id="epidural_needle_gauge" style="width:220px;">
+                              <option value="">Select Epidural Needle Gauge</option>
+                              <?php
+                              foreach($anesth_needle_gauge_data as $aneegd)
+                              {
+                               echo "<option value='".$aneegd->id."'>".$aneegd->name."</option>";
+                              }
+                              ?>
+                    </select>
+                    </td>
+          </tr>
+          <tr id="other_epidural_needle" style="display:none;">
+            <td class="border-less question"></td><td class="border-less question"></td>
+            <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
+          </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan="4">MAIN AGENTS</td>
     </tr>
@@ -435,7 +421,7 @@ $diff = $date1->diff($date2);
           $x = 0;
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='".$x."' name='main_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='main_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -453,7 +439,7 @@ $diff = $date1->diff($date2);
             <td class="border-less answer" colspan="2"  id="other_main_agent" style="display:none;"><input type="text" size="20" name="other_main_agent_data" class="other_main_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
           <tr>
             <td class="border-less question" colspan="4">SUPPLEMENTARY AGENT</td>
           </tr>
@@ -467,7 +453,7 @@ $diff = $date1->diff($date2);
           $sa = "sa_";
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer><td></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='"."sa_".$x."' name='supplementary_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='supplementary_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -485,7 +471,7 @@ $diff = $date1->diff($date2);
             <td class="border-less" id="other_supplementary_agent" style="display:none;" colspan=2><input type="text" size="20" name="other_supplementary_agent_data" class="other_supplementary_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan="4">POST-OP PAIN AGENTS</td>
     </tr>
@@ -499,7 +485,7 @@ $diff = $date1->diff($date2);
           $sa = "post_";
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr class=answer><td></td>";
-          echo "<td><input type='checkbox' value='".$aad->id."' id='"."post_".$x."' name='post_op_pain_agent[]'>".$aad->name."</td>";
+          echo "<td><input type='checkbox' value='".$aad->id."' name='post_op_pain_agent[]'>".$aad->name."</td>";
           if($current_col == $num_cols-1)
           {
             echo "</tr>";
@@ -517,7 +503,7 @@ $diff = $date1->diff($date2);
             <td class="border-less" colspan=2 id="other_post_op_pain_agent" style="display:none;"><input type="text" size="20" name="other_post_op_pain_agent_data" class="other_post_op_pain_agent_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less question" colspan=3>POST-OP PAIN MANAGEMENT</td>
     </tr>
@@ -543,13 +529,13 @@ $multiIterator->attachIterator($apopmd_2_2);
 foreach($multiIterator as $combinedArray)
 {
      echo "<tr class=answer>";
-          echo "<td width=25%><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>(".$combinedArray[0].") ".$combinedArray[1]."</td>";
+          echo "<td width=25%><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management[]' class='required'>".$combinedArray[1]."</td>";
            echo "<td><input type='checkbox' value='".$combinedArray[0]."' name='post_op_pain_management_1[]' class='required'>".$combinedArray[2]."</td>";
           echo "</tr>";
              }
            ?>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
             <td class="border-less question" colspan="2">MONITORS USED</td>
           </tr>
@@ -567,7 +553,7 @@ foreach($multiIterator as $combinedArray)
             <td class="border-less answer" id="other_monitors_used" style="display:none;"><input type="text" size="20" name="other_monitors_used_data" class="other_monitors_used_valid"></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
         <td class="border-less header" align="center" colspan="2">PROCEDURE FORM</td>
     </tr>
@@ -580,10 +566,10 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less answer"><textarea name="other_procedure" cols="40" class="required"></textarea></td>
           </tr>
           <tr>
-                    <td class="border-less question">MUSCLE RELAXANT DONE</td>
+                    <td class="border-less question">MUSCLE RELAXANT REVERSAL DONE</td>
                     <td class="border-less answer"><input type="radio" name="muscle_relaxant_reversal_done" value="YES" class="required"> YES <input type="radio" name="muscle_relaxant_reversal_done" value="NO"> NO <input type="radio" name="muscle_relaxant_reversal_done" value="N/A" class="required"> N/A</td>
           </tr>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">REPLACEMENT</td>
           </tr>
@@ -633,33 +619,33 @@ foreach($multiIterator as $combinedArray)
           </tr>
           <tr>
                     <td class="border-less question">BLOOD PRODUCT USED</td>
-                    <td class="border-less answer" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required"> YES <input type="radio" name="blood_products_used" value="NO" class="required"> NO <input type="radio" name="blood_products_used" value="N/A" class="required"> N/A</td>
+                    <td class="border-less answer" colspan="2"><input type="radio" name="blood_products_used" value="YES" class="required" id="unchecked"> YES <input type="radio" name="blood_products_used" value="NO" class="required" id="checked_no"> NO <input type="radio" name="blood_products_used" value="N/A" class="required" id="checked_na"> N/A</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question" width="20%">FRESH WHOLE BLOOD</td><td class="border-less answer"><input type="radio" name="fresh_whole_blood" value="YES" class="required"> YES <input type="radio" name="fresh_whole_blood" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question" width="20%">FRESH WHOLE BLOOD</td><td class="border-less answer"><input type="radio" name="fresh_whole_blood" value="YES" class="required" id="check1_yes"> YES <input type="radio" id="check1_no" name="fresh_whole_blood" value="NO"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">CYROPRECIPITATE</td><td class="border-less answer"><input type="radio" name="cyroprecipitate" value="YES" class="required"> YES <input type="radio" name="cyroprecipitate" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">CYROPRECIPITATE</td><td class="border-less answer"><input type="radio" name="cyroprecipitate" value="YES" class="required" id="check2_yes"> YES <input type="radio" name="cyroprecipitate" value="NO" id="check2_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">PLATELETS</td><td class="border-less answer"><input type="radio" name="platelets" value="YES" class="required"> YES <input type="radio" name="platelets" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">PLATELETS</td><td class="border-less answer"><input type="radio" name="platelets" value="YES" class="required" id="check3_yes"> YES <input type="radio" name="platelets" value="NO" id="check3_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">FRESH FROZEN PLASMA</td><td class="border-less answer"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required"> YES <input type="radio" name="fresh_frozen_plasma" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">FRESH FROZEN PLASMA</td><td class="border-less answer"><input type="radio" name="fresh_frozen_plasma" value="YES" class="required" id="check4_yes"> YES <input type="radio" name="fresh_frozen_plasma" value="NO" id="check4_no"> NO</td>
           </tr>
           <tr>
-                    <td class="border-less"></td><td class="border-less question">PACKED RBC</td><td class="border-less answer"><input type="radio" name="packed_rbc" value="YES" class="required"> YES <input type="radio" name="packed_rbc" value="NO"> NO</td>
+                    <td class="border-less"></td><td class="border-less question">PACKED RBC</td><td class="border-less answer"><input type="radio" name="packed_rbc" value="YES" class="required" id="check5_yes"> YES <input type="radio" name="packed_rbc" value="NO" id="check5_no"> NO</td>
           </tr>
           <tr>
                     <td class="border-less"></td><td class="border-less question">OTHERS</td><td class="border-less answer " colspan="2"><textarea name="others" cols="35" class="required"></textarea></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="4">FOR DELIVERY</td>
           </tr>
           <tr>
-                    <td class="border-less question" width="20%">IF DELIVERY</td>
+                    <td class="border-less question" width="20%">DELIVERY</td>
                     <td class="border-less answer" colspan="2"><input type="radio" name="if_delivery" id="show" value="YES" class="required" /> YES <input type="radio" name="if_delivery" id="hide" value="NO" /> NO</td>
           </tr>
           <tr id="agpar_score_1m" style="display:none">
@@ -705,7 +691,7 @@ foreach($multiIterator as $combinedArray)
                 <input type="button" class="add_sub btn" value="Add Apgar"> | <input type="button" class="rem_sub btn" value="Remove"></td>
             </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
     <tr>
                     <td class="border-less header" align="center" colspan="2">OTHER INFORMATION</td>
           </tr>
@@ -722,13 +708,13 @@ foreach($multiIterator as $combinedArray)
                     <td class="border-less answer"><textarea name="other_notes" cols="40" class="required"></textarea></td>
           </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" width="80%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
+<table border="0" cellpadding="0" cellspacing="0" width="90%" style="font-family: sans-serif; border: solid 1px #ddd;border-top:hidden; font-size: 12px;">
         <tr>
                     <td class="border-less header" align="center" colspan="2">CRITICAL EVENTS</td>
           </tr>
     <tr id="critical_events_no">
                     <td class="border-less question" width=20%>CRITICAL EVENTS</td>
-                    <td class="border-less answer" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> YES <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> NO <input type="radio" name="critical_events" id="critical_events_hides" value="NONE" class="critical_event_required"> NONE</td>
+                    <td class="border-less answer" colspan="2"> <input type="radio" name="critical_events" id="critical_events_show" value="YES" class="critical_event_required"> YES <input type="radio" name="critical_events" id="critical_events_hide" value="NO"> NO REPORTABLE REPORTS WITHIN 48 HOURS
           </tr>
           <tr id="critical_events_yes" style="display: none;">
                     <td class="border-less question">CRITICAL EVENTS</td>
@@ -851,7 +837,7 @@ foreach($multiIterator as $combinedArray)
           ?>
           <tr>
                     <td class="border-less answer">&nbsp;</td>
-                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG INFORMATION"></td>
+                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG AS OPEN"></td>
           </tr>
           <tr class=answer>
             <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
@@ -860,6 +846,8 @@ foreach($multiIterator as $combinedArray)
 </form>  
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascript/datepicker/zebra_datepicker.js"></script>
 <script>
+    
+    
 $('input[id="monitors_used"]').change(function(){
     var pClass = '.'+$(this).val();
     if ($(this).is(':checked')){
@@ -989,31 +977,31 @@ $('#critical_events_show').click(function() {
        {
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').show();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for ($c = 0;$c<=9;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').show();
       <?php } ?>
       $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
       //CRITICAL LEVEL CARDIOVASCULAR
        $('#cardiovascular_title').show();
-      <?php for($car = 1;$car<=9;$car++){ ?>
+      <?php for($car = 0;$car<=9;$car++){ ?>
       $('#cardiovascular_data<?php echo $car; ?>').show();
       <?php } ?>
       $('.cardiovascular_valid').attr('class','cardiovascular_required');
       //CRITICAL LEVEL DISCHARGE PLANNING
        $('#discharge_planning_title').show();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
+      <?php for($dis = 0;$dis<=7;$dis++){ ?>
       $('#discharge_planning_data<?php echo $dis; ?>').show();
       <?php } ?>
       $('.discharge_planning_valid').attr('class','discharge_planning_required');
        //CRITICAL LEVEL MISCELLANEOUS
       $('#miscellaneous_title').show();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
+      <?php for($misc = 1;$misc<=13;$misc++){ ?>
       $('#miscellaneous_data<?php echo $misc; ?>').show();
       <?php } ?>    
       $('.miscellaneous_valid').attr('class','miscellaneous_required');
       //CRITICAL LEVEL NEUROLOGICAL
       $('#neurological_title').show();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
+      <?php for($neuro = 0;$neuro<=5;$neuro++){ ?>
       $('#neurological_data<?php echo $neuro; ?>').show();
       <?php } ?>
       $('.neurological_valid').attr('class','neurological_required');
@@ -1025,7 +1013,7 @@ $('#critical_events_show').click(function() {
       $('.respiratory_valid').attr('class','respiratory_required');
       //REGIONAL ANESTHESIA
       $('#regional_anesthesia_title').show();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
+      <?php for($regional_anesthesia = 0;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
       $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').show();
       <?php } ?>
       $('.regional_anesthesia_valid').attr('class','regional_anesthesia_required');
@@ -1037,79 +1025,25 @@ $('#critical_events_show').click(function() {
       $('.preop_valid').attr('class','preop_required');
        }
 });
-    $('#critical_events_hides').click(function() {
-       var selected = $(this).val();
-       if(selected == 'NONE') 
-       {
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').hide();
-      <?php } ?>
-      $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').hide();
-      <?php } ?>
-      $('.cardiovascular_required').attr('class','cardiovascular_valid');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').hide();
-      <?php } ?>
-      $('.discharge_planning_required').attr('class','discharge_planning_valid');
-      //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').hide();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').hide();
-      <?php } ?>
-      $('.miscellaneous_required').attr('class','miscellaneous_valid');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').hide();
-      <?php } ?>
-      $('.neurological_required').attr('class','neurological_valid');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').hide();
-      <?php } ?>
-      $('.respiratory_required').attr('class','respiratory_valid');
-      //CRITICAL LEVEL REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
-      <?php } ?>
-      $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').hide();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').hide();
-      <?php } ?>
-      $('.preop_required').attr('class','preop_valid');
-       }
-});
     $('#critical_events_hide').click(function() {
        var selected = $(this).val();
        if(selected == 'NO') 
        {
       //CRITICAL LEVEL AIRWAY
        $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
+      <?php for($c = 0;$c<=10;$c++){ ?>
       $('#critical_level_airway_data<?php echo $c; ?>').hide();
       <?php } ?>
       $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
       //CRITICAL LEVEL CARDIOVASCULAR
        $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
+      <?php for($car = 0;$car<=9;$car++){ ?>
       $('#cardiovascular_data<?php echo $car; ?>').hide();
       <?php } ?>
       $('.cardiovascular_required').attr('class','cardiovascular_valid');
       //CRITICAL LEVEL DISCHARGE PLANNING
        $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
+      <?php for($dis = 0;$dis<=7;$dis++){ ?>
       $('#discharge_planning_data<?php echo $dis; ?>').hide();
       <?php } ?>
       $('.discharge_planning_required').attr('class','discharge_planning_valid');
@@ -1121,19 +1055,19 @@ $('#critical_events_show').click(function() {
       $('.miscellaneous_required').attr('class','miscellaneous_valid');
       //CRITICAL LEVEL NEUROLOGICAL
       $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
+      <?php for($neuro = 0;$neuro<=5;$neuro++){ ?>
       $('#neurological_data<?php echo $neuro; ?>').hide();
       <?php } ?>
       $('.neurological_required').attr('class','neurological_valid');
       //CRITICAL LEVEL RESPIRATORY
       $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
+      <?php for($respiratory = 0;$respiratory<=12;$respiratory++){ ?>
       $('#respiratory_data<?php echo $respiratory; ?>').hide();
       <?php } ?>
       $('.respiratory_required').attr('class','respiratory_valid');
       //CRITICAL LEVEL REGIONAL ANESTHESIA
       $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
+      <?php for($regional_anesthesia = 0;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
       $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
       <?php } ?>
       $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
@@ -1145,7 +1079,6 @@ $('#critical_events_show').click(function() {
       $('.preop_required').attr('class','preop_valid');
        }
 });
-
 $('#colloids_used_show').click(function() {
        var selected = $(this).val();
        if(selected == 'YES')
@@ -1162,121 +1095,35 @@ $('#colloids_used_show').click(function() {
         $('.colloids_used_info_required').attr('class','colloids_used_info_valid');
        }
 });
+    $('#checked_no').click(function() {
+       var selected = $(this).val();
+       if(selected == 'NO')
+       {
+        <?php for ($x=1;$x<=5;$x++) { ?>
+        $('#check<?php echo $x; ?>_no').prop('checked',true)
+        $('#check<?php echo $x; ?>_yes').prop('disabled',true)
+        <?php } ?>
+       }
+       });
+        $('#checked_na').click(function() {
+            if ($(this).is(':checked'))
+            <?php for ($x=1;$x<=5;$x++) { ?>
+            $('#check<?php echo $x; ?>_no').prop('checked',true)
+            $('#check<?php echo $x; ?>_yes').prop('disabled',true)
+            <?php } ?>
+       });
+        $('#unchecked').click(function() {
+       if ($(this).is(':checked'))
+            <?php for ($x=1;$x<=5;$x++) { ?>
+            $('#check<?php echo $x; ?>_no').prop('checked',false)
+            $('#check<?php echo $x; ?>_yes').prop('disabled',false)
+            <?php } ?>
+       });
+
+    
+    
 $('#anesthetic_technique').change(function() {
     var selected = $(this).val();
-    if(selected == '3'){
-      $('#critical_events_yes').show();
-      $('#critical_events_no').hide();
-      $('.critical_event_required').attr('class','critical_event_valid');
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').show();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').show();
-      <?php } ?>
-      $('.critical_level_airway_valid').attr('class','critical_level_airway_required');
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').show();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').show();
-      <?php } ?>
-      $('.cardiovascular_valid').attr('class','cardiovascular_required');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').show();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').show();
-      <?php } ?>
-      $('.discharge_planning_valid').attr('class','discharge_planning_required');
-       //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').show();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').show();
-      <?php } ?>
-      $('.9').prop('checked',true);
-      $('.9').click(false);
-      
-      $('.miscellaneous_valid').attr('class','miscellaneous_required');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').show();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').show();
-      <?php } ?>
-      $('.neurological_valid').attr('class','neurological_required');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').show();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').show();
-      <?php } ?>
-      $('.respiratory_valid').attr('class','respiratory_required');
-      //REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').show();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').show();
-      <?php } ?>
-      $('.regional_anesthesia_valid').attr('class','regional_anesthesia_required');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').show();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').show();
-      <?php } ?>
-      $('.preop_valid').attr('class','preop_required');
-    }
-    else
-    {
-      $('#critical_events_yes').hide();
-      $('#critical_events_no').show();
-      $('.critical_event_valid').attr('class','critical_event_required');
-      //CRITICAL LEVEL AIRWAY
-       $('#critical_level_airway_title').hide();
-      <?php for($c = 1;$c<=8;$c++){ ?>
-      $('#critical_level_airway_data<?php echo $c; ?>').hide();
-      <?php } ?>
-      $('.critical_level_airway_required').attr('class','critical_level_airway_valid');
-      
-      //CRITICAL LEVEL CARDIOVASCULAR
-       $('#cardiovascular_title').hide();
-      <?php for($car = 1;$car<=9;$car++){ ?>
-      $('#cardiovascular_data<?php echo $car; ?>').hide();
-      <?php } ?>
-      $('.cardiovascular_required').attr('class','cardiovascular_valid');
-      //CRITICAL LEVEL DISCHARGE PLANNING
-       $('#discharge_planning_title').hide();
-      <?php for($dis = 1;$dis<=7;$dis++){ ?>
-      $('#discharge_planning_data<?php echo $dis; ?>').hide();
-      <?php } ?>
-      $('.discharge_planning_required').attr('class','discharge_planning_valid');
-      //CRITICAL LEVEL MISCELLANEOUS
-      $('#miscellaneous_title').hide();
-      <?php for($misc = 1;$misc<=12;$misc++){ ?>
-      $('#miscellaneous_data<?php echo $misc; ?>').hide();
-      <?php } ?>
-       $('.9').prop('disabled',false);
-      $('.9').prop('checked',false);
-      $('.miscellaneous_required').attr('class','miscellaneous_valid');
-      //CRITICAL LEVEL NEUROLOGICAL
-      $('#neurological_title').hide();
-      <?php for($neuro = 1;$neuro<=5;$neuro++){ ?>
-      $('#neurological_data<?php echo $neuro; ?>').hide();
-      <?php } ?>
-      $('.neurological_required').attr('class','neurological_valid');
-      //CRITICAL LEVEL RESPIRATORY
-      $('#respiratory_title').hide();
-      <?php for($respiratory = 1;$respiratory<=12;$respiratory++){ ?>
-      $('#respiratory_data<?php echo $respiratory; ?>').hide();
-      <?php } ?>
-      $('.respiratory_required').attr('class','respiratory_valid');
-      //CRITICAL LEVEL REGIONAL ANESTHESIA
-      $('#regional_anesthesia_title').hide();
-      <?php for($regional_anesthesia = 1;$regional_anesthesia<=12;$regional_anesthesia++){ ?>
-      $('#regional_anesthesia_data<?php echo $regional_anesthesia; ?>').hide();
-      <?php } ?>
-      $('.regional_anesthesia_required').attr('class','regional_anesthesia_valid');
-      //CRITICAL LEVEL PREOP
-      $('#preop_title').hide();
-      <?php for($preop = 1;$preop<=12;$preop++){ ?>
-      $('#preop_data<?php echo $preop; ?>').hide();
-      <?php } ?>
-      $('.preop_required').attr('class','preop_valid');
-    }
     if (selected == '9')
     {
         $('#peripheral_data').show();
@@ -1288,5 +1135,6 @@ $('#anesthetic_technique').change(function() {
         $('.peripheral_required').attr('class','peripheral_valid');
     }
 });
+
 </script>
 </html>

@@ -213,7 +213,214 @@ Class Edit_caselog_model extends CI_Model
 		$this->db->where('patient_form_id',$patient_form_id);
 		$this->db->delete('patient_form_apgar_details');
 	}
-	
+	//CRITICAL EVENTS AIRWAY
+	function critical_events_airway_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_airway_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS AIRWAY
+	function edit_critical_events_airway($patient_form_id,$critical_level_airway)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_airway_details');
+		for($i=0; $i<count($critical_level_airway);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_airway_id' => $critical_level_airway[$i]
+					 );
+		}
+		if (isset($critical_level_airway))
+		{
+			$this->db->insert_batch('patient_form_critical_level_airway_details', $data);
+		}
+	}
+	//CRITICAL EVENTS CARDIOVASCULAR
+	function critical_events_cardiovascular_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_cardiovascular_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS CARDIOVASCULAR
+	function edit_critical_events_cardiovascular($patient_form_id,$critical_events_cardiovascular)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_cardiovascular_details');
+		for($i=0; $i<count($critical_events_cardiovascular);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_cardiovascular_id' => $critical_events_cardiovascular[$i]
+					 );
+		}
+		if (isset($critical_events_cardiovascular))
+		{
+			$this->db->insert_batch('patient_form_critical_level_cardiovascular_details', $data);
+		}
+	}
+	//CRITICAL EVENTS DISCHARGED PLANNING
+	function critical_level_discharge_planning_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_discharge_planning_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS DISCHARGE_PLANNING
+	function edit_critical_events_discharge_planning($patient_form_id,$critical_events_discharge_planning)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_discharge_planning_details');
+		for($i=0; $i<count($critical_events_discharge_planning);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_discharge_planning_id' => $critical_events_discharge_planning[$i]
+					 );
+		}
+		if (isset($critical_events_discharge_planning))
+		{
+			$this->db->insert_batch('patient_form_critical_level_discharge_planning_details', $data);
+		}
+	}
+	//CRITICAL EVENTS MISCELLANEOUS
+	function critical_level_miscellaneous_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_miscellaneous_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS MISCELLANEOUS
+	function edit_critical_events_miscellaneous($patient_form_id,$critical_events_miscellaneous)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_miscellaneous_details');
+		for($i=0; $i<count($critical_events_miscellaneous);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_miscellaneous_id' => $critical_events_miscellaneous[$i]
+					 );
+		}
+		if (isset($critical_events_miscellaneous))
+		{
+			$this->db->insert_batch('patient_form_critical_level_miscellaneous_details', $data);
+		}
+	}
+	//CRITICAL EVENTS NEUROLOGICAL
+	function critical_level_neurological_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_neurological_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS NEUROLOGICAL
+	function edit_critical_events_neurological($patient_form_id,$critical_events_neurological)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_neurological_details');
+		for($i=0; $i<count($critical_events_neurological);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_neurological_id' => $critical_events_neurological[$i]
+					 );
+		}
+		if (isset($critical_events_neurological))
+		{
+			$this->db->insert_batch('patient_form_critical_level_neurological_details', $data);
+		}
+	}
+	//CRITICAL EVENTS RESPIRATORY
+	function critical_level_respiratory_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_respiratory_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS RESPIRATORY
+	function edit_critical_events_respiratory($patient_form_id,$critical_events_respiratory)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_respiratory_details');
+		for($i=0; $i<count($critical_events_respiratory);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_respiratory_id' => $critical_events_respiratory[$i]
+					 );
+		}
+		if (isset($critical_events_respiratory))
+		{
+			$this->db->insert_batch('patient_form_critical_level_respiratory_details', $data);
+		}
+	}
+	//CRITICAL EVENTS REGIONAL ANESTHESIA
+	function critical_level_regional_anesthesia_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_regional_anesthesia_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS REGIONAL ANESTHESIA
+	function edit_critical_events_regional_anesthesia($patient_form_id,$critical_events_regional_anesthesia)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_regional_anesthesia_details');
+		for($i=0; $i<count($critical_events_regional_anesthesia);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_regional_anesthesia_id' => $critical_events_regional_anesthesia[$i]
+					 );
+		}
+		if (isset($critical_events_regional_anesthesia))
+		{
+			$this->db->insert_batch('patient_form_critical_level_regional_anesthesia_details', $data);
+		}
+	}
+	//CRITICAL EVENTS PREOP
+	function critical_level_preop_details($pf_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form_critical_level_preop_details');
+		$this->db->where('patient_form_id',$pf_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//EDIT CRITICAL EVENTS PREOP
+	function edit_critical_events_preop($patient_form_id,$critical_events_preop)
+	{
+		$this->db->where('patient_form_id',$patient_form_id);
+		$this->db->delete('patient_form_critical_level_preop_details');
+		for($i=0; $i<count($critical_events_preop);$i++)
+		{
+			$data[] = array(
+					 'patient_form_id' => $patient_form_id,
+					 'critical_level_preop_id' => $critical_events_preop[$i]
+					 );
+		}
+		if (isset($critical_events_preop))
+		{
+			$this->db->insert_batch('patient_form_critical_level_preop_details', $data);
+		}
+	}
 	
 	
 	

@@ -50,7 +50,11 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
+<<<<<<< HEAD
 $db['default']['password'] = '';
+=======
+$db['default']['password'] = 'M4Buh47k4';
+>>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
 $db['default']['database'] = 'anesthesiology';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
