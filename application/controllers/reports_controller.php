@@ -387,8 +387,6 @@ function annual_patient_classification_and_distribution_summary()
         }
         $this->reports_model->exec($user_id,$d);
     }
-    
-    // argemgrflores 20140515
     function monthly_report()
     {
         $user_id = $this->input->get('resident_id');

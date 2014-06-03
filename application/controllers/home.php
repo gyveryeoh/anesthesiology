@@ -18,30 +18,16 @@ class Home extends CI_Controller {
                         $session_data = $this->session->userdata('logged_in');
                         $data["user_information"] = $session_data;
                         $this->load->view('header/header', $data);
-                        $this->load->view('home_view');
-                }
-                else
-                {
-                        redirect('login', 'refresh');
-                }
-        }
-        function add_patient()
-        {
-                if ($this->input->post('month') == "00")
-                {
-                        redirect('home','refresh');
-                }
-                if($this->session->userdata('logged_in'))
-                {
+                         $this->load->view('home_view');
+                        if ($this->input->post('submit'))
+                        {
                         $session_data = $this->session->userdata('logged_in');
                         $data["user_information"] = $session_data;
                         $case_number = $this->input->post('case_number');
                         $data['case_number'] = $this->user->case_number_checking($case_number,$session_data['institution_id']);
                         if ($data['case_number'] == true)
                         {
-                                $data['message'] = "CASE NUMBER IS ALREADY EXIST.";
-                                $this->load->view('header/header',$data);
-                                $this->load->view('home_view',$data);
+                                $this->load->view('result',$data);
                         }
                         elseif ($data['case_number'] == false)
                         {
@@ -59,11 +45,12 @@ class Home extends CI_Controller {
                                 $hospital_rotation = $this->input->post('hospital_rotation');
                                 redirect('home/anesthesiology_form/'.$patient_information_id."/".$hospital_rotation);
                         }
-                        else
+                        }
+                }
+                else
                         {
                                 redirect('login', 'refresh');
                         }
-                }
         }
         function add_anesthesiology_information()
         {

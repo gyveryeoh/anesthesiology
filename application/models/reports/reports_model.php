@@ -212,7 +212,7 @@ Class Reports_model extends CI_Model
                 '{$cols}' => $cols,
                 '{$joins}' => $joins,
             ));
-            
+            $this->db->query('SET SQL_BIG_SELECTS=1'); 
             $results = $this->db->query($query)->result();
         }
         
@@ -272,7 +272,6 @@ Class Reports_model extends CI_Model
             // '{$months}' => $months,
             '{$filters}' => $filters,
         ));
-        chrome_log($query);
         $results = $this->db->query($query)->result();
         
         return $results;

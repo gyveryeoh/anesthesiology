@@ -87,8 +87,7 @@ union all (
         where
             asv.id = pf.service
             and pf.anesth_status_id = (
-                select
-                    id
+                select anesth_status.id
                 from
                     anesth_status
                 where
