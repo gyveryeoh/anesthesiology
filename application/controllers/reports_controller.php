@@ -567,6 +567,9 @@ function annual_patient_classification_and_distribution_summary()
         $session_data = $this->session->userdata('logged_in');
         $data["user_information"] = $session_data;
 		$data["anesth_institutions"] = $this->dropdown_select->anesth_institutions();
+		$data["institution_id"] = 0;
+		$data["year_level"] = 0;
+		$data["year"] = 0;
 		
 		$institution_id = 0;
 		$year_level = 0;
