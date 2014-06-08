@@ -1,7 +1,7 @@
 <?php
 Class Users_model extends CI_Model
 {
-	function count_view_caselog_details_1($insti_id, $user_id, $status)
+	function count_view_caselog_details_1($user_id,$status)
 	{
 		$this->db->select('*');
 		$this->db->from('patient_form');
@@ -10,14 +10,10 @@ Class Users_model extends CI_Model
 		{
 			$this->db->where('anesth_status_id',$status);
 		}
-		if($insti_id != 0)
-		{
-			$this->db->where('information_id',$insti_id);
-		}
 		$q = $this->db->get();
 		return $q->num_rows();
 	}
-	function fetch_search_caselog_details($limit,$start,$insti_id,$user_id,$status)
+	function fetch_search_caselog_details($limit,$start,$user_id,$status)
 	{
 		$this->db->limit($start,$limit);
 		$this->db->select('*,
@@ -40,10 +36,6 @@ Class Users_model extends CI_Model
 		if($status != 0)
 		{
 			$this->db->where('anesth_status.id',$status);
-		}
-		if($insti_id != 0)
-		{
-			$this->db->where('institution_id',$insti_id);
 		}
 		$this->db->order_by("users.lastname", "asc");
 		$query = $this->db->get();	

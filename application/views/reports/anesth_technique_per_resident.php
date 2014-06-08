@@ -13,8 +13,10 @@
             });
         });
     });
+	3
+	0
 </script>
-<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/index">
+<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/anesthesia_hours">
 <table width="90%" cellpadding="0" cellspacing="2">
         <tr>
                 <td class="border-less header" align="center" colspan="3">MONTHLY TECHNIQUE REPORT</td>

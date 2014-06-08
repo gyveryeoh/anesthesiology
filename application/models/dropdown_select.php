@@ -206,6 +206,7 @@ function anesth_techniques_reports()
      $query = $this->db->get();
      return $query->result();
 }
+
  function users_lists($insti_id)
  {
      $this->db->select('*');

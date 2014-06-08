@@ -1,38 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Reports_controller extends CI_Controller
 {
-<<<<<<< HEAD
-function __construct()
-{
-parent::__construct();
-$this->load->model('dropdown_select','',TRUE);
-$this->load->model('user');
-$this->load->model('users_model/users_model','view_caselogs');
-$this->load->model('reports/reports_model','reports_model');
-$this->load->library('session');
-$this->load->helper('url');
-}
-function index()
-{
-if($this->session->userdata('logged_in'))
-{
-$session_data = $this->session->userdata('logged_in');
-$data["user_information"] = $session_data;
-$user_id = $session_data['id'];
-$datas['anesth_technique'] = $this->dropdown_select->anesth_techniques_reports();
-foreach($datas['anesth_technique'] as $n)
-{
-$datas["count_per_technique"][$n->id] = $this->reports_model->anesth_technique_count($n->id,$user_id);
-}
-$this->load->view('header/header',$data);
-$this->load->view('header/reports_header');
-$this->load->view('reports/anesth_technique_per_resident',$datas);
-}
-else
-{
-redirect('login', 'refresh');
-}
-=======
 	function __construct()
 	{
 		parent::__construct();
@@ -81,7 +49,6 @@ redirect('login', 'refresh');
         {
             redirect('login', 'refresh');
         }
->>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
 }
 //SERVICE MONTHLY REPORT
 function anesth_services()
@@ -280,46 +247,6 @@ function annual_patient_classification_and_distribution_summary()
         $this->load->view('reports/residents_per_institution',$datas);
     }
 
-<<<<<<< HEAD
-function institution_view()
-{
-	
-	$session_data = $this->session->userdata('logged_in');
-	$data["user_information"] = $session_data;
-	if($this->session->userdata('logged_in'))
-	{	
-		$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
-		$datas["year"] = "";
-		$this->load->view('header/header',$data);
-		$this->load->view('header/reports_header',$data);
-		$this->load->view('reports/residents_per_institution',$datas);
-	}
-	else
-	{
-		redirect('login', 'refresh');
-	}
-}
-
-function caselog_view_superuser()
-{
-	
-	$session_data = $this->session->userdata('logged_in');
-	$user_id = $session_data['id'];
-	$data["user_information"] = $session_data;
-	if($this->session->userdata('logged_in'))
-	{	
-		$datas['anesth_institutions'] = $this->dropdown_select->anesth_institutions();
-		$datas['anesth_status'] = $this->dropdown_select->anesth_status();
-		$this->load->view('header/header',$data);
-		$this->load->view('header/reports_header',$data);
-		$this->load->view('reports/search_caselog_superuser',$datas);
-	}
-	else
-	{
-		redirect('login', 'refresh');
-	}
-}
-=======
     function get_resident_per_institution($insti_id='')
     {
         $data = '';
@@ -391,7 +318,6 @@ function caselog_view_superuser()
                 $datas["count_per_service"][$n->id] = $this->reports_model->anesth_service_count($n->id,$user_id);
             }
         }
->>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
 
         echo "<table cellpadding='1' cellspacing='0'>
 <tr>
@@ -489,97 +415,6 @@ function caselog_view_superuser()
                 $results['institutions'][$inst->id] = $inst->name;
             }
 
-<<<<<<< HEAD
-		echo "<table cellpadding='1' cellspacing='0'>
-		<tr>
-		<th width='1500'>Techniques</th>
-		<th>Count</th>
-		</tr>";
-		foreach($datas['anesth_technique'] as $tech):
-		echo "
-		<tr>
-		<td>".$tech->name."</td>
-		<td align=center>".$datas["count_per_technique"][$tech->id]."</td>
-		</tr>";
-		$total += $datas["count_per_technique"][$tech->id];
-		endforeach;
-		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
-		
-		$total = 0;
-		
-		echo "<table cellpadding='1' cellspacing='0'>
-		<tr>
-		<th width='1500'>Service</th>
-		<th>Count</th>
-		</tr>";
-		foreach($datas['anesth_services'] as $ser):
-		echo "
-		<tr>
-		<td>".$ser->name."</td>
-		<td align=center>".$datas["count_per_service"][$ser->id]."</td>
-		</tr>";
-		$total += $datas["count_per_service"][$ser->id];		
-		endforeach;
-		echo "<tr><th align='right' class='border-less'>TOTAL</th><td style='color: red;text-align: center;border: hidden;'><b>$total</b></td></tr>";
-	}
-	
-	function activate_deactivate()
-	{
-		$user_id = $this->input->post('user_id');
-		$index = $this->input->post('index');
-		//echo $user_id;
-		$status = $this->reports_model->act_dec($user_id);
-		foreach($status as $row)
-		{
-			if($row->status == 0)
-			{
-				echo "<button onClick='a_d($user_id,$index,1)'>Deactivate</button>";
-			}
-			else
-			{
-				echo "<button onClick='a_d($user_id,$index,2)'>Activate</button>";
-			}
-		}
-	}
-	
-	function execute()
-	{
-		$user_id = $this->input->post('user_id');
-		$id = $this->input->post('id');
-		if($id == 1)
-		{
-			$d = array(
-					 'status' => 1
-					 );
-		}
-		else
-		{
-			$d = array(
-					 'status' => 0
-					 );
-		}
-		$this->reports_model->exec($user_id,$d);
-	}
-	
-	function superuser_caselog()
-	{
-		$insti_id = $this->input->post("insti_id");
-		$user_id = $this->input->post("user_id");
-		$status = $this->input->post("status");
-		$this->load->library('pagination');
-		if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
-		$config["base_url"] = base_url()."index.php/users_controller/users_caselog";
-		$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-		$config["total_rows"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,$status);
-		$config["per_page"] = 10;
-		$config["uri_segment"] = 3;
-		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$insti_id,$user_id,$status);
-			
-		echo "fuck";
-	}
-=======
             $trainees = $this->dropdown_select->users_lists(empty($filters['institution_id']) ? null : $filters['institution_id']);
             $results['trainees'][''] = '- Select trainee -';
             foreach ($trainees as $trainee) {
@@ -725,5 +560,150 @@ function caselog_view_superuser()
             redirect('login', 'refresh');
         }
     }
->>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
+	
+	function anesthesia_hours()
+	{
+        $user_id = $this->input->get('resident_id');
+        $session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+		$data["anesth_institutions"] = $this->dropdown_select->anesth_institutions();
+		$data["institution_id"] = 0;
+		$data["year_level"] = 0;
+		$data["year"] = 0;
+		
+		$institution_id = 0;
+		$year_level = 0;
+		$year = 0;
+		$table = "";
+		$compute = true;
+		
+		if($this->input->post('submit'))
+		{
+			$institution_id = $this->input->post('institution_id');
+			$year_level = $this->input->post('year_level');
+			$year = $this->input->post('year');
+			$data["institution_id"] = $institution_id;
+			$data["year_level"] = $year_level;
+			$data["year"] = $year;
+		}
+		
+		
+		if($institution_id == 0)
+		{
+			$data["anesth_institutions"] = $this->dropdown_select->anesth_institutions();
+		
+			foreach($data["anesth_institutions"] as $ai)
+			{
+				$anesth_id = $ai->id;
+				$data["users_per_institutions"] = $this->reports_model->users_per_institution($anesth_id,$year_level);
+				foreach($data["users_per_institutions"] as $upi)
+				{			
+					$user_id = $upi->id;
+					$total_diff = 0;	
+					//echo "institution id : ". $anesth_id." =  User Id : ". $user_id . "</br>";
+					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($anesth_id,$user_id);
+					foreach($data["patient_form_get_time"] as $pfgt)
+					{
+						$anesth_year = 0;
+						$anesth_start = $pfgt->anesthesia_start;
+						$compute = true;
+						
+						if($year != 0)
+						{
+							$anesth_year = date('Y',strtotime($anesth_start));			
+							if($anesth_year != $year)
+							{
+								$compute = false;
+							}
+						}
+						
+						if($compute == true)
+						{
+							//echo "patient form id :" . $pfgt->id."=";
+							$day1 = $anesth_start." ".$pfgt->anesthesia_start_time;
+							$day2 = $pfgt->anesthesia_end." ".$pfgt->anesthesia_end_time;
+							$diff_seconds  = strtotime($day2) - strtotime($day1);
+							$anesth_diff= floor($diff_seconds/3600).'.'.floor(($diff_seconds%3600)/60);
+							$total_diff = $total_diff + $anesth_diff;
+							//echo $total_diff."</br>";
+						}
+					}
+					
+					$status_id = $this->dropdown_select->anesth_status();
+					foreach($status_id as $sid)
+					{
+						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $anesth_id);
+					}
+						$table = $table . "<tr>
+											<td>".$upi->lastname.",".$upi->firstname." ". $upi->middle_initials." </td>
+											<td>". $upi->year_lvl ."</td>
+											<td>". $total_diff ."</td>
+											<td>". $total[1] ."</td>
+											<td>". $total[2] ."</td>
+											<td>". $total[3] ."</td>
+											<td>". $total[4] ."</td>
+											<td>". $total[5] ."</td>
+											<td>". $total[7] ."</td>
+											<td>". $total[8] ."</td>
+											
+										  </tr>";	
+				}
+			}
+		}
+		else
+		{
+				$data["users_per_institutions"] = $this->reports_model->users_per_institution($institution_id,$year_level);
+				foreach($data["users_per_institutions"] as $upi)
+				{
+					
+					$user_id = $upi->id;
+					$total_diff = 0;	
+					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($institution_id,$user_id);
+					foreach($data["patient_form_get_time"] as $pfgt)
+					{
+						$anesth_year = 0;
+						$anesth_start = $pfgt->anesthesia_start;
+						$compute = true;
+						if($year != 0)
+						{
+							$anesth_year = date('Y',strtotime($anesth_start));			
+							if($anesth_year != $year)
+							{
+								$compute = false;
+							}
+						}
+						if($compute == true)
+						{
+							$day1 = $anesth_start." ".$pfgt->anesthesia_start_time;
+							$day2 = $pfgt->anesthesia_end." ".$pfgt->anesthesia_end_time;
+							$diff_seconds  = strtotime($day2) - strtotime($day1);
+							$anesth_diff= floor($diff_seconds/3600).'.'.floor(($diff_seconds%3600)/60);
+							$total_diff = $total_diff + $anesth_diff;
+						}
+					}
+					$status_id = $this->dropdown_select->anesth_status();
+					foreach($status_id as $sid)
+					{
+						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $institution_id);
+					}
+						$table = $table . "<tr>
+											<td>".$upi->lastname.",".$upi->firstname." ". $upi->middle_initials." </td>
+											<td>". $upi->year_lvl ."</td>
+											<td>". $total_diff ."</td>
+											<td>". $total[1] ."</td>
+											<td>". $total[2] ."</td>
+											<td>". $total[3] ."</td>
+											<td>". $total[4] ."</td>
+											<td>". $total[5] ."</td>
+											<td>". $total[7] ."</td>
+											<td>". $total[8] ."</td>						
+										  </tr>";	
+				}			
+		}
+		$data["table"] = $table;
+		$this->load->view('header/header', $data);
+	    $this->load->view('header/reports_header');
+        $this->load->view('reports/total_anesthesia_hours',$data);		
+		
+	}
 }

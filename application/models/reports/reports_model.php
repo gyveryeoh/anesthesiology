@@ -295,5 +295,42 @@ Class Reports_model extends CI_Model
         
         return $results;
     }
+	
+	function users_per_institution($institution_id,$year_level)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('institution_id',$institution_id);
+		$this->db->where("year_lvl != ''");	
+		$this->db->where("year_lvl !=",6);
+		if($year_level != 0)
+		{
+			$this->db->where("year_lvl",$year_level);
+		}
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	function patient_form_get_time($institution_id,$user_id)
+	{
+		$this->db->select('*');
+		$this->db->from('patient_form');
+		$this->db->where('institution_id',$institution_id);
+		$this->db->where('user_id',$user_id);
+		$this->db->where('anesth_status_id',4);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	function patient_form_status($status_id, $user_id,$institution_id)
+	{
+		$this->db->select('anesth_status_id');
+		$this->db->from('patient_form');
+		$this->db->where('institution_id',$institution_id);
+		$this->db->where('anesth_status_id',$status_id);
+		$this->db->where('user_id',$user_id);
+		$result = $this->db->get();
+        return $result->num_rows();		
+	}
 }
 ?>

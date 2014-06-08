@@ -77,7 +77,6 @@ class Users_controller extends CI_Controller
 		if($this->session->userdata('logged_in'))
 		{
 			$status = $this->input->get('status');
-			$insti_id = 0;
 			$session_data = $this->session->userdata('logged_in');
 			$data["user_information"] = $session_data;
 			$user_id = $session_data['id'];
@@ -85,20 +84,11 @@ class Users_controller extends CI_Controller
 			if (count($_GET) > 0) $config['suffix'] = '?' . http_build_query($_GET, '', "&");
 			$config["base_url"] = base_url()."index.php/users_controller/users_caselog";
 			$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
-			$config["total_rows"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,$status);
+			$config["total_rows"] = $this->view_caselogs->count_view_caselog_details_1($user_id,$status);
 			$config["per_page"] = 10;
 			$config["uri_segment"] = 3;
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-<<<<<<< HEAD
-			$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$insti_id,$user_id,$status);
-			$datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,0);
-			$datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,1);
-			$datas["count_forRevision"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,3);
-			$datas["count_approved"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$insti_id,$user_id,4);
-			$datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,5);
-			$datas["count_deleted"] = $this->view_caselogs->count_view_caselog_details_1($insti_id,$user_id,7);
-=======
 			$datas["caselog_information"] = $this->view_caselogs->fetch_search_caselog_details($page,$config["per_page"],$user_id,$status);
 			$datas["count_all"] = $this->view_caselogs->count_view_caselog_details_1($user_id,0);
 			$datas["count_submitted"] = $this->view_caselogs->count_view_caselog_details_1($user_id,1);
@@ -107,7 +97,6 @@ class Users_controller extends CI_Controller
 			$datas["count_disapproved"] = $this->view_caselogs->count_view_caselog_details_1($user_id,5);
 			$datas["count_revised"] = $this->view_caselogs->count_view_caselog_details_1($user_id,7);
 			$datas["count_open"] = $this->view_caselogs->count_view_caselog_details_1($user_id,8);
->>>>>>> c681a62e424c6cff72b88ef083ae55b1b2f35f61
 			$datas['status_list'] = $this->dropdown_select->anesth_status();
 			$this->load->view('header/header', $data);
 			$this->load->view('header/reports_header');
