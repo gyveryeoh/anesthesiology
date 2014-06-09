@@ -6,9 +6,9 @@
                 <a href="<?php echo base_url();?>index.php/reports_controller/institution_view">INSTITUTION SUMMARY REPORT</a>-
                 <?php }  */?>
                 
-                <a href="<?php echo base_url();?>index.php/reports_controller/anesth_services">MONTHLY SERVICE REPORT</a>
+                <a href="<?php echo base_url();?>index.php/reports_controller/index">MONTHLY TECHNIQUE REPORT</a>
                 <?php if ($user_information['role_id'] == "3" || $user_information['role_id'] == "2"){?> -
-                <a href="<?php echo base_url();?>index.php/reports_controller/annual_service_report">ANNUAL SERVICE REPORT</a>
+                <a href="<?php echo base_url();?>index.php/reports_controller/annual_anesthetic_report">ANNUAL TECHNIQUE REPORT</a>
                 <?php } ?>
         </tr>
 </table>

@@ -14,9 +14,8 @@
         });
     });
 </script>
-<form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog">
+<form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/advance_searchcaselog">
 <table width="90%" cellpadding="0" cellspacing="0">
-        <input type="text" name="main_agent" value="0">
         <tr>
                 <td class="border-less header" align="center" colspan="11">CASELOG SEARCH</td>
         </tr>
@@ -41,6 +40,10 @@
                 </td>
         </tr>
         <tr>
+                <td class="border-less question" align="right" width="20%" colspan=2>DIAGNOSIS</td>
+                <td class="border-less answer" colspan="9"><input type="text" name="diagnosis" size="30"></td>
+        </tr>
+        <tr>
                 <td class="border-less question" align="right" colspan="2">ANESTHETIC TECHNIQUE</td>
                 <td class="border-less answer" colspan="9">
                         <select name="technique" style="width: auto;">
@@ -49,6 +52,20 @@
                               foreach($technique as $technique_list)
                               {
                                echo "<option value='".$technique_list->id."'>".$technique_list->name."</option>";
+                              }
+                              ?>
+                        </select>
+                </td>
+        </tr>
+        <tr>
+                <td class="border-less question" align="right" colspan="2">MAIN AGENT</td>
+                <td class="border-less answer" colspan="9">
+                        <select name="main_agent" style="width: auto;">
+                            <option value="0">ALL</option>
+                              <?php
+                              foreach($main_agents as $agent_list)
+                              {
+                               echo "<option value='".$agent_list->id."'>".$agent_list->name."</option>";
                               }
                               ?>
                         </select>
@@ -84,6 +101,33 @@
                 </td>
         </tr>
         <tr>
+                <td class="border-less question" align="right" colspan="2">PATIENT CLASSIFICATION</td>
+                <td class="border-less answer" colspan="9">
+                        <select name="patient_classification" style="width: auto;">
+                              <option value="0">ALL</option>
+                              <option value="1">ASA 1</option>
+                              <option value="2">ASA 2</option>
+                              <option value="3">ASA 3</option>
+                              <option value="4">ASA 4</option>
+                              <option value="5">ASA 5</option>
+                              <option value="6">ASA 6</option>
+                        </select> <input type="checkbox" name="emergency" value="Y"> EMERGENCY
+                </td>
+        </tr>
+        <tr>
+                <td class="border-less question" align="right" colspan="2">PATIENT AGE</td>
+                <td class="border-less answer" colspan="9">
+                        <select name="patient_age" style="width: auto;">
+                              <option value="0">ALL</option>
+                              <option value="1">0 -< 1yr</option>
+                              <option value="3">1 -< 2yrs</option>
+                              <option value="18">3 -< 18yrs</option>
+                              <option value="65">18 -< 65yrs</option>
+                              <option value="66">65YRS AND UP</option>
+                        </select>
+                </td>
+        </tr>
+        <tr>
                 <td class="border-less question" align="right" colspan="2">OPERATION DATE</td>
                 <td class="border-less answer" colspan="9"><input type="checkbox" name="include_date" value="1">Include cases from date : <input type="text" id="datepicker-example11" name="start_date" size="10" value="<?php echo date('Y-m-d'); ?>"> to date : <input type="text" id="datepicker-example12" name="end_date" size="10" value="<?php echo date('Y-m-d'); ?>"></td>
         </tr>
@@ -111,7 +155,7 @@
         </tr>
         <tr>
                 <td class="border-less" align="right" colspan="2">&nbsp;</td>
-                <td class="border-less"><br><input type="submit" name="submit" value="SEARCH"><br><br>
+                <td class="border-less"><br><input type="submit" name="submit" value="ADVANCED SEARCH"><br><br>
         </tr>
         <?php
         if (!empty($caselog_information))
@@ -143,7 +187,7 @@
         if ($row->anesth_name == "Disapprove"){$row->anesth_name = "Disapproved";}
         if ($row->anesth_name == "Approve"){$row->anesth_name = "Approved";}
         ?>
-        <tr class="answer"><td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>?&case_number=<?php echo $this->input->get('case_number'); ?>&service=<?php echo $this->input->get('service'); ?>&technique=<?php echo $this->input->get('technique'); ?>&hospital_id=<?php echo $this->input->get('hospital_id'); ?>&user_id=<?php echo $this->input->get('user_id'); ?>&start_date=<?php echo $this->input->get('start_date'); ?>&end_date=<?php echo $this->input->get('end_date'); ?>&status_id=<?php echo $this->input->get('status_id'); ?>"><?php echo $row->patient_info_case_number; ?></a></td>
+        <tr class="answer"><td><a href="<?php echo base_url(); ?>index.php/caselog_controller/index/<?php echo $row->p_id; ?>/<?php echo $row->patient_form_id; ?>?&case_number=<?php echo $this->input->get('case_number'); ?>&service=<?php echo $this->input->get('service'); ?>&technique=<?php echo $this->input->get('technique'); ?>&hospital_id=<?php echo $this->input->get('hospital_id'); ?>&user_id=<?php echo $this->input->get('user_id'); ?>&start_date=<?php echo $this->input->get('start_date'); ?>&end_date=<?php echo $this->input->get('end_date'); ?>&status_id=<?php echo $this->input->get('status_id'); ?>&diagnosis=<?php echo $this->input->get('diagnosis'); ?>"><?php echo $row->patient_info_case_number; ?></a></td>
         <?php
         echo "<td>".$row->lastname.", ".$row->firstname." ".$row->middle_initials.".</td>
         <td>".$row->patient_info_lastname."-".$row->patient_info_firstname."-".$row->patient_info_middle_initials."</td>

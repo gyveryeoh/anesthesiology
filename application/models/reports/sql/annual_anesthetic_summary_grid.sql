@@ -96,5 +96,6 @@ union all (
                     upper(name) in ('APPROVED', 'APPROVE')
             )
             {$filters}
+            and institution_id in ('2')
     ) t1
 )

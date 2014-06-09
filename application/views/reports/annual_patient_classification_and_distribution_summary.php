@@ -1,20 +1,4 @@
-<script src="<?php echo base_url() ?>assets/javascript/jquery.js" type="text/javascript"></script>
-<script>
-    $(document).ready(function(){
-        $("#insti_id").change(function(){
-            var insti_id = $("#insti_id").val();
-            $.ajax({
-               type : "POST",
-               url  : "<?php echo base_url(); ?>index.php/reports_controller/get_resident_per_institution",
-               data : "insti_id=" + insti_id,
-               success: function(data){
-                   $("#users_info").html(data);
-               }
-            });
-        });
-    });
-</script>
-<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/index">
+<form method="post" action="<?php echo base_url(); ?>index.php/reports_controller/annual_patient_classification_and_distribution_summary">
 <table width="90%" cellpadding="0" cellspacing="2">
         <tr>
                 <td class="border-less header" align="center" colspan="3">ANNUAL PATIENT CLASSIFICATION AND DISTRIBUTION SUMMARY</td>
@@ -25,27 +9,15 @@
         <tr <?php if ($user_information['role_id'] !=3) {echo "style=display:none;"; } ?>>
                 <td class="border-less question" align="right" colspan="2">HOSPITAL </td>
                 <td class="border-less answer" colspan="3">
-                        <select name="hospital_id" id="insti_id">
-                                <option value="">-SELECT HOSPITAL-</option>
+                        <select name="institution_id">
+                                <option value="">-SELECT INSTITUTION-</option>
                                 <?php
                                 foreach ($institution_list as $ai):
                                 ?>
-                                <option value="<?php echo $ai->id; ?>" <?php if ($ai->id == $this->input->post('hospital_id')) { echo 'selected=selected'; }?>><?php echo $ai->name; ?></option>
+                                <option value="<?php echo $ai->id; ?>" <?php if ($ai->id == $this->input->post('institution_id')) { echo 'selected=selected'; }?>><?php echo $ai->name; ?></option>
                                 <?php
                                 endforeach;
                                 ?>
-                        </select>
-                </td>
-        </tr>
-        <tr <?php if ($user_information['role_id'] !=3 && $user_information['role_id'] !=2) {echo "style=display:none;"; } ?>>
-                <td class="border-less question" align="right" colspan="2" width="40%">RESIDENT NAME</td>
-                <td class="border-less answer" colspan="3">
-                        <select name="user_id" style="width: auto;" id="users_info">
-			      <option value="0" <?php if ($user_information['id'] == 3) { echo 'selected=selected'; }?>>SELECT RESIDENT</option>
-                              <?php
-                              foreach($users_list as $list): ?>
-                              <option value="<?php echo $list->id; ?>" <?php if ($list->id == $user_information['id'] || $list->id == $this->input->post('user_id')) { echo 'selected=selected'; }?>><?php echo $list->lastname.", ".$list->firstname." ".$list->middle_initials; ?></option>
-                              <?php endforeach; ?>
                         </select>
                 </td>
         </tr>
@@ -55,7 +27,7 @@
 	    <select name="year" size="1" style="width: 60px;">
 		<option value="0">ALL</option>
 				<?php
-				for($x=date('Y');$x>=2013;$x--)
+				for($x=date('Y');$x>=2010;$x--)
 				{
 					echo "<option value=".$x."";
 					
@@ -74,6 +46,7 @@
                 <td class="border-less question" align="right" colspan="2">STATUS</td>
                 <td class="border-less answer" colspan="3">
                         <select name="status_id" style="width: auto;">
+                              <option value="0">ALL</option>
                               <option value="8">Open</option>
                               <?php
                               $x=0;
@@ -102,29 +75,56 @@
 		<th width="30%" class="question header">ASA CLASSIFICATION</th>
 		<th width="10%" class="question header">TOTAL</th>
 		<th width="14%" class="question header">EMERGENCY</th>
+		<th width="14%" class="question header">1ST YEAR</th>
+		<th width="14%" class="question header">2ND YEAR</th>
+		<th width="14%" class="question header">3RD YEAR</th>
+		<th width="14%" class="question header">4TH YEAR</th>
+		<th width="14%" class="question header">5TH YEAR</th>
 		<th class="border-less"></th>
           </tr>
           <?php
+	  
           $total_asa=0;
           $total_emergency=0;
+          $total_year1=0;
+          $total_year2=0;
+          $total_year3=0;
+          $total_year4=0;
+          $total_year5=0;
+	  if(!empty($count_asa))
+	  {
 	foreach($anesth_asa as $asa):
 		echo "
 		<tr>
 		<td class='answer'>".$asa->name."</td>
 		<td align=center style='font-size:16px;' class='answer'>".$count_asa[$asa->id]."</td>";
-		
 		echo "<td align=center style='font-size:16px;' class='answer'>".$count_emergency[$asa->id]."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_1st_year[$asa->id]."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_2nd_year[$asa->id]."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_3rd_year[$asa->id]."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_4th_year[$asa->id]."</td>
+		<td align=center style='font-size:16px;' class='answer'>".$count_5th_year[$asa->id]."</td>
 		</tr>";
 		$total_asa += $count_asa[$asa->id];
 		$total_emergency += $count_emergency[$asa->id];
+		$total_year1 += $count_1st_year[$asa->id];
+		$total_year2 += $count_2nd_year[$asa->id];
+		$total_year3 += $count_3rd_year[$asa->id];
+		$total_year4 += $count_4th_year[$asa->id];
+		$total_year5 += $count_5th_year[$asa->id];
                 endforeach;
                 ?>
           <tr><th align="right" class="border-less" style="font-size: 20px;">TOTAL</th>
 	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_asa; ?></b></td>
 	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_emergency; ?></b></td>
-	  
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_year1; ?></b></td>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_year2; ?></b></td>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_year3; ?></b></td>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_year4; ?></b></td>
+	    <td style="color: red;text-align: center;border: hidden;font-size: 20px;"><b><?php echo $total_year5; ?></b></td>
 	  </tr>
+	  <?php } ?>
 	<tr>
-		<td colspan="3" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
+		<td colspan="8" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology</td>
 	</tr>
 </table>

@@ -20,7 +20,7 @@
 )); ?>
 <table width="90%" cellpadding="0" cellspacing="0">
 <tr>
-<td class="border-less header" align="center" colspan="11">Resident Trainee's Annual Service Summary</td>
+<td class="border-less header" align="center" colspan="11">Resident Trainee's Annual Technique Summary</td>
 </tr>
 <tr <?php echo ($user_information['role_id'] != 3) ? 'style="display:none"' : ''?>>
 <td class="border-less question" align="right" colspan="2"><?php echo form_label('HOSPITAL', 'insti_id'); ?></td>
@@ -82,18 +82,20 @@ echo form_close(); ?>
 <table id="services_grid-tbl" border="0" cellspacing="2" cellpadding="0" width="90%">
 <thead>
 <tr>
-<th class="question border-less">SERVICE</th>
+<th class="question border-less">TECNIQUE</th>
 <?php foreach ($month_labels as $month): ?>
 <th class="question border-less"><?php echo $month; ?></th>
 <?php endforeach; ?>
 </tr>
 </thead>
 <tbody>
-<?php foreach ($annual_anesthetic_summary_grid as $data): ?>
+<?php
+$endRow = count($annual_anesthetic_summary_grid) - 1;
+foreach ($annual_anesthetic_summary_grid as $i => $data): ?>
 <tr>
 <th align="left" class="answer"><?php echo $data->anesthetic_name; ?></th>
 <?php foreach ($month_labels as $month): ?>
-<td class="total-cell"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
+<td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?> bold"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
 <?php endforeach; ?>
 </tr>
 <?php endforeach; ?>
