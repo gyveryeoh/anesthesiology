@@ -23,7 +23,7 @@ if ($data->anesthesia_start == "0000-00-00") { $anesth_start = "bgcolor=red"; } 
 if ($data->anesthesia_end == "0000-00-00") { $anesth_end = "bgcolor=red"; } else { $anesth_end = "bgcolor=fafad2"; }
 if ($data->birthdate == "0000-00-00") { $birth_date = "bgcolor=red"; } else { $birth_date = "bgcolor=fafad2"; }
 
-if ($data->anesthesia_end == "0000-00-00" || $data->anesthesia_start == "0000-00-00" || $data->operation_date == "0000-00-00" || $data->birthdate == "0000-00-00")
+if ($data->anesthesia_end == "0000-00-00" || $data->anesthesia_start == "0000-00-00" || $data->operation_date == "0000-00-00" || $data->birthdate == "0000-00-00" || $anesth_diff <= "0" || $anesth_diff >= "48")
 {
     $msg_error = "PLEASE FIX ERROR";
 }
@@ -592,14 +592,16 @@ else
 	</td>
 	</tr>
     <?php }}
-    if ($submit_diff >= "48" && $data->anesth_status_id == 8 && $user_information['role_id'] == "1" && $data->anesthesia_end != "0000-00-00" && $data->anesthesia_start != "0000-00-00" && $data->operation_date != "0000-00-00" && $data->birthdate != "0000-00-00")
+    if ($anesth_diff >= "0")
+    {
+    if ($submit_diff >= "48" && $data->anesth_status_id == "8" && $user_information['role_id'] == "1" && $data->anesthesia_end != "0000-00-00" && $data->anesthesia_start != "0000-00-00" && $data->operation_date != "0000-00-00" && $data->birthdate != "0000-00-00")
     {
     ?>
           <tr>
                     <td class="border-less answer">&nbsp;</td>
                     <td class="border-less answer"><br><input type="submit" name="submit" value="SAVE CASELOG AS SUBMITTED"></td>
           </tr>
-          <?php } ?>
+          <?php } }?>
 </table>
 </form>
 <form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/caselog_controller/update_caselog">
@@ -614,6 +616,8 @@ else
    <input type="hidden" name="end_date" value="<?php echo $this->input->get('end_date'); ?>">
    <input type="hidden" name="resident_id" value="<?php echo $this->input->get('resident_id'); ?>">
    <input type="hidden" name="status_id" value="<?php echo $this->input->get('status_id'); ?>">
+   <input type="hidden" name="diagnosis" value="<?php echo $this->input->get('diagnosis'); ?>">
+   <input type="hidden" name="main_agent" value="<?php echo $this->input->get('main_agent'); ?>">
    
    <tr>
         <td width="15%">STATUS</td>
@@ -654,7 +658,7 @@ else
         <td><textarea name="notes" cols="50" class="required"><?php echo $data->notes; ?></textarea></td>
     </tr>
     <?php
-    if ($user_information['role_id'] == "2" || $user_information['role_id'] == "3")
+    if ($user_information['role_id'] == "2")
     {
      if ($data->anesth_id == "1" || $data->anesth_id == "7")
     {
@@ -663,8 +667,17 @@ else
         <td class='border-less' align='right'>&nbsp;</td>
         <td class='border-less'><input type='submit' name='update' value='UPDATE'></td>
     </tr>
-        <?php } } ?>
+        <?php } }
+    if ($user_information['role_id'] == "3")
+    {
+    ?>
+        <tr>
+        <td class='border-less' align='right'>&nbsp;</td>
+        <td class='border-less'><input type='submit' name='update' value='UPDATE'></td>
+    </tr>
+        <?php } ?>
     <tr>
+        
         <td colspan="2" align="center" class="border-less"><br><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
     </tr>
 </table>

@@ -25,26 +25,87 @@ Class Reports_model extends CI_Model
         $result = $this->db->get();
         return $result->num_rows();
     }
-    function annual_patient_classification_and_distribution_summary_count($anesth_asa,$user_id,$status,$year)
+    function annual_patient_classification_and_distribution_summary_count($anesth_asa,$status,$year,$insti_id)
     {
 	$this->db->select('*');
         $this->db->from('patient_form');
-        $this->db->where('user_id',$user_id);
         $this->db->where('asa',$anesth_asa);
-        $this->db->where('anesth_status_id',$status);
-	$this->db->where('year(operation_date) ', $year);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
         $result = $this->db->get();
         return $result->num_rows();
     }
-    function annual_patient_classification_and_distribution_summary_emergency_count($anesth_asa,$user_id,$status,$year)
+    function annual_patient_classification_and_distribution_summary_emergency_count($anesth_asa,$status,$year,$insti_id)
     {
 	$this->db->select('*');
         $this->db->from('patient_form');
-        $this->db->where('user_id',$user_id);
         $this->db->where('asa',$anesth_asa);
         $this->db->where('for_emergency',"Y");
-        $this->db->where('anesth_status_id',$status);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_1st_year_count($anesth_asa,$status,$year,$insti_id)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('asa',$anesth_asa);
+        $this->db->where('year_lvl_id',1);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_2nd_year_count($anesth_asa,$status,$year,$insti_id)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('asa',$anesth_asa);
+	$this->db->where('year_lvl_id',2);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id',$insti_id);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_3rd_year_count($anesth_asa,$status,$year,$insti_id)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('asa',$anesth_asa);
+	$this->db->where('year_lvl_id',3);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
 	$this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_4th_year_count($anesth_asa,$status,$year,$insti_id)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('asa',$anesth_asa);
+        $this->db->where('year_lvl_id',4);
+	if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
+        $result = $this->db->get();
+        return $result->num_rows();
+    }
+    function annual_patient_classification_and_distribution_summary_5th_year_count($anesth_asa,$status,$year,$insti_id)
+    {
+	$this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('asa',$anesth_asa);
+        $this->db->where('year_lvl_id',5);
+        if($status != 0)$this->db->where('anesth_status_id',$status);
+	if($year != 0) $this->db->where('year(operation_date) ', $year);
+	if($insti_id != 0) $this->db->where('institution_id', $insti_id);
         $result = $this->db->get();
         return $result->num_rows();
     }
@@ -124,7 +185,15 @@ Class Reports_model extends CI_Model
         $this->db->where('id', $user_id);
         $this->db->update('users', $d);
     }
-    
+    //TOTAL CASES BY INSTITTUTION AND SERVICE DONE
+    function total_cases_by_institution_and_service_done()
+    {
+     $this->db->select('*');
+     $this->db->from('anesth_institution');
+     $this->db->order_by("name", "asc");
+     $query = $this->db->get();
+     return $query->result();
+    }
     function prepareFilters($options, $where=false) {
         $filters = '';
         $conditions = array();
@@ -295,6 +364,7 @@ Class Reports_model extends CI_Model
         
         return $results;
     }
+<<<<<<< HEAD
 	
 	function users_per_institution($institution_id,$year_level)
 	{
@@ -332,5 +402,43 @@ Class Reports_model extends CI_Model
 		$result = $this->db->get();
         return $result->num_rows();		
 	}
+=======
+    function users_per_institution($institution_id,$year_level)
+    {
+	$this->db->select('*');
+	$this->db->from('users');
+	if($institution_id != 0) $this->db->where('institution_id',$institution_id);
+	$this->db->where('year_lvl is not null');	
+	$this->db->where("year_lvl !=",6);
+	if($year_level != 0) $this->db->where("year_lvl",$year_level);
+	$this->db->order_by("year_lvl", "asc");
+	$query = $this->db->get();
+	return $query->result();
+	}
+
+function patient_form_get_time($institution_id,$user_id,$year)
+{
+$this->db->select('*');
+$this->db->from('patient_form');
+if($institution_id != 0) $this->db->where('institution_id',$institution_id);
+$this->db->where('user_id',$user_id);
+$this->db->where('anesth_status_id',4);
+if($year != 0) $this->db->where('year(operation_date) ',$year);
+$query = $this->db->get();
+return $query->result();
+}
+
+function patient_form_status($status_id, $user_id,$institution_id,$year)
+{
+$this->db->select('anesth_status_id');
+$this->db->from('patient_form');
+if($institution_id != 0) $this->db->where('institution_id',$institution_id);
+$this->db->where('anesth_status_id',$status_id);
+$this->db->where('user_id',$user_id);
+if($year != 0) $this->db->where('year(operation_date) ', $year);
+$result = $this->db->get();
+        return $result->num_rows();	
+}
+>>>>>>> 1af75949f27cd9cfd0d3a6ea8cd4534b74c494d4
 }
 ?>

@@ -76,6 +76,15 @@
                     <td style="border: 1px solid dodgerblue; border-left:hidden;border-top:hidden;" class=answer><input type="submit" name="login" value="LOGIN">
           </tr>
           <tr>
+                    <td colspan=2 class="header">AENDICUS II UPDATE AS OF JUNE 06, 2014</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* FIXED ERROR OF ANNUAL SERVICE REPORT MODULE.</td>
+          </tr>
+          <tr>
+                    <td class="answer" colspan="2">* ANESTHETIC TECHNIQUE ANNUAL REPORT MODULE</td>
+          </tr>
+          <tr>
                     <td colspan=2 class="header">AENDICUS II UPDATE AS OF JUNE 04, 2014</td>
           </tr>
           <tr>

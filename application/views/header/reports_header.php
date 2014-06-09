@@ -7,7 +7,9 @@
                 <a href="<?php echo base_url();?>index.php/reports_controller/institution_view">INSTITUTION SUMMARY REPORT</a>-
                 <?php }  */?>
                 <?php if ($user_information['role_id'] == "3" || $user_information['role_id'] == "2"){?> 
-                <a href="<?php echo base_url();?>index.php/reports_controller/monthly_report">ANESTHESIOLOGY MONTHLY REPORT</a> -
+                <a href="<?php echo base_url();?>index.php/reports_controller/anesthesia_hours">TOTAL ANESTHESIA HOUR</a> - 
+                <a href="<?php echo base_url();?>index.php/reports_controller/annual_patient_classification_and_distribution_summary">ANNUAL PATIENT CLASSIFICATION AND DISTRIBUTION SUMMARY</a> - 
+                <a href="<?php echo base_url();?>index.php/reports_controller/monthly_report">ANESTHESIOLOGY MONTHLY REPORT</a> - 
                 <?php } ?>
                 <a href="<?php echo base_url();?>index.php/reports_controller/anesth_services">SERVICE REPORT</a> -
                 <a href="<?php echo base_url();?>index.php/reports_controller/">ANESTHETIC REPORT</a> -

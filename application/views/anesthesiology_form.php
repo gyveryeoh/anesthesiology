@@ -77,7 +77,7 @@ $date1 = new DateTime($row->birthdate);
 $date2 = new DateTime(date('Y-m-d'));
 $diff = $date1->diff($date2);
  ?>
-<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/add_anesthesiology_information">
+<form method="post" id="anesth_form" autocomplete="off" action="<?php echo base_url(); ?>index.php/home/anesthesiology_form">
  <input type="hidden" name="patient_information_id" value="<?php echo $row->id; ?>">
    <style>
         td
@@ -380,7 +380,6 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="other_needle" style="display:none;">
-            <td class="border-less question"></td>
             <td class="border-less answer"><input type="text" size="20" name="other_spinal_needle" class="needle_valid"></td>
           </tr>
           <tr>
@@ -405,7 +404,7 @@ $diff = $date1->diff($date2);
                     </td>
           </tr>
           <tr id="other_epidural_needle" style="display:none;">
-            <td class="border-less question"></td><td class="border-less question"></td>
+            <td class="border-less question"></td>
             <td class="border-less answer"><input type="text" size="20" name="other_epidural_needle" class="other_epidural_needle_valid"></td>
           </tr>
 </table>
@@ -837,7 +836,7 @@ foreach($multiIterator as $combinedArray)
           ?>
           <tr>
                     <td class="border-less answer">&nbsp;</td>
-                    <td class="border-less answer"><input type="submit" name="login" value="SAVE CASELOG AS OPEN"></td>
+                    <td class="border-less answer"><input type="submit" name="submit" value="SAVE CASELOG AS OPEN"></td>
           </tr>
           <tr class=answer>
             <td colspan="4" align="center" class="border-less"><br><br>Copyright 2013 PBA - Philippine Board of Anesthesiology </td>
