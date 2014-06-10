@@ -16,7 +16,7 @@
   $x = 0;
   foreach($anesth_agent_data as $aad):
   if($current_col == "0")echo "<tr>";
-  echo "<td bgcolor='FAFAD2'><input type='checkbox' value='".$aad->id."' id='".$x."' name='supplementary_agent[]'";
+  echo "<td bgcolor='FAFAD2'><input type='checkbox' value='".$aad->id."' id='supplementary_agent' name='supplementary_agent[]'";
   foreach($supp_agents_details as $pfsa)
   {
    if($pfsa->id == $aad->id)
@@ -74,6 +74,13 @@ $('input[id="81"]').change(function(){
       $('#other_supplementary_agent').hide();
       $('.other_supplementary_agent_required').attr('class','other_supplementary_agent_valid');
       $('.supplementary_agent_valid').attr('class','supplementary_agent_required');
+    }
+});
+$('input[id="supplementary_agent"]').prop(function(){
+    var pClass = '.'+$(this).val();
+    if ($(this).is(':unchecked'))
+    {
+      $('.supplementary_agent_required').attr('class','supplementary_agent_valid');
     }
 });
 </script>

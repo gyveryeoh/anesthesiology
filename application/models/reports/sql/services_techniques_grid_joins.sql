@@ -1,4 +1,3 @@
-
 left join (
     select
         pf.service `id`,

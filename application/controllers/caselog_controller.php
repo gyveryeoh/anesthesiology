@@ -97,7 +97,7 @@ class Caselog_controller extends CI_Controller {
 			}
 			if ($this->input->get('resident_id') == NULL)
 			{
-			redirect('search_controller/searchcaselog?case_number='.$this->input->post('case_number').'&service='.$this->input->post('service').'&technique='.$this->input->post('technique').'&hospital_id='.$this->input->post('hospital_id').'&user_id='.$this->input->post('user_id').'&start_date='.$this->input->post('start_date').'&end_date='.$this->input->post('end_date').'&status_id='.$this->input->post('status_id').'&submit=SEARCH');
+			redirect('search_controller/searchcaselog?case_number='.$this->input->post('case_number').'&service='.$this->input->post('service').'&technique='.$this->input->post('technique').'&hospital_id='.$this->input->post('hospital_id').'&user_id='.$this->input->post('user_id').'&start_date='.$this->input->post('start_date').'&end_date='.$this->input->post('end_date').'&status_id='.$this->input->post('status_id').'&diagnosis='.$this->input->post('diagnosis').'&submit=SEARCH');
 			}
 			else
 			{

@@ -186,7 +186,9 @@ echo form_close(); ?>
         <tr>
         <?php
         foreach($services_techniques_grid_headers as $j => $col): ?>
-        <td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?>"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
+        <?php if ($row->$col == "ZTOTAL") {$row->$col="TOTAL";} ?>
+        <td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?> bold"><?php echo empty($row->$col) ? '-' : $row->$col; ?></td>
+        
         <?php endforeach; ?>
         </tr>
         <?php endforeach; ?>
@@ -215,7 +217,7 @@ echo form_close(); ?>
                 </tr>
                 <tr class="border-less answer">
                         <th><b>TOTAL</b></th>
-                        <td><?php echo $critical_events_grid->{'Total'}; ?></td>
+                        <td class="total-cell"><?php echo $critical_events_grid->{'Total'}; ?></td>
                 </tr>
         </tbody>
 </table>
@@ -237,7 +239,7 @@ echo form_close(); ?>
 <tr class="border-less answer">
         <td><?php echo $l->code; ?></td>
         <td><?php echo $l->name; ?></td>
-        <td class="total-cell"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
+        <td class="bold"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

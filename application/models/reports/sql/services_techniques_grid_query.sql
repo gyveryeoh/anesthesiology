@@ -9,7 +9,8 @@ from (
         union (
             select
                 -111 `id`,
-                'TOTAL' `name`
+                'ZTOTAL' `name`
         )
     ) t0
     {$joins}
+    order by t0.name asc

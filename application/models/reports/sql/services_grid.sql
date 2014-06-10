@@ -13,7 +13,6 @@ from
         {$filters}
         group by
             pf.service
-        order by
-            pf.service asc
     ) t1
     on t0.id = t1.service_id
+    order by t0.name asc

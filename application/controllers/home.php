@@ -18,30 +18,16 @@ class Home extends CI_Controller {
                         $session_data = $this->session->userdata('logged_in');
                         $data["user_information"] = $session_data;
                         $this->load->view('header/header', $data);
-                        $this->load->view('home_view');
-                }
-                else
-                {
-                        redirect('login', 'refresh');
-                }
-        }
-        function add_patient()
-        {
-                if ($this->input->post('month') == "00")
-                {
-                        redirect('home','refresh');
-                }
-                if($this->session->userdata('logged_in'))
-                {
+                         $this->load->view('home_view');
+                        if ($this->input->post('submit'))
+                        {
                         $session_data = $this->session->userdata('logged_in');
                         $data["user_information"] = $session_data;
                         $case_number = $this->input->post('case_number');
                         $data['case_number'] = $this->user->case_number_checking($case_number,$session_data['institution_id']);
                         if ($data['case_number'] == true)
                         {
-                                $data['message'] = "CASE NUMBER IS ALREADY EXIST.";
-                                $this->load->view('header/header',$data);
-                                $this->load->view('home_view',$data);
+                                $this->load->view('result',$data);
                         }
                         elseif ($data['case_number'] == false)
                         {
@@ -59,60 +45,86 @@ class Home extends CI_Controller {
                                 $hospital_rotation = $this->input->post('hospital_rotation');
                                 redirect('home/anesthesiology_form/'.$patient_information_id."/".$hospital_rotation);
                         }
-                        else
+                        }
+                }
+                else
                         {
                                 redirect('login', 'refresh');
                         }
-                }
         }
-        function add_anesthesiology_information()
+        function anesthesiology_form($patient_information_id='')
         {
-                if ($this->input->post('patient_information_id') == "0" || $this->input->post('operation_date') == "0000-00-00")
-                {
-                        redirect('home','refresh');
-                }
                 if($this->session->userdata('logged_in'))
-                {
-                        $session_data = $this->session->userdata('logged_in');
-                        $data["user_information"] = $session_data;
-                        $monitors_used = $this->input->post('monitors_used');
-                        $airway = $this->input->post('airway');
-                        $other_airway = $this->input->post('other_airway');
-                        $spinal_needle = $this->input->post('spinal_needle');
-                        $other_spinal_needle = $this->input->post('other_spinal_needle');
-                        $epidural_needle = $this->input->post('epidural_needle');
-                        $other_epidural_needle = $this->input->post('other_epidural_needle');
-                        $others_m = $this->input->post('other_main_agent');
-                        $other_main_agent = $this->input->post('other_main_agent_data');
-                        $others_s = $this->input->post('other_supplementary_agent');
-                        $other_supplementary_agent = $this->input->post('other_supplementary_agent_data');
-                        $other_post = $this->input->post('other_post_op_pain_agent');
-                        $other_post_op_pain_agent = $this->input->post('other_post_op_pain_agent_data');
-                        $colloids_used = $this->input->post('colloids_used');
-                        $other_colloids_used = $this->input->post('other_colloids_used');
-                        $other_monitors_used = $this->input->post('other_monitors_used');
-                        $other_monitors_used_data = $this->input->post('other_monitors_used_data');
-                        $anesthetic_technique = $this->input->post('anesthetic_technique');
-                        $critical_events = $this->input->post('critical_events');
-                        $peripheral = $this->input->post('peripheral');
-                        $hospital_rotation = $this->input->post('hospital_rotation');
-                        if ($hospital_rotation == "0") {$hospital_rotation = $session_data['institution_id'];}else{ $hospital_rotation = $hospital_rotation;}
-                        if ($airway == "Others (pls specify):"){$airway  = $other_airway; } else { $airway = $airway; }
-                        if ($spinal_needle == "Others (pls specify):"){ $spinal_needle = $other_spinal_needle; } else { $spinal_needle = $spinal_needle; }
-                        if ($epidural_needle == "Others"){ $epidural_needle = $other_epidural_needle; } else { $epidural_needle = $epidural_needle; }
-                        if ($colloids_used =="Others") {$colloids_used = $other_colloids_used; } else { $colloids_used=$colloids_used; }
-                        if ($others_m=="other_main_agent_checkbox"){$others_m = $other_main_agent;} else {$others_m = "NULL"; } 
-                        if ($others_s=="other_supplementary_agent_checkbox"){$others_s = $other_supplementary_agent;} else {$others_s = "NULL"; } 
-                        if ($other_post=="other_post_op_pain_agent_checkbox"){$other_post = $other_post_op_pain_agent;} else {$other_post = "NULL"; } 
-                        if ($other_monitors_used=="other_monitors_used_checkbox"){$other_monitors_used = $other_monitors_used_data;} else {$other_monitors_used = "NULL"; } 
-                        if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
-                        if ($anesthetic_technique == "9") {$peripheral = $peripheral;} else {$peripheral = "NULL";}
-                        if ($anesthetic_technique == "3") {$critical_events ="YES";}
-                        if ($session_data['role_id'] == "1") {$anesth_status_id = "8";} else {$anesth_status_id = "1";}
-                        $data = array(
+                        {
+                                $session_data = $this->session->userdata('logged_in');
+                                $data["user_information"] = $session_data;
+                                $datas['hospital_details'] = $this->dropdown_select->anesth_institutions();
+                                $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
+                                $datas['anesth_services_data'] = $this->dropdown_select->anesth_services();
+                                $datas['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
+                                $datas['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
+                                $datas['anesth_monitor_data'] = $this->dropdown_select->anesth_monitors();
+                                $datas['anesth_airway_data'] = $this->dropdown_select->anesth_airway();
+                                $datas['anesth_needle_data'] = $this->dropdown_select->anesth_needle();
+                                $datas['anesth_needle_gauge_data'] = $this->dropdown_select->anesth_needle_gauge();
+                                $datas['anesth_agpar_score_data'] = $this->dropdown_select->anesth_agpar_score();
+                                $datas['anesth_colloids_used'] = $this->dropdown_select->anesth_colloids_used();
+                                $datas['anesth_blood_loss'] = $this->dropdown_select->anesth_blood_loss();
+                                $datas['critical_level_airway'] = $this->dropdown_select->critical_level_airway();
+                                $datas['critical_level_cardiovascular'] = $this->dropdown_select->critical_level_cardiovascular();
+                                $datas['critical_level_discharge_planning'] = $this->dropdown_select->critical_level_discharge_planning();
+                                $datas['critical_level_miscellaneous'] = $this->dropdown_select->critical_level_miscellaneous();
+                                $datas['critical_level_neurogical'] = $this->dropdown_select->critical_level_neurogical();
+                                $datas['critical_level_respiratory'] = $this->dropdown_select->critical_level_respiratory();
+                                $datas['critical_level_regional_anesthesia'] = $this->dropdown_select->critical_level_regional_anesthesia();
+                                $datas['critical_level_preop'] = $this->dropdown_select->critical_level_preop();
+                                $datas['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
+                                $datas['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
+                                $datas['institution_details'] = $this->user->institution_info($session_data['institution_id']);
+                                $this->load->view('header/header',$data);
+                                $this->load->view('anesthesiology_form',$datas);
+                        //SAVE CASELOG
+                        if ($this->input->post('submit'))
+                        {
+                                $monitors_used = $this->input->post('monitors_used');
+                                $airway = $this->input->post('airway');
+                                $other_airway = $this->input->post('other_airway');
+                                $spinal_needle = $this->input->post('spinal_needle');
+                                $other_spinal_needle = $this->input->post('other_spinal_needle');
+                                $epidural_needle = $this->input->post('epidural_needle');
+                                $other_epidural_needle = $this->input->post('other_epidural_needle');
+                                $others_m = $this->input->post('other_main_agent');
+                                $other_main_agent = $this->input->post('other_main_agent_data');
+                                $others_s = $this->input->post('other_supplementary_agent');
+                                $other_supplementary_agent = $this->input->post('other_supplementary_agent_data');
+                                $other_post = $this->input->post('other_post_op_pain_agent');
+                                $other_post_op_pain_agent = $this->input->post('other_post_op_pain_agent_data');
+                                $colloids_used = $this->input->post('colloids_used');
+                                $other_colloids_used = $this->input->post('other_colloids_used');
+                                $other_monitors_used = $this->input->post('other_monitors_used');
+                                $other_monitors_used_data = $this->input->post('other_monitors_used_data');
+                                $anesthetic_technique = $this->input->post('anesthetic_technique');
+                                $critical_events = $this->input->post('critical_events');
+                                $peripheral = $this->input->post('peripheral');
+                                $hospital_rotation = $this->input->post('hospital_rotation');
+                                if ($hospital_rotation == "0") {$hospital_rotation = $session_data['institution_id'];}else{ $hospital_rotation = $hospital_rotation;}
+                                if ($airway == "Others (pls specify):"){$airway  = $other_airway; } else { $airway = $airway; }
+                                if ($spinal_needle == "Others (pls specify):"){ $spinal_needle = $other_spinal_needle; } else { $spinal_needle = $spinal_needle; }
+                                if ($epidural_needle == "Others"){ $epidural_needle = $other_epidural_needle; } else { $epidural_needle = $epidural_needle; }
+                                if ($colloids_used =="Others") {$colloids_used = $other_colloids_used; } else { $colloids_used=$colloids_used; }
+                                if ($others_m=="other_main_agent_checkbox"){$others_m = $other_main_agent;} else {$others_m = "NULL"; } 
+                                if ($others_s=="other_supplementary_agent_checkbox"){$others_s = $other_supplementary_agent;} else {$others_s = "NULL"; } 
+                                if ($other_post=="other_post_op_pain_agent_checkbox"){$other_post = $other_post_op_pain_agent;} else {$other_post = "NULL"; } 
+                                if ($other_monitors_used=="other_monitors_used_checkbox"){$other_monitors_used = $other_monitors_used_data;} else {$other_monitors_used = "NULL"; } 
+                                if ($this->input->post('colloids') == "NO") { $colloids_used = "NULL"; } else { $colloids_used = $colloids_used; }
+                                if ($anesthetic_technique == "9") {$peripheral = $peripheral;} else {$peripheral = "NULL";}
+                                if ($anesthetic_technique == "3") {$critical_events ="YES";}
+                                if ($session_data['role_id'] == "1") {$anesth_status_id = "8";} else {$anesth_status_id = "1";}
+                                $data = array(
                                       'patient_information_id' => $this->input->post('patient_information_id'),
                                       'hospital_rotation_id' => $hospital_rotation,
                                       'user_id' => $session_data['id'],
+                                      'year_lvl_id' => $session_data['year_lvl'],
                                       'anesth_status_id' => $anesth_status_id,
                                       'institution_id' => $session_data['institution_id'],
                                       'operation_date' => mysql_real_escape_string($this->input->post('operation_date')),
@@ -158,18 +170,18 @@ class Home extends CI_Controller {
                                       'other_notes' => addslashes($this->input->post('other_notes')),
                                       'critical_events' => $critical_events
                                       );
-                        $this->user->add_anesthesiology_information_data($data);
-                        $patient_form_id = $this->db->insert_id();
-                        if($this->input->post('if_delivery') == "YES")
-                        {
-                                $agpar_score_1m = $this->input->post('agpar_score_1m');
-                                $agpar_score_5m = $this->input->post('agpar_score_5m');
-                                $agpar_score_10m = $this->input->post('agpar_score_10m');
-                                $this->user->add_apgar_data($patient_form_id,$agpar_score_1m,$agpar_score_5m,$agpar_score_10m);
-                        }
-                        //CRITICAL EVENTS
-                        if ($critical_events == "YES")
-                        {
+                                $this->user->add_anesthesiology_information_data($data);
+                                $patient_form_id = $this->db->insert_id();
+                                if($this->input->post('if_delivery') == "YES")
+                                {
+                                        $agpar_score_1m = $this->input->post('agpar_score_1m');
+                                        $agpar_score_5m = $this->input->post('agpar_score_5m');
+                                        $agpar_score_10m = $this->input->post('agpar_score_10m');
+                                        $this->user->add_apgar_data($patient_form_id,$agpar_score_1m,$agpar_score_5m,$agpar_score_10m);
+                                }
+                                //CRITICAL EVENTS
+                                if ($critical_events == "YES")
+                                {
                                 //AIRWAY
                                 $critical_level_airway = $this->input->post('critical_level_airway');
                                 $this->user->add_critical_level_airway($patient_form_id,$critical_level_airway);
@@ -194,38 +206,39 @@ class Home extends CI_Controller {
                                 //PREOP
                                 $preop = $this->input->post('critical_level_preop');
                                 $this->user->add_critical_level_preop($patient_form_id,$preop);
-                        }
-                        //MAIN AGENT DETAILS
-                        $main_agent = $this->input->post('main_agent');
-                        if (!empty($main_agent))
-                        {
-                                $this->user->add_main_agent_data($patient_form_id,$main_agent);
-                        }
-                        //SUPPLEMENTARY AGENT DETAILS
-                        $supplementary_agent   = $this->input->post('supplementary_agent');
-                        if (!empty($supplementary_agent))
-                        {
-                                $this->user->add_supplementary_agent_data($patient_form_id,$supplementary_agent);
-                        }
-                        //POST OP PAIN AGENT
-                        $post_op_pain_agent   = $this->input->post('post_op_pain_agent');
-                        if (!empty($post_op_pain_agent))
-                        {
-                                $this->user->add_post_op_pain_agent_data($patient_form_id,$post_op_pain_agent);
-                        }
-                        //POST OF PAIN MANAGEMENT
-                        $post_op_pain_management = $this->input->post('post_op_pain_management');
-                        $this->user->add_post_op_pain_management_data($patient_form_id,$post_op_pain_management);
-                        //POST OF PAIN MANAGEMENT 1
-                        $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
-                        $this->user->add_post_op_pain_management_data_1($patient_form_id,$post_op_pain_management_1);
-                        //MONITORS USED
-                        if (!empty($monitors_used))
-                        {
-                                $this->user->add_monitors_used_data($patient_form_id,$monitors_used);
-                        }
-                        $this->user->update_users_date_encode($session_data['id']);
-                        redirect('home/successful_data','refresh');
+                                }
+                                //MAIN AGENT DETAILS
+                                $main_agent = $this->input->post('main_agent');
+                                if (!empty($main_agent))
+                                {
+                                        $this->user->add_main_agent_data($patient_form_id,$main_agent);
+                                }
+                                //SUPPLEMENTARY AGENT DETAILS
+                                $supplementary_agent   = $this->input->post('supplementary_agent');
+                                if (!empty($supplementary_agent))
+                                {
+                                        $this->user->add_supplementary_agent_data($patient_form_id,$supplementary_agent);
+                                }
+                                //POST OP PAIN AGENT
+                                $post_op_pain_agent   = $this->input->post('post_op_pain_agent');
+                                if (!empty($post_op_pain_agent))
+                                {
+                                        $this->user->add_post_op_pain_agent_data($patient_form_id,$post_op_pain_agent);
+                                }
+                                //POST OF PAIN MANAGEMENT
+                                $post_op_pain_management = $this->input->post('post_op_pain_management');
+                                $this->user->add_post_op_pain_management_data($patient_form_id,$post_op_pain_management);
+                                //POST OF PAIN MANAGEMENT 1
+                                $post_op_pain_management_1 = $this->input->post('post_op_pain_management_1');
+                                $this->user->add_post_op_pain_management_data_1($patient_form_id,$post_op_pain_management_1);
+                                //MONITORS USED
+                                if (!empty($monitors_used))
+                                {
+                                        $this->user->add_monitors_used_data($patient_form_id,$monitors_used);
+                                }
+                                $this->user->update_users_date_encode($session_data['id']);
+                                redirect('home/successful_data','refresh');
+                                }
                         }
                         else
                         {
@@ -244,55 +257,6 @@ class Home extends CI_Controller {
                 else
                 {
                         redirect('login', 'refresh');
-                }
-        }
-        function anesthesiology_form($patient_information_id='')
-        {
-                $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
-                if ($datas['patient_information_data'] == false)
-                {
-                        $datas['message'] = "NO INFORMATION FOUND.";
-                        $session_data = $this->session->userdata('logged_in');
-                        $data["user_information"] = $session_data;
-                        $this->load->view('header/header',$data);
-                        $this->load->view('home_view',$datas);
-                }
-                else
-                {
-                        if($this->session->userdata('logged_in'))
-                        {
-                                $session_data = $this->session->userdata('logged_in');
-                                $data["user_information"] = $session_data;
-                                $datas['hospital_details'] = $this->dropdown_select->anesth_institutions();
-                                $datas['patient_information_data'] = $this->user->select_patient_information($patient_information_id);
-                                $datas['anesth_services_data'] = $this->dropdown_select->anesth_services();
-                                $datas['anesth_technique_data'] = $this->dropdown_select->anesth_techniques();
-                                $datas['anesth_agent_data'] = $this->dropdown_select->anesth_agent();
-                                $datas['anesth_monitor_data'] = $this->dropdown_select->anesth_monitors();
-                                $datas['anesth_airway_data'] = $this->dropdown_select->anesth_airway();
-                                $datas['anesth_needle_data'] = $this->dropdown_select->anesth_needle();
-                                $datas['anesth_needle_gauge_data'] = $this->dropdown_select->anesth_needle_gauge();
-                                $datas['anesth_agpar_score_data'] = $this->dropdown_select->anesth_agpar_score();
-                                $datas['anesth_colloids_used'] = $this->dropdown_select->anesth_colloids_used();
-                                $datas['anesth_blood_loss'] = $this->dropdown_select->anesth_blood_loss();
-                                $datas['critical_level_airway'] = $this->dropdown_select->critical_level_airway();
-                                $datas['critical_level_cardiovascular'] = $this->dropdown_select->critical_level_cardiovascular();
-                                $datas['critical_level_discharge_planning'] = $this->dropdown_select->critical_level_discharge_planning();
-                                $datas['critical_level_miscellaneous'] = $this->dropdown_select->critical_level_miscellaneous();
-                                $datas['critical_level_neurogical'] = $this->dropdown_select->critical_level_neurogical();
-                                $datas['critical_level_respiratory'] = $this->dropdown_select->critical_level_respiratory();
-                                $datas['critical_level_regional_anesthesia'] = $this->dropdown_select->critical_level_regional_anesthesia();
-                                $datas['critical_level_preop'] = $this->dropdown_select->critical_level_preop();
-                                $datas['anesth_post_op_pain_management_data'] = $this->dropdown_select->anesth_post_op_pain_management();
-                                $datas['anesth_post_op_pain_management_data_1'] = $this->dropdown_select->anesth_post_op_pain_management_1();
-                                $datas['institution_details'] = $this->user->institution_info($session_data['institution_id']);
-                                $this->load->view('header/header',$data);
-                                $this->load->view('anesthesiology_form',$datas);
-                        }
-                        else
-                        {
-                                redirect('login', 'refresh');
-                        }
                 }
         }
         function logout()

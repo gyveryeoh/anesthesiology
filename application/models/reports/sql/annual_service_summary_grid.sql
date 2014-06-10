@@ -71,7 +71,7 @@ union all (
         sum(if(month_operation_date = 9, 1, 0)) `SEP`,
         sum(if(month_operation_date = 10, 1, 0)) `OCT`,
         sum(if(month_operation_date = 11, 1, 0)) `NOV`,
-        sum(if(month_operation_date = 12, 1, 0)) `DEC`,
+        sum(if(month_operation_date = 12, 1, 0)) `DECE`,
         sum(1) `TOTAL`
     from (
         select
@@ -87,8 +87,7 @@ union all (
         where
             asv.id = pf.service
             and pf.anesth_status_id = (
-                select
-                    id
+                select anesth_status.id
                 from
                     anesth_status
                 where

@@ -16,6 +16,7 @@
 </script>
 <form method="get" autocomplete="off" action="<?php echo base_url(); ?>index.php/search_controller/searchcaselog">
 <table width="90%" cellpadding="0" cellspacing="0">
+        <input type="text" name="main_agent" value="0">
         <tr>
                 <td class="border-less header" align="center" colspan="11">CASELOG SEARCH</td>
         </tr>

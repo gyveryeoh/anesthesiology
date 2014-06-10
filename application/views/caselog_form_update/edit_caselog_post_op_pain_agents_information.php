@@ -17,7 +17,7 @@
           foreach($anesth_agent_data as $aad):
           if($current_col == "0")echo "<tr>";
           
-		  echo "<td bgcolor='FAFAD2'><input type='checkbox' value='".$aad->id."' id='".$x."' name='post_op_pain_agent[]'";
+		  echo "<td bgcolor='FAFAD2'><input type='checkbox' value='".$aad->id."' id='post_op_agent' name='post_op_pain_agent[]'";
 		  
 		  foreach($patient_form_post_op_pain_agent_details as $pfpopad)
 		  {
@@ -81,6 +81,13 @@ $('input[id="81"]').change(function(){
       $('#other_post_op_pain_agent').hide();
       $('.other_post_op_pain_agent_required').attr('class','other_post_op_pain_agent_valid');
       $('.post_op_pain_agent_valid').attr('class','post_op_pain_agent_required');
+    }
+});
+$('input[id="post_op_pain_agent"]').prop(function(){
+    var pClass = '.'+$(this).val();
+    if ($(this).is(':unchecked'))
+    {
+      $('.post_op_pain_agent_required').attr('class','post_op_pain_agent_valid');
     }
 });
 </script>
