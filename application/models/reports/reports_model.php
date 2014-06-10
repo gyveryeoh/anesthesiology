@@ -229,7 +229,7 @@ Class Reports_model extends CI_Model
         $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/patient_type_grid.sql'), array(
             '{$filters}' => $filters,
         ));
-        
+        chrome_log($query);
         $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
