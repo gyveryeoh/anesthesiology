@@ -68,13 +68,30 @@ if (isset($_POST['submit'])){
 		{
 			if($institution_id == $ai->id)
 			{
-				echo "Hospital $count : Total Services = " . $per_institution[$institution_id]."</br>";
+				echo "Hospital $count";
 				break;
 			}
 		}
 		else
 		{
-			echo "Hospital $count : Total Services = "  . $per_institution[$ai->id]."</br>";
+			echo "Hospital $count,";
+		}
+		$count++;
+	}
+	echo "</br>";
+	foreach($anesth_institutions as $ai)
+	{
+		if($institution_id != 0)
+		{
+			if($institution_id == $ai->id)
+			{
+				echo $per_institution[$institution_id];
+				break;
+			}
+		}
+		else
+		{
+			echo $per_institution[$ai->id].",";
 		}
 		$count++;
 	}
