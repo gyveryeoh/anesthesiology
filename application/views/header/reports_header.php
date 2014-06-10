@@ -14,6 +14,7 @@
                 <a href="<?php echo base_url();?>index.php/reports_controller/anesth_services">SERVICE REPORT</a> -
                 <a href="<?php echo base_url();?>index.php/reports_controller/">ANESTHETIC REPORT</a> -
 				<a href="<?php echo base_url();?>index.php/reports_controller/anesthesia_hours">TOTAL ANESTHESIA HOURS</a>
+				<a href="<?php echo base_url();?>index.php/reports_controller/anesth_hospital_and_service">HOSPITALS/SERVICES</a>
                 <?php if ($user_information['role_id'] != "3" && $user_information['role_id'] != "2"){?> -
                 <a href="<?php echo base_url();?>index.php/users_controller/users_caselog">ENCODED SUMMARY</a></td>
                 <?php } ?>

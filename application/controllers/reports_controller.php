@@ -581,7 +581,6 @@ function annual_patient_classification_and_distribution_summary()
             redirect('login', 'refresh');
         }
     }
-<<<<<<< HEAD
 	
 	function anesthesia_hours()
 	{
@@ -622,7 +621,7 @@ function annual_patient_classification_and_distribution_summary()
 					$user_id = $upi->id;
 					$total_diff = 0;	
 					//echo "institution id : ". $anesth_id." =  User Id : ". $user_id . "</br>";
-					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($anesth_id,$user_id);
+					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($anesth_id,$user_id,$year);
 					foreach($data["patient_form_get_time"] as $pfgt)
 					{
 						$anesth_year = 0;
@@ -653,7 +652,7 @@ function annual_patient_classification_and_distribution_summary()
 					$status_id = $this->dropdown_select->anesth_status();
 					foreach($status_id as $sid)
 					{
-						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $anesth_id);
+						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $anesth_id,$year);
 					}
 						$table = $table . "<tr>
 											<td>".$upi->lastname.",".$upi->firstname." ". $upi->middle_initials." </td>
@@ -679,7 +678,7 @@ function annual_patient_classification_and_distribution_summary()
 					
 					$user_id = $upi->id;
 					$total_diff = 0;	
-					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($institution_id,$user_id);
+					$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($institution_id,$user_id,$year);
 					foreach($data["patient_form_get_time"] as $pfgt)
 					{
 						$anesth_year = 0;
@@ -705,7 +704,7 @@ function annual_patient_classification_and_distribution_summary()
 					$status_id = $this->dropdown_select->anesth_status();
 					foreach($status_id as $sid)
 					{
-						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $institution_id);
+						$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $institution_id,$year);
 					}
 						$table = $table . "<tr>
 											<td>".$upi->lastname.",".$upi->firstname." ". $upi->middle_initials." </td>
@@ -727,49 +726,68 @@ function annual_patient_classification_and_distribution_summary()
         $this->load->view('reports/total_anesthesia_hours',$data);		
 		
 	}
-=======
-    function anesthesia_hours()
-    {
-	$user_id = $this->input->get('resident_id');
+	
+	function anesth_hospital_and_service()
+	{
+        $user_id = $this->input->get('resident_id');
         $session_data = $this->session->userdata('logged_in');
         $data["user_information"] = $session_data;
-	$table ="";
-	$data["anesth_institutions"] = $this->dropdown_select->anesth_institutions();
-	if($this->input->post('submit')){if ($session_data['role_id'] == "3"){
-		$institution_id = $this->input->post('institution_id'); }
-		else{
-		$institution_id = $session_data['institution_id'];
-		}
-		$year_level = $this->input->post('year_level');
-		$year = $this->input->post('year');
-		$data["users_per_institutions"] = $this->reports_model->users_per_institution($institution_id,$year_level);
-		foreach($data["users_per_institutions"] as $upi)
+		$anesth_institutions = $this->dropdown_select->anesth_institutions();
+		$data["anesth_institutions"] = $anesth_institutions;
+		$data["anesth_services"] = $this->dropdown_select->anesth_services();
+		$data["institution_id"] = 0;
+		$data["services"] = NULL;
+		if($this->input->post('submit'))
 		{
-			$user_id = $upi->id;
-			$total_diff = 0;
-			$data["patient_form_get_time"] = $this->reports_model->patient_form_get_time($institution_id,$user_id,$year);
-			foreach($data["patient_form_get_time"] as $pfgt)
+			$institution_id = $this->input->post('institution_id');
+			$service_id = $this->input->post('service_id');
+			
+			$data["services"] = $service_id;
+			$data["institution_id"] = $institution_id;
+			$string = stripslashes(implode($service_id,"',"));
+
+			function stripslashes_deep($value)
 			{
-				$day1 = $pfgt->anesthesia_start." ".$pfgt->anesthesia_start_time;
-				$day2 = $pfgt->anesthesia_end." ".$pfgt->anesthesia_end_time;
-				$diff_seconds  = strtotime($day2) - strtotime($day1);
-				$anesth_diff = floor($diff_seconds/3600).'.'.floor(($diff_seconds%3600)/60);
-				$total_diff += $anesth_diff;
-			}
-			$status_id = $this->dropdown_select->anesth_status();
-			foreach($status_id as $sid)
-			{
-				$total[$sid->id] = $this->reports_model->patient_form_status($sid->id, $user_id, $institution_id,$year);
+				$value = is_array($value) ?
+							array_map('stripslashes_deep', $value) :
+							stripslashes($value);
+
+				return $value;
 			}
 			
-			$table.="<tr><td class='answer'>".$upi->lastname.",".$upi->firstname." ". $upi->middle_initials." </td><td class='answer'>". $upi->year_lvl ."</td><td class='answer'>". $total_diff ."</td><td class='answer'>". $total[8] ."</td><td class='answer'>". $total[1] ."</td><td class='answer'>". $total[7] ."</td><td class='answer'>". $total[3] ."</td><td class='answer'>". $total[4] ."</td><td class='answer'>". $total[5] ."</td></tr>";
+			$service_id = stripslashes_deep($service_id);
+			
+			if($institution_id == 0)
+			{
+				foreach($anesth_institutions as $ai)
+				{
+					$per_institution[$ai->id] = $this->reports_model->count_services_per_institution($ai->id,$service_id);
+					//echo $per_institution[$ai->id]."</br>";
+				}
+				
+				
+				foreach($anesth_institutions as $ai)
+				{
+					echo "Hospital Name:" . $ai->name . "     Total Services". $per_institution[$ai->id]. "</br>";
+				}
 			}
+			else
+			{
+				$per_institution = $this->reports_model->count_services_per_institution($institution_id,$service_id);
+				foreach($anesth_institutions as $ai)
+				{
+					if($ai->id == $institution_id)
+					{
+						echo "Hospital Name:" . $ai->name . "     Total Services". $per_institution. "</br>";
+						break;
+					}
+				}
 			}
 
-    $data["table"] = $table;
-    $this->load->view('header/header', $data);
-    $this->load->view('header/reports_header');
-    $this->load->view('reports/total_anesthesia_hours',$data);
-    }
->>>>>>> 1af75949f27cd9cfd0d3a6ea8cd4534b74c494d4
+		}
+		
+		$this->load->view('header/header', $data);
+	    $this->load->view('header/reports_header');
+		$this->load->view('reports/anesth_hospital_and_service',$data);
+	}
 }

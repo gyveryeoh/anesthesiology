@@ -9,6 +9,7 @@ function anesth_services()
         $query = $this->db->get();
         return $query->result();
 }
+
 function anesth_techniques()
 {
         $this->db->select('*');
@@ -19,6 +20,7 @@ function anesth_techniques()
         $query = $this->db->get();
         return $query->result();
 }
+
 function anesth_asa()
 {
         $this->db->select('*');

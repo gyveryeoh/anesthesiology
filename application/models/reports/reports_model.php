@@ -364,45 +364,7 @@ Class Reports_model extends CI_Model
         
         return $results;
     }
-<<<<<<< HEAD
 	
-	function users_per_institution($institution_id,$year_level)
-	{
-		$this->db->select('*');
-		$this->db->from('users');
-		$this->db->where('institution_id',$institution_id);
-		$this->db->where("year_lvl != ''");	
-		$this->db->where("year_lvl !=",6);
-		if($year_level != 0)
-		{
-			$this->db->where("year_lvl",$year_level);
-		}
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	function patient_form_get_time($institution_id,$user_id)
-	{
-		$this->db->select('*');
-		$this->db->from('patient_form');
-		$this->db->where('institution_id',$institution_id);
-		$this->db->where('user_id',$user_id);
-		$this->db->where('anesth_status_id',4);
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	function patient_form_status($status_id, $user_id,$institution_id)
-	{
-		$this->db->select('anesth_status_id');
-		$this->db->from('patient_form');
-		$this->db->where('institution_id',$institution_id);
-		$this->db->where('anesth_status_id',$status_id);
-		$this->db->where('user_id',$user_id);
-		$result = $this->db->get();
-        return $result->num_rows();		
-	}
-=======
     function users_per_institution($institution_id,$year_level)
     {
 	$this->db->select('*');
@@ -437,8 +399,17 @@ $this->db->where('anesth_status_id',$status_id);
 $this->db->where('user_id',$user_id);
 if($year != 0) $this->db->where('year(operation_date) ', $year);
 $result = $this->db->get();
-        return $result->num_rows();	
+return $result->num_rows();	
 }
->>>>>>> 1af75949f27cd9cfd0d3a6ea8cd4534b74c494d4
+function count_services_per_institution($institution_id,$service_id)
+{
+$this->db->select('*');
+$this->db->from('patient_form');
+if($institution_id != 0) $this->db->where('institution_id',$institution_id);
+$this->db->where('anesth_status_id',4);
+$this->db->where_in('service',$service_id);
+$query = $this->db->get();
+return $query->num_rows();
+}
 }
 ?>
