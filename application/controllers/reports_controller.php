@@ -761,14 +761,9 @@ function annual_patient_classification_and_distribution_summary()
 			{
 				foreach($anesth_institutions as $ai)
 				{
-					$per_institution[$ai->id] = $this->reports_model->count_services_per_institution($ai->id,$service_id);
+					$per_institution= $this->reports_model->count_services_per_institution($ai->id,$service_id);
 					//echo $per_institution[$ai->id]."</br>";
-				}
-				
-				
-				foreach($anesth_institutions as $ai)
-				{
-					echo "Hospital Name:" . $ai->name . "     Total Services". $per_institution[$ai->id]. "</br>";
+					echo "Hospital Name:" . $ai->name . "     Total Services : ". $per_institution. "</br>";
 				}
 			}
 			else
@@ -778,7 +773,7 @@ function annual_patient_classification_and_distribution_summary()
 				{
 					if($ai->id == $institution_id)
 					{
-						echo "Hospital Name:" . $ai->name . "     Total Services". $per_institution. "</br>";
+						echo "Hospital Name:" . $ai->name . "     Total Services : ". $per_institution. "</br>";
 						break;
 					}
 				}
