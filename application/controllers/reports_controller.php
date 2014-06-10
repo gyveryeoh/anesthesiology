@@ -736,7 +736,8 @@ function annual_patient_classification_and_distribution_summary()
 		$data["anesth_institutions"] = $anesth_institutions;
 		$data["anesth_services"] = $this->dropdown_select->anesth_services();
 		$data["institution_id"] = 0;
-		$data["services"] = NULL;
+		$data["services"] = 0;
+		$table = "";
 		if($this->input->post('submit'))
 		{
 			$institution_id = $this->input->post('institution_id');
@@ -761,24 +762,23 @@ function annual_patient_classification_and_distribution_summary()
 			{
 				foreach($anesth_institutions as $ai)
 				{
-					$per_institution= $this->reports_model->count_services_per_institution($ai->id,$service_id);
-					//echo $per_institution[$ai->id]."</br>";
-					echo "Hospital Name:" . $ai->name . "     Total Services : ". $per_institution. "</br>";
+					$per_institution[$ai->id] = $this->reports_model->count_services_per_institution($ai->id,$service_id);
+					// $table = $table . "Hospital " . $ai->id . "     Total Services : ". $per_institution. "</br>";
 				}
 			}
 			else
 			{
-				$per_institution = $this->reports_model->count_services_per_institution($institution_id,$service_id);
-				foreach($anesth_institutions as $ai)
-				{
-					if($ai->id == $institution_id)
-					{
-						echo "Hospital Name:" . $ai->name . "     Total Services : ". $per_institution. "</br>";
-						break;
-					}
-				}
+				$per_institution[$institution_id] = $this->reports_model->count_services_per_institution($institution_id,$service_id);
+				// foreach($anesth_institutions as $ai)
+				// {
+					// if($ai->id == $institution_id)
+					// {
+						// $table = $table . "Hospital " . $ai->id . "     Total Services : ". $per_institution. "</br>";
+						// break;
+					// }
+				// }
 			}
-
+			$data["per_institution"] = $per_institution;
 		}
 		
 		$this->load->view('header/header', $data);

@@ -58,3 +58,26 @@ $('#selectall').click(function(event) {
 </tr>
 </table>
 </form>
+<?php
+if (isset($_POST['submit'])){
+
+	$count = 1;
+	foreach($anesth_institutions as $ai)
+	{
+		if($institution_id != 0)
+		{
+			if($institution_id == $ai->id)
+			{
+				echo "Hospital $count : Total Services = " . $per_institution[$institution_id]."</br>";
+				break;
+			}
+		}
+		else
+		{
+			echo "Hospital $count : Total Services = "  . $per_institution[$ai->id]."</br>";
+		}
+		$count++;
+	}
+}
+
+?>
