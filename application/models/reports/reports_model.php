@@ -416,8 +416,9 @@ function region_count($region_id,$service_id,$technique_id)
 {
 		$this->db->select("*");
 		$this->db->from("patient_form,anesth_institution");
-		$this->db->where("anesth_institution.anesth_region_id",$region_id);
+		$this->db->where("anesth_institution.anessth_region_id = $region_id");
 		$this->db->where("patient_form.institution_id = anesth_institution.id");
+		$this->db->where("patient_form.anesth_status_id",4);
 		if($service_id != 0)
 		{
 			$this->db->where("patient_form.service",$service_id);
