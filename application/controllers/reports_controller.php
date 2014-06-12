@@ -763,20 +763,11 @@ function annual_patient_classification_and_distribution_summary()
 				foreach($anesth_institutions as $ai)
 				{
 					$per_institution[$ai->id] = $this->reports_model->count_services_per_institution($ai->id,$service_id);
-					// $table = $table . "Hospital " . $ai->id . "     Total Services : ". $per_institution. "</br>";
 				}
 			}
 			else
 			{
 				$per_institution[$institution_id] = $this->reports_model->count_services_per_institution($institution_id,$service_id);
-				// foreach($anesth_institutions as $ai)
-				// {
-					// if($ai->id == $institution_id)
-					// {
-						// $table = $table . "Hospital " . $ai->id . "     Total Services : ". $per_institution. "</br>";
-						// break;
-					// }
-				// }
 			}
 			$data["per_institution"] = $per_institution;
 		}
@@ -784,5 +775,35 @@ function annual_patient_classification_and_distribution_summary()
 		$this->load->view('header/header', $data);
 	    $this->load->view('header/reports_header');
 		$this->load->view('reports/anesth_hospital_and_service',$data);
+	}
+	function anesth_region_count()
+	{
+        $user_id = $this->input->get('resident_id');
+        $session_data = $this->session->userdata('logged_in');
+        $data["user_information"] = $session_data;
+		$anesth_region = $this->dropdown_select->anesth_region();
+		$data["anesth_regions"] = $anesth_region;
+		$data["anesth_techniques"] = $this->dropdown_select->anesth_techniques();
+		$data["anesth_services"] = $this->dropdown_select->anesth_services();
+		$data["service"] = 0;
+		$data["technique"] = 0;
+		
+		if($this->input->post('submit'))
+		{
+			$anesth_service = $this->input->post('anesth_service');
+			$anesth_technique = $this->input->post('anesth_technique');
+			foreach($anesth_region as $ar)
+			{
+				$region_count[$ar->id] = $this->reports_model->region_count($ar->id,$anesth_service,$anesth_technique);
+				//echo $region_count[$ar->id]."</br>";
+			}
+			$data["region_count"] = $region_count;
+			$data["service"] = $anesth_service;
+			$data["technique"] = $anesth_technique;
+		}
+		
+		$this->load->view('header/header', $data);
+	    $this->load->view('header/reports_header');
+		$this->load->view('reports/anesth_region_count',$data);
 	}
 }

@@ -21,6 +21,15 @@ function anesth_techniques()
         return $query->result();
 }
 
+function anesth_region()
+{
+	    $this->db->select('*');
+        $this->db->from('anesth_region');
+        $this->db->order_by("name", "asc");
+        $query = $this->db->get();
+        return $query->result();
+}
+
 function anesth_asa()
 {
         $this->db->select('*');

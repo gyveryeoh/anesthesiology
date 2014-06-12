@@ -411,5 +411,24 @@ $this->db->where_in('service',$service_id);
 $query = $this->db->get();
 return $query->num_rows();
 }
+
+function region_count($region_id,$service_id,$technique_id)
+{
+		$this->db->select("*");
+		$this->db->from("patient_form,anesth_institution");
+		$this->db->where("anesth_institution.anesth_region_id",$region_id);
+		$this->db->where("patient_form.institution_id = anesth_institution.id");
+		if($service_id != 0)
+		{
+			$this->db->where("patient_form.service",$service_id);
+		}
+		if($technique_id != 0)
+		{
+			$this->db->where("patient_form.anesthetic_technique",$technique_id);
+		}
+		$query = $this->db->get();
+		return $query->num_rows();
+}
+
 }
 ?>
