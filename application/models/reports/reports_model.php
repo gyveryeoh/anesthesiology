@@ -507,6 +507,65 @@ Class Reports_model extends CI_Model
         
         return $results;
     }
+    
+    
+    
+    function get_annual_anesthetic_summary_grid2($options=array())
+    {
+        $resultSet = array();
+        $filters = $this->prepare_filters($options, true);
+        
+        $techniques = $this->db->order_by('name')->get('anesth_technique')->result();
+        
+        foreach ($techniques as $technique) {
+            foreach (range(1, 12) as $month) {
+                $this->db->select('*');
+                $this->db->from('patient_form');
+                $this->db->where('anesthetic_technique', $technique->id);
+                $this->db->where('month(operation_date)', $month);
+                $this->db->where('anesth_status_id', 4); // Approve
+                $this->db->where($filters);
+                
+                $resultSet[$technique->name][$month] = (object)array(
+                    'total' => $this->db->get()->num_rows()
+                );
+            }
+            
+            $this->db->select('*');
+            $this->db->from('patient_form');
+            $this->db->where('anesthetic_technique', $technique->id);
+            $this->db->where('anesth_status_id', 4); // Approve
+            $this->db->where($filters);
+            
+            $resultSet[$technique->name]['total'] = (object)array(
+                'total' => $this->db->get()->num_rows()
+            );
+        }
+        
+        foreach (range(1, 12) as $month) {
+            $this->db->select('*');
+            $this->db->from('patient_form');
+            $this->db->where('month(operation_date)', $month);
+            $this->db->where('anesth_status_id', 4); // Approve
+            $this->db->where($filters);
+            
+            $resultSet['TOTAL'][$month] = (object)array(
+                'total' => $this->db->get()->num_rows()
+            );
+        }
+        
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('anesth_status_id', 4); // Approve
+        $this->db->where($filters);
+        
+        $resultSet['TOTAL']['total'] = (object)array(
+            'total' => $this->db->get()->num_rows()
+        );
+        
+        return $resultSet;
+    }
+    
     function get_annual_anesthetic_summary_grid($options=array()) {
         $filters = $this->prepareFilters($options);
         

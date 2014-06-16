@@ -246,27 +246,27 @@ echo form_close(); ?>
 </table>
 <br>
 <?php foreach ($critical_levels_grid as $name => $level): ?>
-<table id="critical_levels_<?php echo $name; ?>_grid-tbl" border="0" cellpadding="0" cellspacing="2">
-<thead>
-        <tr class="border-less question">
+    <table id="critical_levels_<?php echo $name; ?>_grid-tbl" border="0" cellpadding="0" cellspacing="2">
+        <thead>
+            <tr class="border-less question">
                 <th colspan="3"><?php echo strtoupper(str_replace('_', ' ', $name)); ?></th>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
                 <th>CODE</th>
                 <th>NAME</th>
                 <th>TOTAL</th>
-        </tr>
-</thead>
-<tbody>
-<?php foreach ($level as $l): ?>
-<tr class="border-less answer">
-        <td><?php echo $l->code; ?></td>
-        <td><?php echo $l->name; ?></td>
-        <td class="bold"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
-</tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-<br>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($level as $l): ?>
+            <tr class="border-less answer">
+                <td><?php echo $l->code; ?></td>
+                <td><?php echo $l->name; ?></td>
+                <td class="bold"><?php echo empty($l->total) ? '-' : $l->total; ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <br>
 <?php endforeach; ?>
 <?php } ?>

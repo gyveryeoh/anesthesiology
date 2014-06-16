@@ -89,13 +89,11 @@ echo form_close(); ?>
 </tr>
 </thead>
 <tbody>
-<?php
-$endRow = count($annual_anesthetic_summary_grid) - 1;
-foreach ($annual_anesthetic_summary_grid as $i => $data): ?>
+<?php foreach ($annual_anesthetic_summary_grid as $i => $data): ?>
 <tr>
-<th align="left" class="answer"><?php echo $data->anesthetic_name; ?></th>
-<?php foreach ($month_labels as $month): ?>
-<td class="border-less answer <?php echo ($i == $endRow ? 'total-cell' : ''); ?> bold"><?php echo empty($data->$month) ? '-' : $data->$month; ?></td>
+<th align="left" class="answer"><?php echo $i; ?></th>
+<?php foreach ($month_labels as $month => $label): ?>
+<td class="border-less answer <?php echo ($i == 'TOTAL' ? 'total-cell' : ''); ?> bold"><?php echo empty($data[$month]->total) ? '-' : $data[$month]->total; ?></td>
 <?php endforeach; ?>
 </tr>
 <?php endforeach; ?>

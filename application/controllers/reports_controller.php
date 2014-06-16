@@ -513,19 +513,23 @@ function annual_patient_classification_and_distribution_summary()
                 $results['months'][$monthNum] = date('F', mktime(0,0,0,$monthNum));
                 $results['month_labels'][$monthNum] = strtoupper(date('M', mktime(0,0,0,$monthNum)));
             }
-            $results['month_labels'][] = 'TOTAL';
+            $results['month_labels']['total'] = 'TOTAL';
             
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
             
+            /*echo '<pre>';
+            var_dump($this->reports_model->get_annual_anesthetic_summary_grid2($filters));
+            echo '</pre>';//*/
+            
             if ($this->input->post('submit')) {
-                $results['annual_anesthetic_summary_grid'] = $this->reports_model->get_annual_anesthetic_summary_grid($filters);
+                $results['annual_anesthetic_summary_grid'] = $this->reports_model->get_annual_anesthetic_summary_grid2($filters);
             }
             
             $results = array_merge($results, $filters);
-	    $this->load->view('header/reports_header');
-	    $this->load->view('header/technique_report_header');
+    	    $this->load->view('header/reports_header');
+    	    $this->load->view('header/technique_report_header');
             $this->load->view('reports/annual_anesthetic_report', $results);
         }
         else
