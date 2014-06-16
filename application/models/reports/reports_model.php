@@ -194,6 +194,7 @@ Class Reports_model extends CI_Model
      $query = $this->db->get();
      return $query->result();
     }
+    
     function prepareFilters($options, $where=false) {
         $filters = '';
         $conditions = array();
@@ -221,21 +222,21 @@ Class Reports_model extends CI_Model
         }
         
         return $filters;
-    }
+    }//*/
     
-    function get_patient_type_grid($options=array()) {
+    /*function get_patient_type_grid($options=array()) {
         $filters = $this->prepareFilters($options);
         
         $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/patient_type_grid.sql'), array(
             '{$filters}' => $filters,
         ));
-        chrome_log($query);
+        
         $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
-    }
+    }//*/
     
-    function get_services_grid($options=array())
+    /*function get_services_grid($options=array())
     {
         $filters = $this->prepareFilters($options, true);
         
@@ -246,9 +247,9 @@ Class Reports_model extends CI_Model
         $results = $this->db->query($query)->result();
         
         return $results;
-    }
+    }//*/
     
-    function get_services_techniques_grid($options=array())
+    /*function get_services_techniques_grid($options=array())
     {
         $filters = $this->prepareFilters($options);
         
@@ -286,9 +287,9 @@ Class Reports_model extends CI_Model
         }
         
         return $results;
-    }
+    }//*/
     
-    function get_critical_events_grid($options=array()) {
+    /*function get_critical_events_grid($options=array()) {
         $filters = $this->prepareFilters($options, true);
         
         $query = strtr(file_get_contents(dirname(__FILE__) . '/sql/critical_events_grid.sql'), array(
@@ -298,6 +299,185 @@ Class Reports_model extends CI_Model
         $results = $this->db->query($query)->result();
         
         return isset($results[0]) ? $results[0] : null;
+    }//*/
+    
+    function prepare_filters($options) {
+        $conditions = array();
+        
+        if (!empty($options)) {
+            $options = array_filter($options, function($val) {
+                if (!empty($val) and $val != -111) {
+                    return $val;
+                }
+            });
+            
+            foreach ($options as $key => $val) {
+                if ($key == 'year') {
+                    $conditions['year(operation_date)'] = intval($val);
+                }
+                elseif ($key == 'month') {
+                    $conditions['month(operation_date)'] = intval($val);
+                }
+                else {
+                    $conditions[$key] = $val;
+                }
+            }
+        }
+        
+        return $conditions;
+    }
+    
+    function get_patient_type_grid($options=array()) {
+        $resultSet = array();
+        
+        $filters = $this->prepare_filters($options);
+        
+        // charity: primary elective
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'C');
+        $this->db->where('level_of_involvement', 'P');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['charity_primary_elective'] = $result->num_rows();
+        
+        // charity: assist elective
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'C');
+        $this->db->where('level_of_involvement', 'A');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['charity_assist_elective'] = $result->num_rows();
+        
+        // pay: primary elective
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'P');
+        $this->db->where('level_of_involvement', 'P');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['pay_primary_elective'] = $result->num_rows();
+        
+        // pay: assist elective
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'P');
+        $this->db->where('level_of_involvement', 'A');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['pay_assist_elective'] = $result->num_rows();
+        
+        // charity: emergency
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'C');
+        $this->db->where('for_emergency', 'Y');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['charity_emergency'] = $result->num_rows();
+        
+        // pay: emergency
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('type_of_patient', 'P');
+        $this->db->where('for_emergency', 'Y');
+        $this->db->where($filters);
+        $result = $this->db->get();
+        $resultSet['pay_emergency'] = $result->num_rows();
+        
+        $resultSet['total_elective'] = $resultSet['charity_primary_elective'] + $resultSet['charity_assist_elective'] + $resultSet['pay_primary_elective'] + $resultSet['pay_assist_elective'];
+        $resultSet['total_emergency'] = $resultSet['charity_emergency'] + $resultSet['pay_emergency'];
+        $resultSet['total_charity'] = $resultSet['charity_primary_elective'] + $resultSet['charity_assist_elective'] + $resultSet['charity_emergency'];
+        $resultSet['total_pay'] = $resultSet['pay_primary_elective'] + $resultSet['pay_assist_elective'] + $resultSet['pay_emergency'];
+        $resultSet['total_overall'] = $resultSet['total_elective'] + $resultSet['total_emergency'];
+        
+        return (object)$resultSet;
+    }
+    
+    function get_services_grid($options=array())
+    {
+        $resultSet = array();
+        $filters = $this->prepare_filters($options, true);
+        
+        $services = $this->db->order_by('name')->get('anesth_services')->result();
+        
+        foreach ($services as $service) {
+            $this->db->select('*');
+            $this->db->from('patient_form');
+            $this->db->where('service', $service->id);
+            $this->db->where($filters);
+            
+            $resultSet[] = (object)array(
+                'service_name' => $service->name,
+                'total' => $this->db->get()->num_rows()
+            );
+        }
+        
+        return $resultSet;
+    }
+    
+    function get_services_techniques_grid($options=array())
+    {
+        $resultSet = array();
+        $filters = $this->prepare_filters($options, true);
+        
+        $services = $this->db->order_by('name')->get('anesth_services')->result();
+        $techniques = $this->db->order_by('name')->get('anesth_technique')->result();
+        
+        foreach ($services as $service) {
+            foreach ($techniques as $technique) {
+                $this->db->select('*');
+                $this->db->from('patient_form');
+                $this->db->where('anesthetic_technique', $technique->id);
+                $this->db->where('service', $service->id);
+                $this->db->where($filters);
+                
+                $resultSet[$service->name][$technique->name] = (object) array(
+                    'technique_name' => $technique->name,
+                    'total' => $this->db->get()->num_rows()
+                );
+            }
+        }
+        
+        foreach ($techniques as $technique) {
+            $this->db->select('*');
+            $this->db->from('patient_form');
+            $this->db->where('anesthetic_technique', $technique->id);
+            $this->db->where($filters);
+            
+            $resultSet['TOTAL'][$technique->name] = (object) array(
+                'technique_name' => $technique->name,
+                'total' => $this->db->get()->num_rows()
+            );
+        }
+        
+        return $resultSet;
+    }
+    
+    function get_critical_events_grid($options=array()) {
+        $resultSet = array();
+        $filters = $this->prepare_filters($options, true);
+        
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('upper(critical_events)', 'YES');
+        $this->db->where($filters);
+        $resultSet['yes'] = $this->db->get()->num_rows();
+        
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where('upper(critical_events)', 'NO');
+        $this->db->where($filters);
+        $resultSet['no'] = $this->db->get()->num_rows();
+        
+        $this->db->select('*');
+        $this->db->from('patient_form');
+        $this->db->where_in('upper(critical_events)', array('YES', 'NO'));
+        $this->db->where($filters);
+        $resultSet['total'] = $this->db->get()->num_rows();
+        
+        return (object) $resultSet;
     }
     
     function get_critical_levels_grid($options=array()) {

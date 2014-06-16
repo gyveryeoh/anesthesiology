@@ -424,15 +424,15 @@ function annual_patient_classification_and_distribution_summary()
         $data['institution_list'] = $this->dropdown_select->anesth_institutions();
         $data['users_list'] = $this->dropdown_select->users_lists($insti_id);
         $this->load->helper('form');
-        
+       
         if($this->session->userdata('logged_in'))
         {
             $this->load->view('header/header', $data);
-	    $this->load->view('header/reports_header');
+	        $this->load->view('header/reports_header');
+            
             $filters = array();
             foreach (array('institution_id', 'user_id', 'month', 'year', 'anesth_status_id') as $key) {
                 $filters[$key] = isset($_POST['Report'][$key]) ? $_POST['Report'][$key] : null;
-        
 	    }
             
             $institutions = $this->dropdown_select->anesth_institutions();
@@ -454,12 +454,22 @@ function annual_patient_classification_and_distribution_summary()
             foreach (range(intval(date('Y')), 2013) as $year) {
                 $results['years'][$year] = intval($year);
             }
+            
+            /*echo '<pre>';
+            var_dump($this->reports_model->get_critical_events_grid_2($filters));
+            echo '</pre>';//*/
+            
             if ($this->input->post('submit'))
             {
                 $results['patient_type_grid'] = $this->reports_model->get_patient_type_grid($filters);
                 $results['services_grid'] = $this->reports_model->get_services_grid($filters);
                 $results['services_techniques_grid'] = $this->reports_model->get_services_techniques_grid($filters);
-                $results['services_techniques_grid_headers'] = array_keys(get_object_vars($results['services_techniques_grid'][0]));
+                if (isset($results['services_techniques_grid']['TOTAL'])) {
+                    $results['services_techniques_grid_headers'] = array_filter(array_keys($results['services_techniques_grid']['TOTAL']));
+                } else {
+                    $results['services_techniques_grid_headers'] = array();
+                }
+
                 $results['critical_events_grid'] = $this->reports_model->get_critical_events_grid($filters);
                 $results['critical_levels_grid'] = $this->reports_model->get_critical_levels_grid($filters);
             }

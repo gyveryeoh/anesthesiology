@@ -171,7 +171,7 @@ echo form_close(); ?>
                 <td colspan=9 class="header border-less">SERVICE AND TECHNIQUE COMBINATION RESULT</td>
         </tr>
 </table>
-<table id="services_techniques_grid-tbl" border="0" cellpadding="0" cellspacing="2">
+<!--<table id="services_techniques_grid-tbl" border="0" cellpadding="0" cellspacing="2">
         <thead>
                 <tr>
                 <?php foreach ($services_techniques_grid_headers as $header): ?>
@@ -193,7 +193,30 @@ echo form_close(); ?>
         </tr>
         <?php endforeach; ?>
         </tbody>
+</table>-->
+
+<table id="services_techniques_grid-tbl" border="0" cellpadding="0" cellspacing="2">
+    <thead>
+        <tr>
+            <th class="border-less question" style="width:auto;">Service - Technique</th>
+            <?php foreach ($services_techniques_grid_headers as $header): ?>
+                <th class="border-less question" style="width:auto;"><?php echo $header; ?></th>
+            <?php endforeach; ?>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <?php foreach($services_techniques_grid as $i => $row): ?>
+            <tr>
+                <td class="border-less answer bold"><?php echo $i; ?></td>
+                <?php foreach($services_techniques_grid_headers as $j => $col): ?>
+                    <td class="border-less answer <?php echo ($i == 'TOTAL' ? 'total-cell' : ''); ?> bold"><?php echo empty($row[$col]->total) ? '-' : $row[$col]->total; ?></td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>
+
 <br>
 <table border=0 cellpadding=0 cellspacing=0 width=90% class=border-less>
         <tr>
@@ -209,15 +232,15 @@ echo form_close(); ?>
         <tbody>
                 <tr class="border-less answer">
                         <th>YES</th>
-                        <td><?php echo $critical_events_grid->{'Yes'}; ?></td>
+                        <td><?php echo $critical_events_grid->yes; ?></td>
                 </tr>
                 <tr class="border-less answer">
                         <th>NO</th>
-                        <td><?php echo $critical_events_grid->{'No'}; ?></td>
+                        <td><?php echo $critical_events_grid->no; ?></td>
                 </tr>
                 <tr class="border-less answer">
                         <th><b>TOTAL</b></th>
-                        <td class="total-cell"><?php echo $critical_events_grid->{'Total'}; ?></td>
+                        <td class="total-cell"><?php echo $critical_events_grid->total; ?></td>
                 </tr>
         </tbody>
 </table>
